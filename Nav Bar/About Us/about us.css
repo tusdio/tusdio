@@ -1,0 +1,620 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: hsl(0, 0%, 71%); /* Adds a subtle hover effect */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        display: none;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0px 0;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
+
+/* About Us Section */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: white;
+    text-align: center;
+}
+
+/* About Us Section */
+.about {
+    padding-top: 100px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #111;
+    color: white;
+    text-align: center;
+}
+
+.about-container {
+    display: flex;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Section Title */
+section h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #fff;
+    display: flex;
+    justify-content: flex-start; /* Default to left-aligned */
+}
+
+/* About Us Content */
+.about-content {
+    flex-grow: 1;
+    min-width: 300px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-name: fadeInUp;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.about-content h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* About Us Image */
+.about-image {
+    flex-grow: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition-property: transform, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Call-to-Action Button */
+.cta-button {
+    display: inline-block;
+    background: linear-gradient(90deg, #ffffff, #ffffff);
+    color: rgb(0, 0, 0);
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    transition-property: transform, background;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+
+.cta-button:hover {
+    background: linear-gradient(90deg, #ffffff, #ffffff);
+    transform: translateY(-3px);
+}
+
+
+
+/* Mission Section */
+.mission {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 20px; /* Default padding for mobile */
+    padding-right: 20px;
+    text-align: left; /* Default text alignment for mobile */
+}
+
+/* Title */
+.mission h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: left; /* Default for mobile */
+}
+
+/* Description */
+.mission p {
+    font-size: 16px;
+    margin-left: 10px;
+    text-align: left; /* Default for mobile */
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+    .mission {
+        padding-left: 80px; /* Adjusted padding for desktop */
+        padding-right: 80px; /* Ensures right spacing */
+        text-align: right; /* Aligns the entire section to the right */
+    }
+
+    .mission h2,
+    .mission p {
+        text-align: right; /* Aligns both title & description */
+        margin-left: 0; /* Removes left margin */
+    }
+}
+
+
+/* Our Team Section */
+.team {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+}
+
+.team h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+/* Desktop-specific padding */
+@media (min-width: 1024px) {
+    .team {
+        padding-left: 80px; /* Increased padding for desktop */
+    }
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background: #222222;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+
+/* Why Choose Us Section */
+.why-choose-us {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: #000000;
+    text-align: center;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Desktop-specific padding */
+@media (min-width: 1024px) {
+    .why-choose-us {
+        padding-left: 80px; /* Increased padding for desktop */
+    }
+}
+
+.feature {
+    background: #0e0e0e;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding-top: 60px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background: #000000;
+    text-align: center;
+}
+
+/* Desktop-specific padding */
+@media (min-width: 1024px) {
+    .testimonials {
+        padding-left: 80px; /* Increased padding for desktop */
+    }
+}
+
+.testimonial-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.testimonial {
+    background: #f1f1f1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+.testimonial p {
+    color: #000;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.testimonial h4 {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #000000;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-content {
+        text-align: left;
+        order: 2;
+    }
+
+    .about-image {
+        order: 1;
+    }
+
+    .cta-button {
+        font-size: 14px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .about-image img {
+        width: 80%;
+    }
+
+    section h2 {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content h2 {
+        font-size: 28px;
+    }
+
+    .about-content p {
+        font-size: 15px;
+    }
+
+    .about-image img {
+        width: 90%;
+    }
+}
+
+/* Smooth Fade-in Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+/* Timeline Section */
+.timeline {
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Timeline Container (Desktop: Horizontal, Mobile: Vertical) */
+.timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-text {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;  /* Default for desktop */
+    font-size: 40px;  /* Default size */
+    padding-top: 60px;
+    padding-left: 80px;
+    font-weight: lighter;
+}
+
+/* Adjust text for mobile */
+@media (max-width: 768px) {
+    .timeline-text {
+        text-align: center;  /* Center text on mobile */
+        font-size: 40px;  /* Smaller font for mobile */
+        padding-left: 0;  /* Remove right padding */
+        padding-top: 20px;
+    }
+}
+
+
+/* Central Line (Visible only between O) */
+.line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8); /* White line */
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+/* Hide the line passing inside O */
+.timeline-step {
+    position: relative;
+}
+
+.timeline-step .circle {
+    position: relative;
+    background: #000; /* Matches background to hide line */
+}
+
+.timeline-step .circle::before {
+    content: "";
+    position: absolute;
+    width: 35px; /* Fully covers the line */
+    height: 4px;
+    background: #000; /* Same as background to blend in */
+    left: 50%;
+    transform: translateX(-50%);
+    top: 300px;
+    z-index: 2;
+}
+
+
+/* Individual Steps */
+.timeline-step {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+/* Step Titles (Hidden by Default) */
+.step-title {
+    position: absolute;
+    top: -40px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    width: 100px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0);
+    transition: color 0.3s ease;
+}
+
+/* Show title only when selected */
+.timeline-step.active .step-title {
+    color: white;
+}
+
+/* Circles */
+.circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Small Inner Circle (Hidden by Default) */
+.inner-circle {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Active Step */
+.timeline-step.active .circle {
+    border-color: white;
+}
+
+.timeline-step.active .inner-circle {
+    background: white;
+}
+
+/* Step Description (No Box Effect) */
+.step-description {
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .step-description {
+        font-size: 16px;  /* Adjust font size for mobile */
+        width: 350px;      /* Adjust width for mobile */
+        text-align: center; /* Example: Center text on mobile */
+        margin-top: 10px;
+    }
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+    .step-description {
+        font-size: 20px;  /* Larger font for desktop */
+        width: 500;      /* Wider width for desktop */
+        text-align: right; /* Example: Align text to the right */
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none;
+    }
+}

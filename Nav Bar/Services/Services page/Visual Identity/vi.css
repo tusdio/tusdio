@@ -1,0 +1,356 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    
+    
+}
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Scales between 1.2rem and 2rem */
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: hsl(0, 0%, 71%); /* Adds a subtle hover effect */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header .container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        display: none;
+        text-align: center;
+        padding: 20px 0;
+        
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+
+/* Hero Section */
+.hero {
+    padding: 50px 20px;
+    background: black;
+    text-align: center;
+}
+
+/* Hero Section Text */
+.hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Responsive Hero Padding */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 10px;
+    }
+}
+
+
+
+/* Hero Section */
+.hero {
+    padding: 100px 20px;
+    background: black;
+    text-align: center;
+}
+
+/* Title Styling */
+.hero-title {
+    font-size: clamp(2rem, 6vw, 4rem); /* Adjusts dynamically */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+/* Subtitle Styling */
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    color: #ddd;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
+}
+
+/* Animation for Title */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for Subtitle */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 10px;
+    }
+}
+
+
+/* Container */
+/* Container */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header Section */
+.product-development-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.product-development-header h1 {
+    text-align: center;
+}
+
+.product-development-header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+.product-development-header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.product-development-header nav ul li a {
+    color: #dbdbdb;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Section Style */
+.product-development-section {
+    padding: 40px 0;
+    background-color: #000000;
+    margin-bottom: 20px;
+}
+
+.product-development-section h2 {
+    text-align: left;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.product-development-section p {
+    text-align: left;
+    font-size: 1rem;
+    color: #dbdbdb;
+}
+
+/* Left-Aligned List Items */
+.product-development-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-development-section ul li {
+    font-size: 1.1rem;
+    color: #dbdbdb;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.product-development-section ul li strong {
+    color: #ffffff;
+}
+
+/* Left-aligned title for each list item */
+.approach-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* Contact Button */
+/* Contact Button */
+.contact-button {
+    display: inline-block; /* Changes to inline-block so it aligns left */
+    width: 200px;
+    padding: 10px;
+    background-color: #ffffff; /* Blue background for normal state */
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-left: 0; /* Aligns the button to the left */
+}
+
+/* Hover Effect */
+.contact-button:hover {
+    background-color: #494949; /* Darker blue background for hover state */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* For smaller screens (Mobile and Tablets), the button can still be centered if desired */
+@media (max-width: 768px) {
+    .contact-button {
+        display: block;
+        margin-left: auto; /* Centers the button on mobile screens */
+        margin-right: auto;
+    }
+}
+
+
+
+/* Footer */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-development-header nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .product-development-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .product-development-section ul li {
+        font-size: 1rem;
+    }
+
+    .approach-title {
+        font-size: 1.1rem;
+    }
+}

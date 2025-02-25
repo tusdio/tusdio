@@ -1,0 +1,732 @@
+
+
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: hsl(0, 0%, 71%); /* Adds a subtle hover effect */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        display: none;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0px 0;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+
+/* Welcome container */
+.welcome-container {
+    margin-top: 100px;
+    padding: 100px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Typing Effect Styling */
+.welcome {
+    font-size: 2.5rem;
+    color: white;
+}
+
+.typing {
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 3rem;
+    font-family: 'Courier New', Courier, monospace;
+}
+/* Container */
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Header Section */
+.product-development-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.product-development-header h1 {
+    text-align: center;
+}
+
+.product-development-header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+.product-development-header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.product-development-header nav ul li a {
+    color: #dbdbdb;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Section Style */
+.product-development-section {
+    padding: 40px 0;
+    background-color: #000000;
+    margin-bottom: 20px;
+}
+
+.product-development-section h2 {
+    text-align: left;
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.product-development-section p {
+    text-align: left;
+    font-size: 1rem;
+    color: #dbdbdb;
+}
+
+/* Left-Aligned List Items */
+.product-development-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-development-section ul li {
+    font-size: 1.1rem;
+    color: #dbdbdb;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.product-development-section ul li strong {
+    color: #ffffff;
+}
+
+/* Left-aligned title for each list item */
+.approach-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+
+
+
+/* Contact Button */
+/* Contact Button */
+.contact-button {
+    display: inline-block; /* Changes to inline-block so it aligns left */
+    width: 200px;
+    padding: 10px;
+    background-color: #ffffff; /* Blue background for normal state */
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-left: 0; /* Aligns the button to the left */
+}
+
+/* Hover Effect */
+.contact-button:hover {
+    background-color: #494949; /* Darker blue background for hover state */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+
+/* For smaller screens (Mobile and Tablets), the button can still be centered if desired */
+@media (max-width: 768px) {
+    .contact-button {
+        display: block;
+        margin-left: auto; /* Centers the button on mobile screens */
+        margin-right: auto;
+    }
+}
+
+/* Case Study Section */
+.case-study {
+    display: flex;
+    flex-direction: row; /* Image Left, Text Right for desktop */
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
+    flex-wrap: wrap;  /* Allow content to wrap in mobile view */
+}
+
+/* Reverse class to swap order (Image Right, Text Left) */
+.case-study.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Image Container */
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Text Container */
+.text-container {
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+}
+
+.text-container h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 10px;
+}
+
+.text-container p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #ffbb33;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Stack elements vertically and center text */
+    .case-study {
+        flex-direction: column;  /* Stack image and text vertically on mobile */
+        text-align: center;       /* Center the text on mobile */
+        gap: 20px;
+    }
+
+    .case-study.reverse {
+        flex-direction: column;  /* Ensure reverse also stacks */
+    }
+
+    .text-container {
+        text-align: center;
+    }
+
+    /* Adjust image size for mobile */
+    .image-container img {
+        max-width: 90%;  /* Ensure image is not too large on mobile */
+    }
+}
+
+
+
+
+/*Steps*/
+
+/* Timeline Section */
+.timeline {
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Timeline Container (Desktop: Horizontal, Mobile: Vertical) */
+.timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-text {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;  /* Default for desktop */
+    font-size: 40px;  /* Default size */
+    padding-top: 60px;
+    padding-left: 80px;
+    font-weight: bolder;
+}
+
+/* Adjust text for mobile */
+@media (min-width: 769px) {
+    .timeline {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+}
+
+/* Adjust text for mobile */
+@media (max-width: 768px) {
+    .timeline-text {
+        text-align: center;  /* Center text on mobile */
+        font-size: 40px;  /* Smaller font for mobile */
+        padding-left: 0;  /* Remove right padding */
+        padding-top: 20px;
+    }
+}
+
+/* Adjust text for desktop */
+
+@media (min-width: 769px) {
+    .timeline-text {
+        font-size: 40px;  /* Larger font for desktop */
+        width: 250px;      /* Wider width for desktop */
+        text-align: right; /* Example: Align text to the right */
+        text-align: left;
+        padding-left: 130px;
+    }
+    
+}
+
+/* Central Line (Visible only between O) */
+.line {
+    position: absolute;
+    font-family: none;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8); /* White line */
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+/* Hide the line passing inside O */
+.timeline-step {
+    position: relative;
+}
+
+.timeline-step .circle {
+    position: relative;
+    background: #000; /* Matches background to hide line */
+}
+
+.timeline-step .circle::before {
+    content: "";
+    position: absolute;
+    width: 35px; /* Fully covers the line */
+    height: 4px;
+    background: #000; /* Same as background to blend in */
+    left: 50%;
+    transform: translateX(-50%);
+    top: 250px;
+    z-index: 2;
+}
+
+
+
+
+/* Individual Steps */
+.timeline-step {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+/* Step Titles (Hidden by Default) */
+.step-title {
+    position: absolute;
+    top: -40px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    width: 100px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0);
+    transition: color 0.3s ease;
+}
+
+/* Show title only when selected */
+.timeline-step.active .step-title {
+    color: white;
+}
+
+/* Circles */
+.circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Small Inner Circle (Hidden by Default) */
+.inner-circle {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Active Step */
+.timeline-step.active .circle {
+    border-color: white;
+}
+
+.timeline-step.active .inner-circle {
+    background: white;
+}
+
+/* Step Description (No Box Effect) */
+.step-description {
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .step-description {
+        font-size: 16px;  /* Adjust font size for mobile */
+        width: 350px;      /* Adjust width for mobile */
+        text-align: center; /* Example: Center text on mobile */
+        margin-top: 10px;
+    }
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+    .step-description {
+        font-size: 20px;  /* Larger font for desktop */
+        width: 500;      /* Wider width for desktop */
+        text-align: left; /* Example: Align text to the right */
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none;
+    }
+}
+
+
+
+
+
+
+/* Footer Styles */
+.footer {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Left Section */
+.footer-left {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-description {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+    text-decoration: none; /* Removes underline if present */
+}
+
+.social-links a:hover {
+    color: #007bff; /* Changes color on hover */
+}
+
+/* If using images for social icons: */
+.social-links img {
+    width: auto; /* Consistent size for social icons */
+    height: auto;
+    vertical-align: middle; /* Align the images with text/icons */
+    margin-right: 10px; /* Space between the icons */
+}
+
+/* Ensure that if you're using icons (Font Awesome or similar) they align correctly */
+.social-links i {
+    vertical-align: middle;
+}
+
+.social-links a:hover {
+    color: #ffffff;
+}
+
+/* Center Section */
+.footer-center {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-center h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-center ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-center ul li {
+    margin: 8px 0;
+}
+
+.footer-center ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-center ul li a:hover {
+    color: #929292;
+}
+
+/* Right Section */
+.footer-right {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-right p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.footer-right a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer-right a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+.footer-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-form input,
+.footer-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.footer-form textarea {
+    height: 80px;
+}
+
+.footer-form button {
+    background: #000000;
+    color: rgb(255, 255, 255);
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.footer-form button:hover {
+    background: #818181;
+}
+
+/* Bottom Text */
+.footer-bottom {
+    margin-top: 30px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+    }
+
+    .footer-form {
+        align-items: center;
+    }
+
+    .footer-form input, .footer-form textarea {
+        width: 80%;
+    }
+}
+
+
+

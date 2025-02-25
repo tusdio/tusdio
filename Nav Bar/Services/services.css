@@ -1,0 +1,313 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: hsl(0, 0%, 71%); /* Adds a subtle hover effect */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        display: none;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0px 0;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
+
+/* Hero Section */
+.hero {
+    padding: 50px 20px;
+    background: black;
+    text-align: center;
+}
+
+/* Hero Section Text */
+.hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Responsive Hero Padding */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 10px;
+    }
+}
+
+
+
+/* Hero Section */
+.hero {
+    padding: 100px 20px;
+    background: black;
+    text-align: center;
+}
+
+/* Title Styling */
+.hero-title {
+    font-size: clamp(2rem, 6vw, 4rem); /* Adjusts dynamically */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+/* Subtitle Styling */
+.hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    color: #ddd;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
+}
+
+/* Animation for Title */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for Subtitle */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Mobile-Friendly Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 60px 10px;
+    }
+}
+
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+}
+
+/* Case Study Section */
+.case-study {
+    display: flex;
+    flex-direction: row; /* Image Left, Text Right for desktop */
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    gap: 40px;
+    flex-wrap: wrap;  /* Allow content to wrap in mobile view */
+}
+
+/* Reverse class to swap order (Image Right, Text Left) */
+.case-study.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Image Container */
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Text Container */
+.text-container {
+    flex: 1;
+    text-align: left;
+    padding: 20px;
+}
+
+.text-container h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 10px;
+}
+
+.text-container p {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* Button */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    background: white;
+    color: black;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: hsl(0, 0%, 71%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Stack elements vertically and center text */
+    .case-study {
+        flex-direction: column;  /* Stack image and text vertically on mobile */
+        text-align: center;       /* Center the text on mobile */
+        gap: 20px;
+    }
+
+    .case-study.reverse {
+        flex-direction: column;  /* Ensure reverse also stacks */
+    }
+
+    .text-container {
+        text-align: center;
+    }
+
+    /* Adjust image size for mobile */
+    .image-container img {
+        max-width: 90%;  /* Ensure image is not too large on mobile */
+    }
+}

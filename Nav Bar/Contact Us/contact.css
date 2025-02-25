@@ -1,0 +1,949 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    
+    
+}
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2vw, 2rem); /* Scales between 1.2rem and 2rem */
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: hsl(0, 0%, 71%); /* Adds a subtle hover effect */
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header .container {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        display: none;
+        text-align: center;
+        padding: 20px 0;
+        
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+/* Contact Section - Split Screen */
+.contact-container {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the top */
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 50px auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Left Side: Contact Text (Top Left) */
+.contact-text {
+    flex: 1;
+    padding: 0px;
+    text-align: left;
+    color: white;
+    background: black;
+    border-radius: 8px;
+    align-self: flex-start; /* Pushes text to the top */
+}
+
+.contact-text h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+.contact-text p {
+    font-size: 18px;
+    font-weight: 300;
+    color: #ddd;
+    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
+}
+
+/* Right Side: Image Section */
+.contact-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns image to the top */
+}
+
+.image-section img {
+    align-items: right;
+    width: 100%;
+    height: auto;
+    min-height: 600px;
+    max-height: 800px;
+    object-fit: cover;
+    border-radius: 0px;
+}
+
+/* Styles for iPad screens (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .contact-container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .contact-text {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .contact-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .image-section img {
+        max-width: 90%;
+        height: 50%;
+        border-radius: 0px;
+    }
+}
+
+/* Hide Image Section on Small Screens (Below 768px) */
+@media (max-width: 767px) {
+    .contact-image {
+        display: none;
+    }
+
+    .contact-container {
+        justify-content: center;
+    }
+
+    .contact-text {
+        text-align: center;
+        padding: 0px;
+    }
+
+    .contact-text h1 {
+        font-size: 36px;
+    }
+
+    .contact-text p {
+        font-size: 16px;
+    }
+}
+
+/* Fade-in Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+.form-container {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the top */
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 50px auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Left Side: Contact Text (Top Left) */
+.form-text {
+    flex: 1;
+    padding: 0px;
+    text-align: right;
+    color: white;
+    background: black;
+    border-radius: 8px;
+    align-self: flex-start; /* Pushes text to the top */
+}
+
+.form-text h1 {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+.form-text p {
+    font-size: 18px;
+    font-weight: 300;
+    color: #ddd;
+    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
+}
+
+
+/* Styles for iPad screens (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .form-container {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .form-text {
+        width: 100%;
+        padding: 20px;
+    }
+
+}
+
+/* Hide Image Section on Small Screens (Below 768px) */
+@media (max-width: 767px) {
+
+    .form-container {
+        justify-content: center;
+    }
+
+    .form-text {
+        text-align: center;
+        padding: 0px;
+    }
+
+    .form-text h1 {
+        font-size: 36px;
+    }
+
+    .form-text p {
+        font-size: 16px;
+    }
+}
+
+/* Fade-in Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+/* Contact Section Styles */
+.contact-section {
+    flex: 1;
+    min-width: 100px;
+    text-align: left;
+    padding-left: 80px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Section Header and Paragraph Styles */
+.contact-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact-section p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.contact-section a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contact-section a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 300px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.contact-form textarea {
+    height: 80px;
+}
+
+.contact-form button {
+    width: 10%; /* Button full width on desktop */
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 8px;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+    background: #c9c9c9;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .contact-section {
+        padding-left: 0; /* Remove left padding on mobile */
+        text-align: center; /* Center text on mobile */
+        padding-bottom: 20px;
+    }
+
+    /* Hide h3 and p on mobile */
+    .contact-section h3 {
+        display: none;
+    }
+
+    .contact-section p {
+        display: none;
+    }
+
+    .contact-form {
+        align-items: center; /* Center form inputs and button */
+    }
+
+    .contact-form input, .contact-form textarea {
+        width: 60%; /* Make inputs wider on mobile */
+    }
+
+    .contact-form button {
+        width: 40%; /* Make button smaller on mobile */
+    }
+}
+
+/*steps*/
+
+/*Steps*/
+
+/* Timeline Section */
+.timeline {
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Timeline Container (Desktop: Horizontal, Mobile: Vertical) */
+.timeline-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-text {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;  /* Default for desktop */
+    font-size: 40px;  /* Default size */
+    padding-top: 60px;
+    padding-left: 80px;
+    font-weight: lighter;
+}
+
+/* Adjust for desktop */
+@media (min-width: 769px) {
+    .timeline {
+        padding-top: 200px;
+        padding-bottom: 200px;
+    }
+}
+
+/* Adjust for desktop */
+@media (max-width: 768px) {
+    .timeline {
+        padding-top: 100px;
+        padding-bottom: 150px;
+    }
+}
+
+
+
+/* Adjust text for mobile */
+@media (max-width: 768px) {
+    .timeline-text {
+        text-align: center;  /* Center text on mobile */
+        font-size: 40px;  /* Smaller font for mobile */
+        padding-left: 0;  /* Remove right padding */
+        padding-top: 40px;
+    }
+}
+
+/* Adjust text for desktop */
+
+@media (min-width: 769px) {
+    .timeline-text {
+        font-size: 70px;  /* Larger font for desktop */
+        width: 250px;      /* Wider width for desktop */
+        text-align: right; /* Example: Align text to the right */
+        text-align: left;
+        padding-left: 80px;
+    }
+    
+}
+
+/* Central Line (Visible only between O) */
+.line {
+    position: absolute;
+    font-family: none;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8); /* White line */
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+/* Hide the line passing inside O */
+.timeline-step {
+    position: relative;
+}
+
+.timeline-step .circle {
+    position: relative;
+    background: #000; /* Matches background to hide line */
+}
+
+.timeline-step .circle::before {
+    content: "";
+    position: absolute;
+    width: 35px; /* Fully covers the line */
+    height: 4px;
+    background: #000; /* Same as background to blend in */
+    left: 50%;
+    transform: translateX(-50%);
+    top: 250px;
+    z-index: 2;
+}
+
+
+
+
+/* Individual Steps */
+.timeline-step {
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+/* Step Titles (Hidden by Default) */
+.step-title {
+    position: absolute;
+    top: -40px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    width: 100px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0);
+    transition: color 0.3s ease;
+}
+
+/* Show title only when selected */
+.timeline-step.active .step-title {
+    color: white;
+}
+
+/* Circles */
+.circle {
+    width: 24px;
+    height: 24px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Small Inner Circle (Hidden by Default) */
+.inner-circle {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+/* Active Step */
+.timeline-step.active .circle {
+    border-color: white;
+}
+
+.timeline-step.active .inner-circle {
+    background: white;
+}
+
+/* Step Description (No Box Effect) */
+.step-description {
+    margin-top: 40px;
+    font-size: 18px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .step-description {
+        font-size: 16px;  /* Adjust font size for mobile */
+        width: 350px;      /* Adjust width for mobile */
+        text-align: center; /* Example: Center text on mobile */
+        margin-top: 10px;
+    }
+}
+
+/* Desktop-specific styles */
+@media (min-width: 1024px) {
+    .step-description {
+        font-size: 20px;  /* Larger font for desktop */
+        width: 500;      /* Wider width for desktop */
+        text-align: left; /* Example: Align text to the right */
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .desktop-view {
+        display: none;
+    }
+}
+
+
+
+
+/* FAQ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* FAQ Section with Background */
+.faq-container {
+    position: relative;
+    width: 100%;
+    padding: 100px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+/* Background Image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/images/FAQ/1.jpg') no-repeat center center/cover;
+    filter: brightness(0.5); /* Darker for better readability */
+    z-index: -1;
+}
+
+/* Left Side: FAQ Title & Description */
+.faq-info {
+    flex: 1;
+    max-width: 400px;
+    color: white;
+}
+
+.faq-info h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.faq-info p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Right Side: FAQ Content */
+.faq-content {
+    flex: 2;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* FAQ Items */
+.faq {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.question h3 {
+    text-align: left; /* Align text to the left */
+    font-size: 20px;
+    display: flex;
+    align-items: center; /* Vertically center the text */
+}
+
+.toggle-btn {
+    font-size: 24px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.answer {
+    margin-top: 10px;
+    max-height: 0;
+    overflow: hidden;
+    color: #bbbbbb;
+    transition: max-height 0.3s ease-out;
+    padding-left: 10px;
+    text-align: left; /* Align text to the left */
+    align-items: center; /* Vertically center the text */
+}
+
+.faq.active .answer {
+    max-height: 100px;
+}
+
+.faq.active .toggle-btn {
+    transform: rotate(45deg);
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .faq-container {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .faq-info {
+        text-align: center;
+    }
+
+    .faq-info h2 {
+        font-size: 24px;
+    }
+
+    .faq-info p {
+        font-size: 14px;
+    }
+
+    .faq-content {
+        width: 100%;
+    }
+
+    .question h3 {
+        font-size: 18px;
+    }
+
+    .toggle-btn {
+        font-size: 20px;
+    }
+}
+
+
+
+/* Footer Styles */
+.footer {
+    background-color: #f1f1f1;
+    color: rgb(0, 0, 0);
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Left Section */
+.footer-left {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-description {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+    text-decoration: none; /* Removes underline if present */
+}
+
+.social-links a:hover {
+    color: #007bff; /* Changes color on hover */
+}
+
+/* If using images for social icons: */
+.social-links img {
+    width: auto; /* Consistent size for social icons */
+    height: auto;
+    vertical-align: middle; /* Align the images with text/icons */
+    margin-right: 10px; /* Space between the icons */
+}
+
+/* Ensure that if you're using icons (Font Awesome or similar) they align correctly */
+.social-links i {
+    vertical-align: middle;
+}
+
+.social-links a:hover {
+    color: #ffffff;
+}
+
+/* Center Section */
+.footer-center {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-center h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-center ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-center ul li {
+    margin: 8px 0;
+}
+
+.footer-center ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-center ul li a:hover {
+    color: #575757;
+}
+
+/* Right Section (Optional - If you want to add more content like Contact Info) */
+.footer-right {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-right ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-right li {
+    margin: 8px 0;
+}
+
+.footer-right a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-right a:hover {
+    color: #575757;
+}
+
+.footer-bottom{
+    color: #000;
+    background-color: #ffffff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Stack footer sections vertically on smaller screens */
+        align-items: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .social-links a {
+        margin-right: 10px;
+    }
+}
+
+

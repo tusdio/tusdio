@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TUSDIO - Portfolio</title>
+    <link rel="stylesheet" href="contact.css">
+    <script src="contact.js" defer></script>
+</head>
+<body>
+     <!-- Hero Section -->
+     <header>
+        <div class="container">
+            <a href="../../index.html" class="logo-link">
+                <h1 class="logo">TUSDIO.</h1>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/Nav Bar/About Us/about us.html">About</a></li>
+                    <li><a href="/Nav Bar/Services/services.html">Services</a></li>
+                    <li><a href="/Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
+                    <li><a href="/Nav Bar/Contact Us/contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>     <!-- <div class="footer-container"></div> -->
+    </header>
+    <section class="contact-container">
+        <!-- Left Side: Contact Information -->
+        <div class="contact-text">
+            <h1 class="hero-title">Contact Us</h1>
+            <p class="hero-subtitle">Get in touch with us for any inquiries and questions.</p>
+        </div>
+
+        <!-- Right Side: Image Section (Only on Desktop) -->
+        <div class="contact-image">
+            <div class="image-section">
+                <img src="Images/Background.png" alt="Contact">
+            </div>
+        </div>
+    </section>
+
+
+    <section class="form-container">
+        <div class="form-text">
+            <h1 class="form-title">Contact form</h1>
+            <p class="form-subtitle">Have questions or need assistance? Reach out to us through the form below!</p>
+        </div>
+    
+    </section>
+    <section>
+        <div class="contact-section">
+            <h3>Get Connected</h3>
+            <p>Email: <a href="mailto:contact@tusdio.com">tusdio@zohomail.in</a></p>
+            <form action="https://formsubmit.co/tusdio@zohomail.in" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </section>
+
+
+    <!-- steps-->
+
+    <section> 
+        <p class="timeline-text">Process</p>
+    </section>
+    
+    <section class="timeline">
+        
+        <div class="timeline-container">
+            <div class="line"></div> <!-- Central Line -->
+            
+            <div class="timeline-step active" onclick="showStep(0)">
+                <span class="step-title">Start</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(1)">
+                <span class="step-title">Meeting</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(2)">
+                <span class="step-title">Proposal</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(3)">
+                <span class="step-title">Agreement</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(4)">
+                <span class="step-title">Deposit</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(5)">
+                <span class="step-title">Preview</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(6)">
+                <span class="step-title">Payment</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+            <div class="timeline-step" onclick="showStep(7)">
+                <span class="step-title">Final</span>
+                <div class="circle"><div class="inner-circle"></div></div>
+            </div>
+        </div>
+        
+        <div id="step-description" class="step-description">
+            <h2 id="step-title">Start</h2>
+            <p id="step-text">We get inquiries from clients through email, website, or social media.</p>
+        </div>
+    </section>
+
+    
+
+<!-- FAQ -->
+    <section class="faq-container">
+        <!-- Background Image -->
+        <div class="background-image"></div>
+    
+        <!-- Left Section: Title & Description -->
+        <div class="faq-info">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to the most common queries about our services and process.</p>
+        </div>
+    
+        <!-- Right Section: FAQ Questions -->
+        <div class="faq-content">
+            <div class="faq">
+                <div class="question">
+                    <h3>What services does your agency provide?</h3>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="answer">
+                    <p>We provide Branding, Product Design, Social Media Marketing, and Logo Design services.</p>
+                </div>
+            </div>
+    
+            <div class="faq">
+                <div class="question">
+                    <h3>How can I contact you?</h3>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="answer">
+                    <p>You can contact us through email at contact@tusdio.com or via our website through filling Inquiry form.</p>
+                </div>
+            </div>
+    
+            <div class="faq">
+                <div class="question">
+                    <h3>What is the process for starting a project?</h3>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="answer">
+                    <p>Fill out our inquiry form, schedule a call, and we’ll guide you through the process step by step.</p>
+                </div>
+            </div>
+    
+            <div class="faq">
+                <div class="question">
+                    <h3>How much time do you need to provide the final product?</h3>
+                    <span class="toggle-btn">+</span>
+                </div>
+                <div class="answer">
+                    <p> It depends on the project. Most designs take 5-10 days, while bigger projects may take 2-4 weeks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    
+    <footer class="footer">
+        <div class="footer-container">
+    
+            <!-- Left Section -->
+            <div class="footer-left">
+                <h2 class="footer-logo">TUSDIO.</h2>
+                <p class="footer-description">We create stunning designs and branding solutions to help businesses stand out.</p>
+                <div class="social-links">
+                    <a href="https://www.behance.net/tusdio" target="_blank">
+                        <img src="/images/Social Media Icon/1 behance.png" alt="behance">
+                    </a>
+                    <a href="https://www.instagram.com/tusdio._/profilecard/?igsh=cW82eWIxY2hudm9u" target="_blank">
+                        <img src="/images/Social Media Icon/2 instagram.png" alt="Instagram">
+                    </a>
+                    <a href="https://www.linkedin.com/in/tushar-khan-b05224272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
+                        <img src="/images/Social Media Icon/3 linkdin.png" alt="LinkedIn">
+                    </a>
+                    <a href="https://x.com/tusdio069?s=21" target="_blank">
+                        <img src="/images/Social Media Icon/4 twitter.png" alt="twitter">
+                    </a>
+                </div>
+            </div>
+    
+            <!-- Center Section -->
+            <div class="footer-center">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/Nav Bar/About Us/about us.html">About</a></li>
+                    <li><a href="/Nav Bar/Services/services.html">Services</a></li>
+                    <li><a href="/Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="/Nav Bar/Contact Us/contact.html">Contact</a></li>
+                </ul>
+            </div>
+    
+            <!-- Right Section (Optional) -->
+            <div class="footer-right">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>Email: <a href="mailto:tusdio@zohomail.in">tusdio@zohomail.in</a></li>
+                   <!-- <li>Phone: +1 234 567 890</li>
+                    <li>Address: 123 Street, City, Country</li> -->
+                </ul>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <p class="footer-bottom">&copy; 2024 TUSDIO. All Rights Reserved.</p>
+</footer>
+    
+    
+    
+</body>    

@@ -1,0 +1,713 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+/* General Header Styling */
+header {
+    background: #000;
+    color: #fff;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Logo */
+header h1 {
+    margin: 0;
+}
+
+/* Navigation */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    header nav {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100vw;  /* Ensures full screen width */
+        background: #000;
+        display: none;
+        text-align: center;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8); /* Optional: Removes light leaks */
+    }
+
+    header nav ul {
+        flex-direction: column;
+        padding: 0px;
+        margin: 0;
+        width: 100%;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+        width: 100%;
+    }
+
+    /* Show menu when active */
+    header nav.active {
+        display: block;
+    }
+}
+
+
+/* Hero Section */
+.hero {
+    padding: 100px 20px;
+    background: black;
+    font-size: 24px;
+    font: size 2vw;;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.typing {
+    font-weight: bold;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.text {
+    position: relative;
+    font-size: 15px;
+}
+
+/* Slideshow */
+.slideshow-container {
+    margin-top: 50px;
+    width: 100%;
+    height: 550px;
+    size-adjust: 10px;
+
+
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* our services */
+/* Projects */ 
+.projects {
+    padding: 50px 20px;
+    overflow: hidden;
+}
+
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 projects in a row */
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Make Project Cards Responsive */
+.project-card {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect */
+.project-card:hover {
+    transform: scale(1.1);
+}
+
+/* Overlay Effect */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.project-card:hover .overlay {
+    opacity: 1;
+}
+
+/* project text*/
+.project-text {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 80px;
+    font-size: 26px;
+    font-weight: lighter;
+}
+
+/* Mobile View: Convert into Horizontal Scroll */
+@media (max-width: 768px) {
+    .project-gallery {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+        padding-bottom: 10px;
+        width: auto;
+        white-space: nowrap; /* Prevents wrapping */
+        scrollbar-width: none; /* Hides scrollbar on Firefox */
+        -ms-overflow-style: none; /* Hides scrollbar on IE/Edge */
+    }
+
+    .project-gallery::-webkit-scrollbar {
+        display: none; /* Hides scrollbar on Chrome/Safari */
+    }
+
+    .project-card {
+        min-width: 100%; /* Ensures each project card fits within view */
+        flex-shrink: 0; /* Prevents shrinking */
+        scroll-snap-align: start;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .project-gallery {
+        min-width: max-content; /* Ensures the container fits all children */
+    }
+}
+
+
+/* Worked Over 50 Title */
+
+.Worked-Over-50 {
+    font-size: 24px; /* Font size for large screens */
+    padding: 200px;  /* Reduced padding to avoid excess space */
+    cursor: url('images/cursor/1.png'), auto; /* Change cursor to custom image on hover */
+    transition: cursor 0.3s ease; /* Smooth transition for cursor change */
+    
+    /* Centering content using Flexbox */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical centering */
+    align-items: center; /* Horizontal centering */
+    text-align: center; /* Center text inside the container */
+  }
+  
+  .Worked-title {
+    font-size: 32px; /* Font size for large screens */
+    margin: 0;
+  }
+  
+  .Worked-description {
+    font-size: 18px; /* Font size for large screens */
+    color: #666; /* Light gray color for description */
+    margin-top: 10px; /* Space between title and description */
+  }
+  
+  /* Responsive font size for medium screens (e.g., tablets) */
+  @media (max-width: 1200px) {
+    .Worked-Over-50 {
+      font-size: 22px;
+      padding: 80px; /* Reduced padding for medium screens */
+    }
+  
+    .Worked-title {
+      font-size: 28px; /* Adjust font size for medium screens */
+    }
+  
+    .Worked-description {
+      font-size: 16px; /* Adjust description font size for medium screens */
+    }
+  }
+  
+  /* Responsive font size for smaller screens (e.g., mobile) */
+  @media (max-width: 768px) {
+    .Worked-Over-50 {
+        margin-bottom: 40px;
+      font-size: 20px;
+      padding: 40px; /* Reduced padding for small screens */
+    }
+  
+    .Worked-title {
+      font-size: 24px; /* Adjust font size for small screens */
+    }
+  
+    .Worked-description {
+      font-size: 14px; /* Adjust description font size for small screens */
+    }
+  }
+  
+  /* Extra small screens */
+  @media (max-width: 480px) {
+    .Worked-Over-50 {
+      font-size: 18px;
+      padding: 20px; /* Reduced padding for extra small screens */
+    }
+  
+    .Worked-title {
+      font-size: 20px; /* Adjust font size for very small screens */
+    }
+  
+    .Worked-description {
+      font-size: 12px; /* Adjust description font size for very small screens */
+    }
+  }
+  
+  
+
+/* Image grid*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000;
+    font-family: Arial, sans-serif;
+    padding: 5px;
+}
+
+/* Image Grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    gap: 5px;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.image-grid {
+    padding: 20px 80px;
+}
+
+/* Image Cards */
+.image-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Image Styling */
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+/* Assign Random Heights */
+.image-card:nth-child(3n) { grid-row: span 2; } /* Every 3rd image is taller */
+.image-card:nth-child(4n) { grid-column: span 2; } /* Every 4th image is wider */
+.image-card:nth-child(5n) { grid-row: span 3; } /* Every 5th image is extra tall */
+
+/* Hover Effect: Increase Size of Hovered Image */
+.image-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Shrinks Other Images */
+.image-grid:hover .image-card:not(:hover) img {
+    transform: scale(0.9);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .image-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-card img {
+        width: 400px;
+        height: 300px; /* Set same height for all images on mobile */
+    }
+}
+/* Image grid text*/
+.image-grid-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: lighter;
+}
+
+
+
+/* FAQ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* FAQ Section with Background */
+.faq-container {
+    position: relative;
+    width: 100%;
+    padding: 100px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+/* Background Image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/FAQ/1.jpg') no-repeat center center/cover;
+    filter: brightness(0.5); /* Darker for better readability */
+    z-index: -1;
+}
+
+/* Left Side: FAQ Title & Description */
+.faq-info {
+    flex: 1;
+    max-width: 400px;
+    color: white;
+}
+
+.faq-info h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.faq-info p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* Right Side: FAQ Content */
+.faq-content {
+    flex: 2;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* FAQ Items */
+.faq {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.question {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.question h3 {
+    text-align: left; /* Align text to the left */
+    font-size: 20px;
+    display: flex;
+    align-items: center; /* Vertically center the text */
+}
+
+.toggle-btn {
+    font-size: 24px;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.answer {
+    margin-top: 10px;
+    max-height: 0;
+    overflow: hidden;
+    color: #bbbbbb;
+    transition: max-height 0.3s ease-out;
+    padding-left: 10px;
+    text-align: left; /* Align text to the left */
+    align-items: center; /* Vertically center the text */
+}
+
+.faq.active .answer {
+    max-height: 100px;
+}
+
+.faq.active .toggle-btn {
+    transform: rotate(45deg);
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .faq-container {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .faq-info {
+        text-align: center;
+    }
+
+    .faq-info h2 {
+        font-size: 24px;
+    }
+
+    .faq-info p {
+        font-size: 14px;
+    }
+
+    .faq-content {
+        width: 100%;
+    }
+
+    .question h3 {
+        font-size: 18px;
+    }
+
+    .toggle-btn {
+        font-size: 20px;
+    }
+}
+
+
+/* Footer Styles */
+.footer {
+    background-color: #f1f1f1;
+    color: rgb(0, 0, 0);
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Left Section */
+.footer-left {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-description {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: rgb(0, 0, 0);
+    font-size: 18px;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+    text-decoration: none; /* Removes underline if present */
+}
+
+.social-links a:hover {
+    color: #007bff; /* Changes color on hover */
+}
+
+/* If using images for social icons: */
+.social-links img {
+    width: auto; /* Consistent size for social icons */
+    height: auto;
+    vertical-align: middle; /* Align the images with text/icons */
+    margin-right: 10px; /* Space between the icons */
+}
+
+/* Ensure that if you're using icons (Font Awesome or similar) they align correctly */
+.social-links i {
+    vertical-align: middle;
+}
+
+.social-links a:hover {
+    color: #ffffff;
+}
+/* Center Section */
+.footer-center {
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-center h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-center ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-center ul li {
+    margin: 8px 0;
+}
+
+.footer-center ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-center ul li a:hover {
+    color: #c2c2c2;
+}
+
+/* Right Section */
+.footer-right {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+    padding: 10px;
+}
+
+.footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-right p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.footer-right a {
+    color: #969696;
+    text-decoration: none;
+}
+
+.footer-right a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styles */
+.footer-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-form input,
+.footer-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.footer-form textarea {
+    height: 80px;
+}
+
+.footer-form button {
+    background: #000000;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.footer-form button:hover {
+    background: #c5c5c5;
+}
+
+/* Bottom Text */
+.footer-bottom {
+    margin-top: 30px;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+    }
+
+    .footer-form {
+        align-items: center;
+    }
+
+    .footer-form input, .footer-form textarea {
+        width: 80%;
+    }
+}
