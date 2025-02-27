@@ -148,21 +148,90 @@ font-family: Arial, Helvetica, sans-serif;
 
 /* Slideshow */
 .slideshow-container {
-    margin-top: 50px;
+    margin-top: 30px;
+    padding-top: 0px;
     width: 100%;
     height: 550px;
-    size-adjust: 10px;
-
-
     overflow: hidden;
+    position: relative;
 }
 
+/* Hide all slides initially */
 .slide {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Smooth fade transition */
 }
 
+/* Show on desktop only */
+@media (max-width: 767px) {
+    .slideshow-container {
+        display: none;
+    }
+}
+/* ends here Slideshow */
+
+
+
+
+/* mobile slideshow */
+
+
+/* Hide on desktop & tablets */
+.mobile-slideshow-container {
+    display: none;
+}
+
+/* Show only on mobile screens (max-width: 767px) */
+/* Default mobile styling */
+
+@media (max-width: 767px) {
+    
+    .mobile-slideshow-container {
+        display: block;
+        margin-top: 00px;
+        width: 100vw;
+        height: 600px; /* Adjust as needed */
+        overflow: hidden;
+        position: relative;
+    }
+
+    .mobile-slide {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Prevents cropping/zooming */
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+    
+}
+
+/* 📱 iPhone 12 Pro (390x844) */
+@media screen and (max-width: 390px) and (max-height: 844px) {
+    .mobile-slideshow-container {
+        padding-top: 0px !important;
+        width: 97.5vw !important;  /* Adjust width */
+        height: 600px !important;
+        margin-top: 0px !important;
+    }
+}
+
+
+/* 📱 iPhone 14 Pro Max (430x932) */
+@media screen and (max-width: 430px) and (max-height: 932px) {
+    .mobile-slideshow-container {
+        width: 96.5vw;
+        height: 700px; /* Adjust for larger screens */
+    }
+}
 /* our services */
 /* Projects */ 
 .projects {
