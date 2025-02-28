@@ -744,10 +744,12 @@ body {
 
 /* If using images for social icons: */
 .social-links img {
-    width: auto; /* Consistent size for social icons */
-    height: auto;
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 20px; /* Adjust this value for smaller size */
+    max-height: 20px; /* Adjust this value for smaller size */
     vertical-align: middle; /* Align the images with text/icons */
-    margin-right: 10px; /* Space between the icons */
+    margin-right: -5px; /* Space between the icons */
 }
 
 /* Ensure that if you're using icons (Font Awesome or similar) they align correctly */
