@@ -146,6 +146,44 @@ font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
 }
 
+@media (max-width: 768px) {
+    /* Hero Section */
+    .hero {
+        padding: 40px 11px; /* Adjusted padding for mobile */
+        background: black;
+        font-size: 18px; /* Slightly smaller for mobile */
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        height: 150px; /* Fixed height to prevent page shifting */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centers content */
+    }
+
+    /* Typing Effect */
+    .typing {
+        font-weight: bold;
+        border-right: 2px solid white;
+        white-space: nowrap;
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+        display: inline-block;
+        width: 250px; /* Fixed width to prevent jumping */
+        min-height: 20px; /* Ensures consistent height */
+        text-align: center;
+    }
+
+    /* Prevents paragraph text from shifting */
+    .text {
+        font-size: 13px; /* Adjusted for mobile */
+        display: block;
+        min-height: 18px;
+    }
+}
+
+
+
+
 /* Slideshow */
 .slideshow-container {
     margin-top: 30px;
