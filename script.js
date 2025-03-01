@@ -25,6 +25,10 @@ function erase() {
     }
 }
 
+
+
+
+
 // Nav Bar responsive
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('header nav');
@@ -39,26 +43,87 @@ menuToggle.addEventListener('click', () => {
 typingElement.textContent = "";
 type();
 
-// Slideshow
-const slides = [
-    "images/Slideshow/slide1.png",
-    "images/Slideshow/slide2.png",
-    "images/Slideshow/slide3.png",
-    "images/Slideshow/slide4.png",
-    "images/Slideshow/slide5.png"
-];
-let currentIndex = 0;
 
-function changeSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    document.getElementById("slide").src = slides[currentIndex];
-}
 
-// Start the slideshow only if the element exists
-const slideElement = document.getElementById("slide");
-if (slideElement) {
-    setInterval(changeSlide, 3000);
-}
+
+
+
+
+// Slideshow desktop & ipad only
+
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+
+    // Ensure slides exist
+    if (slides.length === 0) return;
+
+    // Preload images to prevent flickering
+    slides.forEach((slide) => {
+        const img = new Image();
+        img.src = slide.src;
+    });
+
+    // Show only the first slide initially
+    slides[currentIndex].style.opacity = "1";
+
+    function changeSlide() {
+        // Hide current slide
+        slides[currentIndex].style.opacity = "0";
+
+        // Move to the next slide
+        currentIndex = (currentIndex + 1) % slides.length;
+
+        // Show the next slide
+        setTimeout(() => {
+            slides[currentIndex].style.opacity = "1";
+        }, 300); // Slight delay for a smoother transition
+    }
+
+    // Change slide every 4 seconds (adjustable)
+    setInterval(changeSlide, 4000);
+});
+
+
+
+
+
+// slideshow only for mobile
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Detect screen width
+    if (window.innerWidth > 767) return; // Stop if not mobile
+
+    const slides = document.querySelectorAll(".mobile-slide");
+    let currentIndex = 0;
+
+    if (slides.length === 0) return; // Safety check
+
+    // Preload images for smooth transitions
+    slides.forEach((slide) => {
+        const img = new Image();
+        img.src = slide.src;
+    });
+
+    // Show the first slide
+    slides[currentIndex].style.opacity = "1";
+
+    function changeSlide() {
+        slides[currentIndex].style.opacity = "0";
+        currentIndex = (currentIndex + 1) % slides.length;
+        setTimeout(() => {
+            slides[currentIndex].style.opacity = "1";
+        }, 300);
+    }
+
+    setInterval(changeSlide, 4000); // Change every 4 seconds
+});
+
+
+
+
+
 
 // Smooth Scrolling for Project Section on Mobile
 
