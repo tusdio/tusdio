@@ -81,34 +81,57 @@ header nav ul li a:hover {
 
 /* Responsive Styling */
 @media (max-width: 768px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; /* Ensures everything fits inside */
+    }
+
+    body {
+        overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+
     .menu-toggle {
         display: block;
     }
 
-    header .container {
-        flex-direction: row;
-        align-items: center;
+    header {
+        background: black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* Forces full width */
+        z-index: 1000;
     }
 
     header nav {
         position: absolute;
         top: 60px;
         left: 0;
-        width: 100%;
-        background: #000;
+        width: 100%; /* Ensures full width */
+        background: black;
         display: none;
         text-align: center;
-        padding: 20px 0;
-        
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     }
 
     header nav ul {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: lighter;
         flex-direction: column;
         padding: 0;
+        margin: 0;
+        width: 100%;
+        gap: 30px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: right;
+        padding-right: 20px;
     }
 
     header nav ul li {
-        margin: 10px 0;
+        margin: 0;
+        width: 100%;
     }
 
     /* Show menu when active */
