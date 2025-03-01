@@ -111,6 +111,11 @@ header nav ul li a:hover {
 
 /* Responsive Styling */
 @media (max-width: 768px) {
+
+    .logo{
+        text-align: left;
+        font-size: 20px;
+    }
     .menu-toggle {
         display: block;
     }
@@ -160,6 +165,7 @@ header nav ul li a:hover {
     opacity: 0.8; /* Slight fade effect on hover */
 }
 
+
 /* Hero Section */
 .hero {
     padding: 50px 20px;
@@ -169,11 +175,12 @@ header nav ul li a:hover {
 
 /* Hero Section Text */
 .hero h1 {
+    padding-top: 40px;
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: bold;
     margin-bottom: 10px;
-    padding-top: 30px;
 }
+
 
 .hero p {
     font-size: clamp(1rem, 2vw, 1.5rem);
