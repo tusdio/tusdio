@@ -36,7 +36,7 @@ html, body {
 /* Debugging tool (Optional) */
 @media (max-width: 1200px) {
     body {
-        outline: 2px solid red; /* Helps identify overflowing elements */
+        outline: 2px solid rgb(0, 0, 0); /* Helps identify overflowing elements */
     }
 }
 
