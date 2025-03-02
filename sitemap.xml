@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://tusdio.github.io/tusdio/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/About Us/about us.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Contact Us/contact.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Portfolio/portfolio.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Services/services.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services Pages -->
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Services/Services page/Branding/Branding.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Services/Services page/Digital Marketing/dm.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Services/Services page/Visual Identity/vi.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Nav Bar/Services/Services page/product development/PD.html</loc>
+  </url>
+
+  <!-- Our Services Pages -->
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Branding/branding.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Digital Marketing/digital.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Visual identity/visual.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/product development/product-development.html</loc>
+  </url>
+
+  <!-- Digital Marketing Project Pages -->
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Digital Marketing/Pages/Evoque/ee.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Digital Marketing/Pages/Lujuria/Lujuria.html</loc>
+  </url>
+  <url>
+    <loc>https://tusdio.github.io/tusdio/Our services pages/Digital Marketing/Pages/My_paws/mp.html</loc>
+  </url>
+
+</urlset>
