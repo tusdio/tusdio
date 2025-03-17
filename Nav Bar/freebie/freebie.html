@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | TUSDIO</title>
+    <link rel="stylesheet" href="freebie.css">
+    <script src="freebie.js" defer></script>
+</head>
+<body>
+
+    <!-- Nav Bar -->
+    <header>
+        <div class="container">
+            <a href="../../index.html" class="logo-link">
+                <h1 class="logo">TUSDIO.</h1>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/Nav Bar/About Us/about us.html">About</a></li>
+                    <li><a href="/Nav Bar/Services/services.html">Services</a></li>
+                    <li><a href="/Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
+                    <li><a href="/Nav Bar/Contact Us/contact.html">Contact</a></li>
+                    <li><a href="/Nav Bar/freebie/freebie.html">Freebie</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Us Section 
+    <section class="about">
+        <div class="about-container">
+            <div class="about-content">
+                <h2>About Us</h2>
+                <p>Welcome to TUSDIO, a creative agency dedicated to crafting stunning branding, packaging, and design solutions. Our passion is to turn your vision into reality with cutting-edge creativity and strategic insights.</p>
+                <p>We believe in the power of design to transform brands and connect with audiences. Whether you're a startup or an established business, we tailor unique solutions that make you stand out.</p>
+                <a href="/index.html" class="cta-button">Explore Our Work</a>
+            </div>
+            
+        </div>
+    </section> -->
+
+
+     <!-- Our Mission Section -->
+     <section class="mission">
+        <h2>Freebie</h2>
+        <p>Explore a collection of high-quality mockups, textures, and more—crafted to elevate your designs effortlessly. Download now and bring your ideas to life with TUSDIO’s exclusive freebies!</p>
+    </section>
+
+    <!-- Tag Buttons -->
+<div class="tags">
+    <button onclick="filterFreebies('all')">All</button>
+    <button onclick="filterFreebies('Posters')">Posters</button>
+    <button onclick="filterFreebies('BillBoards')">BillBoards</button>
+    <button onclick="filterFreebies('Signs')">Signs</button>
+    <button onclick="filterFreebies('Magazines')">Magazines</button>
+    <button onclick="filterFreebies('Cosmetics')">Cosmetics</button>
+</div>
+
+<!-- Freebie Grid -->
+<div class="grid" id="freebiesContainer"></div>
+
+<!-- Freebie Details (Hidden by default) -->
+<div class="details-container" id="freebieDetails" style="display: none;">
+    <button class="back-btn" onclick="closeDetails()">← Back</button>
+    
+    <h1 id="detailTitle"></h1>
+    
+    <!-- Main Image -->
+    <img id="detailImage" src="" alt="">
+
+    <!-- Second Image Section -->
+    <div class="extra-image-section" id="extraImageContainer" style="display: none;">
+        <img id="detailExtraImage" src="" alt="">
+    </div>
+
+    <button class="like-btn" onclick="toggleLike(this)">
+        <svg class="heart-icon" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+    </button>
+
+    
+    
+    <!-- Description -->
+    <p id="detailDescription"></p>
+
+    <!-- Tags -->
+    <div class="tags-container" id="detailTags"></div>
+
+    <!-- Download Button -->
+    <a id="downloadButton" class="download-btn" href="#" download>Download</a>
+
+    <div class="social-icons">
+        <a href="https://www.instagram.com/tusdio.site/" target="_blank">
+            <img src="/images/Social Media Icon/2 instagram.png" alt="Instagram">
+        </a>
+        <a href="https://x.com/TUSDIO069" target="_blank">
+            <img src="/images/Social Media Icon/4 twitter.png" alt="X">
+        </a>
+        <a href="https://www.behance.net/tusdio" target="_blank">
+            <img src="/images/Social Media Icon//1 behance.png" alt="Behance">
+        </a>
+        <a href="https://www.linkedin.com/company/tusdio/" target="_blank">
+            <img src="/images/Social Media Icon/3 linkdin.png" alt="LinkedIn">
+        </a>
+    </div>
+
+    <!-- Similar Freebies -->
+    <h2>Similar Freebies</h2>
+    <div class="grid" id="similarFreebies"></div>
+
+
+</div>
+
+
+
+<script src="freebie.js"></script>
+
+
+
+
+</body>
+</html>
