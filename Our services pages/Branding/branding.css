@@ -219,7 +219,7 @@ header nav ul li a:hover {
 .hero-subtitle {
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     font-weight: 300;
-    color: #ddd;
+    color: white;
     opacity: 0;
     animation: fadeIn 1.5s ease-in-out forwards 0.5s;
 }
