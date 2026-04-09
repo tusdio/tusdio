@@ -86,6 +86,17 @@ header h1 {
     margin: 0;
 }
 
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
 /* Navigation */
 header nav ul {
     list-style: none;
@@ -173,16 +184,6 @@ font-family: Arial, Helvetica, sans-serif;
     }
 }
 
-/* Logo Link Styling */
-.logo-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Keep the text white */
-    transition: opacity 0.3s ease-in-out;
-}
-
-.logo-link:hover {
-    opacity: 0.8; /* Slight fade effect on hover */
-}
 
 /* Hero */
 .hero {
