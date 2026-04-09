@@ -173,6 +173,17 @@ font-family: Arial, Helvetica, sans-serif;
     }
 }
 
+/* Logo Link Styling */
+.logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep the text white */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.logo-link:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+}
+
 /* Hero */
 .hero {
     padding: 55px 30px;
