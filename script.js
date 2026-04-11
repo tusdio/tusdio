@@ -28,16 +28,15 @@ function erase() {
 
 
 
-
 // Nav Bar responsive
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('header nav');
+const menuToggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector("header nav");
 
-// Add event listener to toggle class 'active' on nav when the button is clicked
-menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-});
-
+if (menuToggle && nav) {
+    menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("active");
+    });
+}
 
 // Ensure the text starts clean
 typingElement.textContent = "";
