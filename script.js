@@ -42,6 +42,58 @@ if (menuToggle && nav) {
 typingElement.textContent = "";
 type();
 
+import { auth } from "./Nav Bar/auth/firebase-config.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+const navUserArea = document.getElementById("navUserArea");
+
+const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
+
+onAuthStateChanged(auth, (user) => {
+  if (!navUserArea) return;
+
+  if (user) {
+    const name = user.displayName || user.email.split("@")[0];
+
+    const isOwner =
+      (user.email || "").toLowerCase() === OWNER_EMAIL.toLowerCase();
+
+    const dashboardLink = isOwner
+      ? "./Nav Bar/auth/owner/owner.html"
+      : "./Nav Bar/auth/users.html";
+
+    navUserArea.innerHTML = `
+      <div style="display:flex; gap:10px; align-items:center;">
+        <span style="color:#bdbdbd; font-size:14px;">${name}</span>
+
+        <a href="${dashboardLink}" class="nav-user-btn">
+          Dashboard
+        </a>
+
+        <button id="logoutBtn" class="nav-user-btn">
+          Logout
+        </button>
+      </div>
+    `;
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      location.reload();
+    });
+
+  } else {
+    navUserArea.innerHTML = `
+      <a href="./Nav Bar/auth/login.html">Login</a>
+    `;
+  }
+});
+
+
+//nav end
+
 
 
 
