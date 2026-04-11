@@ -1,3 +1,9 @@
+import { auth } from "./Nav Bar/auth/firebase-config.js";
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
 // Typing Effect
 const words = ["TUSDIO", "Imagination", "Perfection"];
 let wordIndex = 0;
@@ -5,58 +11,49 @@ let letterIndex = 0;
 const typingElement = document.querySelector(".typing");
 
 function type() {
-    if (letterIndex < words[wordIndex].length) {
-        typingElement.textContent += words[wordIndex][letterIndex];
-        letterIndex++;
-        setTimeout(type, 100);
-    } else {
-        setTimeout(erase, 1500);
-    }
+  if (!typingElement) return;
+
+  if (letterIndex < words[wordIndex].length) {
+    typingElement.textContent += words[wordIndex][letterIndex];
+    letterIndex++;
+    setTimeout(type, 100);
+  } else {
+    setTimeout(erase, 1500);
+  }
 }
 
 function erase() {
-    if (letterIndex > 0) {
-        typingElement.textContent = words[wordIndex].substring(0, letterIndex - 1);
-        letterIndex--;
-        setTimeout(erase, 50);
-    } else {
-        wordIndex = (wordIndex + 1) % words.length;
-        setTimeout(type, 500);
-    }
+  if (!typingElement) return;
+
+  if (letterIndex > 0) {
+    typingElement.textContent = words[wordIndex].substring(0, letterIndex - 1);
+    letterIndex--;
+    setTimeout(erase, 50);
+  } else {
+    wordIndex = (wordIndex + 1) % words.length;
+    setTimeout(type, 500);
+  }
 }
-
-
-
 
 // Nav Bar responsive
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("header nav");
 
 if (menuToggle && nav) {
-    menuToggle.addEventListener("click", () => {
-        nav.classList.toggle("active");
-    });
+  menuToggle.addEventListener("click", () => {
+    nav.classList.toggle("active");
+  });
 }
 
-// Ensure the text starts clean
-typingElement.textContent = "";
-type();
-
-import { auth } from "./Nav Bar/auth/firebase-config.js";
-import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
-
+// Navbar user state
 const navUserArea = document.getElementById("navUserArea");
-
 const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
 
 onAuthStateChanged(auth, (user) => {
   if (!navUserArea) return;
 
   if (user) {
-    const name = user.displayName || user.email.split("@")[0];
+    const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
 
     const isOwner =
       (user.email || "").toLowerCase() === OWNER_EMAIL.toLowerCase();
@@ -66,24 +63,20 @@ onAuthStateChanged(auth, (user) => {
       : "./Nav Bar/auth/users.html";
 
     navUserArea.innerHTML = `
-      <div style="display:flex; gap:10px; align-items:center;">
-        <span style="color:#bdbdbd; font-size:14px;">${name}</span>
-
-        <a href="${dashboardLink}" class="nav-user-btn">
-          Dashboard
-        </a>
-
-        <button id="logoutBtn" class="nav-user-btn">
-          Logout
-        </button>
+      <div class="nav-user-box">
+        <span class="nav-user-name">${name}</span>
+        <a href="${dashboardLink}" class="nav-user-btn">Dashboard</a>
+        <button id="logoutBtn" class="nav-user-btn" type="button">Logout</button>
       </div>
     `;
 
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await signOut(auth);
-      location.reload();
-    });
-
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", async () => {
+        await signOut(auth);
+        location.reload();
+      });
+    }
   } else {
     navUserArea.innerHTML = `
       <a href="./Nav Bar/auth/login.html">Login</a>
@@ -91,199 +84,131 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-
-//nav end
-
-
-
-
-
-
-
-// Slideshow desktop & ipad only
-
 document.addEventListener("DOMContentLoaded", function () {
-    const slides = document.querySelectorAll(".slide");
-    let currentIndex = 0;
+  // Start typing effect
+  if (typingElement) {
+    typingElement.textContent = "";
+    type();
+  }
 
-    // Ensure slides exist
-    if (slides.length === 0) return;
+  // Desktop slideshow
+  const slides = document.querySelectorAll(".slide");
+  let currentDesktopIndex = 0;
 
-    // Preload images to prevent flickering
+  if (slides.length > 0) {
     slides.forEach((slide) => {
-        const img = new Image();
-        img.src = slide.src;
+      const img = new Image();
+      img.src = slide.src;
     });
 
-    // Show only the first slide initially
-    slides[currentIndex].style.opacity = "1";
+    slides[currentDesktopIndex].style.opacity = "1";
 
-    function changeSlide() {
-        // Hide current slide
-        slides[currentIndex].style.opacity = "0";
+    setInterval(() => {
+      slides[currentDesktopIndex].style.opacity = "0";
+      currentDesktopIndex = (currentDesktopIndex + 1) % slides.length;
+      setTimeout(() => {
+        slides[currentDesktopIndex].style.opacity = "1";
+      }, 300);
+    }, 4000);
+  }
 
-        // Move to the next slide
-        currentIndex = (currentIndex + 1) % slides.length;
+  // Mobile slideshow
+  if (window.innerWidth <= 767) {
+    const mobileSlides = document.querySelectorAll(".mobile-slide");
+    let currentMobileIndex = 0;
 
-        // Show the next slide
-        setTimeout(() => {
-            slides[currentIndex].style.opacity = "1";
-        }, 300); // Slight delay for a smoother transition
-    }
-
-    // Change slide every 4 seconds (adjustable)
-    setInterval(changeSlide, 4000);
-});
-
-
-
-
-
-// slideshow only for mobile
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Detect screen width
-    if (window.innerWidth > 767) return; // Stop if not mobile
-
-    const slides = document.querySelectorAll(".mobile-slide");
-    let currentIndex = 0;
-
-    if (slides.length === 0) return; // Safety check
-
-    // Preload images for smooth transitions
-    slides.forEach((slide) => {
+    if (mobileSlides.length > 0) {
+      mobileSlides.forEach((slide) => {
         const img = new Image();
         img.src = slide.src;
-    });
+      });
 
-    // Show the first slide
-    slides[currentIndex].style.opacity = "1";
+      mobileSlides[currentMobileIndex].style.opacity = "1";
 
-    function changeSlide() {
-        slides[currentIndex].style.opacity = "0";
-        currentIndex = (currentIndex + 1) % slides.length;
+      setInterval(() => {
+        mobileSlides[currentMobileIndex].style.opacity = "0";
+        currentMobileIndex = (currentMobileIndex + 1) % mobileSlides.length;
         setTimeout(() => {
-            slides[currentIndex].style.opacity = "1";
+          mobileSlides[currentMobileIndex].style.opacity = "1";
         }, 300);
+      }, 4000);
     }
+  }
 
-    setInterval(changeSlide, 4000); // Change every 4 seconds
-});
+  // Project gallery drag/scroll
+  const projectGallery = document.querySelector(".project-gallery");
 
+  if (projectGallery) {
+    projectGallery.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      projectGallery.scrollLeft += event.deltaY * 2;
+    });
 
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
+    projectGallery.addEventListener("mousedown", (e) => {
+      isDown = true;
+      startX = e.pageX - projectGallery.offsetLeft;
+      scrollLeft = projectGallery.scrollLeft;
+    });
 
+    projectGallery.addEventListener("mouseleave", () => {
+      isDown = false;
+    });
 
+    projectGallery.addEventListener("mouseup", () => {
+      isDown = false;
+    });
 
-// Smooth Scrolling for Project Section on Mobile
+    projectGallery.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - projectGallery.offsetLeft;
+      const walk = (x - startX) * 2;
+      projectGallery.scrollLeft = scrollLeft - walk;
+    });
+  }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const projectGallery = document.querySelector(".project-gallery");
-
-    if (projectGallery) {
-        projectGallery.addEventListener("wheel", (event) => {
-            event.preventDefault();
-            projectGallery.scrollLeft += event.deltaY * 2; // Faster horizontal scroll
-        });
-
-        // Enable touch swipe support for mobile users
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        projectGallery.addEventListener("mousedown", (e) => {
-            isDown = true;
-            startX = e.pageX - projectGallery.offsetLeft;
-            scrollLeft = projectGallery.scrollLeft;
-        });
-
-        projectGallery.addEventListener("mouseleave", () => {
-            isDown = false;
-        });
-
-        projectGallery.addEventListener("mouseup", () => {
-            isDown = false;
-        });
-
-        projectGallery.addEventListener("mousemove", (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - projectGallery.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll-fast effect
-            projectGallery.scrollLeft = scrollLeft - walk;
-        });
-    }
-
-    function scrollGallery(amount) {
-        if (projectGallery) {
-            projectGallery.scrollLeft += amount ;  // Adjust scroll amount (e.g., 300px)
+  // Image hover effect
+  const images = document.querySelectorAll(".image-card img");
+  images.forEach((img) => {
+    img.addEventListener("mouseenter", () => {
+      images.forEach((other) => {
+        if (other !== img) {
+          other.style.transform = "scale(0.9)";
         }
-    }
-    
-    // Ensure buttons exist before adding event listeners
-    const nextBtn = document.querySelector("#next-btn");
-    const prevBtn = document.querySelector("#prev-btn");
-    
-    if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-            scrollGallery(300); // Scrolls right by 300px
-        });
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-            scrollGallery(-300); // Scrolls left by 300px
-        });
-    }
-});
-
-// Image Grid //
-
-document.addEventListener("DOMContentLoaded", function () {
-    const images = document.querySelectorAll(".image-card img");
-
-    images.forEach(img => {
-        img.addEventListener("mouseenter", () => {
-            images.forEach(other => {
-                if (other !== img) {
-                    other.style.transform = "scale(0.9)";
-                }
-            });
-            img.style.transform = "scale(1.1)";
-        });
-
-        img.addEventListener("mouseleave", () => {
-            images.forEach(other => {
-                other.style.transform = "scale(1)";
-            });
-        });
+      });
+      img.style.transform = "scale(1.1)";
     });
-});
 
-// FAQ //
-
-document.addEventListener("DOMContentLoaded", function () {
-    const faqs = document.querySelectorAll(".faq");
-
-    faqs.forEach(faq => {
-        faq.addEventListener("click", () => {
-            faq.classList.toggle("active");
-        });
+    img.addEventListener("mouseleave", () => {
+      images.forEach((other) => {
+        other.style.transform = "scale(1)";
+      });
     });
+  });
+
+  // FAQ
+  const faqs = document.querySelectorAll(".faq");
+  faqs.forEach((faq) => {
+    faq.addEventListener("click", () => {
+      faq.classList.toggle("active");
+    });
+  });
 });
 
-
-// Blog // 
-
+// Blog
 function toggleBlogContent(button) {
-    const fullContent = button.nextElementSibling;
-    if (fullContent.style.display === "block") {
-        fullContent.style.display = "none";
-        button.textContent = "Read More";
-    } else {
-        fullContent.style.display = "block";
-        button.textContent = "Read Less";
-    }
+  const fullContent = button.nextElementSibling;
+  if (fullContent.style.display === "block") {
+    fullContent.style.display = "none";
+    button.textContent = "Read More";
+  } else {
+    fullContent.style.display = "block";
+    button.textContent = "Read Less";
+  }
 }
 
+window.toggleBlogContent = toggleBlogContent;
