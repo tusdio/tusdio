@@ -39,6 +39,7 @@ header nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
 }
 
 header nav ul li {
@@ -48,6 +49,43 @@ header nav ul li {
 header nav ul li a {
     color: #fff;
     text-decoration: none;
+}
+
+/* Dynamic user area */
+.nav-user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-name {
+    color: #bdbdbd;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.nav-user-btn {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-user-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: #fff;
 }
 
 /* Mobile Menu Toggle */
@@ -64,11 +102,11 @@ header nav ul li a {
     * {
         margin: 0;
         padding: 0;
-        box-sizing: border-box; /* Ensures everything fits inside */
+        box-sizing: border-box;
     }
 
     body {
-        overflow-x: hidden; /* Prevents horizontal scrolling */
+        overflow-x: hidden;
     }
 
     .menu-toggle {
@@ -80,7 +118,7 @@ header nav ul li a {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100vw; /* Forces full width */
+        width: 100vw;
         z-index: 1000;
     }
 
@@ -88,7 +126,7 @@ header nav ul li a {
         position: absolute;
         top: 60px;
         left: 0;
-        width: 100%; /* Ensures full width */
+        width: 100%;
         background: black;
         display: none;
         text-align: center;
@@ -96,7 +134,7 @@ header nav ul li a {
     }
 
     header nav ul {
-font-family: Arial, Helvetica, sans-serif;
+        font-family: Arial, Helvetica, sans-serif;
         font-weight: lighter;
         flex-direction: column;
         padding: 0;
@@ -107,11 +145,23 @@ font-family: Arial, Helvetica, sans-serif;
         padding-bottom: 20px;
         text-align: right;
         padding-right: 20px;
+        align-items: flex-end;
     }
 
     header nav ul li {
         margin: 0;
         width: 100%;
+    }
+
+    .nav-user-area,
+    .nav-user-box {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+    }
+
+    .nav-user-name {
+        font-size: 13px;
     }
 
     /* Show menu when active */
