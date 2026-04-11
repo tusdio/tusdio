@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owner Panel | TUSDIO</title>
+  <link rel="stylesheet" href="owner.css" />
+</head>
+<body>
+  <div class="bg-blur blur-1"></div>
+  <div class="bg-blur blur-2"></div>
+
+  <header>
+    <div class="container">
+      <a href="../../index.html" class="logo-link">
+        <h1 class="logo">TUSDIO.</h1>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+
+      <nav id="mainNav">
+        <ul class="nav-links">
+          <li><a href="../About Us/about us.html">About</a></li>
+          <li><a href="../Services/services.html">Services</a></li>
+          <li><a href="../Package/package.html">Package</a></li>
+          <li><a href="../Portfolio/portfolio.html">Portfolio</a></li>
+          <li><a href="../Contact Us/contact.html">Contact</a></li>
+          <li><a href="../freebie/freebie.html">Freebie</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+ <main class="owner-layout">
+
+  <section class="clients-panel glass">
+    <p class="eyebrow">Clients</p>
+    <h2>All Clients</h2>
+    <div id="clientsList" class="clients-list"></div>
+  </section>
+
+  <section class="editor-panel glass project-control-panel">
+    <p class="eyebrow">Editor</p>
+    <h2>Project Control</h2>
+
+    <form id="ownerForm" class="owner-form">
+      <input type="hidden" id="clientId" />
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" id="name" />
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email" />
+        </div>
+
+        <div class="field">
+          <label>Service</label>
+          <input type="text" id="service" />
+        </div>
+
+        <div class="field">
+          <label>Project Name</label>
+          <input type="text" id="projectName" />
+        </div>
+
+        <div class="field">
+          <label>Phase</label>
+          <select id="phase">
+            <option value="Discovery">Discovery</option>
+            <option value="Strategy">Strategy</option>
+            <option value="Design Direction">Design Direction</option>
+            <option value="Revisions">Revisions</option>
+            <option value="Final Delivery">Final Delivery</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Status</label>
+          <select id="status">
+            <option value="Not started">Not started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Waiting for feedback">Waiting for feedback</option>
+            <option value="Completed">Completed</option>
+            <option value="Removed">Removed</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Next Action</label>
+          <input type="text" id="nextAction" />
+        </div>
+
+        <div class="field">
+          <label>Progress (%)</label>
+          <input type="number" id="progress" min="0" max="100" />
+        </div>
+
+        <div class="field">
+          <label>Revision Round</label>
+          <input type="text" id="revisionRound" />
+        </div>
+
+        <div class="field">
+          <label>Start Date</label>
+          <input type="text" id="startDate" />
+        </div>
+
+        <div class="field">
+          <label>Estimated Delivery</label>
+          <input type="text" id="estimatedDelivery" />
+        </div>
+
+        <div class="field">
+          <label>Login Type</label>
+          <input type="text" id="loginType" readonly />
+        </div>
+
+        <div class="field">
+          <label>Plan Name</label>
+          <input type="text" id="planName" />
+        </div>
+
+        <div class="field">
+          <label>Payment Status</label>
+          <select id="paymentStatus">
+            <option value="Pending">Pending</option>
+            <option value="Partially Paid">Partially Paid</option>
+            <option value="Paid">Paid</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Total Amount</label>
+          <input type="number" id="totalAmount" min="0" />
+        </div>
+
+        <div class="field">
+          <label>Paid Amount</label>
+          <input type="number" id="paidAmount" min="0" />
+        </div>
+
+        <div class="field">
+          <label>Invoice Link</label>
+          <input type="text" id="invoiceLink" placeholder="Paste invoice link here" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Updates (one per line)</label>
+        <textarea id="updates" rows="6"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Tasks (one per line)</label>
+        <textarea id="tasks" rows="6"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Files / Deliverables</label>
+        <textarea id="filesInput" rows="6" placeholder="One per line like: Moodboard | Direction references and brand tone | https://your-link.com"></textarea>
+      </div>
+
+      <div class="owner-actions">
+        <button type="submit" class="save-btn">Save Changes</button>
+        <button type="button" id="removeClientBtn" class="btn-danger">Remove Access</button>
+        <button type="button" id="restoreClientBtn" class="btn-secondary">Reactivate Access</button>
+      </div>
+
+      <p id="saveMessage" class="save-message"></p>
+    </form>
+  </section>
+
+  <section class="editor-panel glass requests-panel">
+    <p class="eyebrow">Requests</p>
+    <h2>Client Requests</h2>
+    <div id="requestsList" class="clients-list"></div>
+  </section>
+
+  <section class="editor-panel glass onboarding-panel">
+    <div class="panel-top">
+      <div>
+        <p class="eyebrow">Add Client</p>
+        <h2>Client Onboarding</h2>
+      </div>
+
+      <button type="button" id="toggleAddClientBtn" class="save-btn">+ Add New Client</button>
+    </div>
+
+    <form id="addClientForm" class="owner-form hidden-form">
+      <div class="form-grid">
+        <div class="field">
+          <label>Client Name</label>
+          <input type="text" id="newClientName" required />
+        </div>
+
+        <div class="field">
+          <label>Client Email</label>
+          <input type="email" id="newClientEmail" required />
+        </div>
+
+        <div class="field">
+          <label>Service</label>
+          <input type="text" id="newClientService" placeholder="Brand identity" />
+        </div>
+
+        <div class="field">
+          <label>Project Name</label>
+          <input type="text" id="newClientProject" placeholder="Confidmate" />
+        </div>
+      </div>
+
+      <div class="owner-actions">
+        <button type="submit" class="save-btn">Create Client</button>
+        <button type="button" id="cancelAddClientBtn" class="btn-secondary">Cancel</button>
+      </div>
+
+      <p id="addClientMessage" class="save-message"></p>
+    </form>
+  </section>
+
+</main>
+
+  <script type="module" src="owner.js"></script>
+</body>
+</html>

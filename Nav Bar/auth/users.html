@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Portal | TUSDIO</title>
+  <link rel="stylesheet" href="users.css" />
+</head>
+<body>
+  <div class="bg-blur blur-1"></div>
+  <div class="bg-blur blur-2"></div>
+
+  <header>
+    <div class="container">
+      <a href="../../index.html" class="logo-link">
+        <h1 class="logo">TUSDIO.</h1>
+      </a>
+
+      <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+
+      <nav id="mainNav">
+        <ul class="nav-links">
+          <li><a href="../About Us/about us.html">About</a></li>
+          <li><a href="../Services/services.html">Services</a></li>
+          <li><a href="../Package/package.html">Package</a></li>
+          <li><a href="../Portfolio/portfolio.html">Portfolio</a></li>
+          <li><a href="../Contact Us/contact.html">Contact</a></li>
+          <li><a href="../freebie/freebie.html">Freebie</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome-card glass">
+      <div class="welcome-copy">
+        <p class="eyebrow">Welcome back</p>
+        <h2 id="userName">Loading...</h2>
+        <p class="subtext">
+          Track your project progress, current phase, updates, and next actions — all in one place.
+        </p>
+      </div>
+
+      <div class="welcome-side">
+        <div class="mini-stat">
+          <span>Service</span>
+          <strong id="serviceName">Loading...</strong>
+        </div>
+        <div class="mini-stat">
+          <span>Status</span>
+          <strong id="statusText">Loading...</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="overview-grid">
+      <div class="overview-card glass">
+        <p>Current Service</p>
+        <h3 id="overviewService">Loading...</h3>
+      </div>
+
+      <div class="overview-card glass">
+        <p>Current Phase</p>
+        <h3 id="overviewPhase">Loading...</h3>
+      </div>
+
+      <div class="overview-card glass">
+       <p>Progress</p>
+       <h3 id="progressValue">0%</h3>
+
+      <div class="progress-bar">
+       <div class="progress-fill" id="progressFill"></div>
+  </div>
+     </div>
+
+      <div class="overview-card glass">
+        <p>Next Action</p>
+        <h3 id="nextAction">Loading...</h3>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel glass">
+        <div class="panel-head">
+          <p class="eyebrow">Project Timeline</p>
+          <h3>Current Workflow</h3>
+        </div>
+
+        <div class="timeline">
+          <div class="step" id="step-discovery">
+            <span class="dot"></span>
+            <div>
+              <strong>Discovery</strong>
+              <p>Project foundation and briefing stage</p>
+            </div>
+          </div>
+
+          <div class="step" id="step-strategy">
+            <span class="dot"></span>
+            <div>
+              <strong>Strategy</strong>
+              <p>Direction, planning, and alignment</p>
+            </div>
+          </div>
+
+          <div class="step" id="step-design">
+            <span class="dot"></span>
+            <div>
+              <strong>Design Direction</strong>
+              <p>Creative execution in progress</p>
+            </div>
+          </div>
+
+          <div class="step" id="step-revisions">
+            <span class="dot"></span>
+            <div>
+              <strong>Revisions</strong>
+              <p>Refinement and final feedback</p>
+            </div>
+          </div>
+
+          <div class="step" id="step-delivery">
+            <span class="dot"></span>
+            <div>
+              <strong>Final Delivery</strong>
+              <p>Final assets and project completion</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <p class="eyebrow">Project Details</p>
+          <h3>Summary</h3>
+        </div>
+
+        <div class="detail-list">
+          <div class="detail-row">
+            <span>Project Name</span>
+            <strong id="projectName">Loading...</strong>
+          </div>
+          <div class="detail-row">
+            <span>Service</span>
+            <strong id="detailService">Loading...</strong>
+          </div>
+          <div class="detail-row">
+            <span>Started</span>
+            <strong id="startDate">Loading...</strong>
+          </div>
+          <div class="detail-row">
+            <span>Estimated Delivery</span>
+            <strong id="estimatedDelivery">Loading...</strong>
+          </div>
+          <div class="detail-row">
+            <span>Revision Round</span>
+            <strong id="revisionRound">Loading...</strong>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel glass">
+  <div class="panel-head">
+    <p class="eyebrow">Payment</p>
+    <h3>Plan & Billing</h3>
+  </div>
+
+  <div class="detail-list">
+    <div class="detail-row">
+      <span>Plan</span>
+      <strong id="planNameDisplay">Loading...</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Payment Status</span>
+      <strong id="paymentStatusDisplay">Loading...</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Total Amount</span>
+      <strong id="totalAmountDisplay">₹0</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Paid Amount</span>
+      <strong id="paidAmountDisplay">₹0</strong>
+    </div>
+
+    <div class="detail-row">
+      <span>Due Amount</span>
+      <strong id="dueAmountDisplay">₹0</strong>
+    </div>
+  </div>
+
+  <div class="invoice-actions">
+    <a id="invoiceDownloadBtn" href="#" target="_blank" rel="noopener noreferrer" class="file-open-btn">
+      Invoice Not Available
+    </a>
+  </div>
+</section>
+
+<section class="panel glass">
+  <div class="panel-head">
+    <p class="eyebrow">Requests</p>
+    <h3>Contact TUSDIO</h3>
+  </div>
+
+  <form id="requestForm" class="owner-form">
+    <div class="form-grid">
+      <div class="field">
+        <label>Request Type</label>
+        <select id="requestType" required>
+          <option value="Revision Request">Revision Request</option>
+          <option value="Service Request">Service Request</option>
+          <option value="Message">Message</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Subject</label>
+        <input type="text" id="requestSubject" placeholder="Enter subject" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Message</label>
+      <textarea id="requestMessage" rows="6" placeholder="Write your message here..." required></textarea>
+    </div>
+
+    <button type="submit" class="save-btn">Send Request</button>
+    <p id="requestStatusMsg" class="save-message"></p>
+  </form>
+</section>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <p class="eyebrow">Updates</p>
+          <h3>Latest From TUSDIO</h3>
+        </div>
+
+        <div class="updates-feed" id="updatesFeed"></div>
+      </div>
+
+      <div class="panel glass">
+        <div class="panel-head">
+          <p class="eyebrow">Client Tasks</p>
+          <h3>What We Need From You</h3>
+        </div>
+
+        <div class="task-list" id="taskList"></div>
+      </div>
+    </section>
+
+    <section class="deliverables-panel glass">
+  <div class="panel-head">
+    <p class="eyebrow">Deliverables</p>
+    <h3>Files & Assets</h3>
+  </div>
+
+  <div class="deliverables-grid" id="deliverablesGrid">
+    <div class="file-card">
+      <strong>Moodboard</strong>
+      <p>Direction references and brand tone</p>
+    </div>
+    <div class="file-card">
+      <strong>Concept Sheet</strong>
+      <p>Initial visual system concepts</p>
+    </div>
+    <div class="file-card">
+      <strong>Final Assets</strong>
+      <p>Will appear after final delivery</p>
+    </div>
+  </div>
+</section>
+
+    <section class="about-panel glass">
+      <div class="panel-head">
+        <p class="eyebrow">About TUSDIO</p>
+        <h3>Creative direction with a premium edge</h3>
+      </div>
+
+      <p class="about-copy">
+        TUSDIO helps brands look more refined, more intentional, and more memorable through branding,
+        visual identity, product development, and digital creative systems. Every project is built to
+        feel premium and perform with clarity.
+      </p>
+    </section>
+
+<section class="panel glass">
+  <div class="panel-head">
+    <p class="eyebrow">Account Access</p>
+    <h3>Login Methods</h3>
+  </div>
+
+  <button id="linkGoogleBtn" type="button" class="save-btn">Link Google Login</button>
+  <p id="linkMessage" class="save-message"></p>
+</section>
+
+
+  </main>
+
+  <button id="logoutBtn" class="sticky-help">Logout</button>
+
+  <script type="module" src="users.js"></script>
+</body>
+</html>
