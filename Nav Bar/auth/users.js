@@ -38,9 +38,11 @@ const updatesFeed = document.getElementById("updatesFeed");
 const taskList = document.getElementById("taskList");
 const deliverablesGrid = document.getElementById("deliverablesGrid");
 const logoutBtn = document.getElementById("logoutBtn");
+const navUserArea = document.getElementById("navUserArea");
 
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.getElementById("mainNav");
+const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
 
 let unsubscribeClient = null;
 
@@ -48,6 +50,43 @@ if (menuToggle && nav) {
   menuToggle.addEventListener("click", () => {
     nav.classList.toggle("active");
   });
+}
+
+function updateNavbarUserState(user) {
+  if (!navUserArea) return;
+
+  if (user) {
+    const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
+    const isOwner = (user.email || "").toLowerCase() === OWNER_EMAIL.toLowerCase();
+
+    const dashboardLink = isOwner
+      ? "./owner/owner.html"
+      : "./users.html";
+
+    navUserArea.innerHTML = `
+      <div class="nav-user-box">
+        <span class="nav-user-name">${name}</span>
+        <a href="${dashboardLink}" class="nav-user-btn">Dashboard</a>
+        <button id="logoutNavBtn" class="nav-user-btn" type="button">Logout</button>
+      </div>
+    `;
+
+    const logoutNavBtn = document.getElementById("logoutNavBtn");
+    if (logoutNavBtn) {
+      logoutNavBtn.addEventListener("click", async () => {
+        if (unsubscribeClient) {
+          unsubscribeClient();
+        }
+
+        await signOut(auth);
+        window.location.href = "login.html";
+      });
+    }
+  } else {
+    navUserArea.innerHTML = `
+      <a href="./login.html">Login</a>
+    `;
+  }
 }
 
 function showAccessRemoved() {
@@ -113,25 +152,6 @@ function updateTimeline(phase) {
     steps.revisions?.classList.add("done");
     steps.delivery?.classList.add("active");
   }
-}
-
-function renderDefaultDeliverables() {
-  if (!deliverablesGrid) return;
-
-  deliverablesGrid.innerHTML = `
-    <div class="file-card">
-      <strong>Moodboard</strong>
-      <p>Direction references and brand tone</p>
-    </div>
-    <div class="file-card">
-      <strong>Concept Sheet</strong>
-      <p>Initial visual system concepts</p>
-    </div>
-    <div class="file-card">
-      <strong>Final Assets</strong>
-      <p>Will appear after final delivery</p>
-    </div>
-  `;
 }
 
 function renderDeliverables(files) {
@@ -226,7 +246,6 @@ function renderClientData(user, data) {
   const paidAmount = Number(data.paidAmount) || 0;
   const dueAmount = Math.max(totalAmount - paidAmount, 0);
 
-
   if (userName) userName.textContent = data.name || user.displayName || user.email || "Client";
   if (serviceName) serviceName.textContent = data.service || "Not selected yet";
   if (statusText) statusText.textContent = data.status || "Not started";
@@ -244,24 +263,24 @@ function renderClientData(user, data) {
   }
 
   if (planNameDisplay) planNameDisplay.textContent = data.planName || "Not assigned";
-if (paymentStatusDisplay) paymentStatusDisplay.textContent = data.paymentStatus || "Pending";
-if (totalAmountDisplay) totalAmountDisplay.textContent = `₹${totalAmount}`;
-if (paidAmountDisplay) paidAmountDisplay.textContent = `₹${paidAmount}`;
-if (dueAmountDisplay) dueAmountDisplay.textContent = `₹${dueAmount}`;
+  if (paymentStatusDisplay) paymentStatusDisplay.textContent = data.paymentStatus || "Pending";
+  if (totalAmountDisplay) totalAmountDisplay.textContent = `₹${totalAmount}`;
+  if (paidAmountDisplay) paidAmountDisplay.textContent = `₹${paidAmount}`;
+  if (dueAmountDisplay) dueAmountDisplay.textContent = `₹${dueAmount}`;
 
-if (invoiceDownloadBtn) {
-  if (data.invoiceLink && data.invoiceLink.trim() !== "") {
-    invoiceDownloadBtn.href = data.invoiceLink;
-    invoiceDownloadBtn.textContent = "Download Invoice";
-    invoiceDownloadBtn.style.pointerEvents = "auto";
-    invoiceDownloadBtn.style.opacity = "1";
-  } else {
-    invoiceDownloadBtn.href = "#";
-    invoiceDownloadBtn.textContent = "Invoice Not Available";
-    invoiceDownloadBtn.style.pointerEvents = "none";
-    invoiceDownloadBtn.style.opacity = "0.5";
+  if (invoiceDownloadBtn) {
+    if (data.invoiceLink && data.invoiceLink.trim() !== "") {
+      invoiceDownloadBtn.href = data.invoiceLink;
+      invoiceDownloadBtn.textContent = "Download Invoice";
+      invoiceDownloadBtn.style.pointerEvents = "auto";
+      invoiceDownloadBtn.style.opacity = "1";
+    } else {
+      invoiceDownloadBtn.href = "#";
+      invoiceDownloadBtn.textContent = "Invoice Not Available";
+      invoiceDownloadBtn.style.pointerEvents = "none";
+      invoiceDownloadBtn.style.opacity = "0.5";
+    }
   }
-}
 
   renderUpdates(updates);
   renderTasks(tasks);
@@ -270,6 +289,8 @@ if (invoiceDownloadBtn) {
 }
 
 onAuthStateChanged(auth, async (user) => {
+  updateNavbarUserState(user);
+
   if (!user) {
     window.location.href = "login.html";
     return;
