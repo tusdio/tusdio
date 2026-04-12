@@ -19,26 +19,6 @@ html, body {
     overflow: hidden;
 }
 
-/* Fix elements that may cause extra width */
-.some-element { 
-    max-width: 100%; /* Ensure images or large elements don’t cause overflow */
-    display: block;  /* Prevent inline elements from adding space */
-}
-
-/* Ensure flex/grid containers do not expand beyond viewport */
-.flex-container {
-    display: flex;
-    flex-wrap: wrap; /* Prevents flex items from exceeding width */
-    justify-content: center; /* Adjust alignment */
-    max-width: 100%;
-}
-
-/* Debugging tool (Optional) */
-@media (max-width: 1200px) {
-    body {
-        outline: 2px solid red; /* Helps identify overflowing elements */
-    }
-}
 
 
 
