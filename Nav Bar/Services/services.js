@@ -4,7 +4,7 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
-// Nav Bar responsive
+// Nav toggle
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("header nav");
 
@@ -33,15 +33,15 @@ onAuthStateChanged(auth, (user) => {
       <div class="nav-user-box">
         <span class="nav-user-name">${name}</span>
         <a href="${dashboardLink}" class="nav-user-btn">Dashboard</a>
-        <button id="logoutBtn" class="nav-user-btn" type="button">Logout</button>
+        <button id="logoutNavBtn" class="nav-user-btn" type="button">Logout</button>
       </div>
     `;
 
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", async () => {
+    const logoutNavBtn = document.getElementById("logoutNavBtn");
+    if (logoutNavBtn) {
+      logoutNavBtn.addEventListener("click", async () => {
         await signOut(auth);
-        location.reload();
+        window.location.href = "../auth/login.html";
       });
     }
   } else {
@@ -50,3 +50,21 @@ onAuthStateChanged(auth, (user) => {
     `;
   }
 });
+
+// Reveal animation
+const revealElements = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  const triggerBottom = window.innerHeight * 0.9;
+
+  revealElements.forEach((element) => {
+    const rect = element.getBoundingClientRect();
+
+    if (rect.top < triggerBottom) {
+      element.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
