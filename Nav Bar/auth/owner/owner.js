@@ -1,6 +1,7 @@
 import { auth, db } from "../firebase-config.js";
 import {
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 import {
   collection,
@@ -13,16 +14,13 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
-
-
-
-
 const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
 
 const requestsList = document.getElementById("requestsList");
 const clientsList = document.getElementById("clientsList");
 const ownerForm = document.getElementById("ownerForm");
 const saveMessage = document.getElementById("saveMessage");
+const navUserArea = document.getElementById("navUserArea");
 
 const planNameInput = document.getElementById("planName");
 const paymentStatusInput = document.getElementById("paymentStatus");
@@ -68,6 +66,27 @@ if (menuToggle && nav) {
   });
 }
 
+function renderOwnerNavbar(user) {
+  if (!navUserArea) return;
+
+  const name = user?.displayName || "Owner";
+
+  navUserArea.innerHTML = `
+    <div class="nav-user-box">
+      <span class="nav-user-name">${name}</span>
+      <a href="./owner.html" class="nav-user-btn">Dashboard</a>
+      <button id="logoutNavBtn" class="nav-user-btn" type="button">Logout</button>
+    </div>
+  `;
+
+  const logoutNavBtn = document.getElementById("logoutNavBtn");
+  if (logoutNavBtn) {
+    logoutNavBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "../login.html";
+    });
+  }
+}
 
 function setMessage(text) {
   if (saveMessage) saveMessage.textContent = text;
@@ -281,27 +300,6 @@ if (restoreBtn) {
   });
 }
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "../login.html";
-    return;
-  }
-
-  const email = (user.email || "").trim().toLowerCase();
-  const ownerEmail = OWNER_EMAIL.trim().toLowerCase();
-
-  if (email !== ownerEmail) {
-    window.location.href = "../users.html";
-    return;
-  }
-
-await loadClients();
-await loadRequests();
-
-});
-
-// request 
-
 async function loadRequests() {
   if (!requestsList) return;
 
@@ -383,8 +381,6 @@ function attachRequestStatusEvents() {
   });
 }
 
-// new client add
-
 function makeClientDocId(email) {
   return email.trim().toLowerCase().replace(/[^a-z0-9]/g, "_");
 }
@@ -402,6 +398,7 @@ if (cancelAddClientBtn && addClientForm) {
     if (addClientMessage) addClientMessage.textContent = "";
   });
 }
+
 if (addClientForm) {
   addClientForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -463,3 +460,22 @@ if (addClientForm) {
     }
   });
 }
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "../login.html";
+    return;
+  }
+
+  const email = (user.email || "").trim().toLowerCase();
+  const ownerEmail = OWNER_EMAIL.trim().toLowerCase();
+
+  if (email !== ownerEmail) {
+    window.location.href = "../users.html";
+    return;
+  }
+
+  renderOwnerNavbar(user);
+  await loadClients();
+  await loadRequests();
+});
