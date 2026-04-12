@@ -4,7 +4,7 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
-// Nav Bar responsive
+// Nav toggle
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("header nav");
 
@@ -13,64 +13,6 @@ if (menuToggle && nav) {
     nav.classList.toggle("active");
   });
 }
-
-// Timeline data
-const steps = [
-  {
-    title: "Start",
-    text: "Clients reach out via email, website, or social media. We review their needs and assess how to best assist them."
-  },
-  {
-    title: "Meeting",
-    text: "We schedule a 30-minute call to understand the client's vision and project scope."
-  },
-  {
-    title: "Proposal",
-    text: "A detailed project proposal outlining deliverables, timelines, and pricing is shared."
-  },
-  {
-    title: "Agreement",
-    text: "Once approved, a formal agreement is signed to finalize project terms."
-  },
-  {
-    title: "Deposit",
-    text: "A 30% non-refundable security deposit is required to initiate the project."
-  },
-  {
-    title: "Preview",
-    text: "Initial designs or previews are shared, allowing for minor revisions."
-  },
-  {
-    title: "Payment",
-    text: "The remaining balance is cleared before final delivery."
-  },
-  {
-    title: "Final",
-    text: "Final files are delivered, completing the project."
-  }
-];
-
-function showStep(index) {
-  const stepTitle = document.getElementById("step-title");
-  const stepText = document.getElementById("step-text");
-  const stepsElements = document.querySelectorAll(".timeline-step");
-
-  if (!stepTitle || !stepText || !stepsElements.length) return;
-  if (index < 0 || index >= steps.length) return;
-
-  stepTitle.innerText = steps[index].title;
-  stepText.innerText = steps[index].text;
-
-  stepsElements.forEach((step) => step.classList.remove("active"));
-
-  if (stepsElements[index]) {
-    stepsElements[index].classList.add("active");
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  showStep(0);
-});
 
 // Navbar user state
 const navUserArea = document.getElementById("navUserArea");
@@ -91,15 +33,15 @@ onAuthStateChanged(auth, (user) => {
       <div class="nav-user-box">
         <span class="nav-user-name">${name}</span>
         <a href="${dashboardLink}" class="nav-user-btn">Dashboard</a>
-        <button id="logoutBtn" class="nav-user-btn" type="button">Logout</button>
+        <button id="logoutNavBtn" class="nav-user-btn" type="button">Logout</button>
       </div>
     `;
 
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", async () => {
+    const logoutNavBtn = document.getElementById("logoutNavBtn");
+    if (logoutNavBtn) {
+      logoutNavBtn.addEventListener("click", async () => {
         await signOut(auth);
-        location.reload();
+        window.location.href = "../auth/login.html";
       });
     }
   } else {
@@ -109,5 +51,37 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Make showStep available to inline HTML onclick if you use it there
+// Timeline data
+const steps = [
+  { title: "Start", text: "Clients reach out via email, website, or social media. We review their needs and assess how to best assist them." },
+  { title: "Meeting", text: "We schedule a 30-minute call to understand the client's vision and project scope." },
+  { title: "Proposal", text: "A detailed project proposal outlining deliverables, timelines, and pricing is shared." },
+  { title: "Agreement", text: "Once approved, a formal agreement is signed to finalize project terms." },
+  { title: "Deposit", text: "A 30% non-refundable security deposit is required to initiate the project." },
+  { title: "Preview", text: "Initial designs or previews are shared, allowing for minor revisions." },
+  { title: "Payment", text: "The remaining balance is cleared before final delivery." },
+  { title: "Final", text: "Final files are delivered, completing the project." }
+];
+
+function showStep(index) {
+  const stepTitle = document.getElementById("step-title");
+  const stepText = document.getElementById("step-text");
+  const stepsElements = document.querySelectorAll(".timeline-step");
+
+  if (!stepTitle || !stepText || !stepsElements.length) return;
+  if (index < 0 || index >= steps.length) return;
+
+  stepTitle.innerText = steps[index].title;
+  stepText.innerText = steps[index].text;
+
+  stepsElements.forEach((step) => step.classList.remove("active"));
+  if (stepsElements[index]) {
+    stepsElements[index].classList.add("active");
+  }
+}
+
 window.showStep = showStep;
+
+document.addEventListener("DOMContentLoaded", () => {
+  showStep(0);
+});
