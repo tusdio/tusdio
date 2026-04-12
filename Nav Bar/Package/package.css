@@ -59,129 +59,160 @@ body::after {
     padding: 120px 20px 80px;
 }
 
-/*Header*/
-
-/* General Header Styling */
+/* Header */
 header {
-    background: #000;
-    color: #fff;
-    padding: 1rem 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  color: #fff;
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1220px;
+  margin: auto;
+  padding: 0 20px;
+  gap: 18px;
 }
 
-/* Logo */
-header h1 {
-    margin: 0;
-}
-
-/* Logo Link Styling */
 .logo-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Keep the text white */
-    transition: opacity 0.3s ease-in-out;
+  text-decoration: none;
+  color: #fff;
+  flex-shrink: 0;
 }
 
-.logo-link:hover {
-    opacity: 0.8; /* Slight fade effect on hover */
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: normal;
+  letter-spacing: 1px;
 }
 
-/* Navigation */
+header nav {
+  margin-left: auto;
+}
+
 header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
 }
 
 header nav ul li {
-    margin: 0 10px;
+  margin: 0;
 }
 
 header nav ul li a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
 }
 
-/* Mobile Menu Toggle */
+header nav ul li a:hover {
+  opacity: 0.75;
+}
+
+.nav-user-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-user-name {
+  color: #bdbdbd;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.nav-user-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-user-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #fff;
+}
+
 .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: white;
-    cursor: pointer;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box; /* Ensures everything fits inside */
-    }
+/* Responsive Navbar */
+@media (max-width: 1024px) {
+  .menu-toggle {
+    display: block;
+  }
 
-    body {
-        overflow-x: hidden; /* Prevents horizontal scrolling */
-    }
+  header nav {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    background: #000;
+    display: none;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
 
-    .menu-toggle {
-        display: block;
-    }
+  header nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 22px 20px;
+    text-align: right;
+    align-items: flex-end;
+  }
 
-    header {
-        background: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw; /* Forces full width */
-        z-index: 1000;
-    }
+  header nav ul li {
+    width: 100%;
+  }
 
-    header nav {
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%; /* Ensures full width */
-        background: black;
-        display: none;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
-    }
+  .nav-user-area,
+  .nav-user-box {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
 
-    header nav ul {
-font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        flex-direction: column;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        gap: 30px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: right;
-        padding-right: 20px;
-    }
-
-    header nav ul li {
-        margin: 0;
-        width: 100%;
-    }
-
-    /* Show menu when active */
-    header nav.active {
-        display: block;
-    }
+  header nav.active {
+    display: block;
+  }
 }
 
 
