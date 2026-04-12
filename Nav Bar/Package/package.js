@@ -59,19 +59,4 @@ chooseButtons.forEach((button) => {
     const service = button.dataset.service || "";
     window.location.href = `../Contact Us/contact.html?service=${encodeURIComponent(service)}`;
   });
-});      </div>
-    `;
-
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", async () => {
-        await signOut(auth);
-        location.reload();
-      });
-    }
-  } else {
-    navUserArea.innerHTML = `
-      <a href="../auth/login.html">Login</a>
-    `;
-  }
 });
