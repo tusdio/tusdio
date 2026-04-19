@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Canonical (clean URL) -->
-  <link rel="canonical" href="https://tusdio.online/services" />
+  <!-- Canonical -->
+  <link rel="canonical" href="https://tusdio.online/Nav%20Bar/Services/services.html" />
 
   <!-- SEO Title -->
   <title>TUSDIO Services | Branding, Visual Identity, Product Design & Digital Marketing</title>
@@ -13,15 +13,18 @@
   <!-- SEO Description -->
   <meta
     name="description"
-    content="Explore TUSDIO services including branding, visual identity design, product design, and digital marketing solutions to build premium and impactful brands."
+    content="Explore TUSDIO services including branding, visual identity design, product design, and digital marketing solutions built to help modern brands look premium and grow with clarity."
   />
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
   <!-- Theme -->
   <meta name="theme-color" content="#000000" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tusdio.online/services" />
+  <meta property="og:url" content="https://tusdio.online/Nav%20Bar/Services/services.html" />
   <meta property="og:title" content="TUSDIO Services | Creative Solutions for Modern Brands" />
   <meta
     property="og:description"
@@ -32,16 +35,27 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://tusdio.online/services" />
+  <meta name="twitter:url" content="https://tusdio.online/Nav%20Bar/Services/services.html" />
   <meta name="twitter:title" content="TUSDIO Services | Creative Solutions for Modern Brands" />
   <meta
     name="twitter:description"
-    content="Explore branding, visual identity, product design, and marketing services by TUSDIO."
+    content="Explore branding, visual identity, product design, and digital marketing services by TUSDIO."
   />
   <meta name="twitter:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
   <meta name="twitter:image:alt" content="TUSDIO services preview" />
 
-  <!-- Structured Data (VERY IMPORTANT) -->
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://tusdio.online/Nav%20Bar/Services/services.html",
+    "url": "https://tusdio.online/Nav%20Bar/Services/services.html",
+    "name": "TUSDIO Services",
+    "description": "Explore TUSDIO services including branding, visual identity design, product development, and digital marketing."
+  }
+  </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -50,7 +64,7 @@
     "provider": {
       "@type": "Organization",
       "name": "TUSDIO",
-      "url": "https://tusdio.online"
+      "url": "https://tusdio.online/"
     },
     "areaServed": "Worldwide",
     "hasOfferCatalog": {
@@ -75,7 +89,7 @@
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Product Design"
+            "name": "Product Development"
           }
         },
         {
@@ -90,23 +104,22 @@
   }
   </script>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="services.css" />
-
-  <!-- Script -->
   <script type="module" src="services.js" defer></script>
 </head>
 
 <body>
   <header>
     <div class="container">
-      <a href="../../index.html" class="logo-link">
-        <h1 class="logo">TUSDIO.</h1>
+      <a href="/" class="logo-link" aria-label="TUSDIO Home">
+        <div class="logo">TUSDIO.</div>
       </a>
 
-      <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+      <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+        &#9776;
+      </button>
 
-      <nav>
+      <nav id="primary-nav">
         <ul class="nav-links">
           <li><a href="../About Us/about us.html">About</a></li>
           <li><a href="../Services/services.html">Services</a></li>
@@ -136,8 +149,7 @@
 
         <h1 class="hero-title">Built for brands that want to look sharper, clearer, and more premium.</h1>
         <p class="hero-subtitle">
-          TUSDIO crafts identity, visuals, and growth systems that make brands feel elevated —
-          not just designed.
+          TUSDIO crafts branding, visual identity, product development, and digital marketing systems that make brands feel elevated — not just designed.
         </p>
 
         <div class="hero-actions">
@@ -171,6 +183,16 @@
       </div>
     </section>
 
+    <section class="services-seo-copy reveal">
+      <div class="seo-copy-card glass">
+        <p>
+          Our services are built for startups, founders, and modern businesses that need more than surface-level visuals.
+          At TUSDIO, we create branding systems, visual identity direction, product development presentations, and digital
+          marketing solutions that help brands look premium and stay consistent across every touchpoint.
+        </p>
+      </div>
+    </section>
+
     <section class="services-grid" id="services-grid">
       <article class="service-card glass reveal">
         <div class="service-head">
@@ -182,7 +204,7 @@
         </div>
 
         <a href="Services page/product development/PD.html" class="service-image-wrap">
-          <img src="Images/Product design.png" alt="Product Development" />
+          <img src="Images/Product design.png" alt="Product development service by TUSDIO" />
         </a>
 
         <div class="service-content">
@@ -223,7 +245,7 @@
         </div>
 
         <a href="Services page/Branding/Branding.html" class="service-image-wrap">
-          <img src="Images/Aviaan.png" alt="Branding" />
+          <img src="Images/Aviaan.png" alt="Branding service by TUSDIO" />
         </a>
 
         <div class="service-content">
@@ -266,7 +288,7 @@
         </div>
 
         <a href="Services page/Visual Identity/vi.html" class="service-image-wrap">
-          <img src="Images/Logo Design.png" alt="Visual Identity" />
+          <img src="Images/Logo Design.png" alt="Visual identity service by TUSDIO" />
         </a>
 
         <div class="service-content">
@@ -307,7 +329,7 @@
         </div>
 
         <a href="Services page/Digital Marketing/dm.html" class="service-image-wrap">
-          <img src="Images/social media marketing.png" alt="Digital Marketing" />
+          <img src="Images/social media marketing.png" alt="Digital marketing service by TUSDIO" />
         </a>
 
         <div class="service-content">
