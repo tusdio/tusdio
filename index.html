@@ -48,12 +48,7 @@
     "@id": "https://tusdio.online/#website",
     "url": "https://tusdio.online/",
     "name": "TUSDIO",
-    "alternateName": "Tusdio",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://tusdio.online/search?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "alternateName": "Tusdio"
   }
   </script>
 
@@ -67,9 +62,9 @@
     "logo": "https://tusdio.online/images/favcon/favicon.png",
     "description": "Creative design agency offering branding, visual identity, product design, and digital marketing solutions.",
     "sameAs": [
-      "https://www.instagram.com/tusdio.site",
-      "https://www.linkedin.com/company/tusdio",
-      "https://x.com/tusdio069"
+      "https://www.behance.net/tusdio",
+      "https://www.instagram.com/tusdio._/",
+      "https://www.linkedin.com/in/tushar-khan-b05224272"
     ],
     "foundingDate": "2024-01-01"
   }
@@ -124,26 +119,29 @@
   </script>
 
   <link rel="stylesheet" href="styles.css" />
-  <script src="script.js" defer></script>
 
   <script>
     if (location.hostname === "tusdio.github.io") {
       window.location.href = "https://tusdio.online" + location.pathname;
     }
   </script>
+
+  <script type="module" src="script.js"></script>
 </head>
 <body>
 
   <!-- Nav Bar -->
   <header>
     <div class="container">
-      <a href="index.html" class="logo-link">
-        <h1 class="logo">TUSDIO.</h1>
+      <a href="index.html" class="logo-link" aria-label="TUSDIO Home">
+        <div class="logo">TUSDIO.</div>
       </a>
 
-      <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+      <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+        &#9776;
+      </button>
 
-      <nav>
+      <nav id="primary-nav">
         <ul class="nav-links">
           <li><a href="Nav Bar/About Us/about us.html">About</a></li>
           <li><a href="Nav Bar/Services/services.html">Services</a></li>
@@ -160,54 +158,89 @@
   </header>
 
   <!-- Desktop Slideshow -->
-  <section class="slideshow-container">
-    <img src="images/Slideshow/slide1.png" class="slide" alt="TUSDIO work 1" />
-    <img src="images/Slideshow/slide2.png" class="slide" alt="TUSDIO work 2" />
-    <img src="images/Slideshow/slide3.png" class="slide" alt="TUSDIO work 3" />
-    <img src="images/Slideshow/slide4.png" class="slide" alt="TUSDIO work 4" />
-    <img src="images/Slideshow/slide5.png" class="slide" alt="TUSDIO work 5" />
-    <img src="images/Slideshow/slide6.png" class="slide" alt="TUSDIO work 6" />
+  <section class="slideshow-container" aria-label="Featured TUSDIO work">
+    <img src="images/Slideshow/slide1.png" class="slide" alt="Branding and design work by TUSDIO" />
+    <img src="images/Slideshow/slide2.png" class="slide" alt="Creative visual identity project by TUSDIO" />
+    <img src="images/Slideshow/slide3.png" class="slide" alt="Premium brand design showcase by TUSDIO" />
+    <img src="images/Slideshow/slide4.png" class="slide" alt="Product and brand presentation by TUSDIO" />
+    <img src="images/Slideshow/slide5.png" class="slide" alt="Digital design work created by TUSDIO" />
+    <img src="images/Slideshow/slide6.png" class="slide" alt="Creative agency portfolio highlight by TUSDIO" />
   </section>
 
   <!-- Mobile Slideshow -->
-  <section class="mobile-slideshow-container">
-    <img src="images/Slideshow/only for mobile/1.png" class="mobile-slide" alt="TUSDIO mobile slide 1" />
-    <img src="images/Slideshow/only for mobile/2.png" class="mobile-slide" alt="TUSDIO mobile slide 2" />
-    <img src="images/Slideshow/only for mobile/3.png" class="mobile-slide" alt="TUSDIO mobile slide 3" />
-    <img src="images/Slideshow/only for mobile/4.png" class="mobile-slide" alt="TUSDIO mobile slide 4" />
-    <img src="images/Slideshow/only for mobile/5.png" class="mobile-slide" alt="TUSDIO mobile slide 5" />
-    <img src="images/Slideshow/only for mobile/6.png" class="mobile-slide" alt="TUSDIO mobile slide 6" />
-    <img src="images/Slideshow/only for mobile/7.png" class="mobile-slide" alt="TUSDIO mobile slide 7" />
-    <img src="images/Slideshow/only for mobile/8.png" class="mobile-slide" alt="TUSDIO mobile slide 8" />
-    <img src="images/Slideshow/only for mobile/9.png" class="mobile-slide" alt="TUSDIO mobile slide 9" />
+  <section class="mobile-slideshow-container" aria-label="Featured TUSDIO work mobile slideshow">
+    <img src="images/Slideshow/only for mobile/1.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 1" />
+    <img src="images/Slideshow/only for mobile/2.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 2" />
+    <img src="images/Slideshow/only for mobile/3.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 3" />
+    <img src="images/Slideshow/only for mobile/4.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 4" />
+    <img src="images/Slideshow/only for mobile/5.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 5" />
+    <img src="images/Slideshow/only for mobile/6.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 6" />
+    <img src="images/Slideshow/only for mobile/7.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 7" />
+    <img src="images/Slideshow/only for mobile/8.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 8" />
+    <img src="images/Slideshow/only for mobile/9.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 9" />
   </section>
 
   <!-- Hero -->
   <section class="hero">
     <p class="hero-kicker">Creative Direction • Brand Systems • Design</p>
-    <h1>Welcome to <span class="typing"></span></h1>
-    <p><span class="text">Creating new possibilities for growth.</span></p>
+    <h1>TUSDIO – Branding, Visual Identity, Product Design & Digital Marketing Agency</h1>
+    <p class="hero-subtext">
+      <span class="text">Creating new possibilities for growth with</span>
+      <span class="typing" aria-hidden="true"></span>
+    </p>
+  </section>
+
+  <!-- SEO Intro -->
+  <section class="seo-content">
+    <div class="seo-content-inner">
+      <h2>Creative Design Agency for Modern Brands</h2>
+      <p>
+        TUSDIO is a creative design agency helping startups, founders, and modern businesses grow through strategic
+        branding, visual identity, product design, and digital marketing. We build brand systems that feel premium,
+        communicate clearly, and create stronger market presence.
+      </p>
+      <p>
+        Our work combines visual aesthetics with business thinking. From
+        <a href="Our services pages/Branding/branding.html">branding solutions</a> and
+        <a href="Our services pages/Visual identity/visual.html">visual identity design</a> to
+        <a href="Our services pages/product development/product-development.html">product development</a> and
+        <a href="Our services pages/Digital Marketing/digital.html">digital marketing services</a>,
+        we help brands show up better across every touchpoint.
+      </p>
+    </div>
   </section>
 
   <!-- Services -->
   <section class="projects">
-    <p class="project-text">Our Services.</p>
+    <h2 class="project-text">Our Services.</h2>
     <div class="project-gallery">
-      <a href="Our services pages/product development/product-development.html" class="project-card" style="background-image: url('images/Product Box/Product design.png');">
+      <a href="Our services pages/product development/product-development.html" class="project-card" style="background-image: url('images/Product Box/Product design.png');" aria-label="Product Development Service">
         <div class="overlay">Product Development</div>
       </a>
 
-      <a href="Our services pages/Branding/branding.html" class="project-card" style="background-image: url('images/Product Box/Aviaan.png');">
+      <a href="Our services pages/Branding/branding.html" class="project-card" style="background-image: url('images/Product Box/Aviaan.png');" aria-label="Branding Service">
         <div class="overlay">Branding</div>
       </a>
 
-      <a href="Our services pages/Visual identity/visual.html" class="project-card" style="background-image: url('images/Product Box/Logo Design.png');">
+      <a href="Our services pages/Visual identity/visual.html" class="project-card" style="background-image: url('images/Product Box/Logo Design.png');" aria-label="Visual Identity Service">
         <div class="overlay">Visual Identity</div>
       </a>
 
-      <a href="Our services pages/Digital Marketing/digital.html" class="project-card" style="background-image: url('images/Product Box/social media marketing.png');">
+      <a href="Our services pages/Digital Marketing/digital.html" class="project-card" style="background-image: url('images/Product Box/social media marketing.png');" aria-label="Digital Marketing Service">
         <div class="overlay">Digital Marketing</div>
       </a>
+    </div>
+  </section>
+
+  <!-- Services SEO Support -->
+  <section class="seo-content seo-content-small">
+    <div class="seo-content-inner">
+      <h2>Branding, Product Design and Marketing Services</h2>
+      <p>
+        We create design-led solutions for businesses that want clarity, consistency, and stronger digital presence.
+        Whether you need a complete brand identity, a product concept, or a sharper communication system,
+        TUSDIO focuses on work that is visually strong and strategically useful.
+      </p>
     </div>
   </section>
 
@@ -218,20 +251,44 @@
   </section>
 
   <!-- Recent Work -->
-  <p class="image-grid-title">Our Recent Work</p>
+  <h2 class="image-grid-title">Our Recent Work</h2>
   <section class="image-grid">
-    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card"><img src="images/description/aviaan 1.png" alt="Aviaan project" /></a>
-    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-card"><img src="images/description/blackbird 5.png" alt="Blackbird project" /></a>
-    <a href="#" class="image-card"><img src="images/description/heavena 2.png" alt="Heavena project" /></a>
-    <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-card"><img src="images/description/air india 11.png" alt="Eclat project" /></a>
-    <a href="#" class="image-card"><img src="images/description/arcadia builder 5.png" alt="Arcadia Builder project" /></a>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card"><img src="images/description/evoque 9 .1.png" alt="Evoque project 1" /></a>
-    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-card"><img src="images/description/prakrti 4.png" alt="Prakrti project" /></a>
-    <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-card"><img src="images/description/luxuria 7.png" alt="Luxuria project" /></a>
-    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-card"><img src="images/description/pinnacle 8.png" alt="Pinnacle project" /></a>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card"><img src="images/description/evoque 9.png" alt="Evoque project 2" /></a>
-    <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-card"><img src="images/description/blckwhite 10.png" alt="BLCKWHITE project" /></a>
-    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-card"><img src="images/description/One Latte 3.png" alt="One Latte project" /></a>
+    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card">
+      <img src="images/description/aviaan 1.png" alt="Aviaan branding and metal industry identity project" />
+    </a>
+    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-card">
+      <img src="images/description/blackbird 5.png" alt="BLACKBIRD luxury branding and packaging design project" />
+    </a>
+    <a href="#" class="image-card">
+      <img src="images/description/heavena 2.png" alt="Heavena design and branding showcase" />
+    </a>
+    <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-card">
+      <img src="images/description/air india 11.png" alt="Eclat premium food and restaurant branding project" />
+    </a>
+    <a href="#" class="image-card">
+      <img src="images/description/arcadia builder 5.png" alt="Arcadia Builder architecture branding showcase" />
+    </a>
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card">
+      <img src="images/description/evoque 9 .1.png" alt="EVOQUE visual identity and cosmetic branding project" />
+    </a>
+    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-card">
+      <img src="images/description/prakrti 4.png" alt="Prakrti restaurant branding and design project" />
+    </a>
+    <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-card">
+      <img src="images/description/luxuria 7.png" alt="Lujuria premium branding and visual identity project" />
+    </a>
+    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-card">
+      <img src="images/description/pinnacle 8.png" alt="Pinnacle Architecture branding and visual design project" />
+    </a>
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card">
+      <img src="images/description/evoque 9.png" alt="EVOQUE branding case study showcase" />
+    </a>
+    <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-card">
+      <img src="images/description/blckwhite 10.png" alt="BLCKWHITE premium fashion brand guide project" />
+    </a>
+    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-card">
+      <img src="images/description/One Latte 3.png" alt="One Latte cafe branding and packaging project" />
+    </a>
   </section>
 
   <!-- FAQ -->
@@ -241,6 +298,10 @@
     <div class="faq-info">
       <h2>Frequently Asked Questions</h2>
       <p>Find answers to the most common queries about our services and process.</p>
+      <p class="faq-link-line">
+        Explore our <a href="Nav Bar/Services/services.html">services</a> or
+        <a href="Nav Bar/Contact Us/contact.html">contact us</a> to start your project.
+      </p>
     </div>
 
     <div class="faq-content">
@@ -293,10 +354,18 @@
         <h2 class="footer-logo">TUSDIO.</h2>
         <p class="footer-description">We create stunning designs and branding solutions to help businesses stand out.</p>
         <div class="social-links">
-          <a href="https://www.behance.net/tusdio" target="_blank"><img src="images/Social Media Icon/1 behance.png" alt="Behance" /></a>
-          <a href="https://www.instagram.com/tusdio._/profilecard/?igsh=cW82eWIxY2hudm9u" target="_blank"><img src="images/Social Media Icon/2 instagram.png" alt="Instagram" /></a>
-          <a href="https://www.linkedin.com/in/tushar-khan-b05224272" target="_blank"><img src="images/Social Media Icon/3 linkdin.png" alt="LinkedIn" /></a>
-          <a href="https://www.instagram.com/tusdio.site/" target="_blank"><img src="images/Social Media Icon/4 twitter.png" alt="Twitter" /></a>
+          <a href="https://www.behance.net/tusdio" target="_blank" rel="noopener noreferrer">
+            <img src="images/Social Media Icon/1 behance.png" alt="Behance" />
+          </a>
+          <a href="https://www.instagram.com/tusdio._/" target="_blank" rel="noopener noreferrer">
+            <img src="images/Social Media Icon/2 instagram.png" alt="Instagram" />
+          </a>
+          <a href="https://www.linkedin.com/in/tushar-khan-b05224272" target="_blank" rel="noopener noreferrer">
+            <img src="images/Social Media Icon/3 linkdin.png" alt="LinkedIn" />
+          </a>
+          <a href="https://www.instagram.com/tusdio.site/" target="_blank" rel="noopener noreferrer">
+            <img src="images/Social Media Icon/4 twitter.png" alt="Social link" />
+          </a>
         </div>
       </div>
 
@@ -315,7 +384,7 @@
 
       <div class="footer-right">
         <h3>Get Connected</h3>
-        <p>Email: <a href="mailto:tusdio@zohomail.in">contact@tusdio.site</a></p>
+        <p>Email: <a href="mailto:tusdio@zohomail.in">contact@tusdio.online</a></p>
         <form action="https://formsubmit.co/tusdio@zohomail.in" method="POST" class="footer-form">
           <input type="text" name="name" placeholder="Your Name" required />
           <input type="email" name="email" placeholder="Your Email" required />
@@ -327,7 +396,5 @@
 
     <p class="footer-bottom">&copy; 2024 TUSDIO. All Rights Reserved.</p>
   </footer>
-
-  <script type="module" src="script.js"></script>
 </body>
 </html>
