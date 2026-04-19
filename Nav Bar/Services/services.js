@@ -11,6 +11,8 @@ const nav = document.querySelector("header nav");
 if (menuToggle && nav) {
   menuToggle.addEventListener("click", () => {
     nav.classList.toggle("active");
+    const isExpanded = nav.classList.contains("active");
+    menuToggle.setAttribute("aria-expanded", String(isExpanded));
   });
 }
 
@@ -40,8 +42,12 @@ onAuthStateChanged(auth, (user) => {
     const logoutNavBtn = document.getElementById("logoutNavBtn");
     if (logoutNavBtn) {
       logoutNavBtn.addEventListener("click", async () => {
-        await signOut(auth);
-        window.location.href = "../auth/login.html";
+        try {
+          await signOut(auth);
+          window.location.href = "../auth/login.html";
+        } catch (error) {
+          console.error("Logout failed:", error);
+        }
       });
     }
   } else {
