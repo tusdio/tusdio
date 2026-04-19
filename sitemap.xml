@@ -1,72 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <!-- Homepage -->
   <url>
-    <loc>https://tusdio.online/index.html</loc>
+    <loc>https://tusdio.online/</loc>
+    <priority>1.0</priority>
   </url>
 
+  <!-- Main Pages -->
   <url>
     <loc>https://tusdio.online/Nav%20Bar/About%20Us/about%20us.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Nav%20Bar/Services/services.html</loc>
+    <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Nav%20Bar/Portfolio/portfolio.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Nav%20Bar/Contact%20Us/contact.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
-   <loc>https://tusdio.online/Nav%20Bar/freebie/freebie.html</loc>
+    <loc>https://tusdio.online/Nav%20Bar/freebie/freebie.html</loc>
+    <priority>0.6</priority>
   </url>
 
+  <!-- Core Services Pages -->
   <url>
     <loc>https://tusdio.online/Our%20services%20pages/product%20development/product-development.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Our%20services%20pages/Branding/branding.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Our%20services%20pages/Visual%20identity/visual.html</loc>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://tusdio.online/Our%20services%20pages/Digital%20Marketing/digital.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Our%20services%20pages/Digital%20Marketing/Pages/My_paws/mp.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Our%20services%20pages/Digital%20Marketing/Pages/Lujuria/Lujuria.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Our%20services%20pages/Digital%20Marketing/Pages/Evoque/ee.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Nav%20Bar/Services/Services%20page/product%20development/PD.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Nav%20Bar/Services/Services%20page/Branding/Branding.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Nav%20Bar/Services/Services%20page/Visual%20Identity/vi.html</loc>
-  </url>
-
-  <url>
-    <loc>https://tusdio.online/Nav%20Bar/Services/Services%20page/Digital%20Marketing/dm.html</loc>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
