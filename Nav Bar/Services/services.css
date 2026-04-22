@@ -77,7 +77,7 @@ header .container {
   flex-shrink: 0;
 }
 
-header h1 {
+.logo {
   margin: 0;
   font-size: 24px;
   font-weight: normal;
