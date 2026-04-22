@@ -225,37 +225,40 @@ header nav ul li a:hover {
 
 /* Hero */
 .hero {
-  padding: 52px 20px 70px;
+  padding: 72px 20px 56px;
   background: #000;
 }
 
+.hero-shell {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .hero-kicker {
-  color: #9c9c9c;
+  color: #8f8f8f;
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-size: clamp(2.8rem, 6vw, 5.4rem);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   margin-bottom: 14px;
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+  color: #fff;
 }
 
 .hero h2 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.9rem);
   font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 10px;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0.85;
+  line-height: 1.35;
+  margin: 0 auto 18px;
+  max-width: 760px;
+  color: #c8c8c8;
 }
 
 .hero-subtext {
@@ -267,60 +270,54 @@ header nav ul li a:hover {
 }
 
 .typing {
-  font-weight: bold;
-  border-right: 2px solid white;
+  font-weight: 600;
+  border-right: 2px solid #fff;
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
   min-width: 140px;
+  color: #fff;
 }
 
 .text {
-  position: relative;
   font-size: 15px;
-  color: #c9c9c9;
-}
-
-@media (max-width: 768px) {
-  .hero {
-    padding: 36px 14px 48px;
-  }
-
-  .typing {
-    min-width: 170px;
-  }
-
-  .text {
-    font-size: 13px;
-  }
+  color: #bdbdbd;
 }
 
 /* SEO content */
 .seo-content {
-  padding: 0 20px 60px;
-}
-
-.seo-content-small {
-  padding-top: 10px;
+  padding: 8px 20px 64px;
+  background: #000;
 }
 
 .seo-content-inner {
   max-width: 860px;
   margin: 0 auto;
   color: #c8c8c8;
+  text-align: center;
+}
+
+.seo-eyebrow {
+  color: #8f8f8f;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
 .seo-content h2 {
-  font-size: clamp(1.45rem, 3vw, 2rem);
-  font-weight: normal;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 500;
   color: #fff;
-  margin-bottom: 16px;
+  line-height: 1.2;
+  margin-bottom: 18px;
 }
 
 .seo-content p {
   font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 14px;
+  line-height: 1.85;
+  margin: 0 auto 16px;
+  max-width: 760px;
 }
 
 .seo-content a {
@@ -330,8 +327,32 @@ header nav ul li a:hover {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding: 46px 16px 34px;
+  }
+
+  .hero-kicker,
+  .seo-eyebrow {
+    font-size: 11px;
+    letter-spacing: 1.6px;
+  }
+
+  .hero h2 {
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .typing {
+    min-width: 165px;
+    font-size: 14px;
+  }
+
+  .text {
+    font-size: 13px;
+  }
+
   .seo-content {
-    padding: 0 16px 42px;
+    padding: 0 16px 46px;
   }
 
   .seo-content p {
