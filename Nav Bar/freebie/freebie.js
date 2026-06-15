@@ -338,6 +338,51 @@ const freebies = [
     },
 
 
+    
+//17
+{
+    title: "Free Conference Hall Screen Display Mockup",
+    img: "https://wannathis.one/mockups/conference-hall-screen-display-mockup?from=mockups-free",
+    extraImg: "",
+    desc: "Present your visuals with our Free Conference Hall Screen Display Mockup featuring silhouettes of a seated audience and dramatic stage backlighting. Perfect for billboard concepts, presentation showcases, keynote announcements, conference event pages, and brand launch reveals. Create immersive and impactful presentations that capture attention and elevate your design storytelling. Download now and elevate your presentation experience! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Screens", "Events", "Presentations"],
+    download: "https://wannathis.one/mockups/conference-hall-screen-display-mockup?from=mockups-free"
+},
+
+//18
+{
+    title: "Free Dark Conference Hall Wavy Screen Mockup",
+    img: "https://wannathis.one/mockups/dark-conference-hall-wavy-screen-mockup",
+    extraImg: "",
+    desc: "Create bold and immersive presentations with our Free Dark Conference Hall Wavy Screen Mockup featuring a creative curved display set against deep architectural shadows. Perfect for billboard concepts, presentation showcases, tech brand keynotes, creative event identities, and concept campaign pages. Bring a cinematic and futuristic feel to your visual storytelling. Download now and elevate your designs! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Screens", "Events", "Presentations", "Creative"],
+    download: "https://wannathis.one/mockups/dark-conference-hall-wavy-screen-mockup"
+},
+
+    
+
+//19
+{
+    title: "Free Wide Conference Hall Screen Mockup",
+    img: "https://wannathis.one/mockups/wide-conference-hall-screen-mockup",
+    extraImg: "",
+    desc: "Showcase your visuals with our Free Wide Conference Hall Screen Mockup featuring a cinematic auditorium setting framed by a glowing sunset horizon and dramatic ambient lighting. Perfect for billboard concepts, presentation showcases, keynote campaigns, brand launches, and conference identity pages. Create large-scale immersive presentations that leave a lasting impact. Download now and bring your concepts to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Screens", "Events", "Presentations", "Conference"],
+    download: "https://wannathis.one/mockups/wide-conference-hall-screen-mockup"
+},   
+
+
+
+//20
+{
+    title: "Free Triple Conference LED Screen Mockup",
+    img: "https://wannathis.one/mockups/triple-conference-led-screen-mockup?from=mockups-free",
+    extraImg: "",
+    desc: "Showcase immersive visual experiences with our Free Triple Conference LED Screen Mockup featuring three curved LED displays arranged side by side in a modern interior environment with cinematic directional lighting. Perfect for LED screen concepts, conference presentations, immersive brand campaigns, exhibition installation pitch decks, and editorial campaign storytelling. Create impactful large-scale visual reveals and elevate your presentation experience. Download now and bring your ideas to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["LED Screens", "Conference", "Presentations", "Events"],
+    download: "https://wannathis.one/mockups/triple-conference-led-screen-mockup?from=mockups-free"
+},       
+
 
 
 
@@ -428,6 +473,28 @@ const freebies = [
     tags: ["Magazines"], 
     download: "https://unblast.com/magazine-on-blocks-mockup/"
 },
+
+    
+ 
+//9
+{
+    title: "Free Softcover Mockup on Leather Chair",
+    img: "https://wannathis.one/mockups/softcover-mockup-on-leather-chair?from=mockups-free",
+    extraImg: "",
+    desc: "Showcase your publishing and editorial designs with our Free Softcover Mockup on Leather Chair featuring a closed softcover book placed in a refined modern interior with soft natural lighting and elegant directional shadows. Perfect for book cover presentations, editorial layouts, publishing brand showcases, product reveals, and premium print storytelling. Create sophisticated and realistic visual presentations with ease. Download now and bring your creative concepts to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Magazines"], 
+    download: "https://wannathis.one/mockups/softcover-mockup-on-leather-chair?from=mockups-free"
+},  
+
+//10
+{
+    title: "Free Paper and Business Card Mockup with Paper Clip",
+    img: "https://www.ls.graphics/assets/free-paper-and-business-card-mockup-with-paper-clip",
+    extraImg: "",
+    desc: "Present your branding and stationery concepts with our Free Paper and Business Card Mockup with Paper Clip featuring a clean and hyper-realistic composition designed to elevate your visual presentations. Perfect for business cards, corporate identity, branding showcases, stationery projects, and professional design reveals. Create premium and authentic presentations effortlessly while making every detail stand out. Download now and bring your creative ideas to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Magazines"], 
+    download: "https://www.ls.graphics/assets/free-paper-and-business-card-mockup-with-paper-clip"
+},    
 
 
 
@@ -566,7 +633,48 @@ const freebies = [
 },
 
 
+//13
+{
+    title: "Free Outdoor Billboard Mockup",
+    img: "https://www.ls.graphics/assets/free-billboard-mockup",
+    extraImg: "",
+    desc: "Showcase your campaigns in a bold and realistic environment with our Free Outdoor Billboard Mockup featuring a premium urban setting and natural lighting. Now you can experiment with different advertising and branding styles while presenting your designs in a high-impact and professional way. Perfect for advertisements, promotional campaigns, outdoor branding, and creative showcases. Fully customizable for effortless editing and stunning presentations. Download it now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["BillBoards"],
+    download: "https://www.ls.graphics/assets/free-billboard-mockup"
+},
 
+    
+//14
+{
+    title: "Free Metal Billboard Mockup",
+    img: "https://www.mockupcloud.com/free/metal-billboard-mockup",
+    extraImg: "",
+    desc: "Present your advertising concepts with our Free Metal Billboard Mockup designed to showcase your visuals in a bold and stylish way. Experiment with different branding styles and create realistic outdoor presentations with ease. Perfect for billboard campaigns, promotional designs, brand showcases, and creative advertising concepts. Built for seamless editing and professional-quality results to make your work stand out. Download it now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["BillBoards"],
+    download: "https://www.mockupcloud.com/free/metal-billboard-mockup"
+},
+
+    
+//15
+{
+    title: "Free Digital Screen Advertising Mockup",
+    img: "https://www.mockupcloud.com/free/digital-screen-advertising-mockup",
+    extraImg: "",
+    desc: "Showcase your advertising concepts with our Free Digital Screen Advertising Mockup designed to create stunning photo-realistic presentations effortlessly. Experiment with different visual styles and display your campaigns in a modern and professional environment. Perfect for digital advertisements, branding showcases, promotional campaigns, and presentation projects. Built with easy-to-use smart objects for seamless customization and high-quality results. Download it now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["BillBoards"],
+    download: "https://www.mockupcloud.com/free/digital-screen-advertising-mockup"
+},
+
+
+//16
+{
+    title: "Free Display Screen Mockup",
+    img: "https://www.mockupcloud.com/free/display-screen-mockup-free-sample",
+    extraImg: "",
+    desc: "Present your creative concepts with our Free Display Screen Mockup designed to make your next design project shine. Experiment with different visual styles and showcase your work in a clean, modern, and professional display environment. Perfect for digital presentations, branding showcases, advertisements, UI concepts, and promotional campaigns. Built to create realistic and high-quality presentations with ease. Download it now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Screens"],
+    download: "https://www.mockupcloud.com/free/display-screen-mockup-free-sample"
+},    
 
 
 
@@ -658,6 +766,26 @@ const freebies = [
     tags: ["Cosmetics"],
     download: "https://mockuptree.com/free/bottle-tube-cosmetic-mockup/"
 },
+
+//9
+{
+    title: "Free Stylish Cream Tube Mockup",
+    img: "https://www.ls.graphics/assets/free-stylish-cream-tube-mockup",
+    extraImg: "",
+    desc: "Get our Free Stylish Cream Tube Mockup and unleash your creativity! Now you can experiment with different cosmetic branding and packaging styles while presenting your products in an elegant and premium way. Featuring a stylish environment, realistic shadows, and high-quality rendering for professional results. Perfect for skincare brands, cosmetic packaging, product launches, and creative showcases. Download it now and let your imagination flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Cosmetics"],
+    download: "https://www.ls.graphics/assets/free-stylish-cream-tube-mockup"
+},
+
+//10
+{
+    title: "Free Kaolin Cosmetic Scene Mockup",
+    img: "https://www.ls.graphics/assets/kaolin-scene-04",
+    extraImg: "",
+    desc: "Present your cosmetic branding in a premium and minimal aesthetic with our Free Kaolin Cosmetic Scene Mockup. Featuring a clean, elegant composition designed to highlight skincare and beauty packaging with a modern editorial feel. Perfect for cosmetic branding, skincare product presentations, packaging design showcases, and luxury beauty campaigns. Create refined and professional visuals that elevate your product identity effortlessly. Download now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
+    tags: ["Cosmetics"],
+    download: "https://www.ls.graphics/assets/kaolin-scene-04"
+},    
 
 ];
 window.addEventListener("pageshow", function (event) {
