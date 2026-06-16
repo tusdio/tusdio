@@ -342,7 +342,7 @@ const freebies = [
 //17
 {
     title: "Free Conference Hall Screen Display Mockup",
-    img: "https://wannathis.one/mockups/conference-hall-screen-display-mockup?from=mockups-free",
+    img: "https://d2pas86kykpvmq.cloudfront.net/uploads/conference_hall_preview_4_721aee619a.avif",
     extraImg: "",
     desc: "Present your visuals with our Free Conference Hall Screen Display Mockup featuring silhouettes of a seated audience and dramatic stage backlighting. Perfect for billboard concepts, presentation showcases, keynote announcements, conference event pages, and brand launch reveals. Create immersive and impactful presentations that capture attention and elevate your design storytelling. Download now and elevate your presentation experience! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
     tags: ["Posters"], 
@@ -352,7 +352,7 @@ const freebies = [
 //18
 {
     title: "Free Dark Conference Hall Wavy Screen Mockup",
-    img: "https://wannathis.one/mockups/dark-conference-hall-wavy-screen-mockup",
+    img: "https://d2pas86kykpvmq.cloudfront.net/uploads/conference_hall_preview_9_833befaa04.avif",
     extraImg: "",
     desc: "Create bold and immersive presentations with our Free Dark Conference Hall Wavy Screen Mockup featuring a creative curved display set against deep architectural shadows. Perfect for billboard concepts, presentation showcases, tech brand keynotes, creative event identities, and concept campaign pages. Bring a cinematic and futuristic feel to your visual storytelling. Download now and elevate your designs! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
     tags: ["Posters"], 
@@ -364,7 +364,7 @@ const freebies = [
 //19
 {
     title: "Free Wide Conference Hall Screen Mockup",
-    img: "https://wannathis.one/mockups/wide-conference-hall-screen-mockup",
+    img: "https://d2pas86kykpvmq.cloudfront.net/uploads/conference_hall_preview_1_ad47b1f1ef.avif",
     extraImg: "",
     desc: "Showcase your visuals with our Free Wide Conference Hall Screen Mockup featuring a cinematic auditorium setting framed by a glowing sunset horizon and dramatic ambient lighting. Perfect for billboard concepts, presentation showcases, keynote campaigns, brand launches, and conference identity pages. Create large-scale immersive presentations that leave a lasting impact. Download now and bring your concepts to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
     tags: ["Posters"], 
@@ -376,7 +376,7 @@ const freebies = [
 //20
 {
     title: "Free Triple Conference LED Screen Mockup",
-    img: "https://wannathis.one/mockups/triple-conference-led-screen-mockup?from=mockups-free",
+    img: "https://d2pas86kykpvmq.cloudfront.net/uploads/interior_studio_preview_7_a8ce32fcac.avif",
     extraImg: "",
     desc: "Showcase immersive visual experiences with our Free Triple Conference LED Screen Mockup featuring three curved LED displays arranged side by side in a modern interior environment with cinematic directional lighting. Perfect for LED screen concepts, conference presentations, immersive brand campaigns, exhibition installation pitch decks, and editorial campaign storytelling. Create impactful large-scale visual reveals and elevate your presentation experience. Download now and bring your ideas to life! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
     tags: ["Posters"], 
