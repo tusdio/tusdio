@@ -636,7 +636,7 @@ const freebies = [
 //13
 {
     title: "Free Outdoor Billboard Mockup",
-    img: "https://www.ls.graphics/assets/free-billboard-mockup",
+    img: "https://ls-graphics-directus-direct.b-cdn.net/assets/38fbf41d-c59c-4f89-bc76-fc7a6f78c652?width=1700&format=webp&quality=90",
     extraImg: "",
     desc: "Showcase your campaigns in a bold and realistic environment with our Free Outdoor Billboard Mockup featuring a premium urban setting and natural lighting. Now you can experiment with different advertising and branding styles while presenting your designs in a high-impact and professional way. Perfect for advertisements, promotional campaigns, outdoor branding, and creative showcases. Fully customizable for effortless editing and stunning presentations. Download it now and let your creativity flow freely! Have Fun! (This mockup is sourced from the original creator, and we’re simply guiding you to it.) 🔹 Want to bring your ideas to life? Contact us and let’s make your story live!",
     tags: ["BillBoards"],
