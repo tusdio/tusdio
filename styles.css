@@ -393,18 +393,95 @@ header nav ul li a:hover {
 
 .typing{
 
+    position:relative;
+
     color:#fff;
 
     font-weight:600;
 
-    border-right:2px solid #fff;
-
     white-space:nowrap;
 
-    overflow:hidden;
+    letter-spacing:.5px;
 
-    min-width:170px;
+}
 
+/* Cursor */
+
+.typing::after{
+
+    content:"";
+
+    width:2px;
+
+    height:1.1em;
+
+    background:white;
+
+    display:inline-block;
+
+    margin-left:4px;
+
+    animation:cursorBlink .8s infinite;
+
+}
+
+@keyframes cursorBlink{
+
+0%,50%{
+
+opacity:1;
+
+}
+
+51%,100%{
+
+opacity:0;
+
+}
+
+}
+
+/* Glitch */
+
+.glitch{
+
+animation:glitch .22s ease;
+
+}
+
+@keyframes glitch{
+
+0%{
+
+transform:translateX(0);
+
+filter:blur(0);
+
+opacity:1;
+
+}
+
+20%{
+
+transform:translateX(-2px);
+
+filter:blur(1px);
+
+}
+
+40%{
+transform:translateX(2px);
+}
+
+60%{
+transform:translateX(-1px);
+}
+
+100%{
+transform:translateX(0);
+filter:none;
+opacity:1;
+}
 }
 
 /* Buttons */
