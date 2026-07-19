@@ -5,7 +5,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 // Typing Effect
-const words = ["TUSDIO", "Imagination", "Perfection"];
+const words = [
+"Strategy",
+"Brand Systems",
+"Visual Identity",
+"Product Design",
+"Digital Marketing",
+"Growth"
+];
 let wordIndex = 0;
 let letterIndex = 0;
 let typingTimeout;
