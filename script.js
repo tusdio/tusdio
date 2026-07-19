@@ -6,43 +6,73 @@ import {
 
 // Typing Effect
 const words = [
-"Strategy",
-"Brand Systems",
-"Visual Identity",
-"Product Design",
-"Digital Marketing",
-"Growth"
+  "Brand Strategy",
+  "Visual Identity",
+  "Product Design",
+  "Creative Systems",
+  "Digital Marketing",
+  "Growth Partners"
 ];
-let wordIndex = 0;
-let letterIndex = 0;
-let typingTimeout;
 
 const typingElement = document.querySelector(".typing");
 
-function type() {
-  if (!typingElement) return;
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
 
-  if (letterIndex < words[wordIndex].length) {
-    typingElement.textContent += words[wordIndex][letterIndex];
-    letterIndex++;
-    typingTimeout = setTimeout(type, 100);
-  } else {
-    typingTimeout = setTimeout(erase, 1500);
-  }
+function random(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
-function erase() {
-  if (!typingElement) return;
+function typeEffect() {
 
-  if (letterIndex > 0) {
-    typingElement.textContent = words[wordIndex].substring(0, letterIndex - 1);
-    letterIndex--;
-    typingTimeout = setTimeout(erase, 50);
-  } else {
-    wordIndex = (wordIndex + 1) % words.length;
-    typingTimeout = setTimeout(type, 500);
-  }
+    if (!typingElement) return;
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+        typingElement.textContent =
+            currentWord.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentWord.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1800);
+            return;
+        }
+
+    } else {
+
+        typingElement.textContent =
+            currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typingElement.classList.add("glitch");
+            setTimeout(() => {
+                typingElement.classList.remove("glitch");
+
+            }, 220);
+
+        }
+
+    }
+
+    const speed = deleting
+        ? random(35, 60)
+        : random(70, 120);
+
+    setTimeout(typeEffect, speed);
+
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (typingElement) {
+        typingElement.textContent = "";
+        typeEffect();
+    }
+
+});
 
 // Nav Bar responsive
 const menuToggle = document.querySelector(".menu-toggle");
