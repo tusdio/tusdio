@@ -4,14 +4,14 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
-// Typing Effect
+// ---------- Typing Effect ----------
 const words = [
-"Building unforgettable brands.",
-"Designing products people love.",
-"Creating visual identities.",
-"Scaling ambitious startups.",
-"Crafting premium experiences.",
-"Turning ideas into businesses."
+  "Building unforgettable brands.",
+  "Designing products people love.",
+  "Creating visual identities.",
+  "Scaling ambitious startups.",
+  "Crafting premium experiences.",
+  "Turning ideas into businesses."
 ];
 
 const typingElement = document.querySelector(".typing");
@@ -21,72 +21,40 @@ let charIndex = 0;
 let deleting = false;
 
 function random(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function typeEffect() {
+  if (!typingElement) return;
+  const currentWord = words[wordIndex];
 
-    if (!typingElement) return;
-    const currentWord = words[wordIndex];
-
-    if (!deleting) {
-        typingElement.textContent =
-            currentWord.substring(0, charIndex + 1);
-        charIndex++;
-        if (charIndex === currentWord.length) {
-            deleting = true;
-            setTimeout(typeEffect, 1800);
-            return;
-        }
-
-    } else {
-
-        typingElement.textContent =
-            currentWord.substring(0, charIndex - 1);
-        charIndex--;
-
-        if (charIndex === 0) {
-            deleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typingElement.classList.add("glitch");
-            setTimeout(() => {
-                typingElement.classList.remove("glitch");
-
-            }, 220);
-
-        }
-
+  if (!deleting) {
+    typingElement.textContent = currentWord.substring(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === currentWord.length) {
+      deleting = true;
+      setTimeout(typeEffect, 1800);
+      return;
     }
+  } else {
+    typingElement.textContent = currentWord.substring(0, charIndex - 1);
+    charIndex--;
 
-    const speed = deleting
-        ? random(35, 60)
-        : random(70, 120);
+    if (charIndex === 0) {
+      deleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      typingElement.classList.add("glitch");
+      setTimeout(() => {
+        typingElement.classList.remove("glitch");
+      }, 220);
+    }
+  }
 
-    setTimeout(typeEffect, speed);
-
+  const speed = deleting ? random(35, 60) : random(70, 120);
+  setTimeout(typeEffect, speed);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    if (typingElement) {
-        typingElement.textContent = "";
-        typeEffect();
-    }
-
-});
-
-// Nav Bar responsive
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector("header nav");
-
-if (menuToggle && nav) {
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
-    const isExpanded = nav.classList.contains("active");
-    menuToggle.setAttribute("aria-expanded", String(isExpanded));
-  });
-}
-
-// Navbar user state
+// ---------- Navbar user state ----------
 const navUserArea = document.getElementById("navUserArea");
 const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
 
@@ -95,10 +63,7 @@ onAuthStateChanged(auth, (user) => {
 
   if (user) {
     const name = user.displayName || (user.email ? user.email.split("@")[0] : "User");
-
-    const isOwner =
-      (user.email || "").toLowerCase() === OWNER_EMAIL.toLowerCase();
-
+    const isOwner = (user.email || "").toLowerCase() === OWNER_EMAIL.toLowerCase();
     const dashboardLink = isOwner
       ? "./Nav Bar/auth/owner/owner.html"
       : "./Nav Bar/auth/users.html";
@@ -123,17 +88,19 @@ onAuthStateChanged(auth, (user) => {
       });
     }
   } else {
-    navUserArea.innerHTML = `
-      <a href="./Nav Bar/auth/login.html">Login</a>
-    `;
+    navUserArea.innerHTML = `<a href="./Nav Bar/auth/login.html">Login</a>`;
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  // Start typing effect
+// ---------- Single DOMContentLoaded (bug fix: removed duplicate listener
+// that called the undefined function type() and was silently breaking
+// the slideshow, gallery drag, image hover, and FAQ toggle) ----------
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Typing effect
   if (typingElement) {
     typingElement.textContent = "";
-    type();
+    typeEffect();
   }
 
   // Desktop slideshow
@@ -180,7 +147,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Project gallery drag/scroll
+  // Nav bar responsive toggle
+  const menuToggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector("header nav");
+
+  if (menuToggle && nav) {
+    menuToggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+      const isExpanded = nav.classList.contains("active");
+      menuToggle.setAttribute("aria-expanded", String(isExpanded));
+    });
+  }
+
+  // Project gallery drag/scroll (mobile)
   const projectGallery = document.querySelector(".project-gallery");
 
   if (projectGallery && window.innerWidth <= 768) {
@@ -239,16 +218,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // FAQ
+  // FAQ toggle
   const faqs = document.querySelectorAll(".faq");
   faqs.forEach((faq) => {
     faq.addEventListener("click", () => {
       faq.classList.toggle("active");
     });
   });
+
+  // ---------- New: subtle scroll-reveal for .reveal sections ----------
+  const revealEls = document.querySelectorAll(".reveal");
+  if (revealEls.length > 0 && "IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
 });
 
-// Blog
+// ---------- Blog ----------
 function toggleBlogContent(button) {
   const fullContent = button.nextElementSibling;
   if (!fullContent) return;
