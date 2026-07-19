@@ -6,12 +6,12 @@ import {
 
 // Typing Effect
 const words = [
-  "Brand Strategy",
-  "Visual Identity",
-  "Product Design",
-  "Creative Systems",
-  "Digital Marketing",
-  "Growth Partners"
+"Building unforgettable brands.",
+"Designing products people love.",
+"Creating visual identities.",
+"Scaling ambitious startups.",
+"Crafting premium experiences.",
+"Turning ideas into businesses."
 ];
 
 const typingElement = document.querySelector(".typing");
