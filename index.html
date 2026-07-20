@@ -85,24 +85,55 @@
       "@type": "OfferCatalog",
       "name": "TUSDIO Services",
       "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": { "@type": "Service", "name": "Branding" }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": { "@type": "Service", "name": "Visual Identity Design" }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": { "@type": "Service", "name": "Product Design" }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": { "@type": "Service", "name": "Digital Marketing" }
-        }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Branding" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Visual Identity Design" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Product Design" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Digital Marketing" } }
       ]
     }
+  }
+  </script>
+
+  <!-- FAQPage schema: mirrors the visible FAQ section word-for-word, which
+       lets Google potentially show these as rich results in search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What services does your agency provide?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide Branding, Product Design, Social Media Marketing, and Logo Design services."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact you?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can contact us through email or via our website by filling the inquiry form."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the process for starting a project?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fill out our inquiry form, schedule a call, and we'll guide you through the process step by step."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much time do you need to provide the final product?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the project. Most designs take 5-10 days, while bigger projects may take 2-4 weeks."
+        }
+      }
+    ]
   }
   </script>
 
@@ -258,6 +289,31 @@
     </div>
   </section>
 
+  <!-- Why TUSDIO (new) -->
+  <section class="why-tusdio reveal">
+    <div class="section-heading">
+      <p class="seo-eyebrow">Why TUSDIO</p>
+      <h2>A small studio built for founders who move fast.</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Strategy before pixels</h3>
+        <p>Every brand system is built to communicate clearly and support real business goals, not just look good on a screen.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>5-10 day turnaround</h3>
+        <p>Most design projects are delivered within 5-10 days, so your brand doesn't wait on us to start growing.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>One dedicated team</h3>
+        <p>The same 5 creative experts who scope your project also design, refine, and deliver it, start to finish.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Services SEO Support -->
   <section class="seo-content seo-content-small reveal">
     <div class="seo-content-inner">
@@ -276,9 +332,43 @@
     <p class="Worked-description">Built with strong creative direction, sharp systems, and work that feels premium.</p>
   </section>
 
+  <!-- Our Process (new) -->
+  <section class="process-section reveal">
+    <div class="section-heading">
+      <p class="seo-eyebrow">How We Work</p>
+      <h2>From inquiry to launch, in four steps.</h2>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="process-number">01</span>
+        <h3>Inquiry</h3>
+        <p>Tell us about your brand, your goals, and where you want to be.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="process-number">02</span>
+        <h3>Discovery Call</h3>
+        <p>We align on scope, creative direction, and timeline together.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="process-number">03</span>
+        <h3>Design & Refine</h3>
+        <p>We design, you review, and we refine until it's right.</p>
+      </div>
+
+      <div class="process-step">
+        <span class="process-number">04</span>
+        <h3>Delivery</h3>
+        <p>Final files, brand guidelines, and support for your launch.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Recent Work -->
   <h2 class="image-grid-title reveal">Our Recent Work</h2>
-  <section class="image-grid reveal">
+  <section class="image-grid reveal" id="portfolio">
     <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card">
       <img src="images/description/aviaan 1.png" alt="Aviaan branding and metal industry identity project" loading="lazy" />
     </a>
@@ -374,7 +464,7 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" id="contact">
     <div class="footer-container">
       <div class="footer-left">
         <h2 class="footer-logo">TUSDIO.</h2>
