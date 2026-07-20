@@ -92,9 +92,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// ---------- Single DOMContentLoaded (bug fix: removed duplicate listener
-// that called the undefined function type() and was silently breaking
-// the slideshow, gallery drag, image hover, and FAQ toggle) ----------
+// ---------- Single DOMContentLoaded ----------
 document.addEventListener("DOMContentLoaded", () => {
 
   // Typing effect
@@ -226,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ---------- New: subtle scroll-reveal for .reveal sections ----------
+  // Scroll-reveal for .reveal sections
   const revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length > 0 && "IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
