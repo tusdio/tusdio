@@ -94,8 +94,6 @@
   }
   </script>
 
-  <!-- FAQPage schema: mirrors the visible FAQ section word-for-word, which
-       lets Google potentially show these as rich results in search -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -145,11 +143,23 @@
     }
   </script>
 
+  <!-- Smooth-scroll + motion engine (loaded from CDN, only drives animation/inertia) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
   <script type="module" src="script.js"></script>
 </head>
 <body>
 
-  <!-- Nav Bar -->
+  <!-- Preloader: brief percentage count-up, then the page (and hero
+       intro) reveals — nothing scrolls or animates underneath until
+       this clears. -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <span class="preloader-word" id="preloaderWord" aria-label="TUSDIO."></span>
+</div>
+
+  <!-- Nav Bar (kept exactly as-is, unchanged) -->
   <header>
     <div class="container">
       <a href="index.html" class="logo-link" aria-label="TUSDIO Home">
@@ -176,73 +186,84 @@
     </div>
   </header>
 
-  <!-- Desktop Slideshow -->
-  <section class="slideshow-container" aria-label="Featured branding and visual identity projects by TUSDIO">
-    <img src="images/Slideshow/slide1.png" class="slide" alt="Luxury real estate brand identity design for Arcadia Builders by TUSDIO" />
-    <img src="images/Slideshow/slide2.png" class="slide" alt="Modern logistics and transportation branding for NAVI Transportation Services" />
-    <img src="images/Slideshow/slide3.png" class="slide" alt="Premium beauty and skincare brand identity design for Heavena" />
-    <img src="images/Slideshow/slide4.png" class="slide" alt="Minimal café branding and packaging design for One Latte coffee shop" />
-    <img src="images/Slideshow/slide5.png" class="slide" alt="Professional law firm branding and stationery design for William and Collins" />
-    <img src="images/Slideshow/slide6.png" class="slide" alt="Modern streetwear and lifestyle branding design for BLACKBIRD clothing brand" />
-  </section>
+  <!-- Hero: pinned, scroll-scrubbed slideshow (Apple-style keyframed reveal) -->
+  <section class="hero" id="hero">
+    <div class="hero-slides" aria-hidden="true">
+      <img src="images/Slideshow/slide1.png" class="hero-slide" alt="" />
+      <img src="images/Slideshow/slide2.png" class="hero-slide" alt="" />
+      <img src="images/Slideshow/slide3.png" class="hero-slide" alt="" />
+      <img src="images/Slideshow/slide4.png" class="hero-slide" alt="" />
+      <img src="images/Slideshow/slide5.png" class="hero-slide" alt="" />
+      <img src="images/Slideshow/slide6.png" class="hero-slide" alt="" />
 
-  <!-- Mobile Slideshow -->
-  <section class="mobile-slideshow-container" aria-label="Featured TUSDIO work mobile slideshow">
-    <img src="images/Slideshow/only for mobile/1.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 1" />
-    <img src="images/Slideshow/only for mobile/2.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 2" />
-    <img src="images/Slideshow/only for mobile/3.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 3" />
-    <img src="images/Slideshow/only for mobile/4.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 4" />
-    <img src="images/Slideshow/only for mobile/5.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 5" />
-    <img src="images/Slideshow/only for mobile/6.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 6" />
-    <img src="images/Slideshow/only for mobile/7.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 7" />
-    <img src="images/Slideshow/only for mobile/8.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 8" />
-    <img src="images/Slideshow/only for mobile/9.png" class="mobile-slide" alt="TUSDIO branding work mobile showcase 9" />
-  </section>
-
-  <!-- Hero start -->
-  <section class="hero">
+      <img src="images/Slideshow/only for mobile/1.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 1" />
+      <img src="images/Slideshow/only for mobile/2.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 2" />
+      <img src="images/Slideshow/only for mobile/3.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 3" />
+      <img src="images/Slideshow/only for mobile/4.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 4" />
+      <img src="images/Slideshow/only for mobile/5.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 5" />
+      <img src="images/Slideshow/only for mobile/6.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 6" />
+      <img src="images/Slideshow/only for mobile/7.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 7" />
+      <img src="images/Slideshow/only for mobile/8.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 8" />
+      <img src="images/Slideshow/only for mobile/9.png" class="hero-slide-mobile" alt="TUSDIO branding work mobile showcase 9" />
+    </div>
+    <div class="hero-scrim"></div>
     <div class="hero-bg-grid"></div>
 
     <div class="hero-shell">
-      <p class="hero-kicker">Creative Direction • Brand Systems • Design</p>
+      <h2 class="hero-name" data-split>TUSDIO.</h2>
 
-      <h1>TUSDIO.</h1>
+      <p class="hero-kicker">Creative Direction &bull; Brand Systems &bull; Design</p>
 
-      <h2>
-        Helping startups & modern brands look
-        <span>premium</span>,
-        <span>trustworthy</span>,
-        and
-        <span>scalable</span>.
-      </h2>
+      <h1 class="hero-title">
+        <span class="line" data-line>We Build</span>
+        <span class="line" data-line>Brands That <em>Move.</em></span>
+      </h1>
 
       <p class="hero-subtext">
-        Creating new possibilities for growth with
+        <span class="text">Creating new possibilities for growth with</span>
         <span class="typing"></span>
       </p>
 
       <div class="hero-buttons">
-        <a href="Nav Bar/Portfolio/index.html" class="btn-primary">View Work</a>
-        <a href="Nav Bar/Contact Us/index.html" class="btn-secondary">Book a Call</a>
+        <a href="Nav Bar/Portfolio/index.html" class="btn-primary magnetic">View Work</a>
+        <a href="Nav Bar/Contact Us/index.html" class="btn-secondary magnetic">Book a Call</a>
       </div>
 
       <div class="hero-stats">
         <div>
-          <h3>50+</h3>
-          <span>Projects</span>
+          <h3 data-count="50">0</h3>
+          <span>Projects+</span>
         </div>
         <div>
-          <h3>5</h3>
+          <h3 data-count="5">0</h3>
           <span>Creative Experts</span>
         </div>
         <div>
-          <h3>100%</h3>
-          <span>Custom Design</span>
+          <h3 data-count="100">0</h3>
+          <span>% Custom Design</span>
         </div>
       </div>
     </div>
+
+    <div class="hero-scroll-cue" aria-hidden="true">
+      <span></span>
+      Scroll
+    </div>
   </section>
-  <!-- Hero ends here -->
+
+  <!-- Kinetic ticker strip: reverses direction with scroll direction (see script.js) -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Branding</span><span class="marquee-dot">✦</span>
+      <span>Visual Identity</span><span class="marquee-dot">✦</span>
+      <span>Product Design</span><span class="marquee-dot">✦</span>
+      <span>Digital Marketing</span><span class="marquee-dot">✦</span>
+      <span>Branding</span><span class="marquee-dot">✦</span>
+      <span>Visual Identity</span><span class="marquee-dot">✦</span>
+      <span>Product Design</span><span class="marquee-dot">✦</span>
+      <span>Digital Marketing</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
 
   <!-- SEO Intro -->
   <section class="seo-content reveal">
@@ -265,33 +286,49 @@
     </div>
   </section>
 
-  <!-- Services -->
-  <section class="projects reveal">
-    <h2 class="project-text">Our Services.</h2>
-    <div class="project-gallery">
-      <a href="Our services pages/product development/product-development.html" class="project-card" style="background-image: url('images/Product Box/Product design.png');" aria-label="Product Development Service">
-        <div class="overlay">Product Development</div>
-      </a>
+  <!-- Services: horizontal numbered deck -->
+  <section class="projects reveal" id="services">
+    <div class="section-heading section-heading--left">
+      <p class="seo-eyebrow">What We Do</p>
+      <h2 class="project-text">Our Services</h2>
+    </div>
 
-      <a href="Our services pages/Branding/branding.html" class="project-card" style="background-image: url('images/Product Box/Aviaan.png');" aria-label="Branding Service">
-        <div class="overlay">Branding</div>
-      </a>
+    <div class="project-track-wrap">
+      <div class="project-gallery" data-track>
+        <a href="Our services pages/product development/product-development.html" class="project-card" style="background-image: url('images/description/evoque 1.png');" aria-label="Product Development Service">
+          <span class="card-index">01</span>
+          <div class="overlay">Product Development</div>
+        </a>
 
-      <a href="Our services pages/Visual identity/visual.html" class="project-card" style="background-image: url('images/Product Box/Logo Design.png');" aria-label="Visual Identity Service">
-        <div class="overlay">Visual Identity</div>
-      </a>
+        <a href="Our services pages/Branding/branding.html" class="project-card" style="background-image: url('images/Product Box/Aviaan.png');" aria-label="Branding Service">
+          <span class="card-index">02</span>
+          <div class="overlay">Branding</div>
+        </a>
 
-      <a href="Our services pages/Digital Marketing/digital.html" class="project-card" style="background-image: url('images/Product Box/social media marketing.png');" aria-label="Digital Marketing Service">
-        <div class="overlay">Digital Marketing</div>
-      </a>
+        <a href="Our services pages/Visual identity/visual.html" class="project-card" style="background-image: url('images/Product Box/story 2.png');" aria-label="Visual Identity Service">
+          <span class="card-index">03</span>
+          <div class="overlay">Visual Identity</div>
+        </a>
+
+        <a href="Our services pages/Digital Marketing/digital.html" class="project-card" style="background-image: url('images/Product Box/social media marketing.png');" aria-label="Digital Marketing Service">
+          <span class="card-index">04</span>
+          <div class="overlay">Digital Marketing</div>
+        </a>
+      </div>
+
+      <div class="track-pagination" aria-hidden="true">
+        <span class="track-current">01</span>
+        <span class="track-rule"></span>
+        <span class="track-total">04</span>
+      </div>
     </div>
   </section>
 
   <!-- Why TUSDIO -->
-  <section class="why-tusdio reveal">
+  <section class="why-tusdio">
     <div class="section-heading">
       <p class="seo-eyebrow">Why TUSDIO</p>
-      <h2>A small studio built for founders who move fast.</h2>
+      <h2 data-split-words>A small studio built for founders who move fast.</h2>
     </div>
 
     <div class="feature-grid">
@@ -331,10 +368,10 @@
   </section>
 
   <!-- Our Process -->
-  <section class="process-section reveal">
+  <section class="process-section">
     <div class="section-heading">
       <p class="seo-eyebrow">How We Work</p>
-      <h2>From inquiry to launch, in four steps.</h2>
+      <h2 data-split-words>From inquiry to launch, in four steps.</h2>
     </div>
 
     <div class="process-grid">
@@ -366,43 +403,81 @@
 
   <!-- Recent Work -->
   <h2 class="image-grid-title reveal">Our Recent Work</h2>
-  <section class="image-grid reveal" id="portfolio">
-    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card">
-      <img src="images/description/aviaan 1.png" alt="Aviaan branding and metal industry identity project" loading="lazy" />
+
+  <section class="image-grid" id="portfolio">
+
+    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card wide">
+      <img src="images/description/aviaan 1.png" alt="Aviaan Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-card">
-      <img src="images/description/blackbird 5.png" alt="BLACKBIRD luxury branding and packaging design project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-card tall">
+      <img src="images/description/blackbird 5.png" alt="BLACKBIRD Branding" loading="lazy">
     </a>
-    <a href="#" class="image-card">
-      <img src="images/description/heavena 2.png" alt="Heavena design and branding showcase" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card square">
+      <img src="images/description/evoque 1.png" alt="EVOQUE Cosmetic Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-card">
-      <img src="images/description/air india 11.png" alt="Eclat premium food and restaurant branding project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-card large">
+      <img src="images/Product Box/story 2.png" alt="ÉCLAT Restaurant Branding" loading="lazy">
     </a>
-    <a href="#" class="image-card">
-      <img src="images/description/arcadia builder 5.png" alt="Arcadia Builder architecture branding showcase" loading="lazy" />
+
+    <a href="#" class="image-card square">
+      <img src="images/description/arcadia builder 5.png" alt="Arcadia Builder Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card">
-      <img src="images/description/evoque 9 .1.png" alt="EVOQUE visual identity and cosmetic branding project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card tall">
+      <img src="images/description/evoque 9 .1.png" alt="EVOQUE Visual Identity" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-card">
-      <img src="images/description/prakrti 4.png" alt="Prakrti restaurant branding and design project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-card wide">
+      <img src="images/description/prakrti 4.png" alt="Prakrti Restaurant Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-card">
-      <img src="images/description/luxuria 7.png" alt="Lujuria premium branding and visual identity project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-card square">
+      <img src="images/description/luxuria 7.png" alt="Lujuria Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-card">
-      <img src="images/description/pinnacle 8.png" alt="Pinnacle Architecture branding and visual design project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-card tall">
+      <img src="images/description/story 1.png" alt="Pinnacle Architecture" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card">
-      <img src="images/description/evoque 9.png" alt="EVOQUE branding case study showcase" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card square">
+      <img src="https://cdn.cosmos.so/18852202-9e96-47c9-85ef-f9bfcdbb57c3?format=webp" alt="EVOQUE Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-card">
-      <img src="images/description/blckwhite 10.png" alt="BLCKWHITE premium fashion brand guide project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-card large">
+      <img src="images/description/blckwhite 10.png" alt="BLCKWHITE Fashion Branding" loading="lazy">
     </a>
-    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-card">
-      <img src="images/description/One Latte 3.png" alt="One Latte cafe branding and packaging project" loading="lazy" />
+
+    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-card square">
+      <img src="images/description/Artboard 1.png" alt="One Latte Branding" loading="lazy">
     </a>
+
+    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-card wide">
+      <img src="https://cdn.cosmos.so/8f1579e9-01fa-4be4-8e01-bfd9f8d42ed4?format=webp" alt="Aviaan Brand Mockup" loading="lazy">
+    </a>
+
+    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-card square">
+      <img src="https://cdn.cosmos.so/68a9b62c-6342-49bf-8261-dc7664233ced?format=webp" alt="BLACKBIRD Packaging" loading="lazy">
+    </a>
+
+    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-card wide">
+      <img src="https://cdn.cosmos.so/adf4d1f7-b726-46c7-a478-6f6e1f51d94a?format=webp" alt="Pinnacle Architecture Identity" loading="lazy">
+    </a>
+
+    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-card tall">
+      <img src="https://cdn.cosmos.so/14ba7db3-ce2c-4718-92d9-40bf6ed179c4?format=webp" alt="One Latte Packaging" loading="lazy">
+    </a>
+
+    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-card square">
+      <img src="https://cdn.cosmos.so/36db5e9b-11b0-4c84-9f6a-cc8c2a4ffda0?format=webp" alt="EVOQUE Packaging Design" loading="lazy">
+    </a>
+
+    <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-card wide">
+      <img src="https://cdn.cosmos.so/9b7ffb80-9086-458b-b02c-4cf6c4da3e90?format=webp" alt="Lujuria Luxury Identity" loading="lazy">
+    </a>
+
   </section>
 
   <!-- FAQ -->
@@ -511,5 +586,8 @@
 
     <p class="footer-bottom">&copy; 2024 TUSDIO. All Rights Reserved.</p>
   </footer>
+
+  <!-- Custom cursor dot (desktop only, see script.js) -->
+  <div class="cursor-dot" aria-hidden="true"></div>
 </body>
 </html>
