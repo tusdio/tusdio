@@ -16,7 +16,7 @@ const TELEGRAM_CHAT_ID = "1365238243";
 const OWNER_DASHBOARD_URL = "https://tusdio.online/Nav%20Bar/auth/owner/owner.html";
 
 export async function notifyOwner(message) {
-  if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "PASTE_YOUR_BOT_TOKEN_HERE") {
+  if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "8839394130:AAHcoY2UGspv0IsO0f6k1M0PY4LnTjyA3hk") {
     console.warn("notifyOwner: TELEGRAM_BOT_TOKEN not set yet, skipping notification.");
     return;
   }
