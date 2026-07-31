@@ -88,6 +88,14 @@ onAuthStateChanged(auth, (user) => {
         }
       });
     }
+
+    // Notify the owner on Telegram when a client (not the owner) logs in.
+    // sessionStorage keeps this to once per browser session so it doesn't
+    // fire again on every page navigation/reload while they're browsing.
+    if (!isOwner && !sessionStorage.getItem("ownerNotifiedThisSession")) {
+      notifyOwner(`👤 <b>${name}</b> just logged in.`);
+      sessionStorage.setItem("ownerNotifiedThisSession", "true");
+    }
   } else {
     navUserArea.innerHTML = `<a href="./Nav Bar/auth/login.html">Login</a>`;
   }
