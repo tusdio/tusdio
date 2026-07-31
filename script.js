@@ -4,6 +4,7 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
+import { notifyOwner } from "./telegram-notify.js";
 // ---------- Typing Effect ----------
 const words = [
   "Building unforgettable brands.",
