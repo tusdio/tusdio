@@ -9,6 +9,7 @@ import {
   collection,
   addDoc
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+import { notifyOwner } from "../../telegram-notify.js";
 
 const userName = document.getElementById("userName");
 const serviceName = document.getElementById("serviceName");
@@ -373,6 +374,14 @@ if (requestForm) {
 
       requestForm.reset();
       if (requestStatusMsg) requestStatusMsg.textContent = "Request sent successfully.";
+
+      notifyOwner(
+        `📩 <b>New client request</b>\n` +
+        `From: ${user.displayName || userName?.textContent || "Client"} (${user.email || "no email"})\n` +
+        `Type: ${type}\n` +
+        `Subject: ${subject}\n` +
+        `Message: ${message}`
+      );
     } catch (error) {
       console.error(error);
       if (requestStatusMsg) requestStatusMsg.textContent = "Failed to send request.";
