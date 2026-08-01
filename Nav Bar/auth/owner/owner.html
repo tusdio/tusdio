@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Owner Panel | TUSDIO</title>
   <link rel="stylesheet" href="owner.css" />
 </head>
@@ -10,223 +10,489 @@
   <div class="bg-blur blur-1"></div>
   <div class="bg-blur blur-2"></div>
 
+  <!-- Topbar — logo, font (Arial) and dark glass theme preserved from the original navbar -->
   <header>
-  <div class="container nav-shell">
-    <a href="../../../index.html" class="logo-link">
-      <h1 class="logo">TUSDIO.</h1>
-    </a>
+    <div class="container nav-shell">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="sidebarToggle" aria-label="Toggle Navigation">&#9776;</button>
+        <a href="../../../index.html" class="logo-link">
+          <h1 class="logo">TUSDIO.</h1>
+        </a>
+        <span class="topbar-tag">Owner Panel</span>
+        <button class="cmdk-btn" id="cmdkOpenBtn" type="button">
+          <span class="cmdk-ico">🔍</span><span class="cmdk-label">Search clients, requests…</span>
+          <span class="cmdk-kbd">Ctrl K</span>
+        </button>
+      </div>
 
-    <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
+      <div class="topbar-right">
+        <div class="notif-wrap">
+          <button class="bell-btn" id="activityBellBtn" type="button" aria-label="Activity">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="bell-dot" id="activityBellDot" hidden></span>
+          </button>
 
-    <nav id="mainNav">
-      <ul class="nav-links">
-        <li><a href="../../About Us/index.html">About</a></li>
-        <li><a href="../../Services/index.html">Services</a></li>
-        <li><a href="../../Package/index.html">Package</a></li>
-        <li><a href="../../Portfolio/index.html">Portfolio</a></li>
-        <li><a href="../../Contact Us/index.html">Contact</a></li>
-        <li><a href="../../freebie/index.html">Freebie</a></li>
+          <div class="notif-panel" id="notifPanel" hidden>
+            <div class="notif-panel-head">
+              <strong>Notifications</strong>
+              <button type="button" id="notifCloseBtn" class="notif-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="notif-panel-body mini-list" id="notifPanelBody"></div>
+          </div>
+        </div>
+        <div class="owner-chip" id="ownerChip">Loading…</div>
+        <div id="navUserArea" class="nav-user-area"></div>
+      </div>
+    </div>
+  </header>
 
-        <li id="navUserArea" class="nav-user-area">
-          <a href="../login.html">Login</a>
-        </li>
-      </ul>
-    </nav>
+  <div class="owner-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+      <nav class="sidebar-nav">
+        <button class="side-link is-active" data-tab="overview" type="button"><span class="side-ico">🏠</span>Overview</button>
+        <button class="side-link" data-tab="clients" type="button"><span class="side-ico">👥</span>Clients</button>
+        <button class="side-link" data-tab="projects" type="button"><span class="side-ico">🗂️</span>Projects</button>
+        <button class="side-link" data-tab="requests" type="button"><span class="side-ico">📥</span>Requests<span class="side-badge" id="requestsBadge" hidden>0</span></button>
+        <button class="side-link" data-tab="messages" type="button"><span class="side-ico">💬</span>Messages</button>
+        <button class="side-link" data-tab="tasks" type="button"><span class="side-ico">✅</span>Tasks</button>
+        <button class="side-link" data-tab="invoices" type="button"><span class="side-ico">🧾</span>Invoices</button>
+        <button class="side-link" data-tab="time" type="button"><span class="side-ico">⏱️</span>Time Tracking</button>
+        <button class="side-link" data-tab="reports" type="button"><span class="side-ico">📊</span>Reports</button>
+        <button class="side-link" data-tab="files" type="button"><span class="side-ico">📁</span>Files &amp; Assets</button>
+        <button class="side-link" data-tab="activity" type="button"><span class="side-ico">🔔</span>Activity</button>
+        <button class="side-link" data-tab="owners" type="button"><span class="side-ico">🛡️</span>Owners</button>
+      </nav>
+    </aside>
+
+    <main class="owner-main">
+
+      <!-- OVERVIEW -->
+      <section class="tab-panel is-active" data-tab-panel="overview">
+        <div class="overview-hero card glass">
+          <div>
+            <p class="eyebrow" id="overviewDateLine">Loading…</p>
+            <h2 id="overviewGreeting">Welcome back</h2>
+            <p class="overview-sub">Here's a snapshot of every client, request, and dollar moving through TUSDIO right now.</p>
+          </div>
+          <div class="quick-actions">
+            <button class="qa-btn" id="qaNewClient" type="button"><span>➕</span>New Client</button>
+            <button class="qa-btn" data-tab="time" type="button"><span>⏱️</span>Log Time</button>
+            <button class="qa-btn" data-tab="files" type="button"><span>📁</span>Add File</button>
+            <button class="qa-btn" data-tab="reports" type="button"><span>📊</span>Reports</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="overview-grid">
+          <div class="card glass span-2">
+            <div class="card-head"><h3>Needs Your Attention</h3></div>
+            <div id="attentionList" class="mini-list"></div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head"><h3>Pipeline Snapshot</h3><button class="link-btn" data-tab="projects" type="button">View board</button></div>
+            <div id="overviewPhaseBars" class="bar-list"></div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head"><h3>Upcoming Deadlines</h3></div>
+            <div id="upcomingDeadlines" class="mini-list"></div>
+          </div>
+
+          <div class="card glass">
+            <div class="card-head"><h3>Recently Added</h3><button class="link-btn" data-tab="clients" type="button">View all</button></div>
+            <div id="recentClients" class="mini-list"></div>
+          </div>
+
+          <div class="card glass span-2">
+            <div class="card-head"><h3>Recent Activity</h3><button class="link-btn" data-tab="activity" type="button">View all</button></div>
+            <div id="overviewActivity" class="mini-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLIENTS -->
+      <section class="tab-panel" data-tab-panel="clients">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Manage</p><h2>Clients</h2></div>
+          <button class="save-btn" id="newClientBtn" type="button">+ New Client</button>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="clientSearch" placeholder="Search by name, email, or service…" class="search-input" />
+          <select id="clientSortSelect" class="request-status-select">
+            <option value="name">Sort: Name (A–Z)</option>
+            <option value="progress">Sort: Progress</option>
+            <option value="updated">Sort: Recently Updated</option>
+          </select>
+          <div class="chip-row" id="clientFilterChips">
+            <button class="chip is-active" data-filter="all" type="button">All</button>
+            <button class="chip" data-filter="active" type="button">Active</button>
+            <button class="chip" data-filter="removed" type="button">Removed</button>
+            <button class="chip" data-filter="vip" type="button">★ VIP</button>
+          </div>
+          <button class="chip" id="selectModeBtn" type="button">Select</button>
+        </div>
+
+        <div class="bulk-bar" id="bulkBar">
+          <span><span class="bulk-count" id="bulkCount">0</span> selected</span>
+          <button class="btn-secondary" id="bulkActiveBtn" type="button">Mark Active</button>
+          <button class="btn-secondary" id="bulkRemovedBtn" type="button">Mark Removed</button>
+          <button class="btn-secondary" id="bulkExportBtn" type="button">Export CSV</button>
+          <button class="btn-danger" id="bulkCancelBtn" type="button">Cancel</button>
+        </div>
+
+        <div id="clientsList" class="clients-grid"></div>
+      </section>
+
+      <!-- PROJECTS (kanban by phase) -->
+      <section class="tab-panel" data-tab-panel="projects">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Pipeline</p><h2>Projects</h2></div>
+        </div>
+        <div class="kanban" id="kanbanBoard"></div>
+      </section>
+
+      <!-- REQUESTS -->
+      <section class="tab-panel" data-tab-panel="requests">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Inbox</p><h2>Client Requests</h2></div>
+        </div>
+        <div id="requestsList" class="clients-grid"></div>
+      </section>
+
+      <!-- MESSAGES -->
+      <section class="tab-panel" data-tab-panel="messages">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Inbox</p><h2>Messages</h2></div>
+        </div>
+
+        <div class="messages-shell" id="messagesShell">
+          <div class="conversations-list" id="conversationsList"></div>
+
+          <div class="thread-pane" id="threadPane">
+            <div class="thread-empty" id="threadEmpty">Select a conversation to view messages.</div>
+
+            <div class="thread-active hidden-form" id="threadActive">
+              <div class="thread-head">
+                <button class="back-btn" id="threadBackBtn" type="button">&larr;</button>
+                <strong id="threadClientName">Client</strong>
+              </div>
+              <div class="chat-thread" id="ownerChatThread"></div>
+              <form class="chat-input-row" id="ownerChatForm">
+                <input type="text" id="ownerChatInput" placeholder="Reply as TUSDIO…" autocomplete="off" required />
+                <button type="submit" class="save-btn">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TASKS -->
+      <section class="tab-panel" data-tab-panel="tasks">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Follow-up</p><h2>Client Tasks</h2></div>
+        </div>
+        <div id="tasksBoard" class="mini-list"></div>
+      </section>
+
+      <!-- INVOICES -->
+      <section class="tab-panel" data-tab-panel="invoices">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Billing</p><h2>Invoices</h2></div>
+        </div>
+        <div id="invoicesList" class="clients-grid"></div>
+      </section>
+
+      <!-- TIME TRACKING -->
+      <section class="tab-panel" data-tab-panel="time">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Hours</p><h2>Time Tracking</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Log Time</h3></div>
+          <form id="timeLogForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field">
+                <label>Client</label>
+                <select id="timeLogClient" required></select>
+              </div>
+              <div class="field">
+                <label>Hours</label>
+                <input type="number" id="timeLogHours" min="0.25" step="0.25" required />
+              </div>
+              <div class="field">
+                <label>Date</label>
+                <input type="date" id="timeLogDate" required />
+              </div>
+              <div class="field">
+                <label>Note</label>
+                <input type="text" id="timeLogNote" placeholder="What did you work on?" />
+              </div>
+            </div>
+            <button type="submit" class="save-btn">Add Entry</button>
+            <p id="timeLogMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Hours by Client</h3></div>
+          <div id="timeSummary" class="mini-list"></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Recent Entries</h3></div>
+          <div id="timeLogsList" class="mini-list"></div>
+        </div>
+      </section>
+
+      <!-- REPORTS -->
+      <section class="tab-panel" data-tab-panel="reports">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Insights</p><h2>Reports</h2></div>
+          <button class="btn-secondary" id="reportsExportBtn" type="button">Export All Clients (CSV)</button>
+        </div>
+
+        <div class="kpi-grid" id="reportsKpiGrid"></div>
+
+        <div class="two-col">
+          <div class="card glass">
+            <div class="card-head"><h3>Projects by Phase</h3></div>
+            <div id="phaseBars" class="bar-list"></div>
+          </div>
+          <div class="card glass">
+            <div class="card-head"><h3>Payment Status</h3></div>
+            <div id="paymentBars" class="bar-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FILES -->
+      <section class="tab-panel" data-tab-panel="files">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Assets</p><h2>Files &amp; Deliverables</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Add a File</h3></div>
+          <form id="quickFileForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field">
+                <label>Client</label>
+                <select id="quickFileClient" required></select>
+              </div>
+              <div class="field">
+                <label>Title</label>
+                <input type="text" id="quickFileTitle" required />
+              </div>
+              <div class="field">
+                <label>Note</label>
+                <input type="text" id="quickFileNote" />
+              </div>
+              <div class="field">
+                <label>Link</label>
+                <input type="text" id="quickFileLink" placeholder="https://…" required />
+              </div>
+            </div>
+            <button type="submit" class="save-btn">Add File</button>
+            <p id="quickFileMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div id="filesGrid" class="clients-grid"></div>
+      </section>
+
+      <!-- ACTIVITY -->
+      <section class="tab-panel" data-tab-panel="activity">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Audit Trail</p><h2>Activity</h2></div>
+        </div>
+        <div id="activityFeed" class="mini-list"></div>
+      </section>
+
+      <!-- OWNERS -->
+      <section class="tab-panel" data-tab-panel="owners">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Access</p><h2>Owners</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Add an Owner</h3></div>
+          <form id="addOwnerForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field">
+                <label>Name</label>
+                <input type="text" id="newOwnerName" required />
+              </div>
+              <div class="field">
+                <label>Email</label>
+                <input type="email" id="newOwnerEmail" required />
+              </div>
+            </div>
+            <button type="submit" class="save-btn">Grant Access</button>
+            <p id="addOwnerMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div id="ownersList" class="clients-grid"></div>
+      </section>
+
+    </main>
   </div>
-</header>
 
- <main class="owner-layout">
+  <!-- Mobile-only bottom tab bar — this is the primary navigation on phones, not a squeezed sidebar -->
+  <nav class="mobile-tabbar" id="mobileTabbar">
+    <button class="mtab-link is-active" data-tab="overview" type="button">
+      <span class="mtab-ico">🏠</span><span class="mtab-label">Home</span>
+    </button>
+    <button class="mtab-link" data-tab="clients" type="button">
+      <span class="mtab-ico">👥</span><span class="mtab-label">Clients</span>
+    </button>
+    <button class="mtab-link" data-tab="requests" type="button">
+      <span class="mtab-ico">📥</span><span class="mtab-label">Requests</span><span class="mtab-badge" id="requestsBadgeMobile" hidden>0</span>
+    </button>
+    <button class="mtab-link" data-tab="messages" type="button">
+      <span class="mtab-ico">💬</span><span class="mtab-label">Chat</span>
+    </button>
+    <button class="mtab-link" id="mobileMoreBtn" type="button">
+      <span class="mtab-ico">☰</span><span class="mtab-label">More</span>
+    </button>
+  </nav>
 
-  <section class="clients-panel glass">
-    <p class="eyebrow">Clients</p>
-    <h2>All Clients</h2>
-    <div id="clientsList" class="clients-list"></div>
-  </section>
+  <!-- Toasts -->
+  <div class="toast-stack" id="toastStack"></div>
 
-  <section class="editor-panel glass project-control-panel">
-    <p class="eyebrow">Editor</p>
-    <h2>Project Control</h2>
+  <!-- Command palette -->
+  <div class="cmdk-overlay" id="cmdkOverlay" hidden>
+    <div class="cmdk-box">
+      <input type="text" id="cmdkInput" class="cmdk-input" placeholder="Search clients, requests, or jump to a tab…" autocomplete="off" />
+      <div class="cmdk-results" id="cmdkResults"></div>
+    </div>
+  </div>
 
-    <form id="ownerForm" class="owner-form">
-      <input type="hidden" id="clientId" />
+  <!-- Mobile floating action button (context depends on active tab) -->
+  <button class="fab-btn" id="fabBtn" type="button" aria-label="Quick add" hidden>+</button>
 
-      <div class="form-grid">
-        <div class="field">
-          <label>Name</label>
-          <input type="text" id="name" />
-        </div>
-
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="email" />
-        </div>
-
-        <div class="field">
-          <label>Service</label>
-          <input type="text" id="service" />
-        </div>
-
-        <div class="field">
-          <label>Project Name</label>
-          <input type="text" id="projectName" />
-        </div>
-
-        <div class="field">
-          <label>Phase</label>
-          <select id="phase">
-            <option value="Discovery">Discovery</option>
-            <option value="Strategy">Strategy</option>
-            <option value="Design Direction">Design Direction</option>
-            <option value="Revisions">Revisions</option>
-            <option value="Final Delivery">Final Delivery</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Status</label>
-          <select id="status">
-            <option value="Not started">Not started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Waiting for feedback">Waiting for feedback</option>
-            <option value="Completed">Completed</option>
-            <option value="Removed">Removed</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Next Action</label>
-          <input type="text" id="nextAction" />
-        </div>
-
-        <div class="field">
-          <label>Progress (%)</label>
-          <input type="number" id="progress" min="0" max="100" />
-        </div>
-
-        <div class="field">
-          <label>Revision Round</label>
-          <input type="text" id="revisionRound" />
-        </div>
-
-        <div class="field">
-          <label>Start Date</label>
-          <input type="text" id="startDate" />
-        </div>
-
-        <div class="field">
-          <label>Estimated Delivery</label>
-          <input type="text" id="estimatedDelivery" />
-        </div>
-
-        <div class="field">
-          <label>Login Type</label>
-          <input type="text" id="loginType" readonly />
-        </div>
-
-        <div class="field">
-          <label>Plan Name</label>
-          <input type="text" id="planName" />
-        </div>
-
-        <div class="field">
-          <label>Payment Status</label>
-          <select id="paymentStatus">
-            <option value="Pending">Pending</option>
-            <option value="Partially Paid">Partially Paid</option>
-            <option value="Paid">Paid</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Total Amount</label>
-          <input type="number" id="totalAmount" min="0" />
-        </div>
-
-        <div class="field">
-          <label>Paid Amount</label>
-          <input type="number" id="paidAmount" min="0" />
-        </div>
-
-        <div class="field">
-          <label>Invoice Link</label>
-          <input type="text" id="invoiceLink" placeholder="Paste invoice link here" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Updates (one per line)</label>
-        <textarea id="updates" rows="6"></textarea>
-      </div>
-
-      <div class="field">
-        <label>Tasks (one per line)</label>
-        <textarea id="tasks" rows="6"></textarea>
-      </div>
-
-      <div class="field">
-        <label>Files / Deliverables</label>
-        <textarea id="filesInput" rows="6" placeholder="One per line like: Moodboard | Direction references and brand tone | https://your-link.com"></textarea>
-      </div>
-
-      <div class="owner-actions">
-        <button type="submit" class="save-btn">Save Changes</button>
-        <button type="button" id="removeClientBtn" class="btn-danger">Remove Access</button>
-        <button type="button" id="restoreClientBtn" class="btn-secondary">Reactivate Access</button>
-      </div>
-
-      <p id="saveMessage" class="save-message"></p>
-    </form>
-  </section>
-
-  <section class="editor-panel glass requests-panel">
-    <p class="eyebrow">Requests</p>
-    <h2>Client Requests</h2>
-    <div id="requestsList" class="clients-list"></div>
-  </section>
-
-  <section class="editor-panel glass onboarding-panel">
-    <div class="panel-top">
+  <!-- Shared client editor drawer -->
+  <div class="editor-overlay" id="editorOverlay"></div>
+  <aside class="editor-drawer" id="editorDrawer">
+    <div class="editor-drawer-head">
       <div>
-        <p class="eyebrow">Add Client</p>
-        <h2>Client Onboarding</h2>
+        <p class="eyebrow" id="editorEyebrow">Editing</p>
+        <h3 id="editorClientTitle">Client</h3>
       </div>
-
-      <button type="button" id="toggleAddClientBtn" class="save-btn">+ Add New Client</button>
+      <button id="editorCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
     </div>
 
-    <form id="addClientForm" class="owner-form hidden-form">
-      <div class="form-grid">
-        <div class="field">
-          <label>Client Name</label>
-          <input type="text" id="newClientName" required />
+    <div class="editor-drawer-body">
+      <form id="ownerForm" class="owner-form">
+        <input type="hidden" id="clientId" />
+
+        <h4 class="form-section-title">Basics</h4>
+        <div class="form-grid">
+          <div class="field"><label>Name</label><input type="text" id="name" required /></div>
+          <div class="field"><label>Email</label><input type="email" id="email" required /></div>
+          <div class="field"><label>Service</label><input type="text" id="service" /></div>
+          <div class="field"><label>Project Name</label><input type="text" id="projectName" /></div>
+          <div class="field"><label>Login Type</label><input type="text" id="loginType" readonly /></div>
         </div>
 
-        <div class="field">
-          <label>Client Email</label>
-          <input type="email" id="newClientEmail" required />
+        <h4 class="form-section-title">Workflow</h4>
+        <div class="form-grid">
+          <div class="field">
+            <label>Phase</label>
+            <select id="phase">
+              <option value="Discovery">Discovery</option>
+              <option value="Strategy">Strategy</option>
+              <option value="Design Direction">Design Direction</option>
+              <option value="Revisions">Revisions</option>
+              <option value="Final Delivery">Final Delivery</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="status">
+              <option value="Not started">Not started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Waiting for feedback">Waiting for feedback</option>
+              <option value="Completed">Completed</option>
+              <option value="Removed">Removed</option>
+            </select>
+          </div>
+          <div class="field"><label>Next Action</label><input type="text" id="nextAction" /></div>
+          <div class="field"><label>Progress (%)</label><input type="number" id="progress" min="0" max="100" /></div>
+          <div class="field"><label>Revision Round</label><input type="text" id="revisionRound" /></div>
+          <div class="field"><label>Start Date</label><input type="text" id="startDate" /></div>
+          <div class="field"><label>Estimated Delivery</label><input type="text" id="estimatedDelivery" /></div>
         </div>
 
+        <h4 class="form-section-title">Decisions &amp; Current Review</h4>
+        <p class="field-hint">One decision per line — <code>Name | approved</code>, <code>Name | awaiting</code>, or <code>Name | upcoming</code></p>
         <div class="field">
-          <label>Service</label>
-          <input type="text" id="newClientService" placeholder="Brand identity" />
+          <textarea id="decisions" rows="4" placeholder="Brand Direction | approved&#10;Logo Direction | awaiting"></textarea>
+        </div>
+        <div class="form-grid">
+          <div class="field"><label>Review Title</label><input type="text" id="reviewTitleInput" placeholder="Logo Direction — Round 3" /></div>
+          <div class="field">
+            <label>Review Status</label>
+            <select id="reviewStatusInput">
+              <option value="awaiting">Awaiting client</option>
+              <option value="approved">Approved</option>
+              <option value="changes_requested">Changes requested</option>
+            </select>
+          </div>
+          <div class="field"><label>Preview Image Link</label><input type="text" id="reviewImageInput" placeholder="https://…" /></div>
+        </div>
+        <div class="field">
+          <label>Review Description</label>
+          <textarea id="reviewDescInput" rows="3" placeholder="Please review the latest direction and let us know what you think."></textarea>
+        </div>
+        <div class="field">
+          <label>Client Satisfaction</label>
+          <input type="text" id="satisfactionDisplay" readonly placeholder="Not rated yet" />
         </div>
 
-        <div class="field">
-          <label>Project Name</label>
-          <input type="text" id="newClientProject" placeholder="Confidmate" />
+        <h4 class="form-section-title">Billing</h4>
+        <div class="form-grid">
+          <div class="field"><label>Plan Name</label><input type="text" id="planName" /></div>
+          <div class="field">
+            <label>Payment Status</label>
+            <select id="paymentStatus">
+              <option value="Pending">Pending</option>
+              <option value="Partially Paid">Partially Paid</option>
+              <option value="Paid">Paid</option>
+              <option value="Overdue">Overdue</option>
+            </select>
+          </div>
+          <div class="field"><label>Total Amount (₹)</label><input type="number" id="totalAmount" min="0" /></div>
+          <div class="field"><label>Paid Amount (₹)</label><input type="number" id="paidAmount" min="0" /></div>
+          <div class="field"><label>Next Payment Due</label><input type="text" id="nextPaymentDueInput" placeholder="e.g. 15 Aug 2026" /></div>
+          <div class="field"><label>Invoice Link</label><input type="text" id="invoiceLink" placeholder="Paste invoice link here" /></div>
         </div>
-      </div>
 
-      <div class="owner-actions">
-        <button type="submit" class="save-btn">Create Client</button>
-        <button type="button" id="cancelAddClientBtn" class="btn-secondary">Cancel</button>
-      </div>
+        <h4 class="form-section-title">Updates &amp; Notifications</h4>
+        <div class="field"><label>Updates (one per line)</label><textarea id="updates" rows="4"></textarea></div>
+        <div class="field"><label>Notifications (one per line)</label><textarea id="notificationsInput" rows="4" placeholder="New logo concepts uploaded"></textarea></div>
 
-      <p id="addClientMessage" class="save-message"></p>
-    </form>
-  </section>
+        <h4 class="form-section-title">Tasks &amp; Files</h4>
+        <div class="field"><label>Tasks (one per line)</label><textarea id="tasks" rows="4"></textarea></div>
+        <div class="field"><label>Files / Deliverables</label><textarea id="filesInput" rows="4" placeholder="One per line like: Moodboard | Direction references and brand tone | https://your-link.com"></textarea></div>
 
-</main>
+        <div class="owner-actions">
+          <button type="submit" class="save-btn" id="editorSaveBtn">Save Client</button>
+          <button type="button" id="removeClientBtn" class="btn-secondary">Remove Access</button>
+          <button type="button" id="restoreClientBtn" class="btn-secondary">Reactivate Access</button>
+          <button type="button" id="deleteClientBtn" class="btn-danger">Delete Permanently</button>
+        </div>
+
+        <p id="saveMessage" class="save-message"></p>
+      </form>
+    </div>
+  </aside>
 
   <script type="module" src="owner.js"></script>
 </body>
