@@ -102,10 +102,10 @@ const notifCloseBtn = document.getElementById("notifCloseBtn");
 const notifDrawerBody = document.getElementById("notifDrawerBody");
 
 const chatThread = document.getElementById("chatThread");
-const chatEmpty = document.getElementById("chatEmpty");
 const chatForm = document.getElementById("chatForm");
 const chatInput = document.getElementById("chatInput");
 const chatSendBtn = document.getElementById("chatSendBtn");
+const chatStatusMsg = document.getElementById("chatStatusMsg");
 
 const starRow = document.getElementById("starRow");
 const satisfactionMsg = document.getElementById("satisfactionMsg");
@@ -124,6 +124,7 @@ let messageRenderCount = 0;
 let currentUser = null;
 let currentReviewState = null; // cache of the last-rendered review object
 let seenNotifCount = 0; // how many notifications the client has already opened the drawer for
+let chatListenerAttempts = 0; // tracks retries so we can back off instead of looping forever
 
 if (menuToggle && nav) {
   menuToggle.addEventListener("click", () => {
@@ -166,6 +167,12 @@ function markSynced() {
 window.addEventListener("online", () => {
   logger.info("Browser reports connection restored");
   setSyncState("live");
+  // A restored connection is the most common reason the chat listener
+  // died silently — re-attach it if we have a signed-in user.
+  if (currentUser && !unsubscribeMessages) {
+    chatListenerAttempts = 0;
+    listenToMessages(currentUser.uid);
+  }
 });
 
 window.addEventListener("offline", () => {
@@ -605,6 +612,9 @@ if (feedbackForm) {
       if (feedbackSendBtn) feedbackSendBtn.disabled = true;
       logger.info("Feedback submitted on current review", { uid: currentUser.uid });
 
+      // This is the write that actually matters — it's what shows up on
+      // TUSDIO's side under Requests. If this succeeds, the feedback has
+      // been delivered, full stop.
       await addDoc(collection(db, "client_requests"), {
         clientUid: currentUser.uid,
         clientName: currentUser.displayName || userName?.textContent || "Client",
@@ -616,7 +626,14 @@ if (feedbackForm) {
         createdAt: new Date().toISOString()
       });
 
-      await sendChatMessage(text, { fromFeedback: true });
+      // Mirroring it into the chat thread is a nice-to-have, not the
+      // primary delivery path — don't let a failure here (e.g. messages
+      // permissions) overwrite the success message above.
+      try {
+        await sendChatMessage(text, { fromFeedback: true });
+      } catch (chatError) {
+        logger.error("Feedback delivered, but chat mirror failed", { message: chatError?.message });
+      }
 
       feedbackForm.hidden = true;
       feedbackText.value = "";
@@ -804,8 +821,50 @@ if (starRow) {
 }
 
 /* ============================================================
-   MESSAGES / CHAT (clients/{uid}/messages subcollection)
-   ============================================================ */
+   MESSAGES / CHAT  (clients/{uid}/messages subcollection)
+   ------------------------------------------------------------
+   This is the part that was reported as not working. Fixes:
+
+   1. addDoc payload now includes `clientUid`, matching the
+      field-based ownership pattern used everywhere else in this
+      file (client_requests, etc). If your Firestore rules check
+      request.resource.data.clientUid — which is the most common
+      reason a brand-new subcollection silently rejects writes —
+      this alone unblocks sending.
+   2. Listener + send failures are now surfaced to the user via
+      #chatStatusMsg instead of only going to the console, with
+      plain-language text for the common Firestore error codes
+      (permission-denied, failed-precondition, unavailable).
+   3. The listener auto-retries with backoff on transient errors
+      and re-attaches automatically when the browser comes back
+      online (see the "online" handler above).
+   4. Input + button are disabled together while a send is in
+      flight, and always re-enabled in a `finally`, so a failed
+      send can never leave the form stuck.
+   ------------------------------------------------------------ */
+
+function setChatStatus(text, kind) {
+  if (!chatStatusMsg) return;
+  chatStatusMsg.textContent = text;
+  chatStatusMsg.classList.remove("is-success", "is-error");
+  if (kind === "success") chatStatusMsg.classList.add("is-success");
+  if (kind === "error") chatStatusMsg.classList.add("is-error");
+}
+
+function friendlyFirestoreError(error) {
+  const code = error?.code || "";
+  if (code.includes("permission-denied")) {
+    return "Messages are blocked by permissions. Please contact TUSDIO to enable chat access.";
+  }
+  if (code.includes("failed-precondition")) {
+    return "Messages need a one-time setup on our end. Please try again shortly.";
+  }
+  if (code.includes("unavailable") || code.includes("deadline-exceeded")) {
+    return "Couldn't reach the server. Check your connection and try again.";
+  }
+  return "Something went wrong loading messages. Please refresh the page.";
+}
+
 function renderChatMessages(docsSnap) {
   if (!chatThread) return;
   messageRenderCount += 1;
@@ -821,7 +880,12 @@ function renderChatMessages(docsSnap) {
 
   docsSnap.forEach((docSnap) => {
     const m = docSnap.data();
-    const isClient = m.sender === "client";
+    // Accept whichever field the owner-side panel actually writes
+    // (sender / role / from / author) so bubbles still align correctly
+    // even if the two apps don't use identical field names.
+    const senderValue = (m.sender ?? m.role ?? m.from ?? m.author ?? "").toString().toLowerCase();
+    const isClient = senderValue === "client" || senderValue === "user";
+
     const bubble = document.createElement("div");
     bubble.className = `chat-bubble ${isClient ? "from-client" : "from-tusdio"}`;
 
@@ -849,9 +913,26 @@ function listenToMessages(uid) {
 
   unsubscribeMessages = onSnapshot(
     messagesQuery,
-    (snap) => renderChatMessages(snap),
+    (snap) => {
+      chatListenerAttempts = 0;
+      setChatStatus("", "");
+      renderChatMessages(snap);
+    },
     (error) => {
       logger.error("Messages listener error", { message: error?.message, code: error?.code });
+      setChatStatus(friendlyFirestoreError(error), "error");
+
+      // Transient errors (network blips, brief server unavailability) are
+      // retried with backoff instead of leaving chat dead for the session.
+      // Permission errors are not retried — retrying won't fix a rules issue.
+      if (error?.code !== "permission-denied" && chatListenerAttempts < 3) {
+        chatListenerAttempts += 1;
+        const delayMs = chatListenerAttempts * 2000;
+        logger.info(`Retrying message listener in ${delayMs}ms`, { attempt: chatListenerAttempts });
+        setTimeout(() => {
+          if (currentUser?.uid === uid) listenToMessages(uid);
+        }, delayMs);
+      }
     }
   );
 }
@@ -860,6 +941,7 @@ async function sendChatMessage(text, opts = {}) {
   if (!currentUser || !text) return;
 
   await addDoc(collection(db, "clients", currentUser.uid, "messages"), {
+    clientUid: currentUser.uid,
     sender: "client",
     text,
     createdAt: serverTimestamp(),
@@ -871,17 +953,30 @@ if (chatForm) {
   chatForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = chatInput?.value.trim();
-    if (!text || !currentUser) return;
+
+    if (!currentUser) {
+      setChatStatus("Please log in first.", "error");
+      return;
+    }
+    if (!text) return;
 
     try {
       if (chatSendBtn) chatSendBtn.disabled = true;
+      if (chatInput) chatInput.disabled = true;
+      setChatStatus("Sending…", "");
+
       logger.info("Client sent a chat message", { uid: currentUser.uid });
       await sendChatMessage(text);
+
       chatInput.value = "";
+      setChatStatus("", "");
     } catch (error) {
-      logger.error("Failed to send chat message", { message: error?.message });
+      logger.error("Failed to send chat message", { message: error?.message, code: error?.code });
+      setChatStatus(friendlyFirestoreError(error), "error");
     } finally {
       if (chatSendBtn) chatSendBtn.disabled = false;
+      if (chatInput) chatInput.disabled = false;
+      chatInput?.focus();
     }
   });
 }
@@ -902,6 +997,7 @@ onAuthStateChanged(auth, async (user) => {
   logger.info("User authenticated", { uid: user.uid, email: user.email });
 
   teardownListeners();
+  chatListenerAttempts = 0;
 
   const clientRef = doc(db, "clients", user.uid);
   setSyncState("connecting");
