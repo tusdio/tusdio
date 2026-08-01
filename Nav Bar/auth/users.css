@@ -1317,21 +1317,34 @@ header nav ul li a:hover {
     gap: 14px;
   }
 
-  /* Status strip */
+  /* Status strip — keep it a single line and truncate the sync text
+     instead of wrapping, which is what made this look broken on phones. */
   .status-strip {
     border-radius: var(--radius-sm);
     padding: 10px 12px;
-    flex-wrap: wrap;
-    row-gap: 8px;
+    flex-wrap: nowrap;
   }
 
   .status-strip-left {
     font-size: 12px;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  .status-strip-left span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
   }
 
   .status-strip-right {
     font-size: 12px;
     margin-left: auto;
+    flex-shrink: 0;
   }
 
   .bell-btn {
