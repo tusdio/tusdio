@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Client Portal | TUSDIO</title>
   <link rel="stylesheet" href="users.css" />
 </head>
 <body>
   <div class="bg-blur blur-1"></div>
   <div class="bg-blur blur-2"></div>
+  <div class="bg-blur blur-3"></div>
 
-  
-
-   <!-- Nav Bar -->
+  <!-- Nav Bar -->
 <header>
   <div class="container">
       <a href="../../index.html" class="logo-link">
@@ -40,26 +39,40 @@
 </header>
 
 
-  
-
   <main class="dashboard">
+
+    <!-- Live status strip -->
+    <div class="status-strip glass" id="statusStrip">
+      <div class="status-strip-left">
+        <span class="status-dot" id="syncStatusDot"></span>
+        <span id="syncStatusText">Connecting…</span>
+      </div>
+      <div class="status-strip-right">
+        <span id="lastSyncedText">—</span>
+        <button class="bell-btn" id="notifBellBtn" type="button" aria-label="Notifications">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="bell-dot" id="notifBellDot" hidden></span>
+        </button>
+      </div>
+    </div>
+
     <section class="welcome-card glass">
       <div class="welcome-copy">
         <p class="eyebrow">Welcome back</p>
-        <h2 id="userName">Loading...</h2>
+        <h2 id="userName">Loading…</h2>
         <p class="subtext">
-          Track your project progress, current phase, updates, and next actions — all in one place.
+          Track your project progress, current phase, approvals, and next actions — all in one place.
         </p>
       </div>
 
       <div class="welcome-side">
         <div class="mini-stat">
           <span>Service</span>
-          <strong id="serviceName">Loading...</strong>
+          <strong id="serviceName">Loading…</strong>
         </div>
         <div class="mini-stat">
           <span>Status</span>
-          <strong id="statusText">Loading...</strong>
+          <strong id="statusText">Loading…</strong>
         </div>
       </div>
     </section>
@@ -67,26 +80,72 @@
     <section class="overview-grid">
       <div class="overview-card glass">
         <p>Current Service</p>
-        <h3 id="overviewService">Loading...</h3>
+        <h3 id="overviewService">Loading…</h3>
       </div>
 
       <div class="overview-card glass">
         <p>Current Phase</p>
-        <h3 id="overviewPhase">Loading...</h3>
+        <h3 id="overviewPhase">Loading…</h3>
+      </div>
+
+      <div class="overview-card overview-card--ring glass">
+        <p>Progress</p>
+        <div class="ring-wrap">
+          <svg class="progress-ring" viewBox="0 0 120 120">
+            <circle class="progress-ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="progress-ring-fill" id="progressRingCircle" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="ring-value">
+            <h3 id="progressValue">0%</h3>
+          </div>
+        </div>
       </div>
 
       <div class="overview-card glass">
-       <p>Progress</p>
-       <h3 id="progressValue">0%</h3>
-
-      <div class="progress-bar">
-       <div class="progress-fill" id="progressFill"></div>
-  </div>
-     </div>
-
-      <div class="overview-card glass">
         <p>Next Action</p>
-        <h3 id="nextAction">Loading...</h3>
+        <h3 id="nextAction">Loading…</h3>
+      </div>
+    </section>
+
+    <!-- Current Review — signature approval element -->
+    <section class="panel glass review-panel" id="reviewPanel">
+      <div class="panel-head review-head">
+        <div>
+          <p class="eyebrow">Current Review</p>
+          <h3 id="reviewTitle">Loading…</h3>
+        </div>
+        <span class="review-status-pill" id="reviewStatusPill">—</span>
+      </div>
+
+      <div class="review-body">
+        <div class="review-preview" id="reviewPreview">
+          <span class="review-preview-empty">No preview yet</span>
+        </div>
+
+        <div class="review-content">
+          <p class="review-desc" id="reviewDesc">Nothing is waiting on your review right now.</p>
+
+          <div class="review-actions" id="reviewActions">
+            <button class="rev-btn rev-approve" id="approveBtn" type="button">
+              <span>✓</span> Approve
+            </button>
+            <button class="rev-btn rev-changes" id="changesBtn" type="button">
+              <span>↻</span> Request Changes
+            </button>
+            <button class="rev-btn rev-feedback" id="feedbackBtn" type="button">
+              <span>💬</span> Leave Feedback
+            </button>
+          </div>
+
+          <form class="feedback-form" id="feedbackForm" hidden>
+            <textarea id="feedbackText" rows="3" placeholder="Share your thoughts on this direction…"></textarea>
+            <div class="feedback-form-actions">
+              <button type="button" class="save-btn ghost-btn" id="feedbackCancelBtn">Cancel</button>
+              <button type="submit" class="save-btn" id="feedbackSendBtn">Send Feedback</button>
+            </div>
+          </form>
+          <p class="save-message" id="reviewStatusMsg"></p>
+        </div>
       </div>
     </section>
 
@@ -142,6 +201,17 @@
 
       <div class="panel glass">
         <div class="panel-head">
+          <p class="eyebrow">Decisions</p>
+          <h3>Approvals Log</h3>
+        </div>
+
+        <div class="decision-list" id="decisionList"></div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel glass">
+        <div class="panel-head">
           <p class="eyebrow">Project Details</p>
           <h3>Summary</h3>
         </div>
@@ -149,104 +219,142 @@
         <div class="detail-list">
           <div class="detail-row">
             <span>Project Name</span>
-            <strong id="projectName">Loading...</strong>
+            <strong id="projectName">Loading…</strong>
           </div>
           <div class="detail-row">
             <span>Service</span>
-            <strong id="detailService">Loading...</strong>
+            <strong id="detailService">Loading…</strong>
           </div>
           <div class="detail-row">
             <span>Started</span>
-            <strong id="startDate">Loading...</strong>
+            <strong id="startDate">Loading…</strong>
           </div>
           <div class="detail-row">
             <span>Estimated Delivery</span>
-            <strong id="estimatedDelivery">Loading...</strong>
+            <strong id="estimatedDelivery">Loading…</strong>
           </div>
           <div class="detail-row">
             <span>Revision Round</span>
-            <strong id="revisionRound">Loading...</strong>
+            <strong id="revisionRound">Loading…</strong>
           </div>
         </div>
       </div>
 
-      <section class="panel glass">
-  <div class="panel-head">
-    <p class="eyebrow">Payment</p>
-    <h3>Plan & Billing</h3>
-  </div>
-
-  <div class="detail-list">
-    <div class="detail-row">
-      <span>Plan</span>
-      <strong id="planNameDisplay">Loading...</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Payment Status</span>
-      <strong id="paymentStatusDisplay">Loading...</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Total Amount</span>
-      <strong id="totalAmountDisplay">₹0</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Paid Amount</span>
-      <strong id="paidAmountDisplay">₹0</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Due Amount</span>
-      <strong id="dueAmountDisplay">₹0</strong>
-    </div>
-  </div>
-
-  <div class="invoice-actions">
-    <a id="invoiceDownloadBtn" href="#" target="_blank" rel="noopener noreferrer" class="file-open-btn">
-      Invoice Not Available
-    </a>
-  </div>
-</section>
-
-<section class="panel glass">
-  <div class="panel-head">
-    <p class="eyebrow">Requests</p>
-    <h3>Contact TUSDIO</h3>
-  </div>
-
-  <form id="requestForm" class="owner-form">
-    <div class="form-grid">
-      <div class="field">
-        <label>Request Type</label>
-        <select id="requestType" required>
-          <option value="Revision Request">Revision Request</option>
-          <option value="Service Request">Service Request</option>
-          <option value="Message">Message</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Subject</label>
-        <input type="text" id="requestSubject" placeholder="Enter subject" required />
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Message</label>
-      <textarea id="requestMessage" rows="6" placeholder="Write your message here..." required></textarea>
-    </div>
-
-    <button type="submit" class="save-btn">Send Request</button>
-    <p id="requestStatusMsg" class="save-message"></p>
-  </form>
-</section>
-
-      <div class="panel glass">
+      <section class="panel glass billing-panel">
         <div class="panel-head">
-          <p class="eyebrow">Updates</p>
-          <h3>Latest From TUSDIO</h3>
+          <p class="eyebrow">Payment</p>
+          <h3>Plan &amp; Billing</h3>
+        </div>
+
+        <div class="billing-visual">
+          <div class="billing-ring-wrap">
+            <svg class="billing-ring" viewBox="0 0 120 120">
+              <circle class="billing-ring-track" cx="60" cy="60" r="52"></circle>
+              <circle class="billing-ring-fill" id="billingRingCircle" cx="60" cy="60" r="52"></circle>
+            </svg>
+            <div class="ring-value">
+              <h3 id="billingRingValue">0%</h3>
+              <span>paid</span>
+            </div>
+          </div>
+
+          <div class="billing-amounts">
+            <div class="billing-amount-row billing-amount-total">
+              <span>Total Amount</span>
+              <strong id="totalAmountDisplay">₹0</strong>
+            </div>
+            <div class="billing-amount-row">
+              <span>Paid Amount</span>
+              <strong id="paidAmountDisplay" class="amount-good">₹0</strong>
+            </div>
+            <div class="billing-amount-row">
+              <span>Remaining</span>
+              <strong id="dueAmountDisplay" class="amount-warn">₹0</strong>
+            </div>
+            <div class="billing-amount-row">
+              <span>Next Payment Due</span>
+              <strong id="nextPaymentDue">Not scheduled</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-list billing-meta">
+          <div class="detail-row">
+            <span>Plan</span>
+            <strong id="planNameDisplay">Loading…</strong>
+          </div>
+          <div class="detail-row">
+            <span>Payment Status</span>
+            <strong id="paymentStatusDisplay" class="status-pill">Loading…</strong>
+          </div>
+        </div>
+
+        <div class="invoice-actions">
+          <a id="invoiceDownloadBtn" href="#" target="_blank" rel="noopener noreferrer" class="file-open-btn">
+            Invoice Not Available
+          </a>
+        </div>
+      </section>
+    </section>
+
+    <section class="dashboard-grid">
+      <section class="panel glass messages-panel">
+        <div class="panel-head">
+          <p class="eyebrow">Messages</p>
+          <h3>TUSDIO ↔ You</h3>
+        </div>
+
+        <div class="chat-thread" id="chatThread">
+          <p class="chat-empty" id="chatEmpty">No messages yet — start the conversation below.</p>
+        </div>
+
+        <form class="chat-input-row" id="chatForm">
+          <input type="text" id="chatInput" placeholder="Write a message…" autocomplete="off" required />
+          <button type="submit" class="save-btn" id="chatSendBtn">Send</button>
+        </form>
+      </section>
+
+      <section class="panel glass">
+        <div class="panel-head">
+          <p class="eyebrow">Requests</p>
+          <h3>Contact TUSDIO</h3>
+        </div>
+
+        <form id="requestForm" class="owner-form">
+          <div class="form-grid">
+            <div class="field">
+              <label>Request Type</label>
+              <select id="requestType" required>
+                <option value="Revision Request">Revision Request</option>
+                <option value="Service Request">Service Request</option>
+                <option value="Message">Message</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Subject</label>
+              <input type="text" id="requestSubject" placeholder="Enter subject" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Message</label>
+            <textarea id="requestMessage" rows="6" placeholder="Write your message here…" required></textarea>
+          </div>
+
+          <button type="submit" class="save-btn" id="requestSubmitBtn">Send Request</button>
+          <p id="requestStatusMsg" class="save-message"></p>
+        </form>
+      </section>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel glass">
+        <div class="panel-head notif-head">
+          <div>
+            <p class="eyebrow">Notifications</p>
+            <h3>Latest From TUSDIO</h3>
+          </div>
         </div>
 
         <div class="updates-feed" id="updatesFeed"></div>
@@ -263,26 +371,44 @@
     </section>
 
     <section class="deliverables-panel glass">
-  <div class="panel-head">
-    <p class="eyebrow">Deliverables</p>
-    <h3>Files & Assets</h3>
-  </div>
+      <div class="panel-head">
+        <p class="eyebrow">Deliverables</p>
+        <h3>Files &amp; Assets</h3>
+      </div>
 
-  <div class="deliverables-grid" id="deliverablesGrid">
-    <div class="file-card">
-      <strong>Moodboard</strong>
-      <p>Direction references and brand tone</p>
-    </div>
-    <div class="file-card">
-      <strong>Concept Sheet</strong>
-      <p>Initial visual system concepts</p>
-    </div>
-    <div class="file-card">
-      <strong>Final Assets</strong>
-      <p>Will appear after final delivery</p>
-    </div>
-  </div>
-</section>
+      <div class="deliverables-grid" id="deliverablesGrid">
+        <div class="file-card">
+          <strong>Moodboard</strong>
+          <p>Direction references and brand tone</p>
+        </div>
+        <div class="file-card">
+          <strong>Concept Sheet</strong>
+          <p>Initial visual system concepts</p>
+        </div>
+        <div class="file-card">
+          <strong>Final Assets</strong>
+          <p>Will appear after final delivery</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel glass satisfaction-panel">
+      <div class="panel-head">
+        <p class="eyebrow">Your Feedback</p>
+        <h3>How's the project going?</h3>
+      </div>
+
+      <div class="satisfaction-body">
+        <div class="star-row" id="starRow">
+          <button type="button" class="star-btn" data-value="1">★</button>
+          <button type="button" class="star-btn" data-value="2">★</button>
+          <button type="button" class="star-btn" data-value="3">★</button>
+          <button type="button" class="star-btn" data-value="4">★</button>
+          <button type="button" class="star-btn" data-value="5">★</button>
+        </div>
+        <p class="save-message" id="satisfactionMsg">Tap a star to rate your experience so far.</p>
+      </div>
+    </section>
 
     <section class="about-panel glass">
       <div class="panel-head">
@@ -297,18 +423,27 @@
       </p>
     </section>
 
-<section class="panel glass">
-  <div class="panel-head">
-    <p class="eyebrow">Account Access</p>
-    <h3>Login Methods</h3>
-  </div>
+    <section class="panel glass">
+      <div class="panel-head">
+        <p class="eyebrow">Account Access</p>
+        <h3>Login Methods</h3>
+      </div>
 
-  <button id="linkGoogleBtn" type="button" class="save-btn">Link Google Login</button>
-  <p id="linkMessage" class="save-message"></p>
-</section>
-
+      <button id="linkGoogleBtn" type="button" class="save-btn">Link Google Login</button>
+      <p id="linkMessage" class="save-message"></p>
+    </section>
 
   </main>
+
+  <!-- Notification center drawer -->
+  <div class="notif-drawer" id="notifDrawer" aria-hidden="true">
+    <div class="notif-drawer-head">
+      <h3>Notifications</h3>
+      <button id="notifCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="notif-drawer-body" id="notifDrawerBody"></div>
+  </div>
+  <div class="notif-overlay" id="notifOverlay"></div>
 
   <button id="logoutBtn" class="sticky-help">Logout</button>
 
