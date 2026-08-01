@@ -55,7 +55,7 @@
         <button class="side-link" data-tab="clients" type="button"><span class="side-ico">👥</span>Clients</button>
         <button class="side-link" data-tab="projects" type="button"><span class="side-ico">🗂️</span>Projects</button>
         <button class="side-link" data-tab="requests" type="button"><span class="side-ico">📥</span>Requests<span class="side-badge" id="requestsBadge" hidden>0</span></button>
-        <button class="side-link" data-tab="messages" type="button"><span class="side-ico">💬</span>Messages</button>
+        <button class="side-link" data-tab="messages" type="button"><span class="side-ico">💬</span>Messages<span class="side-badge" id="messagesBadge" hidden>0</span></button>
         <button class="side-link" data-tab="tasks" type="button"><span class="side-ico">✅</span>Tasks</button>
         <button class="side-link" data-tab="invoices" type="button"><span class="side-ico">🧾</span>Invoices</button>
         <button class="side-link" data-tab="time" type="button"><span class="side-ico">⏱️</span>Time Tracking</button>
@@ -184,7 +184,7 @@
               <div class="chat-thread" id="ownerChatThread"></div>
               <form class="chat-input-row" id="ownerChatForm">
                 <input type="text" id="ownerChatInput" placeholder="Reply as TUSDIO…" autocomplete="off" required />
-                <button type="submit" class="save-btn">Send</button>
+                <button type="submit" class="save-btn" id="ownerChatSendBtn">Send</button>
               </form>
             </div>
           </div>
@@ -356,7 +356,7 @@
       <span class="mtab-ico">📥</span><span class="mtab-label">Requests</span><span class="mtab-badge" id="requestsBadgeMobile" hidden>0</span>
     </button>
     <button class="mtab-link" data-tab="messages" type="button">
-      <span class="mtab-ico">💬</span><span class="mtab-label">Chat</span>
+      <span class="mtab-ico">💬</span><span class="mtab-label">Chat</span><span class="mtab-badge" id="messagesBadgeMobile" hidden>0</span>
     </button>
     <button class="mtab-link" id="mobileMoreBtn" type="button">
       <span class="mtab-ico">☰</span><span class="mtab-label">More</span>
@@ -477,6 +477,7 @@
         <h4 class="form-section-title">Updates &amp; Notifications</h4>
         <div class="field"><label>Updates (one per line)</label><textarea id="updates" rows="4"></textarea></div>
         <div class="field"><label>Notifications (one per line)</label><textarea id="notificationsInput" rows="4" placeholder="New logo concepts uploaded"></textarea></div>
+        <p class="field-hint">TUSDIO also adds a line here automatically when you change phase, post a new review, add a file, or update billing — you don't have to type those yourself.</p>
 
         <h4 class="form-section-title">Tasks &amp; Files</h4>
         <div class="field"><label>Tasks (one per line)</label><textarea id="tasks" rows="4"></textarea></div>
