@@ -68,51 +68,341 @@
 
     <main class="owner-main">
 
-      <!-- OVERVIEW -->
-      <section class="tab-panel is-active" data-tab-panel="overview">
-        <div class="overview-hero card glass">
-          <div>
-            <p class="eyebrow" id="overviewDateLine">Loading…</p>
-            <h2 id="overviewGreeting">Welcome back</h2>
-            <p class="overview-sub">Here's a snapshot of every client, request, and dollar moving through TUSDIO right now.</p>
+      <!-- ================= TUSDIO OVERVIEW ================= -->
+<section class="tab-panel is-active" data-tab-panel="overview">
+
+  <!-- DASHBOARD HEADER -->
+  <div class="overview-topbar">
+    <div>
+      <span class="overview-eyebrow" id="overviewDateLine">Loading…</span>
+      <h2 id="overviewGreeting">Welcome back</h2>
+      <p>TUSDIO workspace overview</p>
+    </div>
+
+    <div class="overview-actions">
+      <button class="overview-action-btn" id="qaNewClient" type="button">
+        <span>＋</span> New Client
+      </button>
+
+      <button class="overview-icon-btn" data-tab="requests" type="button" title="Requests">
+        ↗
+      </button>
+
+      <button class="overview-icon-btn" data-tab="messages" type="button" title="Messages">
+        ◌
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================= TOP KPI CARDS ================= -->
+  <div class="tusdio-dashboard-grid">
+
+    <!-- Projects -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Projects</span>
+        <span class="stat-icon">◫</span>
+      </div>
+
+      <strong id="dashProjects">0</strong>
+
+      <div class="stat-bottom">
+        <span class="stat-positive">↑ Live</span>
+        <span>total projects</span>
+      </div>
+    </div>
+
+
+    <!-- Approved -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Approved</span>
+        <span class="stat-icon">✓</span>
+      </div>
+
+      <strong id="dashApproved">0</strong>
+
+      <div class="stat-bottom">
+        <span class="stat-positive">↑ Active</span>
+        <span>approved work</span>
+      </div>
+    </div>
+
+
+    <!-- Clients -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Clients</span>
+        <span class="stat-icon">◎</span>
+      </div>
+
+      <strong id="dashClients">0</strong>
+
+      <div class="stat-bottom">
+        <span>workspace</span>
+        <span>total clients</span>
+      </div>
+    </div>
+
+
+    <!-- Active Projects -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Active Projects</span>
+        <span class="stat-icon">◉</span>
+      </div>
+
+      <strong id="dashActiveProjects">0</strong>
+
+      <div class="stat-bottom">
+        <span class="stat-positive">LIVE</span>
+        <span>currently running</span>
+      </div>
+    </div>
+
+
+    <!-- Monthly Revenue -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Month Revenue</span>
+        <span class="stat-icon">₹</span>
+      </div>
+
+      <strong id="dashMonthRevenue">₹0</strong>
+
+      <div class="stat-bottom">
+        <span class="stat-positive">Revenue</span>
+        <span>this month</span>
+      </div>
+    </div>
+
+
+    <!-- Total Revenue -->
+    <div class="dashboard-stat">
+      <div class="stat-top">
+        <span>Total Revenue</span>
+        <span class="stat-icon">▤</span>
+      </div>
+
+      <strong id="dashRevenue">₹0</strong>
+
+      <div class="stat-bottom">
+        <span>Collected</span>
+        <span id="dashPendingRevenue">₹0 pending</span>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ================= MAIN ANALYTICS GRID ================= -->
+  <div class="dashboard-main-grid">
+
+    <!-- REVENUE CHART -->
+    <div class="dashboard-card revenue-card">
+
+      <div class="dashboard-card-head">
+        <div>
+          <span class="dashboard-kicker">Performance</span>
+          <h3>Revenue dynamics</h3>
+        </div>
+
+        <select id="revenuePeriod" class="dashboard-select">
+          <option value="2026">2026</option>
+          <option value="2025">2025</option>
+        </select>
+      </div>
+
+      <div class="revenue-chart-wrap">
+        <div class="chart-y-axis">
+          <span>₹40k</span>
+          <span>₹30k</span>
+          <span>₹20k</span>
+          <span>₹10k</span>
+          <span>₹0</span>
+        </div>
+
+        <div class="revenue-chart" id="revenueChart">
+
+          <div class="chart-grid-lines">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <div class="quick-actions">
-            <button class="qa-btn" id="qaNewClient" type="button"><span>➕</span>New Client</button>
-            <button class="qa-btn" data-tab="time" type="button"><span>⏱️</span>Log Time</button>
-            <button class="qa-btn" data-tab="files" type="button"><span>📁</span>Add File</button>
-            <button class="qa-btn" data-tab="reports" type="button"><span>📊</span>Reports</button>
+
+          <div class="chart-bars" id="revenueBars"></div>
+
+          <div class="chart-months">
+            <span>JAN</span>
+            <span>FEB</span>
+            <span>MAR</span>
+            <span>APR</span>
+            <span>MAY</span>
+            <span>JUN</span>
+            <span>JUL</span>
+            <span>AUG</span>
+            <span>SEP</span>
+            <span>OCT</span>
+            <span>NOV</span>
+            <span>DEC</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="dashboard-side-stack">
+
+      <!-- PAID INVOICES -->
+      <div class="dashboard-card finance-widget">
+
+        <div class="finance-widget-top">
+          <div class="finance-widget-icon">▤</div>
+
+          <div class="finance-ring purple">
+            <span id="paidPercent">0%</span>
           </div>
         </div>
 
-        <div class="kpi-grid" id="kpiGrid"></div>
+        <span class="finance-label">Paid invoices</span>
 
-        <div class="overview-grid">
-          <div class="card glass span-2">
-            <div class="card-head"><h3>Needs Your Attention</h3></div>
-            <div id="attentionList" class="mini-list"></div>
-          </div>
+        <strong id="paidInvoicesAmount">₹0</strong>
 
-          <div class="card glass">
-            <div class="card-head"><h3>Pipeline Snapshot</h3><button class="link-btn" data-tab="projects" type="button">View board</button></div>
-            <div id="overviewPhaseBars" class="bar-list"></div>
-          </div>
+        <small>Current financial year</small>
+      </div>
 
-          <div class="card glass">
-            <div class="card-head"><h3>Upcoming Deadlines</h3></div>
-            <div id="upcomingDeadlines" class="mini-list"></div>
-          </div>
 
-          <div class="card glass">
-            <div class="card-head"><h3>Recently Added</h3><button class="link-btn" data-tab="clients" type="button">View all</button></div>
-            <div id="recentClients" class="mini-list"></div>
-          </div>
+      <!-- FUNDS RECEIVED -->
+      <div class="dashboard-card finance-widget">
 
-          <div class="card glass span-2">
-            <div class="card-head"><h3>Recent Activity</h3><button class="link-btn" data-tab="activity" type="button">View all</button></div>
-            <div id="overviewActivity" class="mini-list"></div>
+        <div class="finance-widget-top">
+          <div class="finance-widget-icon">▣</div>
+
+          <div class="finance-ring green">
+            <span id="fundsPercent">0%</span>
           </div>
         </div>
-      </section>
+
+        <span class="finance-label">Funds received</span>
+
+        <strong id="fundsReceivedAmount">₹0</strong>
+
+        <small>Current financial year</small>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= BOTTOM GRID ================= -->
+  <div class="dashboard-bottom-grid">
+
+    <!-- PROJECT FLOW -->
+    <div class="dashboard-card project-flow-card">
+
+      <div class="dashboard-card-head">
+        <div>
+          <span class="dashboard-kicker">Pipeline</span>
+          <h3>Project flow</h3>
+        </div>
+
+        <button class="dashboard-link" data-tab="projects">
+          View board →
+        </button>
+      </div>
+
+      <div id="overviewPhaseBars" class="dashboard-project-bars"></div>
+
+    </div>
+
+
+    <!-- CLIENT ACTIVITY -->
+    <div class="dashboard-card client-activity-card">
+
+      <div class="dashboard-card-head">
+        <div>
+          <span class="dashboard-kicker">Workspace</span>
+          <h3>Recent client activity</h3>
+        </div>
+
+        <button class="dashboard-link" data-tab="clients">
+          View all →
+        </button>
+      </div>
+
+      <div class="client-table-head">
+        <span>CLIENT</span>
+        <span>PROJECT</span>
+        <span>DATE</span>
+        <span>STATUS</span>
+        <span>VALUE</span>
+      </div>
+
+      <div id="dashboardClientActivity"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= ATTENTION ================= -->
+  <div class="dashboard-attention">
+
+    <div class="dashboard-card attention-card">
+
+      <div class="dashboard-card-head">
+        <div>
+          <span class="dashboard-kicker">Priority</span>
+          <h3>Needs your attention</h3>
+        </div>
+
+        <button class="dashboard-link" data-tab="requests">
+          Open inbox →
+        </button>
+      </div>
+
+      <div id="attentionList" class="dashboard-attention-list"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= REVIEWS ================= -->
+  <section class="dashboard-reviews">
+
+    <div class="dashboard-section-heading">
+      <div>
+        <span class="dashboard-kicker">Client decisions</span>
+        <h3>Current review</h3>
+        <p>Projects currently waiting for client feedback or approval.</p>
+      </div>
+
+      <button class="dashboard-link" data-tab="clients">
+        Manage clients →
+      </button>
+    </div>
+
+    <div id="overviewCurrentReviews" class="current-review-grid"></div>
+
+  </section>
+
+
+  <!-- Hidden compatibility elements.
+       Your existing functions can still target these. -->
+  <div id="overviewPulse" hidden></div>
+  <div id="upcomingDeadlines" hidden></div>
+  <div id="recentClients" hidden></div>
+  <div id="overviewActivity" hidden></div>
+
+</section>
 
       <!-- CLIENTS -->
       <section class="tab-panel" data-tab-panel="clients">
@@ -171,7 +461,12 @@
         </div>
 
         <div class="messages-shell" id="messagesShell">
-          <div class="conversations-list" id="conversationsList"></div>
+          <div class="conversations-pane">
+            <div class="conv-search-wrap">
+              <input type="text" id="conversationSearch" class="conv-search-input" placeholder="Search conversations…" autocomplete="off" />
+            </div>
+            <div class="conversations-list" id="conversationsList"></div>
+          </div>
 
           <div class="thread-pane" id="threadPane">
             <div class="thread-empty" id="threadEmpty">Select a conversation to view messages.</div>
@@ -179,12 +474,18 @@
             <div class="thread-active hidden-form" id="threadActive">
               <div class="thread-head">
                 <button class="back-btn" id="threadBackBtn" type="button">&larr;</button>
-                <strong id="threadClientName">Client</strong>
+                <div class="thread-avatar" id="threadAvatar">?</div>
+                <div class="thread-head-text">
+                  <strong id="threadClientName">Client</strong>
+                  <span id="threadClientSub" class="thread-head-sub"></span>
+                </div>
               </div>
               <div class="chat-thread" id="ownerChatThread"></div>
               <form class="chat-input-row" id="ownerChatForm">
                 <input type="text" id="ownerChatInput" placeholder="Reply as TUSDIO…" autocomplete="off" required />
-                <button type="submit" class="save-btn" id="ownerChatSendBtn">Send</button>
+                <button type="submit" class="chat-send-btn" id="ownerChatSendBtn" aria-label="Send">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
               </form>
             </div>
           </div>
@@ -268,6 +569,11 @@
             <div class="card-head"><h3>Payment Status</h3></div>
             <div id="paymentBars" class="bar-list"></div>
           </div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Client Ratings</h3></div>
+          <div id="reportsRatingsList" class="mini-list"></div>
         </div>
       </section>
 
@@ -435,6 +741,14 @@
         <div class="field">
           <textarea id="decisions" rows="4" placeholder="Brand Direction | approved&#10;Logo Direction | awaiting"></textarea>
         </div>
+
+        <div class="field">
+          <label>Decisions Approval Log <span class="log-live-tag">live preview</span></label>
+          <div id="decisionsLogPreview" class="mini-list decisions-log">
+            <div class="mini-empty">No decisions added yet.</div>
+          </div>
+        </div>
+
         <div class="form-grid">
           <div class="field"><label>Review Title</label><input type="text" id="reviewTitleInput" placeholder="Logo Direction — Round 3" /></div>
           <div class="field">
