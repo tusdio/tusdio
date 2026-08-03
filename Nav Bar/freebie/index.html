@@ -1,151 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="canonical" href="https://tusdio.online/Nav%20Bar/freebie/index.html">
 
-    <!-- Primary Meta Tags -->
-    <title>Freebie | TUSDIO</title>
-    <meta name="description" content="Unlock free high-quality design resources, templates, and guides at TUSDIO. Elevate your brand with expert-crafted freebies for Visual Identity, Branding, and Digital Marketing."
+    <title>Freebies — TUSDIO</title>
 
+    <meta
+        name="description"
+        content="Explore TUSDIO's free collection of premium mockups and design resources for designers, brands and creatives.">
 
-    <!-- Open Graph / Facebook / LinkedIn -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://tusdio.online/Nav%20Bar/freebie/index.html">
-<meta property="og:title" content="Freebie | TUSDIO">
-<meta property="og:description" content="Unlock free high-quality design resources, templates, and guides at TUSDIO. Elevate your brand with expert-crafted freebies for Visual Identity, Branding, and Digital Marketing.">
-<meta property="og:image" content="https://tusdio.site/images/socialmediapreview/tusdio-social-preview.jpg">
-
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://tusdio.online/Nav%20Bar/freebie/index.html">
-<meta name="twitter:title" content="Freebie | TUSDIO">
-<meta name="twitter:description" content="Unlock free high-quality design resources, templates, and guides at TUSDIO. Elevate your brand with expert-crafted freebies for Visual Identity, Branding, and Digital Marketing.">
-<meta name="twitter:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg">
-
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Freebies — TUSDIO">
+    <meta
+        property="og:description"
+        content="Free design resources, mockups and creative assets from TUSDIO.">
+    <meta
+        property="og:image"
+        content="https://tusdio.site/images/socialmediapreview/tusdio-social-preview.jpg">
 
     <link rel="stylesheet" href="freebie.css">
-    <script src="freebie.js" defer></script>
+    <script type="module" src="freebie.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Nav Bar -->
-    <header>
-        <div class="container">
-            <a href="../../index.html" class="logo-link">
-                <h1 class="logo">TUSDIO.</h1>
-            </a>
-            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="/Nav Bar/About Us/index.html">About</a></li>
-                    <li><a href="/Nav Bar/Services/index.html">Services</a></li>
-                     <li><a href="/Nav Bar/Package/index.html">Package</a></li>
-                    <li><a href="/Nav Bar/Portfolio/index.html">Portfolio</a></li>
-                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
-                    <li><a href="/Nav Bar/Contact Us/index.html">Contact</a></li>
-                    <li><a href="/Nav Bar/freebie/index.html">Freebie</a></li>
+<a href="#freebiesContainer" class="skip-link">Skip to resources</a>
 
-                </ul>
-            </nav>
-        </div>
-    </header>
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
 
-    <!-- About Us Section 
-    <section class="about">
-        <div class="about-container">
-            <div class="about-content">
-                <h2>About Us</h2>
-                <p>Welcome to TUSDIO, a creative agency dedicated to crafting stunning branding, packaging, and design solutions. Our passion is to turn your vision into reality with cutting-edge creativity and strategic insights.</p>
-                <p>We believe in the power of design to transform brands and connect with audiences. Whether you're a startup or an established business, we tailor unique solutions that make you stand out.</p>
-                <a href="/index.html" class="cta-button">Explore Our Work</a>
+<header>
+    <div class="container">
+
+        <a href="/" class="logo-link" aria-label="TUSDIO Home">
+            <div class="logo">TUSDIO.</div>
+        </a>
+
+        <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+            &#9776;
+        </button>
+
+        <nav id="primary-nav">
+            <ul class="nav-links">
+                <li><a href="../About Us/index.html">About</a></li>
+                <li><a href="../Services/index.html">Services</a></li>
+                <li><a href="../Package/index.html">Package</a></li>
+                <li><a href="../Portfolio/index.html">Portfolio</a></li>
+                <li><a href="../Contact Us/index.html">Contact</a></li>
+                <li><a href="../freebie/index.html" class="active" aria-current="page">Freebie</a></li>
+                <li id="navUserArea" class="nav-user-area">
+                    <a href="../auth/login.html">Login</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<main id="freebiePage">
+
+
+    <!-- HERO -->
+
+    <section class="freebie-hero">
+        <div class="hero-inner">
+
+            <div class="hero-eyebrow">TUSDIO / RESOURCES</div>
+
+            <h1>Free resources<br>for better design.</h1>
+
+            <p>
+                A curated collection of high-quality mockups,
+                presentation assets and creative resources —
+                free for your next project.
+            </p>
+
+            <div class="hero-meta">
+                <span><strong id="resourceCount" data-freebie-count>0</strong> resources</span>
+                <span class="meta-dot"></span>
+                <span>Free to explore</span>
             </div>
-            
+
         </div>
-    </section> -->
-
-
-     <!-- Our Mission Section -->
-     <section class="mission">
-        <h2>Freebie</h2>
-        <p>Explore a collection of high-quality mockups, textures, and more—crafted to elevate your designs effortlessly. Download now and bring your ideas to life with TUSDIO’s exclusive freebies!</p>
     </section>
 
-    <!-- Tag Buttons -->
-<div class="tags">
-    <button onclick="filterFreebies('all')">All</button>
-    <button onclick="filterFreebies('Posters')">Posters</button>
-    <button onclick="filterFreebies('BillBoards')">BillBoards</button>
-    <button onclick="filterFreebies('Signs')">Signs</button>
-    <button onclick="filterFreebies('Magazines')">Magazines</button>
-    <button onclick="filterFreebies('Cosmetics')">Cosmetics</button>
-</div>
 
-<!-- Freebie Grid -->
-<div class="grid" id="freebiesContainer"></div>
+    <!-- RESOURCE NAV -->
 
-<!-- Freebie Details (Hidden by default) -->
-<div class="details-container" id="freebieDetails" style="display: none;">
-    <button class="back-btn" onclick="closeDetails()">← Back</button>
-    
-    <h1 id="detailTitle"></h1>
-    
-    <!-- Main Image -->
-    <img id="detailImage" src="" alt="">
+    <section class="resource-navigation">
+        <div class="resource-nav-inner">
 
-    <!-- Second Image Section -->
-    <div class="extra-image-section" id="extraImageContainer" style="display: none;">
-        <img id="detailExtraImage" src="" alt="">
+            <div class="filter-row">
+
+                <div class="section-label">BROWSE RESOURCES</div>
+
+                <form class="freebie-search" role="search" onsubmit="return false;">
+                    <label for="freebieSearch" class="sr-only">Search resources</label>
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input
+                        type="search"
+                        id="freebieSearch"
+                        placeholder="Search freebies…"
+                        autocomplete="off">
+                    <button type="button" id="clearSearch" class="clear-search" aria-label="Clear search" hidden>×</button>
+                </form>
+
+            </div>
+
+            <div class="filter-wrapper" id="filterWrapper" role="group" aria-label="Filter by category">
+
+                <button class="filter-btn active" data-filter="all" type="button">
+                    All <span class="count" data-category-count="all"></span>
+                </button>
+                <button class="filter-btn" data-filter="Posters" type="button">
+                    Posters <span class="count" data-category-count="Posters"></span>
+                </button>
+                <button class="filter-btn" data-filter="BillBoards" type="button">
+                    Billboards <span class="count" data-category-count="BillBoards"></span>
+                </button>
+                <button class="filter-btn" data-filter="Signs" type="button">
+                    Signs <span class="count" data-category-count="Signs"></span>
+                </button>
+                <button class="filter-btn" data-filter="Magazines" type="button">
+                    Magazines <span class="count" data-category-count="Magazines"></span>
+                </button>
+                <button class="filter-btn" data-filter="Cosmetics" type="button">
+                    Cosmetics <span class="count" data-category-count="Cosmetics"></span>
+                </button>
+
+                <button class="filter-btn saved-toggle" id="savedToggle" data-filter="saved" type="button">
+                    ♥ Saved <span class="count" id="savedCount">0</span>
+                </button>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- RESOURCE GRID -->
+
+    <section class="resources-section">
+
+        <div class="resources-heading">
+            <div>
+                <span class="section-kicker">THE LIBRARY</span>
+                <h2>Design resources</h2>
+            </div>
+
+            <span class="results-count" id="resultsCount" aria-live="polite">All resources</span>
+        </div>
+
+        <div class="grid resources-grid" id="freebiesContainer" aria-live="polite"></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DETAIL VIEW
+    ====================================================== -->
+
+    <section class="details-container" id="freebieDetails" aria-hidden="true">
+
+        <div class="detail-topbar">
+            <button class="back-btn" onclick="closeDetails()" type="button">
+                <span>←</span> Back to resources
+            </button>
+            <span class="detail-index">RESOURCE</span>
+        </div>
+
+
+        <div class="detail-layout">
+
+            <!-- IMAGE -->
+            <div class="detail-visual">
+                <div class="detail-image-frame">
+                    <img id="detailImage" src="" alt="">
+                </div>
+
+                <div class="extra-image-section" id="extraImageContainer">
+                    <img id="detailExtraImage" src="" alt="">
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="detail-content">
+
+                <div class="detail-category" id="detailCategory">FREE RESOURCE</div>
+
+                <h1 id="detailTitle"></h1>
+
+                <div class="tags-container" id="detailTags"></div>
+
+                <p id="detailDescription" class="detail-description"></p>
+
+                <div class="detail-actions">
+
+                    <a id="downloadButton" class="download-btn locked" href="#" rel="noopener">
+                        <span class="download-btn-label">Login to download</span>
+                        <span class="download-btn-icon">
+                            <svg class="lock-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="5" y="10" width="14" height="9" rx="2"></rect>
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                            </svg>
+                            <span class="arrow-icon" aria-hidden="true">↗</span>
+                        </span>
+                    </a>
+
+                    <button class="icon-btn like-btn" id="detailLikeBtn" type="button" aria-label="Like this resource">
+                        <svg class="heart-icon" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                        </svg>
+                    </button>
+
+                    <button class="icon-btn save-btn" id="detailSaveBtn" type="button" aria-label="Save this resource">
+                        <svg viewBox="0 0 24 24" class="save-icon">
+                            <path d="M6 3h12a1 1 0 0 1 1 1v16l-7-4-7 4V4a1 1 0 0 1 1-1z"></path>
+                        </svg>
+                    </button>
+
+                    <div class="share-wrap">
+
+                        <button class="icon-btn share-btn" id="detailShareBtn" type="button"
+                                aria-label="Share this resource" aria-haspopup="true" aria-expanded="false">
+                            <svg viewBox="0 0 24 24" class="share-icon">
+                                <circle cx="18" cy="5" r="2.4"></circle>
+                                <circle cx="6" cy="12" r="2.4"></circle>
+                                <circle cx="18" cy="19" r="2.4"></circle>
+                                <line x1="8.1" y1="10.7" x2="15.9" y2="6.3"></line>
+                                <line x1="8.1" y1="13.3" x2="15.9" y2="17.7"></line>
+                            </svg>
+                        </button>
+
+                        <div class="share-popover" id="sharePopover" hidden>
+
+                            <div class="share-popover-header">
+                                <span>Share this resource</span>
+                                <button type="button" class="share-close" id="shareCloseBtn" aria-label="Close share menu">×</button>
+                            </div>
+
+                            <div class="share-link-row">
+                                <input type="text" id="shareLinkInput" readonly aria-label="Resource link">
+                                <button type="button" id="shareCopyBtn" class="share-copy-btn">
+                                    <svg class="copy-icon" viewBox="0 0 24 24">
+                                        <rect x="8" y="8" width="12" height="12" rx="2.5"></rect>
+                                        <path d="M5 16H4.5A1.5 1.5 0 0 1 3 14.5v-10A1.5 1.5 0 0 1 4.5 3h10A1.5 1.5 0 0 1 16 4.5V5"></path>
+                                    </svg>
+                                    <svg class="check-icon" viewBox="0 0 24 24">
+                                        <polyline points="4 12.5 9.5 18 20 6"></polyline>
+                                    </svg>
+                                    <span class="share-copy-label">Copy</span>
+                                </button>
+                            </div>
+
+                            <div class="share-quick-row">
+
+                                <a class="share-quick" id="shareWhatsapp" target="_blank" rel="noopener">
+                                    <span class="share-quick-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <path d="M12 3a9 9 0 0 0-7.75 13.5L3 21l4.65-1.22A9 9 0 1 0 12 3z"></path>
+                                            <path d="M8.7 8.3c.2-.5.4-.5.7-.5h.5c.2 0 .4 0 .6.4.2.5.6 1.5.7 1.6.1.1.1.3 0 .5-.1.2-.2.3-.4.5-.2.2-.4.4-.2.7.2.4 1 1.5 2.1 2.4 1.4 1.2 2 1.3 2.3 1.1.2-.1.4-.3.6-.6.2-.2.4-.3.6-.2.2.1 1.5.7 1.7.8.2.1.4.2.5.3.1.2.1.9-.2 1.4-.3.6-1.5 1.1-2.1 1.1-.6 0-1.4 0-4.1-1.6-2.9-1.8-4.6-4.8-4.7-5-.1-.2-.9-1.3-.9-2.4 0-1.1.6-1.7.8-2z"></path>
+                                        </svg>
+                                    </span>
+                                    <span>WhatsApp</span>
+                                </a>
+
+                                <a class="share-quick" id="shareTwitter" target="_blank" rel="noopener">
+                                    <span class="share-quick-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <line x1="5" y1="5" x2="19" y2="19"></line>
+                                            <line x1="19" y1="5" x2="5" y2="19"></line>
+                                        </svg>
+                                    </span>
+                                    <span>X</span>
+                                </a>
+
+                                <a class="share-quick" id="shareEmail">
+                                    <span class="share-quick-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <rect x="3" y="5.5" width="18" height="13" rx="2"></rect>
+                                            <path d="M4 6.5l8 6.5 8-6.5"></path>
+                                        </svg>
+                                    </span>
+                                    <span>Email</span>
+                                </a>
+
+                                <button type="button" class="share-quick" id="shareMore" hidden>
+                                    <span class="share-quick-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <circle cx="5" cy="12" r="1.6"></circle>
+                                            <circle cx="12" cy="12" r="1.6"></circle>
+                                            <circle cx="19" cy="12" r="1.6"></circle>
+                                        </svg>
+                                    </span>
+                                    <span>More</span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="login-hint" id="downloadLoginHint">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="5" y="10" width="14" height="9" rx="2"></rect>
+                        <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                    </svg>
+                    <a href="../auth/login.html" id="downloadLoginLink">Log in</a> to download this resource — it's free and only takes a few seconds.
+                </p>
+
+                <div class="source-note">
+                    <span class="source-dot"></span>
+                    <p>
+                        This resource is sourced from its original creator.
+                        TUSDIO simply helps you discover it.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SIMILAR -->
+        <div class="similar-section">
+            <div class="similar-heading">
+                <div>
+                    <span class="section-kicker">KEEP EXPLORING</span>
+                    <h2>Similar resources</h2>
+                </div>
+            </div>
+
+            <div class="grid similar-grid" id="similarFreebies"></div>
+        </div>
+
+
+        <!-- DETAIL CTA -->
+        <section class="detail-cta">
+            <span class="section-kicker">NEED SOMETHING CUSTOM?</span>
+            <h2>Free resources are great.<br>A custom design is better.</h2>
+            <a href="/Nav Bar/Contact Us/index.html" class="cta-link">Work with TUSDIO <span>↗</span></a>
+        </section>
+
+    </section>
+
+
+    <!-- =====================================================
+         BOTTOM CTA
+    ====================================================== -->
+
+    <section class="freebie-cta">
+        <div class="cta-inner">
+            <span class="section-kicker">TUSDIO STUDIO</span>
+            <h2>Build something<br>worth remembering.</h2>
+            <p>Need a brand, product or digital experience designed from scratch?</p>
+            <a href="/Nav Bar/Contact Us/index.html" class="cta-link">Start a project <span>↗</span></a>
+        </div>
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <span class="footer-logo">TUSDIO.</span>
+        <span>Design with intention.</span>
+        <span>© 2026 TUSDIO</span>
     </div>
+</footer>
 
-    <button class="like-btn" onclick="toggleLike(this)">
-        <svg class="heart-icon" viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-    </button>
+<!-- Toasts -->
+<div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-    
-    
-    <!-- Description -->
-    <p id="detailDescription"></p>
-
-    <!-- Tags -->
-    <div class="tags-container" id="detailTags"></div>
-
-    <!-- Download Button -->
-    <a id="downloadButton" class="download-btn" href="#" download>Download</a>
-
-    <div class="social-icons">
-        <a href="https://www.instagram.com/tusdio.online/" target="_blank">
-            <img src="/images/Social Media Icon/2 instagram.png" alt="Instagram">
-        </a>
-        <a href="https://x.com/TUSDIO069" target="_blank">
-            <img src="/images/Social Media Icon/4 twitter.png" alt="X">
-        </a>
-        <a href="https://www.behance.net/tusdio/projects" target="_blank">
-            <img src="/images/Social Media Icon//1 behance.png" alt="Behance">
-        </a>
-        <a href="https://www.linkedin.com/company/tusdio/" target="_blank">
-            <img src="/images/Social Media Icon/3 linkdin.png" alt="LinkedIn">
-        </a>
-    </div>
-
-    <!-- Similar Freebies -->
-    <h2>Similar Freebies</h2>
-    <div class="grid" id="similarFreebies"></div>
-
-
-</div>
-
-
-
-<script src="freebie.js"></script>
-
-
-
+<!-- Back to top -->
+<button id="backToTop" class="back-to-top" type="button" aria-label="Back to top" hidden>↑</button>
 
 </body>
 </html>
