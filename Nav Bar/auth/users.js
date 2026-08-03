@@ -304,12 +304,14 @@ function renderDeliverables(files) {
   const fragment = document.createDocumentFragment();
 
   files.forEach((file) => {
-    const title = escapeHtml(file?.title?.trim() || "Untitled File");
-    const note = escapeHtml(file?.note?.trim() || "Click to open file");
-    const link = file?.link?.trim() || "";
+    const rawTitle = String(file?.title || "Untitled File").trim();
+    const rawNote = String(file?.note || "Click to open file").trim();
+    const link = String(
+      file?.link || file?.url || file?.href || file?.downloadUrl || ""
+    ).trim();
 
     if (!link) {
-      logger.warn("Skipped a deliverable with no link", { title });
+      logger.warn("Skipped a deliverable with no usable link", { title: rawTitle });
       return;
     }
 
@@ -319,14 +321,27 @@ function renderDeliverables(files) {
     card.target = "_blank";
     card.rel = "noopener noreferrer";
 
+    const safeTitle = escapeHtml(rawTitle);
+    const safeNote = escapeHtml(rawNote);
+    const lowerLink = link.split("?")[0].toLowerCase();
+    const isImage = /\.(png|jpe?g|gif|webp|svg|avif)$/i.test(lowerLink);
+
     card.innerHTML = `
+      ${isImage ? `<div class="file-card-preview"><img src="${escapeAttr(link)}" alt="${safeTitle} preview" loading="lazy"></div>` : ""}
       <div class="file-card-top">
-        <strong>${title}</strong>
-        <span class="file-badge">Open</span>
+        <strong>${safeTitle}</strong>
+        <span class="file-badge">${isImage ? "Preview" : "Open"}</span>
       </div>
-      <p>${note}</p>
+      <p>${safeNote}</p>
       <span class="file-open-btn">Open File</span>
     `;
+
+    const img = card.querySelector("img");
+    if (img) {
+      img.addEventListener("error", () => {
+        img.closest(".file-card-preview")?.remove();
+      });
+    }
 
     fragment.appendChild(card);
   });
@@ -509,11 +524,12 @@ const REVIEW_STATUS_META = {
 };
 
 function renderCurrentReview(review) {
-  currentReviewState = review || null;
+  const normalizedReview = review || null;
+  currentReviewState = normalizedReview;
 
   if (!reviewTitle || !reviewStatusPill || !reviewDesc || !reviewPreview) return;
 
-  if (!review || !review.title) {
+  if (!normalizedReview || !normalizedReview.title) {
     reviewTitle.textContent = "Nothing to review";
     reviewDesc.textContent = "Nothing is waiting on your review right now. New concepts will appear here as soon as they're ready.";
     reviewStatusPill.textContent = "—";
@@ -523,16 +539,31 @@ function renderCurrentReview(review) {
     return;
   }
 
-  reviewTitle.textContent = review.title;
-  reviewDesc.textContent = review.description || "Please review the latest direction and let us know what you think.";
+  reviewTitle.textContent = normalizedReview.title;
+  reviewDesc.textContent =
+    normalizedReview.description ||
+    normalizedReview.desc ||
+    "Please review the latest direction and let us know what you think.";
 
-  const status = review.status && REVIEW_STATUS_META[review.status] ? review.status : "awaiting";
+  const status = normalizedReview.status && REVIEW_STATUS_META[normalizedReview.status]
+    ? normalizedReview.status
+    : "awaiting";
   const meta = REVIEW_STATUS_META[status];
   reviewStatusPill.textContent = meta.label;
   reviewStatusPill.className = `review-status-pill ${meta.cls}`;
 
-  if (review.image) {
-    reviewPreview.innerHTML = `<img src="${escapeAttr(review.image)}" alt="${escapeAttr(review.title)} preview" />`;
+  const previewUrl = normalizedReview.image || normalizedReview.preview || "";
+  if (previewUrl) {
+    reviewPreview.innerHTML = `<img src="${escapeAttr(previewUrl)}" alt="${escapeAttr(normalizedReview.title)} preview" />`;
+    const previewImg = reviewPreview.querySelector("img");
+    previewImg?.addEventListener("error", () => {
+      reviewPreview.innerHTML = `
+        <span class="review-preview-empty">
+          Preview could not be loaded.<br>
+          <a href="${escapeAttr(previewUrl)}" target="_blank" rel="noopener noreferrer">Open preview</a>
+        </span>
+      `;
+    }, { once: true });
   } else {
     reviewPreview.innerHTML = `<span class="review-preview-empty">No preview image attached</span>`;
   }
@@ -778,7 +809,7 @@ function renderClientData(user, data, meta) {
   renderTasks(tasks);
   renderDeliverables(files);
   renderDecisions(data.decisions);
-  renderCurrentReview(data.currentReview);
+  renderCurrentReview(data.currentReview || data.review || null);
   updateTimeline(data.phase);
   renderSatisfaction(data.satisfaction);
 
@@ -812,6 +843,20 @@ if (starRow) {
     try {
       const clientRef = doc(db, "clients", currentUser.uid);
       await updateDoc(clientRef, { satisfaction: value });
+
+      // Keep the owner dashboard informed without exposing owner-only data.
+      await addDoc(collection(db, "client_requests"), {
+        clientUid: currentUser.uid,
+        clientName: currentUser.displayName || userName?.textContent || "Client",
+        clientEmail: currentUser.email || "",
+        type: "Satisfaction Rating",
+        subject: "Project satisfaction rating",
+        message: `Client rated the project ${value}/5.`,
+        rating: value,
+        status: "New",
+        createdAt: new Date().toISOString()
+      });
+
       if (satisfactionMsg) satisfactionMsg.textContent = `You rated this project ${value} out of 5. Thanks for the feedback!`;
     } catch (error) {
       logger.error("Failed to save satisfaction rating", { message: error?.message });
@@ -909,26 +954,33 @@ function listenToMessages(uid) {
   if (unsubscribeMessages) unsubscribeMessages();
 
   const messagesRef = collection(db, "clients", uid, "messages");
-  const messagesQuery = query(messagesRef, orderBy("createdAt", "asc"), limit(200));
 
   unsubscribeMessages = onSnapshot(
-    messagesQuery,
+    messagesRef,
     (snap) => {
       chatListenerAttempts = 0;
       setChatStatus("", "");
-      renderChatMessages(snap);
+
+      const docs = snap.docs.slice().sort((a, b) => {
+        const toMillis = (value) => {
+          if (!value) return 0;
+          if (typeof value?.toMillis === "function") return value.toMillis();
+          if (typeof value?.toDate === "function") return value.toDate().getTime();
+          const n = new Date(value).getTime();
+          return Number.isNaN(n) ? 0 : n;
+        };
+        return toMillis(a.data().createdAt) - toMillis(b.data().createdAt);
+      });
+
+      renderChatMessages({ empty: docs.length === 0, size: docs.length, forEach: (cb) => docs.forEach(cb) });
     },
     (error) => {
       logger.error("Messages listener error", { message: error?.message, code: error?.code });
       setChatStatus(friendlyFirestoreError(error), "error");
 
-      // Transient errors (network blips, brief server unavailability) are
-      // retried with backoff instead of leaving chat dead for the session.
-      // Permission errors are not retried — retrying won't fix a rules issue.
       if (error?.code !== "permission-denied" && chatListenerAttempts < 3) {
         chatListenerAttempts += 1;
         const delayMs = chatListenerAttempts * 2000;
-        logger.info(`Retrying message listener in ${delayMs}ms`, { attempt: chatListenerAttempts });
         setTimeout(() => {
           if (currentUser?.uid === uid) listenToMessages(uid);
         }, delayMs);
