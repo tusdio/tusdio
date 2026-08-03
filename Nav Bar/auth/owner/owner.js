@@ -14,7 +14,8 @@ import {
   setDoc,
   query,
   orderBy,
-  limit
+  limit,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
 /* ============================================================
@@ -37,6 +38,7 @@ let selectMode = false;
 let selectedClientIds = new Set();
 let activeThreadClientId = null;
 let currentUser = null;
+let conversationSearchTerm = "";
 
 /* ============================================================
    ELEMENT REFS
@@ -64,12 +66,35 @@ const mtabLinks = document.querySelectorAll(".mtab-link[data-tab]");
 const overviewDateLine = document.getElementById("overviewDateLine");
 const overviewGreeting = document.getElementById("overviewGreeting");
 const qaNewClient = document.getElementById("qaNewClient");
-const kpiGrid = document.getElementById("kpiGrid");
 const attentionList = document.getElementById("attentionList");
 const overviewPhaseBars = document.getElementById("overviewPhaseBars");
+const overviewCurrentReviews = document.getElementById("overviewCurrentReviews");
+
+/* Overview — hidden compatibility panels still present in the markup
+   ("Your existing functions can still target these"). We keep populating
+   them even though they're not shown, in case they get re-enabled. */
 const upcomingDeadlines = document.getElementById("upcomingDeadlines");
 const recentClients = document.getElementById("recentClients");
 const overviewActivity = document.getElementById("overviewActivity");
+const overviewPulse = document.getElementById("overviewPulse");
+
+/* Overview — command-centre dashboard (top stat cards, revenue chart,
+   finance rings, client activity table). These ids exist in the current
+   owner.html "tusdio-dashboard-grid" / "dashboard-main-grid" markup. */
+const dashProjects = document.getElementById("dashProjects");
+const dashApproved = document.getElementById("dashApproved");
+const dashClients = document.getElementById("dashClients");
+const dashActiveProjects = document.getElementById("dashActiveProjects");
+const dashMonthRevenue = document.getElementById("dashMonthRevenue");
+const dashRevenue = document.getElementById("dashRevenue");
+const dashPendingRevenue = document.getElementById("dashPendingRevenue");
+const revenuePeriod = document.getElementById("revenuePeriod");
+const revenueBars = document.getElementById("revenueBars");
+const paidPercent = document.getElementById("paidPercent");
+const paidInvoicesAmount = document.getElementById("paidInvoicesAmount");
+const fundsPercent = document.getElementById("fundsPercent");
+const fundsReceivedAmount = document.getElementById("fundsReceivedAmount");
+const dashboardClientActivity = document.getElementById("dashboardClientActivity");
 
 /* Clients */
 const clientsList = document.getElementById("clientsList");
@@ -102,10 +127,13 @@ const requestsList = document.getElementById("requestsList");
 
 /* Messages */
 const conversationsList = document.getElementById("conversationsList");
+const conversationSearch = document.getElementById("conversationSearch");
 const threadPane = document.getElementById("threadPane");
 const threadEmpty = document.getElementById("threadEmpty");
 const threadActive = document.getElementById("threadActive");
 const threadClientName = document.getElementById("threadClientName");
+const threadClientSub = document.getElementById("threadClientSub");
+const threadAvatar = document.getElementById("threadAvatar");
 const threadBackBtn = document.getElementById("threadBackBtn");
 const ownerChatThread = document.getElementById("ownerChatThread");
 const ownerChatForm = document.getElementById("ownerChatForm");
@@ -174,6 +202,7 @@ const revisionRoundInput = document.getElementById("revisionRound");
 const startDateInput = document.getElementById("startDate");
 const estimatedDeliveryInput = document.getElementById("estimatedDelivery");
 const decisionsInput = document.getElementById("decisions");
+const decisionsLogPreview = document.getElementById("decisionsLogPreview");
 const reviewTitleInput = document.getElementById("reviewTitleInput");
 const reviewStatusInput = document.getElementById("reviewStatusInput");
 const reviewImageInput = document.getElementById("reviewImageInput");
@@ -237,10 +266,28 @@ function decisionsToText(decisions) {
   return (decisions || []).map((d) => `${d.name} | ${d.status}`).join("\n");
 }
 
-function timeAgo(iso) {
-  if (!iso) return "";
-  const then = new Date(iso).getTime();
-  if (Number.isNaN(then)) return iso;
+// Renders a numeric rating (0-5, can be fractional) as filled/empty stars.
+function starsHtml(rating) {
+  const r = Math.max(0, Math.min(5, Number(rating) || 0));
+  const full = Math.round(r); // simple whole-star rounding for display
+  let out = "";
+  for (let i = 1; i <= 5; i++) {
+    out += i <= full ? "★" : "☆";
+  }
+  return out;
+}
+
+function timeAgo(value) {
+  if (!value) return "";
+  let then;
+  if (typeof value?.toDate === "function") {
+    then = value.toDate().getTime();
+  } else if (typeof value === "number") {
+    then = value;
+  } else {
+    then = new Date(value).getTime();
+  }
+  if (Number.isNaN(then)) return String(value);
   const diff = Math.max(0, Date.now() - then);
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return "just now";
@@ -249,7 +296,29 @@ function timeAgo(iso) {
   if (hrs < 24) return `${hrs}h ago`;
   const days = Math.floor(hrs / 24);
   if (days < 30) return `${days}d ago`;
-  return new Date(iso).toLocaleDateString();
+  return new Date(value).toLocaleDateString();
+}
+
+// Resolves any of our timestamp shapes (Firestore Timestamp, ISO string, ms
+// number) into a millisecond epoch, used for sorting and day-grouping.
+function toMillis(value) {
+  if (!value) return 0;
+  if (typeof value?.toMillis === "function") return value.toMillis();
+  if (typeof value?.toDate === "function") return value.toDate().getTime();
+  const n = new Date(value).getTime();
+  return Number.isNaN(n) ? 0 : n;
+}
+
+function dayLabel(ms) {
+  if (!ms) return "";
+  const d = new Date(ms);
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  const sameDay = (a, b) => a.toDateString() === b.toDateString();
+  if (sameDay(d, today)) return "Today";
+  if (sameDay(d, yesterday)) return "Yesterday";
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: d.getFullYear() !== today.getFullYear() ? "numeric" : undefined });
 }
 
 async function logActivity(text, type = "info", clientName = "") {
@@ -263,6 +332,52 @@ async function logActivity(text, type = "info", clientName = "") {
   } catch (err) {
     console.error("activity log failed", err);
   }
+}
+
+/* ------------------------------------------------------------
+   AUTO NOTIFICATIONS
+   The client-facing "Latest From TUSDIO" feed reads from each
+   client doc's `notifications` array. Previously nothing ever
+   wrote to it automatically — the owner had to remember to type
+   a line into the Notifications textarea every single time,
+   which is why clients rarely saw anything new. These helpers
+   build that line automatically for the events that matter
+   (phase change, new/updated review, file added, billing
+   change) and diffAndBuildAutoNotifications() below is called
+   right before every save so the array always picks up new
+   entries on top of whatever the owner typed manually.
+   ------------------------------------------------------------ */
+function diffAndBuildAutoNotifications(previous, next) {
+  const auto = [];
+  const prev = previous || {};
+
+  if ((prev.phase || "") !== (next.phase || "") && next.phase) {
+    auto.push(`Project phase moved to "${next.phase}"`);
+  }
+
+  const prevReview = prev.currentReview || prev.review || {};
+  const nextReview = next.currentReview || next.review || {};
+  if (nextReview.title && (
+    prevReview.title !== nextReview.title ||
+    prevReview.status !== nextReview.status ||
+    prevReview.image !== nextReview.image ||
+    (prevReview.description || prevReview.desc || "") !== (nextReview.description || nextReview.desc || "")
+  )) {
+    auto.push(`New review posted: "${nextReview.title}" — awaiting your feedback`);
+  }
+
+  if ((prev.paymentStatus || "") !== (next.paymentStatus || "") && next.paymentStatus) {
+    auto.push(`Payment status updated to "${next.paymentStatus}"`);
+  }
+
+  const prevFileCount = Array.isArray(prev.files) ? prev.files.length : 0;
+  const nextFileCount = Array.isArray(next.files) ? next.files.length : 0;
+  if (nextFileCount > prevFileCount) {
+    const added = next.files.slice(prevFileCount);
+    added.forEach((f) => auto.push(`New file added: "${f.title}"`));
+  }
+
+  return auto;
 }
 
 /* ============================================================
@@ -306,6 +421,12 @@ function switchTab(tab) {
   if (tab === "tasks") renderTasks();
   if (tab === "invoices") renderInvoices();
   if (tab === "files") renderFiles();
+  // FIX: Messages tab previously only rendered if loadClients() happened to
+  // finish while the user was already sitting on this tab — which almost
+  // never happened on a real page load, so the conversation list stayed
+  // empty until some unrelated re-render fired. Rendering here on every
+  // switch makes it reliable regardless of load timing.
+  if (tab === "messages") renderConversations();
 }
 
 document.querySelectorAll("[data-tab]").forEach((el) => {
@@ -503,6 +624,39 @@ function closeDrawer() {
 editorCloseBtn?.addEventListener("click", closeDrawer);
 editorOverlay?.addEventListener("click", closeDrawer);
 
+/* ------------------------------------------------------------
+   DECISIONS APPROVAL LOG
+   Renders a read-only, live-updating list of every decision the
+   owner has typed into the Decisions textarea, with a colored
+   status pill per row.
+   ------------------------------------------------------------ */
+function renderDecisionsLog(decisions) {
+  if (!decisionsLogPreview) return;
+  const list = decisions || [];
+  if (!list.length) {
+    decisionsLogPreview.innerHTML = `<div class="mini-empty">No decisions added yet.</div>`;
+    return;
+  }
+  decisionsLogPreview.innerHTML = list.map((d) => {
+    const status = (d.status || "upcoming").toLowerCase().replace(/\s+/g, "_");
+    const dotClass = status === "approved" ? "good" : status === "awaiting" ? "warn" : status === "changes_requested" ? "danger" : "";
+    const label = status.replace(/_/g, " ");
+    return `
+      <div class="mini-item">
+        <span class="mini-dot ${dotClass}"></span>
+        <div class="decision-row">
+          <span class="mini-title">${escapeHtml(d.name)}</span>
+          <span class="decision-status-pill ${status}">${escapeHtml(label)}</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+decisionsInput?.addEventListener("input", () => {
+  renderDecisionsLog(parseDecisionsInput(decisionsInput.value));
+});
+
 function resetDrawerForm() {
   ownerForm?.reset();
   if (clientIdInput) clientIdInput.value = "";
@@ -512,6 +666,7 @@ function resetDrawerForm() {
   if (statusInput) statusInput.value = "Not started";
   if (paymentStatusInput) paymentStatusInput.value = "Pending";
   if (progressInput) progressInput.value = 0;
+  renderDecisionsLog([]);
   setMessage("");
 }
 
@@ -553,11 +708,17 @@ async function openClientDrawer(id) {
     if (startDateInput) startDateInput.value = data.startDate || "";
     if (estimatedDeliveryInput) estimatedDeliveryInput.value = data.estimatedDelivery || "";
     if (decisionsInput) decisionsInput.value = decisionsToText(data.decisions);
-    if (reviewTitleInput) reviewTitleInput.value = data.review?.title || "";
-    if (reviewStatusInput) reviewStatusInput.value = data.review?.status || "awaiting";
-    if (reviewImageInput) reviewImageInput.value = data.review?.image || "";
-    if (reviewDescInput) reviewDescInput.value = data.review?.desc || "";
-    if (satisfactionDisplay) satisfactionDisplay.value = data.satisfaction ? `${data.satisfaction} / 5` : "";
+    renderDecisionsLog(data.decisions || []);
+    const editorReview = data.currentReview || data.review || {};
+    if (reviewTitleInput) reviewTitleInput.value = editorReview.title || "";
+    if (reviewStatusInput) reviewStatusInput.value = editorReview.status || "awaiting";
+    if (reviewImageInput) reviewImageInput.value = editorReview.image || editorReview.preview || "";
+    if (reviewDescInput) reviewDescInput.value = editorReview.description || editorReview.desc || "";
+    if (satisfactionDisplay) {
+      satisfactionDisplay.value = data.satisfaction
+        ? `${starsHtml(data.satisfaction)}  (${data.satisfaction} / 5)`
+        : "";
+    }
     if (planNameInput) planNameInput.value = data.planName || "";
     if (paymentStatusInput) paymentStatusInput.value = data.paymentStatus || "Pending";
     if (totalAmountInput) totalAmountInput.value = data.totalAmount || 0;
@@ -565,7 +726,11 @@ async function openClientDrawer(id) {
     if (nextPaymentDueInput) nextPaymentDueInput.value = data.nextPaymentDue || "";
     if (invoiceLinkInput) invoiceLinkInput.value = data.invoiceLink || "";
     if (updatesInput) updatesInput.value = (data.updates || []).join("\n");
-    if (notificationsInput) notificationsInput.value = (data.notifications || []).join("\n");
+    if (notificationsInput) {
+      notificationsInput.value = (data.notifications || []).map((n) =>
+        typeof n === "string" ? n : (n?.text || "")
+      ).filter(Boolean).join("\n");
+    }
     if (tasksInput) tasksInput.value = (data.tasks || []).join("\n");
     if (filesInput) filesInput.value = filesToText(data.files);
 
@@ -600,11 +765,11 @@ ownerForm?.addEventListener("submit", async (e) => {
     startDate: startDateInput?.value.trim() || "",
     estimatedDelivery: estimatedDeliveryInput?.value.trim() || "",
     decisions: parseDecisionsInput(decisionsInput?.value || ""),
-    review: {
+    currentReview: {
       title: reviewTitleInput?.value.trim() || "",
       status: reviewStatusInput?.value || "awaiting",
       image: reviewImageInput?.value.trim() || "",
-      desc: reviewDescInput?.value.trim() || ""
+      description: reviewDescInput?.value.trim() || ""
     },
     planName: planNameInput?.value.trim() || "",
     paymentStatus: paymentStatusInput?.value || "Pending",
@@ -627,6 +792,12 @@ ownerForm?.addEventListener("submit", async (e) => {
 
   try {
     if (existingId) {
+      const previous = clientsCache.find((c) => c.id === existingId) || {};
+      const autoNotes = diffAndBuildAutoNotifications(previous, payload);
+      if (autoNotes.length) {
+        payload.notifications = [...payload.notifications, ...autoNotes];
+      }
+
       await updateDoc(doc(db, "clients", existingId), { ...payload, access: "active", updatedAt: new Date().toISOString() });
       await logActivity(`Updated client ${payload.name}`, "info", payload.name);
       setMessage("Changes saved successfully.");
@@ -790,41 +961,146 @@ function renderOverviewHero() {
   }
 }
 
-function renderOverview() {
-  if (!kpiGrid) return;
+// Clients that have actually submitted a rating (satisfaction is a
+// truthy number, since ratings write from the client side only touch
+// this field per the Firestore rules).
+function ratedClients() {
+  return clientsCache.filter((c) => Number(c.satisfaction) > 0);
+}
 
+function averageSatisfaction() {
+  const rated = ratedClients();
+  if (!rated.length) return null;
+  const sum = rated.reduce((s, c) => s + Number(c.satisfaction), 0);
+  return sum / rated.length;
+}
+
+function avgProgressOf(list) {
+  return list.length
+    ? Math.round(list.reduce((s, c) => s + (Number(c.progress) || 0), 0) / list.length)
+    : 0;
+}
+
+// Main entry point for the whole Overview tab. Everything here targets ids
+// that exist in the current owner.html "tusdio-dashboard-grid" layout.
+function renderOverview() {
   renderOverviewHero();
 
   const active = clientsCache.filter((c) => c.access !== "disabled");
   const totalRevenue = clientsCache.reduce((s, c) => s + (Number(c.paidAmount) || 0), 0);
   const pendingRevenue = clientsCache.reduce((s, c) => s + ((Number(c.totalAmount) || 0) - (Number(c.paidAmount) || 0)), 0);
-  const newRequests = requestsCache.filter((r) => r.status === "New").length;
-  const avgProgress = active.length
-    ? Math.round(active.reduce((s, c) => s + (Number(c.progress) || 0), 0) / active.length)
-    : 0;
-  const vipCount = active.filter((c) => c.priority).length;
+  const approvedDecisions = clientsCache.reduce((s, c) => {
+    const decisions = Array.isArray(c.decisions) ? c.decisions : [];
+    return s + decisions.filter((d) => (d.status || "").toLowerCase() === "approved").length;
+  }, 0);
 
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  const hoursThisWeek = timeLogsCache
-    .filter((t) => new Date(t.createdAt || 0).getTime() >= weekAgo)
-    .reduce((s, t) => s + (Number(t.hours) || 0), 0);
+  if (dashProjects) dashProjects.textContent = clientsCache.length;
+  if (dashApproved) dashApproved.textContent = approvedDecisions;
+  if (dashClients) dashClients.textContent = clientsCache.length;
+  if (dashActiveProjects) dashActiveProjects.textContent = active.length;
+  if (dashRevenue) dashRevenue.textContent = `₹${totalRevenue.toLocaleString("en-IN")}`;
+  if (dashPendingRevenue) dashPendingRevenue.textContent = `₹${pendingRevenue.toLocaleString("en-IN")} pending`;
 
-  kpiGrid.innerHTML = `
-    ${kpiCard("Active Clients", active.length, `${clientsCache.length} total`)}
-    ${kpiCard("New Requests", newRequests, newRequests ? "Needs review" : "All caught up", newRequests ? "warn" : "good")}
-    ${kpiCard("Revenue Collected", `₹${totalRevenue.toLocaleString("en-IN")}`, `₹${pendingRevenue.toLocaleString("en-IN")} pending`)}
-    ${kpiCard("Avg. Progress", `${avgProgress}%`, "Across active projects")}
-    ${kpiCard("Hours This Week", `${hoursThisWeek}h`, "Logged across all clients")}
-    ${kpiCard("VIP Clients", vipCount, vipCount ? "Marked priority" : "None flagged yet")}
-  `;
-
-  renderAttention(active);
+  renderRevenueChart();
+  renderFinanceWidgets(totalRevenue, pendingRevenue);
   renderPipelineSnapshot(active);
+  renderDashboardClientActivity();
+  renderAttention(active);
+  renderCurrentReviews(active);
+
+  // Hidden compatibility panels — kept populated even though the current
+  // markup hides them, per the comment in owner.html.
+  renderWorkspacePulse(active, totalRevenue, pendingRevenue, avgProgressOf(active), averageSatisfaction());
   renderUpcomingDeadlines(active);
   renderRecentClients();
   renderOverviewActivity();
 }
 
+/* ------------------------------------------------------------
+   REVENUE CHART
+   There's no dedicated "monthly revenue" record in Firestore, so we
+   bucket each client's paid/pending amounts into the month of their
+   last update (falling back to creation date). This is an
+   approximation, but it's the only date signal the schema gives us,
+   and it keeps the "this month" KPI and the chart in sync.
+   ------------------------------------------------------------ */
+function monthBucketsForYear(year) {
+  const buckets = Array.from({ length: 12 }, () => ({ paid: 0, pending: 0 }));
+  clientsCache.forEach((c) => {
+    const ms = toMillis(c.updatedAt || c.createdAt);
+    if (!ms) return;
+    const d = new Date(ms);
+    if (d.getFullYear() !== Number(year)) return;
+    const idx = d.getMonth();
+    buckets[idx].paid += Number(c.paidAmount) || 0;
+    buckets[idx].pending += Math.max(0, (Number(c.totalAmount) || 0) - (Number(c.paidAmount) || 0));
+  });
+  return buckets;
+}
+
+function renderRevenueChart() {
+  if (!revenueBars) return;
+
+  const year = revenuePeriod?.value || String(new Date().getFullYear());
+  const buckets = monthBucketsForYear(year);
+  const scaleMax = 40000; // matches the fixed ₹40k top gridline label in the markup
+
+  revenueBars.innerHTML = buckets.map((b) => {
+    const paidPct = b.paid > 0 ? Math.max(4, Math.min(100, Math.round((b.paid / scaleMax) * 100))) : 0;
+    const pendingPct = b.pending > 0 ? Math.max(4, Math.min(100, Math.round((b.pending / scaleMax) * 100))) : 0;
+    return `
+      <div class="chart-bar-group" title="Paid ₹${b.paid.toLocaleString("en-IN")} • Pending ₹${b.pending.toLocaleString("en-IN")}">
+        <div class="chart-bar" style="height:${paidPct}%"></div>
+        <div class="chart-bar secondary" style="height:${pendingPct}%"></div>
+      </div>
+    `;
+  }).join("");
+
+  // "This month" always reflects the real current month regardless of
+  // which year is selected in the dropdown.
+  const now = new Date();
+  const currentYearBuckets = Number(year) === now.getFullYear() ? buckets : monthBucketsForYear(now.getFullYear());
+  const thisMonth = currentYearBuckets[now.getMonth()]?.paid || 0;
+  if (dashMonthRevenue) dashMonthRevenue.textContent = `₹${thisMonth.toLocaleString("en-IN")}`;
+}
+
+revenuePeriod?.addEventListener("change", renderRevenueChart);
+
+/* ------------------------------------------------------------
+   FINANCE WIDGETS (paid invoices ring, funds received ring)
+   ------------------------------------------------------------ */
+function renderFinanceWidgets(totalRevenue, pendingRevenue) {
+  const billable = clientsCache.filter((c) => (Number(c.totalAmount) || 0) > 0);
+  const paidClients = billable.filter((c) => c.paymentStatus === "Paid");
+  const paidInvoicesTotal = paidClients.reduce((s, c) => s + (Number(c.paidAmount) || 0), 0);
+  const paidPct = billable.length ? Math.round((paidClients.length / billable.length) * 100) : 0;
+
+  const contract = totalRevenue + pendingRevenue;
+  const fundsPct = contract > 0 ? Math.round((totalRevenue / contract) * 100) : 0;
+
+  if (paidPercent) paidPercent.textContent = `${paidPct}%`;
+  if (paidInvoicesAmount) paidInvoicesAmount.textContent = `₹${paidInvoicesTotal.toLocaleString("en-IN")}`;
+  if (fundsPercent) fundsPercent.textContent = `${fundsPct}%`;
+  if (fundsReceivedAmount) fundsReceivedAmount.textContent = `₹${totalRevenue.toLocaleString("en-IN")}`;
+
+  // The CSS rings use a fixed conic-gradient stop angle — recompute it here
+  // so the ring visually tracks the live percentage instead of always
+  // showing its hardcoded default.
+  const purpleRing = document.querySelector(".finance-ring.purple");
+  if (purpleRing) {
+    purpleRing.style.background = `conic-gradient(#b35bff 0deg, #7d46ff ${paidPct * 3.6}deg, rgba(255,255,255,.07) ${paidPct * 3.6}deg)`;
+  }
+  const greenRing = document.querySelector(".finance-ring.green");
+  if (greenRing) {
+    greenRing.style.background = `conic-gradient(#59d26f 0deg, #37a95a ${fundsPct * 3.6}deg, rgba(255,255,255,.07) ${fundsPct * 3.6}deg)`;
+  }
+}
+
+/* ------------------------------------------------------------
+   PIPELINE SNAPSHOT ("Project flow" card)
+   Uses the dashboard-project-* classes defined in owner.css, not the
+   generic .bar-row classes (those are still used by the Reports tab).
+   ------------------------------------------------------------ */
 function renderPipelineSnapshot(active) {
   if (!overviewPhaseBars) return;
   if (!active.length) {
@@ -834,8 +1110,146 @@ function renderPipelineSnapshot(active) {
   const max = Math.max(1, ...PHASES.map((p) => active.filter((c) => (c.phase || "Discovery") === p).length));
   overviewPhaseBars.innerHTML = PHASES.map((p) => {
     const count = active.filter((c) => (c.phase || "Discovery") === p).length;
-    return barRow(p, count, max);
+    const pct = Math.round((count / max) * 100);
+    return `
+      <div class="dashboard-project-row">
+        <span class="dashboard-project-name">${escapeHtml(p)}</span>
+        <div class="dashboard-project-track"><div class="dashboard-project-fill" style="width:${pct}%"></div></div>
+        <span class="dashboard-project-count">${count}</span>
+      </div>
+    `;
   }).join("");
+}
+
+/* ------------------------------------------------------------
+   RECENT CLIENT ACTIVITY TABLE
+   ------------------------------------------------------------ */
+function renderDashboardClientActivity() {
+  if (!dashboardClientActivity) return;
+
+  const sorted = [...clientsCache].sort(
+    (a, b) => toMillis(b.updatedAt || b.createdAt) - toMillis(a.updatedAt || a.createdAt)
+  );
+
+  if (!sorted.length) {
+    dashboardClientActivity.innerHTML = `<div class="mini-empty">No client activity yet.</div>`;
+    return;
+  }
+
+  dashboardClientActivity.innerHTML = sorted.slice(0, 8).map((c) => {
+    let statusClass = "pending";
+    if (c.status === "Completed") statusClass = "completed";
+    else if (c.access !== "disabled" && (c.status === "In Progress" || c.status === "Waiting for feedback")) statusClass = "active";
+
+    const value = Number(c.paidAmount) || Number(c.totalAmount) || 0;
+
+    return `
+      <div class="client-table-row" data-client-id="${escapeHtml(c.id)}">
+        <div class="client-name-cell">
+          <div class="client-mini-avatar">${initials(c.name)}</div>
+          <strong>${escapeHtml(c.name || "Client")}</strong>
+        </div>
+        <div class="client-project">${escapeHtml(c.projectName || c.service || "—")}</div>
+        <div class="client-date">${timeAgo(c.updatedAt || c.createdAt)}</div>
+        <div><span class="client-status ${statusClass}">${escapeHtml(c.status || "—")}</span></div>
+        <div class="client-value">₹${value.toLocaleString("en-IN")}</div>
+      </div>
+    `;
+  }).join("");
+
+  dashboardClientActivity.querySelectorAll("[data-client-id]").forEach((row) => {
+    row.addEventListener("click", () => openClientDrawer(row.dataset.clientId));
+  });
+}
+
+function renderWorkspacePulse(active, collected, pending, progress, rating) {
+  if (!overviewPulse) return;
+  const contract = collected + pending;
+  const collectionRate = contract > 0 ? Math.round((collected / contract) * 100) : 0;
+  const ratingPct = rating === null ? 0 : Math.round((rating / 5) * 100);
+
+  const pulse = [
+    { label: "Revenue collected", value: `₹${collected.toLocaleString("en-IN")}`, sub: `${collectionRate}% of ₹${contract.toLocaleString("en-IN")}`, pct: collectionRate, tone: "money" },
+    { label: "Projects on track", value: `${progress}%`, sub: `${active.length} active client${active.length === 1 ? "" : "s"}`, pct: progress, tone: "progress" },
+    { label: "Client satisfaction", value: rating === null ? "—" : `${rating.toFixed(1)} / 5`, sub: rating === null ? "Waiting for ratings" : "Average client rating", pct: ratingPct, tone: "rating" }
+  ];
+
+  overviewPulse.innerHTML = pulse.map((p) => `
+    <div class="pulse-item">
+      <div class="pulse-top"><span>${escapeHtml(p.label)}</span><strong>${escapeHtml(p.value)}</strong></div>
+      <div class="pulse-track"><span class="pulse-fill ${p.tone}" style="width:${Math.max(0, Math.min(100, p.pct))}%"></span></div>
+      <small>${escapeHtml(p.sub)}</small>
+    </div>
+  `).join("");
+}
+
+function getClientReview(client) {
+  return client?.currentReview || client?.review || null;
+}
+
+function reviewStatusLabel(status) {
+  return ({
+    awaiting: "Awaiting client",
+    approved: "Approved",
+    changes_requested: "Changes requested"
+  }[status] || "Awaiting client");
+}
+
+function renderCurrentReviews(active) {
+  if (!overviewCurrentReviews) return;
+
+  const reviews = active
+    .map((client) => ({ client, review: getClientReview(client) }))
+    .filter(({ review }) => review && review.title)
+    .sort((a, b) => {
+      const priority = { awaiting: 0, changes_requested: 1, approved: 2 };
+      return (priority[a.review.status] ?? 3) - (priority[b.review.status] ?? 3);
+    });
+
+  if (!reviews.length) {
+    overviewCurrentReviews.innerHTML = `
+      <div class="current-review-empty glass">
+        <div class="current-review-empty-icon">✓</div>
+        <div>
+          <strong>No active reviews</strong>
+          <p>When you publish a client review, it will appear here as a clean decision card.</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  overviewCurrentReviews.innerHTML = reviews.slice(0, 8).map(({ client, review }) => {
+    const status = review.status || "awaiting";
+    const progress = Math.max(0, Math.min(100, Number(client.progress) || 0));
+    const image = review.image || review.preview || "";
+    const description = review.description || review.desc || "Awaiting client feedback on the latest direction.";
+    const statusClass = status === "approved" ? "is-approved" : status === "changes_requested" ? "is-changes" : "is-awaiting";
+
+    return `
+      <article class="current-review-card glass ${statusClass}" data-client-id="${escapeHtml(client.id)}">
+        <div class="current-review-media">
+          ${image
+            ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(review.title)} preview" loading="lazy" onerror="this.parentElement.classList.add('has-error');this.remove();" />`
+            : `<div class="current-review-media-empty"><span>Preview</span><small>No image</small></div>`}
+          <span class="current-review-status ${statusClass}">${escapeHtml(reviewStatusLabel(status))}</span>
+        </div>
+        <div class="current-review-body">
+          <div class="current-review-client">
+            <span class="client-avatar">${initials(client.name)}</span>
+            <div><strong>${escapeHtml(client.name)}</strong><small>${escapeHtml(client.projectName || client.service || "TUSDIO project")}</small></div>
+          </div>
+          <h4>${escapeHtml(review.title)}</h4>
+          <p>${escapeHtml(description)}</p>
+          <div class="current-review-progress"><span style="width:${progress}%"></span></div>
+          <div class="current-review-meta"><span>${progress}% project progress</span><span>${escapeHtml(client.phase || "Project")}</span></div>
+          <button class="current-review-open" type="button" data-client-id="${escapeHtml(client.id)}">Open client →</button>
+        </div>
+      </article>`;
+  }).join("");
+
+  overviewCurrentReviews.querySelectorAll(".current-review-open").forEach((btn) => {
+    btn.addEventListener("click", () => openClientDrawer(btn.dataset.clientId));
+  });
 }
 
 function renderUpcomingDeadlines(active) {
@@ -907,21 +1321,35 @@ function kpiCard(label, value, sub, tone) {
   `;
 }
 
+/* ------------------------------------------------------------
+   "Needs your attention" list — uses dashboard-attention-* classes
+   defined in owner.css (3-column grid), not the generic .mini-item.
+   ------------------------------------------------------------ */
 function renderAttention(active) {
   if (!attentionList) return;
   const items = [];
 
   active.forEach((c) => {
     if (c.status === "Waiting for feedback") {
-      items.push({ dot: "warn", title: `${c.name} is waiting for feedback`, meta: c.nextAction || c.projectName || "" });
+      items.push({ danger: false, title: `${c.name} is waiting for feedback`, meta: c.nextAction || c.projectName || "" });
     }
     if (c.paymentStatus === "Overdue") {
-      items.push({ dot: "danger", title: `${c.name} has an overdue payment`, meta: `₹${(Number(c.totalAmount)||0) - (Number(c.paidAmount)||0)} outstanding` });
+      items.push({ danger: true, title: `${c.name} has an overdue payment`, meta: `₹${(Number(c.totalAmount) || 0) - (Number(c.paidAmount) || 0)} outstanding` });
     }
   });
 
   requestsCache.filter((r) => r.status === "New").forEach((r) => {
-    items.push({ dot: "warn", title: `New ${r.type || "request"} from ${r.clientName || "a client"}`, meta: r.subject || "" });
+    items.push({ danger: false, title: `New ${r.type || "request"} from ${r.clientName || "a client"}`, meta: r.subject || "" });
+  });
+
+  active.forEach((c) => {
+    const review = getClientReview(c);
+    if (review?.status === "awaiting") {
+      items.push({ danger: false, title: `${c.name} has a review awaiting approval`, meta: review.title || c.projectName || "Current review" });
+    }
+    if (review?.status === "changes_requested") {
+      items.push({ danger: true, title: `${c.name} requested changes`, meta: review.title || c.projectName || "Current review" });
+    }
   });
 
   if (!items.length) {
@@ -929,12 +1357,12 @@ function renderAttention(active) {
     return;
   }
 
-  attentionList.innerHTML = items.slice(0, 8).map((i) => `
-    <div class="mini-item">
-      <span class="mini-dot ${i.dot}"></span>
-      <div class="mini-body">
-        <div class="mini-title">${escapeHtml(i.title)}</div>
-        <div class="mini-meta">${escapeHtml(i.meta)}</div>
+  attentionList.innerHTML = items.slice(0, 9).map((i) => `
+    <div class="dashboard-attention-item">
+      <span class="dashboard-attention-dot ${i.danger ? "danger" : ""}"></span>
+      <div>
+        <div class="dashboard-attention-title">${escapeHtml(i.title)}</div>
+        <div class="dashboard-attention-meta">${escapeHtml(i.meta)}</div>
       </div>
     </div>
   `).join("");
@@ -1001,6 +1429,7 @@ function renderClientsGrid() {
     const progress = Number(c.progress) || 0;
     const vip = !!c.priority;
     const checked = selectedClientIds.has(c.id);
+    const hasRating = Number(c.satisfaction) > 0;
     return `
       <div class="client-card ${vip ? "is-vip" : ""} ${checked ? "is-selected" : ""}" data-client-id="${c.id}">
         <div class="client-card-top">
@@ -1022,6 +1451,11 @@ function renderClientsGrid() {
         <div class="client-card-foot">
           <span>${progress}% complete</span>
           <span>${escapeHtml(c.status || "")}</span>
+        </div>
+        <div class="client-card-foot">
+          <span title="Client satisfaction rating" style="${hasRating ? "color:#ffc454;" : "color:#6f6f6f;"}">
+            ${hasRating ? `${starsHtml(c.satisfaction)} (${c.satisfaction}/5)` : "No rating yet"}
+          </span>
         </div>
       </div>
     `;
@@ -1122,9 +1556,9 @@ async function bulkUpdateAccess(access, status) {
 }
 
 function downloadCsv(rows, filename) {
-  const header = ["Name", "Email", "Service", "Phase", "Status", "Progress", "Payment Status", "Total Amount", "Paid Amount", "Access"];
+  const header = ["Name", "Email", "Service", "Phase", "Status", "Progress", "Payment Status", "Total Amount", "Paid Amount", "Access", "Rating"];
   const csvRows = rows.map((c) => [
-    c.name, c.email, c.service, c.phase, c.status, c.progress, c.paymentStatus, c.totalAmount, c.paidAmount, c.access === "disabled" ? "Removed" : "Active"
+    c.name, c.email, c.service, c.phase, c.status, c.progress, c.paymentStatus, c.totalAmount, c.paidAmount, c.access === "disabled" ? "Removed" : "Active", c.satisfaction || ""
   ].map((v) => `"${String(v ?? "").replace(/"/g, '""')}"`).join(","));
   const csv = [header.join(","), ...csvRows].join("\n");
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -1286,10 +1720,24 @@ function renderRequests() {
 
       try {
         await addDoc(collection(db, "clients", clientId, "messages"), {
+          clientUid: clientId,
           sender: "owner",
           text,
-          createdAt: new Date().toISOString()
+          createdAt: serverTimestamp()
         });
+
+        const targetClient = clientsCache.find((c) => c.id === clientId);
+        if (targetClient) {
+          const existingNotifications = Array.isArray(targetClient.notifications) ? targetClient.notifications : [];
+          await updateDoc(doc(db, "clients", clientId), {
+            notifications: [
+              ...existingNotifications,
+              `New message from TUSDIO: ${text.slice(0, 120)}`
+            ],
+            lastOwnerMessageAt: new Date().toISOString(),
+            lastOwnerMessagePreview: text.slice(0, 140)
+          });
+        }
 
         const request = requestsCache.find((r) => r.id === requestId);
         if (request?.status === "New") {
@@ -1334,16 +1782,37 @@ function refreshBellDot() {
 function renderConversations() {
   if (!conversationsList) return;
   const active = clientsCache.filter((c) => c.access !== "disabled");
+  const term = conversationSearchTerm.trim().toLowerCase();
+
+  const filtered = term
+    ? active.filter((c) =>
+        (c.name || "").toLowerCase().includes(term) ||
+        (c.service || "").toLowerCase().includes(term) ||
+        (c.projectName || "").toLowerCase().includes(term)
+      )
+    : active;
 
   if (!active.length) {
     conversationsList.innerHTML = `<div class="mini-empty">No active clients yet.</div>`;
     return;
   }
+  if (!filtered.length) {
+    conversationsList.innerHTML = `<div class="mini-empty">No conversations match "${escapeHtml(conversationSearchTerm)}".</div>`;
+    return;
+  }
 
-  conversationsList.innerHTML = active.map((c) => `
+  const sorted = [...filtered].sort((a, b) => toMillis(b.lastOwnerMessageAt) - toMillis(a.lastOwnerMessageAt));
+
+  conversationsList.innerHTML = sorted.map((c) => `
     <div class="conversation-item ${c.id === activeThreadClientId ? "is-active" : ""}" data-client-id="${c.id}">
-      <strong>${escapeHtml(c.name || "Client")}</strong>
-      <span>${escapeHtml(c.projectName || c.service || "")}</span>
+      <div class="client-avatar">${initials(c.name)}</div>
+      <div class="conv-item-text">
+        <div class="conv-item-top">
+          <strong>${escapeHtml(c.name || "Client")}</strong>
+          ${c.lastOwnerMessageAt ? `<span class="conv-item-time">${timeAgo(c.lastOwnerMessageAt)}</span>` : ""}
+        </div>
+        <div class="conv-item-preview">${escapeHtml(c.lastOwnerMessagePreview || c.projectName || c.service || "No messages yet")}</div>
+      </div>
     </div>
   `).join("");
 
@@ -1351,6 +1820,11 @@ function renderConversations() {
     item.addEventListener("click", () => openThread(item.dataset.clientId));
   });
 }
+
+conversationSearch?.addEventListener("input", () => {
+  conversationSearchTerm = conversationSearch.value || "";
+  renderConversations();
+});
 
 async function openThread(clientId) {
   activeThreadClientId = clientId;
@@ -1362,6 +1836,8 @@ async function openThread(clientId) {
   threadActive?.classList.add("show");
   threadPane?.classList.add("show-thread");
   if (threadClientName) threadClientName.textContent = client.name || "Client";
+  if (threadClientSub) threadClientSub.textContent = client.projectName || client.service || "";
+  if (threadAvatar) threadAvatar.textContent = initials(client.name);
 
   await refreshThreadMessages(clientId);
 }
@@ -1369,27 +1845,67 @@ async function openThread(clientId) {
 async function refreshThreadMessages(clientId) {
   if (!ownerChatThread) return;
   ownerChatThread.innerHTML = `<div class="mini-empty">Loading messages…</div>`;
+
   try {
-    const q = query(collection(db, "clients", clientId, "messages"), orderBy("createdAt", "asc"));
-    const snap = await getDocs(q);
-    if (snap.empty) {
-      ownerChatThread.innerHTML = `<div class="mini-empty">No messages yet. Say hello 👋</div>`;
+    const snap = await getDocs(collection(db, "clients", clientId, "messages"));
+    const docs = snap.docs.slice().sort((a, b) => toMillis(a.data().createdAt) - toMillis(b.data().createdAt));
+
+    if (!docs.length) {
+      ownerChatThread.innerHTML = `<div class="chat-empty-state">No messages yet.<br>Say hello 👋</div>`;
       return;
     }
-    ownerChatThread.innerHTML = snap.docs.map((d) => {
+
+    let lastDay = "";
+    let html = "";
+    docs.forEach((d) => {
       const m = d.data();
-      const who = m.sender === "owner" ? "owner" : "client";
-      return `
-        <div class="chat-bubble ${who}">
-          ${escapeHtml(m.text || "")}
-          <time>${timeAgo(m.createdAt)}</time>
+      const who = (m.sender || m.role || m.from || "").toLowerCase() === "owner" ? "owner" : "client";
+      const ms = toMillis(m.createdAt);
+      const label = dayLabel(ms);
+      if (label && label !== lastDay) {
+        html += `<div class="chat-date-sep">${escapeHtml(label)}</div>`;
+        lastDay = label;
+      }
+      html += `
+        <div class="chat-row ${who}" data-msg-id="${d.id}">
+          ${who === "client" ? `<div class="chat-avatar-sm">${initials(threadClientName?.textContent)}</div>` : ""}
+          <div class="chat-bubble ${who}">
+            ${escapeHtml(m.text || "")}
+            <time>${escapeHtml(timeAgo(m.createdAt))}</time>
+          </div>
+          <button class="bubble-del-btn" data-del-msg-id="${d.id}" type="button" title="Delete message" aria-label="Delete message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
         </div>
       `;
-    }).join("");
+    });
+
+    ownerChatThread.innerHTML = html;
     ownerChatThread.scrollTop = ownerChatThread.scrollHeight;
+
+    ownerChatThread.querySelectorAll("[data-del-msg-id]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        deleteMessage(clientId, btn.dataset.delMsgId);
+      });
+    });
+  } catch (err) {
+    console.error("Failed to load client messages", err);
+    const code = err?.code || "unknown-error";
+    ownerChatThread.innerHTML = `<div class="mini-empty">Couldn't load messages. (${escapeHtml(code)})</div>`;
+  }
+}
+
+async function deleteMessage(clientId, messageId) {
+  if (!clientId || !messageId) return;
+  if (!confirm("Delete this message? This cannot be undone.")) return;
+  try {
+    await deleteDoc(doc(db, "clients", clientId, "messages", messageId));
+    showToast("Message deleted", "good");
+    await refreshThreadMessages(clientId);
   } catch (err) {
     console.error(err);
-    ownerChatThread.innerHTML = `<div class="mini-empty">Couldn't load messages.</div>`;
+    showToast("Couldn't delete that message", "danger");
   }
 }
 
@@ -1404,14 +1920,29 @@ ownerChatForm?.addEventListener("submit", async (e) => {
 
   try {
     await addDoc(collection(db, "clients", activeThreadClientId, "messages"), {
+      clientUid: activeThreadClientId,
       sender: "owner",
       text,
-      createdAt: new Date().toISOString()
+      createdAt: serverTimestamp()
     });
+
+    const targetClient = clientsCache.find((c) => c.id === activeThreadClientId);
+    if (targetClient) {
+      const existingNotifications = Array.isArray(targetClient.notifications) ? targetClient.notifications : [];
+      await updateDoc(doc(db, "clients", activeThreadClientId), {
+        notifications: [
+          ...existingNotifications,
+          `New message from TUSDIO: ${text.slice(0, 120)}`
+        ],
+        lastOwnerMessageAt: new Date().toISOString(),
+        lastOwnerMessagePreview: text.slice(0, 140)
+      });
+    }
     if (ownerChatInput) ownerChatInput.value = "";
     await refreshThreadMessages(activeThreadClientId);
   } catch (err) {
     console.error(err);
+    showToast("Couldn't send that message", "danger");
   }
 });
 
@@ -1559,12 +2090,14 @@ function renderReports() {
   const totalRevenue = clientsCache.reduce((s, c) => s + (Number(c.totalAmount) || 0), 0);
   const collected = clientsCache.reduce((s, c) => s + (Number(c.paidAmount) || 0), 0);
   const totalHours = timeLogsCache.reduce((s, t) => s + (Number(t.hours) || 0), 0);
+  const avgRating = averageSatisfaction();
 
   reportsKpiGrid.innerHTML = `
     ${kpiCard("Total Clients", total, `${active.length} active`)}
     ${kpiCard("Total Contract Value", `₹${totalRevenue.toLocaleString("en-IN")}`, `₹${collected.toLocaleString("en-IN")} collected`)}
     ${kpiCard("Collection Rate", totalRevenue ? `${Math.round((collected / totalRevenue) * 100)}%` : "0%", "Of total contract value")}
     ${kpiCard("Hours Logged", `${totalHours}h`, "All time")}
+    ${kpiCard("Avg. Rating", avgRating === null ? "—" : `${avgRating.toFixed(1)} / 5`, avgRating === null ? "No ratings yet" : `${ratedClients().length} rated`)}
   `;
 
   if (phaseBars) {
@@ -1583,6 +2116,30 @@ function renderReports() {
       return barRow(s, count, max);
     }).join("");
   }
+
+  renderRatingsList();
+}
+
+function renderRatingsList() {
+  const container = document.getElementById("reportsRatingsList");
+  if (!container) return;
+
+  const rated = ratedClients().sort((a, b) => Number(b.satisfaction) - Number(a.satisfaction));
+
+  if (!rated.length) {
+    container.innerHTML = `<div class="mini-empty">No clients have submitted a rating yet.</div>`;
+    return;
+  }
+
+  container.innerHTML = rated.map((c) => `
+    <div class="mini-item">
+      <span class="mini-dot ${Number(c.satisfaction) >= 4 ? "good" : Number(c.satisfaction) >= 3 ? "warn" : "danger"}"></span>
+      <div class="mini-body">
+        <div class="mini-title">${escapeHtml(c.name || "Client")}</div>
+        <div class="mini-meta">${starsHtml(c.satisfaction)} — ${c.satisfaction} / 5</div>
+      </div>
+    </div>
+  `).join("");
 }
 
 function barRow(label, count, max) {
@@ -1613,7 +2170,8 @@ quickFileForm?.addEventListener("submit", async (e) => {
 
   try {
     const updatedFiles = [...(client.files || []), newFile];
-    await updateDoc(doc(db, "clients", clientId), { files: updatedFiles });
+    const updatedNotifications = [...(client.notifications || []), `New file added: "${newFile.title}"`];
+    await updateDoc(doc(db, "clients", clientId), { files: updatedFiles, notifications: updatedNotifications });
     await logActivity(`Added file "${newFile.title}" for ${client.name}`, "good");
     quickFileForm.reset();
     if (quickFileMessage) quickFileMessage.textContent = "File added.";
