@@ -21,89 +21,423 @@
     <meta property="twitter:description" content="Turn your ideas into market-ready products with TUSDIO's expert product development services. We create standout designs for maximum impact.">
     <meta property="twitter:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="product-development.css">
-    <script src="product-development.js" defer></script>
+    <script type="module" src="product-development.js" defer></script>
 </head>
 
-
 <body>
-     <!-- Hero Section -->
-     <header>
-        <div class="container">
-            <a href="../../index.html" class="logo-link">
-                <h1 class="logo">TUSDIO.</h1>
+
+<a href="#caseStudies" class="skip-link">Skip to our work</a>
+
+<!-- =========================================================
+     NAVIGATION — same links/structure, restyled monochrome
+========================================================= -->
+
+<header>
+    <div class="container">
+
+        <a href="../../index.html" class="logo-link" aria-label="TUSDIO Home">
+            <div class="logo">TUSDIO<span class="logo-dot">.</span></div>
+        </a>
+
+        <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+            &#9776;
+        </button>
+
+        <nav id="primary-nav">
+            <ul class="nav-links">
+                <li><a href="../../Nav Bar/About Us/index.html">About</a></li>
+                <li><a href="../../Nav Bar/Services/index.html">Services</a></li>
+                <li><a href="../../Nav Bar/Package/index.html">Package</a></li>
+                <li><a href="../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                <li><a href="../../Nav Bar/Contact Us/index.html">Contact</a></li>
+                <li><a href="../../Nav Bar/freebie/index.html">Freebie</a></li>
+                <li id="navUserArea" class="nav-user-area">
+                    <a href="../../Nav Bar/auth/login.html">Login</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- =====================================================
+         HERO — black, centered, editorial
+    ====================================================== -->
+
+    <section class="pd-hero">
+
+        <div class="hero-ring" aria-hidden="true"></div>
+
+        <div class="pd-hero-inner">
+
+            <span class="eyebrow">TUSDIO — Product Development</span>
+
+            <h1 class="hero-title">
+                <span class="line">From napkin sketch</span>
+                <span class="line">to shelf‑ready<span class="dot-accent">.</span></span>
+            </h1>
+
+            <p class="hero-subtitle">
+                We take a product the distance — research, form, prototype,
+                and finish — until it's something people reach for on sight.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#caseStudies" class="cta-button primary-btn">See the work</a>
+                <a href="../../Nav Bar/Contact Us/index.html" class="cta-button secondary-btn">Start a project</a>
+            </div>
+
+        </div>
+
+        <a href="#approach" class="scroll-cue" aria-label="Scroll to next section">
+            <span class="scroll-cue-line"></span>
+            <span class="scroll-cue-label">Scroll</span>
+        </a>
+
+    </section>
+
+
+
+<!-- =========================================================
+     OUR APPROACH
+========================================================= -->
+
+<section class="approach reveal" id="approach">
+
+    <!-- TUSDIO watermark -->
+    <div class="approach-watermark" aria-hidden="true">
+        TUSDIO.
+    </div>
+
+    <div class="section-shell">
+
+        <div class="approach-head">
+
+            <div class="approach-eyebrow">
+                <span class="approach-line"></span>
+                <span class="section-label">Our approach</span>
+            </div>
+
+            <h2>
+                Built with intent,
+                <span>never guesswork.</span>
+            </h2>
+
+            <p class="approach-intro">
+                We combine strategy, design and execution to create
+                work that feels inevitable — not accidental.
+            </p>
+
+        </div>
+
+
+        <div class="approach-grid">
+
+            <!-- CARD 01 -->
+            <article class="approach-card reveal">
+
+                <div class="approach-card-top">
+                    <span class="approach-numeral">01</span>
+                    <span class="approach-arrow">↗</span>
+                </div>
+
+                <div class="approach-card-content">
+
+                    <span class="approach-mini-label">
+                        THINK
+                    </span>
+
+                    <h3>
+                        Concept-driven
+                        <br>
+                        design.
+                    </h3>
+
+                    <p>
+                        Every visual decision starts with positioning,
+                        purpose and context. Nothing exists simply
+                        because it looks good.
+                    </p>
+
+                </div>
+
+                <div class="approach-card-footer">
+                    <span>01 — 03</span>
+                    <span>Strategy</span>
+                </div>
+
+            </article>
+
+
+            <!-- CARD 02 -->
+            <article class="approach-card reveal">
+
+                <div class="approach-card-top">
+                    <span class="approach-numeral">02</span>
+                    <span class="approach-arrow">↗</span>
+                </div>
+
+                <div class="approach-card-content">
+
+                    <span class="approach-mini-label">
+                        TEST
+                    </span>
+
+                    <h3>
+                        Prototype,
+                        <br>
+                        don't assume.
+                    </h3>
+
+                    <p>
+                        Ideas are explored early, tested in motion
+                        and refined through iteration — before small
+                        problems become expensive ones.
+                    </p>
+
+                </div>
+
+                <div class="approach-card-footer">
+                    <span>02 — 03</span>
+                    <span>Iteration</span>
+                </div>
+
+            </article>
+
+
+            <!-- CARD 03 -->
+            <article class="approach-card reveal">
+
+                <div class="approach-card-top">
+                    <span class="approach-numeral">03</span>
+                    <span class="approach-arrow">↗</span>
+                </div>
+
+                <div class="approach-card-content">
+
+                    <span class="approach-mini-label">
+                        BUILD
+                    </span>
+
+                    <h3>
+                        Launch-ready
+                        <br>
+                        execution.
+                    </h3>
+
+                    <p>
+                        From the first sketch to the final asset,
+                        we stay close to the work — removing the
+                        handoff gaps that dilute great ideas.
+                    </p>
+
+                </div>
+
+                <div class="approach-card-footer">
+                    <span>03 — 03</span>
+                    <span>Execution</span>
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <div class="approach-bottom">
+
+            <span>
+                TUSDIO — DESIGN WITH INTENT
+            </span>
+
+            <span>
+                SCROLL TO EXPLORE
+                <b>↓</b>
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+    <!-- =====================================================
+         PROCESS — scroll-driven reel (signature section, black)
+    ====================================================== -->
+
+    <section class="process-reel" id="process" data-active-step="0">
+
+        <div class="reel-shell">
+
+            <div class="reel-sticky">
+
+                <div class="reel-info">
+                    <span class="section-label reel-label">How we get there</span>
+
+                    <div class="reel-track" aria-hidden="true">
+                        <span class="reel-fill"></span>
+                    </div>
+
+                    <div class="reel-copy">
+                        <span class="reel-num">01</span>
+                        <h2 class="reel-title">Discover</h2>
+                        <p class="reel-desc">We dig into the market, the audience, and the problem the product actually needs to solve.</p>
+                    </div>
+
+                    <div class="reel-dots">
+                        <button class="reel-dot" data-goto="0" aria-label="Discover"></button>
+                        <button class="reel-dot" data-goto="1" aria-label="Concept"></button>
+                        <button class="reel-dot" data-goto="2" aria-label="Prototype"></button>
+                        <button class="reel-dot" data-goto="3" aria-label="Refine"></button>
+                        <button class="reel-dot" data-goto="4" aria-label="Launch"></button>
+                    </div>
+                </div>
+
+                <div class="reel-visual" aria-hidden="true">
+                    <span class="reel-ghost-num">01</span>
+                    <div class="reel-ring"></div>
+                </div>
+
+            </div>
+
+            <div class="reel-steps">
+                <div class="reel-step" data-step="0" data-num="01" data-title="Discover" data-desc="We dig into the market, the audience, and the problem the product actually needs to solve."></div>
+                <div class="reel-step" data-step="1" data-num="02" data-title="Concept" data-desc="Early directions take shape — sketches, mood, and positioning explored side by side."></div>
+                <div class="reel-step" data-step="2" data-num="03" data-title="Prototype" data-desc="The strongest direction becomes tangible, so it can be tested, felt, and refined."></div>
+                <div class="reel-step" data-step="3" data-num="04" data-title="Refine" data-desc="Details get sharpened — materials, finishes, and every touchpoint the customer sees."></div>
+                <div class="reel-step" data-step="4" data-num="05" data-title="Launch" data-desc="Final files, guidelines, and assets — handed off ready for the real world."></div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CASE STUDIES — alternating black / white, sharp edges,
+         grayscale images that reveal true color on hover
+    ====================================================== -->
+
+    <section class="case-studies-intro reveal">
+        <div class="section-shell">
+            <span class="section-label">Selected work</span>
+            <h2>Products we've helped<br>bring to life.</h2>
+        </div>
+    </section>
+
+    <section class="case-studies" id="caseStudies">
+
+        <article class="case-study reveal">
+            <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance"
+               class="case-image" target="_blank" rel="noopener">
+                <img src="image/9 lujuria.png" alt="Lujuria luxury fashion brand identity">
+                <span class="case-view">View case study <span class="arrow">↗</span></span>
             </a>
-            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="../../Nav Bar/About Us/about us.html">About</a></li>
-                    <li><a href="../../Nav Bar/Services/services.html">Services</a></li>
-                    <li><a href="../../Nav Bar/Package/package.html">Package</a></li>
-                    <li><a href="../../Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
-                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
-                    <li><a href="../../Nav Bar/Contact Us/contact.html">Contact</a></li>
-                    <li><a href="../../Nav Bar/freebie/freebie.html">Freebie</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+            <div class="case-content">
+                <span class="case-number">I.</span>
+                <span class="case-tag">Luxury &amp; Fashion Branding</span>
+                <h2>Lujuria</h2>
+                <p>TUSDIO designed Lujuria's bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
+                <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance"
+                   class="case-link" target="_blank" rel="noopener">
+                    View case study <span class="arrow">↗</span>
+                </a>
+            </div>
+        </article>
 
+        <article class="case-study reverse case-light reveal">
+            <a href="https://www.behance.net/gallery/198102819/Heavena-GLOW-BY-TOUCH"
+               class="case-image" target="_blank" rel="noopener">
+                <img src="image/1 Heavena.png" alt="Heavena product development case study">
+                <span class="case-view">View case study <span class="arrow">↗</span></span>
+            </a>
+            <div class="case-content">
+                <span class="case-number">II.</span>
+                <span class="case-tag">Product Development</span>
+                <h2>Heavena</h2>
+                <p>We helped transform an idea into a market-ready product with a seamless development process, from first concept to finished form.</p>
+                <a href="https://www.behance.net/gallery/198102819/Heavena-GLOW-BY-TOUCH"
+                   class="case-link" target="_blank" rel="noopener">
+                    View case study <span class="arrow">↗</span>
+                </a>
+            </div>
+        </article>
 
-    <section class="hero"> 
-        <h1 class="hero-title">Product Development</h1>
-    <p class="hero-subtitle">A journey from idea to market-ready product.</p>
+        <article class="case-study reveal">
+            <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition"
+               class="case-image" target="_blank" rel="noopener">
+                <img src="image/2 Eclat.png" alt="Eclat brand identity design">
+                <span class="case-view">View case study <span class="arrow">↗</span></span>
+            </a>
+            <div class="case-content">
+                <span class="case-number">III.</span>
+                <span class="case-tag">Brand Identity</span>
+                <h2>Eclat</h2>
+                <p>Designed a powerful brand identity that stands out in the market, built to carry the same weight across every touchpoint.</p>
+                <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition"
+                   class="case-link" target="_blank" rel="noopener">
+                    View case study <span class="arrow">↗</span>
+                </a>
+            </div>
+        </article>
+
+        <article class="case-study reverse case-light reveal">
+            <a href="https://www.behance.net/gallery/204727647/EVOQUE"
+               class="case-image" target="_blank" rel="noopener">
+                <img src="../../images/description/evoque 1.png" alt="Evoque visual identity design">
+                <span class="case-view">View case study <span class="arrow">↗</span></span>
+            </a>
+            <div class="case-content">
+                <span class="case-number">IV.</span>
+                <span class="case-tag">Visual Identity</span>
+                <h2>Evoque</h2>
+                <p>Created a visually stunning identity that enhances brand recognition, balancing clarity with a distinct point of view.</p>
+                <a href="https://www.behance.net/gallery/204727647/EVOQUE"
+                   class="case-link" target="_blank" rel="noopener">
+                    View case study <span class="arrow">↗</span>
+                </a>
+            </div>
+        </article>
+
     </section>
 
 
-<!-- Section 1 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="image-container">
-            <img src="image/9 lujuria.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>Lujuria</h2>
-            <p>TUSDIO designed Lujuria’s bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
-            <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="btn">View Case Study</a>
+    <!-- =====================================================
+         CTA — white, inverted against the black rhythm above
+    ====================================================== -->
+
+    <section class="pd-cta reveal">
+        <div class="section-shell">
+            <span class="section-label center-label">Have a product in mind?</span>
+            <h2>Let's take it from<br>idea to launch.</h2>
+            <a href="../../Nav Bar/Contact Us/index.html" class="cta-link">Start a project <span>↗</span></a>
         </div>
     </section>
 
-    </section>           
+</main>
 
 
-            <!-- Section 2 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/198102819/Heavena-GLOW-BY-TOUCH" class="image-container">
-            <img src="image/1 Heavena.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>Heavena</h2>
-            <p>We helped transform an idea into a market-ready product with a seamless development process.</p>
-            <a href="https://www.behance.net/gallery/198102819/Heavena-GLOW-BY-TOUCH" class="btn">View Case Study</a>
-        </div>
-    </section>
+<!-- FOOTER -->
 
-    <!-- Section 2 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Eclat</h2>
-            <p>Designed a powerful brand identity that stands out in the market.</p>
-            <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-container">
-            <img src="image/2 Eclat.png" alt="Branding">
-        </a>
-    </section>
+<footer class="site-footer">
+    <div class="footer-inner">
+        <span class="footer-logo">TUSDIO<span class="logo-dot">.</span></span>
+        <span>Design with intention.</span>
+        <span>© 2024 TUSDIO</span>
+    </div>
+</footer>
 
-    <!-- Section 3 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-container">
-            <img src="image/3 Evoque.png" alt="Visual Identity">
-        </a>
-        <div class="text-container">
-            <h2>Evoque</h2>
-            <p>Created a visually stunning identity that enhances brand recognition.</p>
-            <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="btn">View Case Study</a>
-        </div>
-    </section>
-    
-</body>    
+<button id="backToTop" class="back-to-top" type="button" aria-label="Back to top" hidden>↑</button>
+
+</body>
+</html>
