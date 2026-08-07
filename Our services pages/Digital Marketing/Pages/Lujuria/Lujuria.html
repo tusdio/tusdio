@@ -2,147 +2,203 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <link rel="canonical" href="https://tusdio.site/Our%20services%20pages/Digital%20Marketing/Pages/Lujuria/Lujuria.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lujuria - TUSDIO</title>
+    <title>Lujuria — Fine Jewelry | TUSDIO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Lujuria.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
     <script src="Lujuria.js" defer></script>
 </head>
 <body>
-     <!-- Hero Section -->
-     <header>
+
+    <!-- Header -->
+    <header id="site-header">
         <div class="container">
-            <a href="../../../../index.html" class="logo-link">
-                <h1 class="logo">TUSDIO.</h1>
+
+            <a href="/" class="logo-link" aria-label="TUSDIO Home">
+                <div class="logo">TUSDIO.</div>
             </a>
-            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
-            <nav>
+
+            <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+                &#9776;
+            </button>
+
+            <nav id="primary-nav">
                 <ul class="nav-links">
-                    <li><a href="../../../../Nav Bar/About Us/about us.html">About</a></li>
-                    <li><a href="../../../../Nav Bar/Services/services.html">Services</a></li>
-                    <li><a href="../../../../Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
-                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
-                    <li><a href="../../../../Nav Bar/Contact Us/contact.html">Contact</a></li>
-                    <li><a href="../../../../Nav Bar/freebie/freebie.html">Freebie</a></li>
+                    <li><a href="../../../../Nav Bar/About Us/index.html">About</a></li>
+                    <li><a href="../../../../Nav Bar/Services/index.html">Services</a></li>
+                    <li><a href="../../../../Nav Bar/Package/index.html">Package</a></li>
+                    <li><a href="../../../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                    <li><a href="../../../../Nav Bar/Contact Us/index.html">Contact</a></li>
+                    <li><a href="../../../../Nav Bar/freebie/index.html">Freebie</a></li>
+                    <li id="navUserArea" class="nav-user-area">
+                        <a href="../../../../Nav Bar/auth/login.html">Login</a>
+                    </li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
-    <!-- Introduction Section -->
-    <section id="intro" class="product-development-section">
-        <div class="Mypaws">
-            <h2>Lujuria</h2>
-            <p>Lujuria – where luxury meets passion. Elevate your senses with our exquisite collection, crafted for those who embrace elegance and indulgence. Designed by TUSDIO, our logo embodies sophistication, blending modern aesthetics with timeless allure. At Lujuria, we celebrate the art of refinement, ensuring every detail exudes exclusivity and charm. ✨</p>
-            <a href="" class="contact-button"></a>
+    <!-- Hero -->
+    <section id="hero" class="hero-section">
+        <div class="hero-tile-pattern" aria-hidden="true"></div>
+        <div class="hero-inner">
+            <p class="hero-eyebrow reveal-mask"><span class="reveal-line">Fine Jewelry House &nbsp;·&nbsp; Founded in Spain</span></p>
+            <h1 class="hero-word reveal-mask"><span class="reveal-line">Lujuria</span></h1>
+            <svg class="filigree-line" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,20 C60,2 90,38 150,20 C210,2 240,38 300,20 C360,2 390,38 450,20 C510,2 540,38 600,20" />
+                <circle cx="300" cy="20" r="4" class="filigree-dot" />
+            </svg>
+            <p class="hero-sub reveal-mask"><span class="reveal-line">Where gold remembers the warmth of Andalusia, and every piece is cut like a confession.</span></p>
+            <a href="#manifesto" class="ghost-button magnetic">Discover the Maison</a>
+            <p class="hero-credit">Designed by <span>TUSDIO.</span></p>
+        </div>
+        <div class="scroll-cue" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- Manifesto / Intro -->
+    <section id="manifesto" class="panel panel--left">
+        <div class="panel-mark">I</div>
+        <div class="panel-copy">
+            <p class="eyebrow reveal-mask"><span class="reveal-line">The Maison</span></p>
+            <h2 class="reveal-mask"><span class="reveal-line">Luxury isn't announced. <em>It's felt.</em></span></h2>
+            <p class="block-copy">Lujuria was born in southern Spain, in workshops where gold is shaped by hand and the afternoon light decides which stone deserves to shine first. We don't design jewelry to be seen — we design it to be remembered by whoever wears it.</p>
+            <p class="block-copy">Every collection is a love letter to Spanish goldsmithing: filigree passed down through generations, stones chosen one by one, and a name that needs no permission to be desired.</p>
         </div>
     </section>
 
-
-
-        <!-- About Company -->
-        <section id="About-Company" class="product-development-section 3">
-            <div class="About-Company">
-                <h2>About Lujuria 💎</h2>
-                <p>Lujuria is more than just a brand—it’s a statement of luxury, passion, and refinement. We craft experiences that embody elegance, sophistication, and exclusivity, ensuring that every interaction resonates with style and allure. Designed by TUSDIO, our brand identity reflects modern aesthetics with a timeless appeal, capturing the essence of indulgence.</p>
-                <a href="" class="contact-button"></a>
-            </div>
-        </section>
-
-     <!-- Social Media Marketing -->
-    <section id="Social-Media-Marketing" class="product-development-section 3">
-         <div class="Social-Media-Marketing">
-                <h2>📱 Social Media Marketing </h2>
-                <p>We create captivating content that elevates Lujuria’s presence across Instagram, Facebook, and TikTok. By engaging luxury enthusiasts and trendsetters, we build a strong, loyal community around the brand :</p>
-                <ul>
-                    <li><span class="approach-title"> Instagram & Facebook Marketing -</span> Eye-catching visuals, pet care tips, and behind-the-scenes content to connect with pet lovers.</li>
-                    <li><span class="approach-title"> TikTok Growth Strategies -</span> Fun and viral pet videos that boost engagement and brand recognition.</li>
-                    <li><span class="approach-title"> Influencer Collaborations -</span> Partnering with pet influencers to expand reach and credibility.</li>
-                    <li><span class="approach-title"> Interactive Campaigns –</span> Polls, challenges, giveaways, and user-generated content to keep your audience engaged.</li>
-                </ul>
-         </div>
-    </section>  
-    
-    <!-- SEO & Website Optimization -->
-        <section id="SEO-Website-Optimization" class="product-development-section 4">
-            <div class="SEO-Website-Optimization">
-                   <h2>🔍 SEO & Website Optimization</h2>
-                   <p>Enhancing Lujuria’s digital footprint with tailored SEO strategies, ensuring high visibility and seamless user experience. Our approach drives organic traffic, positioning Lujuria as a premium brand online:</p>
-                   <ul>
-                       <li><span class="approach-title"> Keyword Optimization -</span> Finding the best pet-related keywords to attract organic traffic.</li>
-                       <li><span class="approach-title"> Keyword Optimization -</span> Enhancing website structure, speed, and mobile-friendliness for a better user experience.</li>
-                       <li><span class="approach-title"> Content Optimization -</span> Creating high-quality, SEO-friendly blogs and product descriptions.</li>
-                       <li><span class="approach-title"> Local SEO –</span> Helping your brand appear in searches for nearby pet owners looking for quality pet products.</li>
-                   </ul>
-            </div>
-       </section>
-
-
-    <!-- 📢 Paid Ads & Campaigns -->
-        <section id="Paid-Ads-Campaigns" class="product-development-section 4">
-             <div class="Paid-Ads-Campaigns">
-                    <h2>📢 Paid Ads & Campaigns</h2>
-                    <p>From Google Ads to high-impact Facebook and Instagram campaigns, we strategically place Lujuria in front of the right audience, maximizing reach and conversions:</p>
-                    <ul>
-                           <li><span class="approach-title"> Google Ads & Search Campaigns -</span> Placing My Paws at the top of pet-related searches.</li>
-                           <li><span class="approach-title"> Facebook & Instagram Ads -</span> Eye-catching visuals and strategic targeting to reach the right audience.</li>
-                           <li><span class="approach-title"> Retargeting Ads -</span> Re-engaging visitors who showed interest in your products but didn’t make a purchase.</li>
-                           <li><span class="approach-title"> A/B Testing & Performance Optimization –</span> Refining ad strategies to maximize return on investment (ROI).</li>
-                    </ul>
-            </div>
-        </section>
-
-
-         <!-- Content Marketing -->
-         <section id="Content-Marketing" class="product-development-section 4">
-            <div class="Content-Marketing">
-                   <h2>✍️ Content Marketing</h2>
-                   <p>Compelling content is the key to building brand loyalty and engaging your audience. Our content marketing strategy for Mate ensures a strong digital presence and meaningful connections through:</p>
-                   <ul>
-                          <li><span class="approach-title"> Luxury Lifestyle Blogs & Articles -</span> High-end editorial content that positions Mate as a symbol of sophistication, offering insights into premium fashion, trends, and styling tips.</li>
-                          <li><span class="approach-title"> Engaging Video Content -</span> Visually stunning and immersive videos showcasing Mate’s craftsmanship, behind-the-scenes exclusives, and lifestyle integration.</li>
-                          <li><span class="approach-title"> Email Marketing & Newsletters -</span> Personalized updates on new collections, exclusive offers, and fashion inspiration, keeping Mate’s audience engaged and connected.</li>
-                          <li><span class="approach-title"> Storytelling & Brand Messaging –</span> We craft compelling narratives that reflect Mate’s essence—sophistication, elegance, and exclusivity—creating a strong emotional connection with fashion enthusiasts.
-
-                            With TUSDIO’s expert branding and marketing strategies, Mate is set to stand out in the competitive luxury fashion industry, attracting the right audience and turning them into loyal brand advocates.</li>
-                   </ul>
-                   <p>With TUSDIO’s expert branding and marketing strategies, Lujuria is poised to thrive in the competitive luxury industry, captivating the right audience and transforming them into loyal brand advocates. ✨🔥</p>
-           </div>
-       </section>
-
-       <section id="Image-gallery">
-            <div class="Images-gallery">
-
-                <img id="myimage" src="images/1.png" alt="">
-                <img id="myimage" src="images/2.png" alt="">
-                <img id="myimage" src="images/7.png" alt="">
-                <img id="myimage" src="images/4.png" alt="">
-                <img id="myimage" src="images/5.png" alt="">
-                <img id="myimage" src="images/6.png" alt="">
-                <img id="myimage" src="images/3.png" alt="">
-                <img id="myimage" src="images/8.png" alt="">
-            </div>
-       </section>
-
-
-
-
-
-       <!-- Stories -->
-        
-       <section id="Storie-gallery">
-        <div class="Stories-gallery">
-            <h1>Stories</h1>
-
-            <img id="myimage" src="images/stories/1.png" alt="">
-            <img id="myimage" src="images/stories/2.png" alt="">
-            <img id="myimage" src="images/stories/3.png" alt="">
+    <!-- Heritage / About -->
+    <section id="heritage" class="panel panel--right">
+        <div class="panel-copy">
+            <p class="eyebrow reveal-mask"><span class="reveal-line">Heritage</span></p>
+            <h2 class="reveal-mask"><span class="reveal-line">Designed by TUSDIO, <em>crafted in Spain.</em></span></h2>
+            <p class="block-copy">Lujuria's identity fuses contemporary aesthetics with the tradition of Spain's master goldsmiths. Every line of the logotype, every tone in the palette, answers to one idea: exclusivity isn't bought — it's inherited, or earned.</p>
+            <p class="block-copy">TUSDIO stands beside Lujuria at every branding decision — from the box that wraps the ring, to the pixel that presents it on screen.</p>
         </div>
-   </section>
-    
+        <div class="panel-mark">II</div>
+    </section>
 
+    <!-- Services -->
+    <section id="services" class="services-section">
+        <div class="services-intro">
+            <p class="eyebrow reveal-mask"><span class="reveal-line">Brand Strategy</span></p>
+            <h2 class="reveal-mask"><span class="reveal-line">Four disciplines, <em>one brilliance.</em></span></h2>
+        </div>
 
-    
+        <div class="service-row">
+            <div class="service-mark">III</div>
+            <div class="service-copy">
+                <h3 class="reveal-mask"><span class="reveal-line">Social Media Marketing</span></h3>
+                <p class="block-copy">We turn Lujuria's feed into a Madrid shop window: content that stops the eye before it stops the scroll.</p>
+                <ul class="split-list">
+                    <li><span>Instagram &amp; Facebook —</span> Product photography and atelier moments that speak the language of quiet luxury.</li>
+                    <li><span>TikTok Growth —</span> Goldsmithing process videos and short-form storytelling that humanize every piece.</li>
+                    <li><span>Collaborations —</span> Partnerships with style and lifestyle voices who already dress with intention.</li>
+                    <li><span>Interactive Campaigns —</span> Polls, giveaways, and community-generated content for the Lujuria audience.</li>
+                </ul>
+            </div>
+        </div>
 
-</body>    
+        <div class="service-row service-row--reverse">
+            <div class="service-mark">IV</div>
+            <div class="service-copy">
+                <h3 class="reveal-mask"><span class="reveal-line">SEO &amp; Website Optimization</span></h3>
+                <p class="block-copy">A digital presence as polished as a cut stone — visible to those who search, discreet to those who don't.</p>
+                <ul class="split-list">
+                    <li><span>Keyword Strategy —</span> High-jewelry terms and searches with genuine purchase intent.</li>
+                    <li><span>Technical Performance —</span> Speed, structure, and a frictionless mobile experience.</li>
+                    <li><span>Content Optimization —</span> Product pages and editorials that rank without losing elegance.</li>
+                    <li><span>Local SEO —</span> Visibility across Madrid, Barcelona, and Europe's luxury capitals.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-row">
+            <div class="service-mark">V</div>
+            <div class="service-copy">
+                <h3 class="reveal-mask"><span class="reveal-line">Paid Ads &amp; Campaigns</span></h3>
+                <p class="block-copy">From Google to Instagram, we place Lujuria in front of those who already recognize an exceptional piece.</p>
+                <ul class="split-list">
+                    <li><span>Google Ads —</span> Dominant presence in searches for designer jewelry.</li>
+                    <li><span>Facebook &amp; Instagram Ads —</span> Targeting built for high-intent, high-value audiences.</li>
+                    <li><span>Retargeting —</span> Re-engaging the visitor who already tried the ring on, mentally.</li>
+                    <li><span>A/B Testing —</span> Every euro spent is refined down to the last carat of return.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="service-row service-row--reverse">
+            <div class="service-mark">VI</div>
+            <div class="service-copy">
+                <h3 class="reveal-mask"><span class="reveal-line">Content Marketing</span></h3>
+                <p class="block-copy">Stories meant to be read the way a display case is admired: slowly, and with a reason to come back.</p>
+                <ul class="split-list">
+                    <li><span>Lifestyle Editorials —</span> Articles that position Lujuria as a symbol of sophistication.</li>
+                    <li><span>Video —</span> The making-of, the workshop, the shine before it's boxed.</li>
+                    <li><span>Email &amp; Newsletter —</span> Collection previews and stories that precede the launch.</li>
+                    <li><span>Brand Voice —</span> One consistent narrative of elegance, heritage, and desire.</li>
+                </ul>
+            </div>
+        </div>
+
+        <p class="services-outro block-copy">Under TUSDIO's brand direction, Lujuria doesn't compete in the luxury market — it redefines it, one piece at a time.</p>
+    </section>
+
+    <!-- Atelier Gallery (Instagram posts) -->
+    <section id="atelier" class="gallery-section">
+        <div class="section-heading">
+            <p class="eyebrow reveal-mask"><span class="reveal-line">The Atelier</span></p>
+            <h2 class="reveal-mask"><span class="reveal-line">Featured <em>posts.</em></span></h2>
+        </div>
+        <div class="gallery-grid">
+            <figure class="gallery-item" data-reveal-image><img src="images/1.png" alt="Lujuria — Instagram post 1" loading="lazy"><figcaption>Alhambra Collection</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/2.png" alt="Lujuria — Instagram post 2" loading="lazy"><figcaption>Hand-hammered gold</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/7.png" alt="Lujuria — Instagram post 3" loading="lazy"><figcaption>Filigree detail</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/4.png" alt="Lujuria — Instagram post 4" loading="lazy"><figcaption>Stone on skin</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/5.png" alt="Lujuria — Instagram post 5" loading="lazy"><figcaption>Display portrait</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/6.png" alt="Lujuria — Instagram post 6" loading="lazy"><figcaption>The workshop, at dusk</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/3.png" alt="Lujuria — Instagram post 7" loading="lazy"><figcaption>Andalusian heritage</figcaption></figure>
+            <figure class="gallery-item" data-reveal-image><img src="images/8.png" alt="Lujuria — Instagram post 8" loading="lazy"><figcaption>New collection</figcaption></figure>
+        </div>
+    </section>
+
+    <!-- Stories -->
+    <section id="stories" class="stories-section">
+        <div class="section-heading">
+            <p class="eyebrow reveal-mask"><span class="reveal-line">Instagram</span></p>
+            <h2 class="reveal-mask"><span class="reveal-line">Stories from <em>the house.</em></span></h2>
+        </div>
+        <div class="story-grid">
+            <figure class="story-card" data-reveal-image>
+                <img src="images/stories/1.png" alt="Lujuria — Instagram story: Atelier" loading="lazy">
+                <figcaption>Atelier</figcaption>
+            </figure>
+            <figure class="story-card" data-reveal-image>
+                <img src="images/stories/3.png" alt="Lujuria — Instagram story: Collection" loading="lazy">
+                <figcaption>Collection</figcaption>
+            </figure>
+            <figure class="story-card" data-reveal-image>
+                <img src="images/stories/2.png" alt="Lujuria — Instagram story: Backstage" loading="lazy">
+                <figcaption>Backstage</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section id="contact" class="cta-section">
+        <p class="eyebrow reveal-mask"><span class="reveal-line">Let's work together</span></p>
+        <h2 class="reveal-mask"><span class="reveal-line">Every brand deserves <em>its own brilliance.</em></span></h2>
+        <a href="../../../../Nav Bar/Contact Us/index.html" class="gold-button magnetic">Request a proposal</a>
+    </section>
+
+    <footer class="site-footer">
+        <p>TUSDIO. — Brand direction for Lujuria, Spanish Fine Jewelry.</p>
+    </footer>
+
+</body>
+</html>
