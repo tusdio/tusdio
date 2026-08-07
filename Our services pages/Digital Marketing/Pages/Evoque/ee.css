@@ -1,1003 +1,773 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    color: white;
-    text-align: center;
+/* ==========================================================================
+   TUSDIO — EVOQUE digital marketing system
+   Black canvas. White typography. Full-color campaign imagery.
+   ========================================================================== */
+:root {
+    --black: #000000;
+    --surface-1: #111111;
+    --surface-2: #181818;
+    --white: #FFFFFF;
+    --ink-dim: #777777;
+    --ink-faint: #BDBDBD;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-strong: rgba(255, 255, 255, 0.24);
+
+    --nav-h: 84px;
+    --nav-h-compact: 58px;
+
+    --font: 'Inter', 'Helvetica Neue', Arial, system-ui, -apple-system, sans-serif;
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
 }
 
-/* General Header Styling */
-header {
-    background: #000;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { width: 100%; max-width: 100vw; overflow-x: hidden; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font);
+    background: var(--black);
+    color: var(--white);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+.container { width: 100%; max-width: 100vw; }
+
+/* ==========================================================================
+   Header — exact styling as supplied
+   ========================================================================== */
+header#site-header {
+    background: rgba(0, 0, 0, 0.92);
     color: #fff;
     padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000;
-    
-    
-}
-/* Logo Link Styling */
-.logo-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Keep the text white */
-    transition: opacity 0.3s ease-in-out;
-}
-
-.logo-link:hover {
-    opacity: 0.8; /* Slight fade effect on hover */
+    left: 0;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: padding .4s var(--ease);
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1220px;
     margin: auto;
     padding: 0 20px;
+    gap: 18px;
 }
 
-/* Logo */
-header h1 {
+header.is-compact { padding: 0.55rem 0; }
+
+.logo-link {
+    text-decoration: none;
+    color: #fff;
+    flex-shrink: 0;
+    transition: opacity .3s ease;
+}
+
+.logo-link:hover { opacity: .75; }
+
+.logo {
     margin: 0;
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Scales between 1.2rem and 2rem */
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
-/* Navigation */
+header nav { margin-left: auto; }
+
 header nav ul {
     list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 18px;
     margin: 0;
     padding: 0;
-    display: flex;
-}
-
-header nav ul li {
-    margin: 0 15px;
 }
 
 header nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    transition: color 0.3s ease;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
 }
 
-header nav ul li a:hover {
-    color: #929291; /* Adds a subtle hover effect */
+header nav ul li a:hover { opacity: 0.75; }
+
+.nav-user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Mobile Menu Toggle */
+.nav-user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-name {
+    color: #bdbdbd;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.nav-user-btn {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-user-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #fff;
+}
+
+/* Not part of the supplied styles — kept so the nav still works on
+   small screens, since no mobile treatment was included. */
 .menu-toggle {
     display: none;
     background: none;
     border: none;
-    font-size: 1.8rem;
-    color: white;
+    font-size: 1.5rem;
+    color: #fff;
     cursor: pointer;
 }
 
-/* Responsive Styling */
-@media (max-width: 768px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box; /* Ensures everything fits inside */
-    }
-
-    body {
-        overflow-x: hidden; /* Prevents horizontal scrolling */
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    header {
-        background: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw; /* Forces full width */
-        z-index: 1000;
-    }
+@media (max-width: 860px) {
+    .menu-toggle { display: block; }
 
     header nav {
+        margin-left: 0;
         position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%; /* Ensures full width */
-        background: black;
+        top: 100%; left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.97);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         display: none;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     }
+
+    header nav.active { display: block; }
 
     header nav ul {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
         flex-direction: column;
-        padding: 0;
-        margin: 0;
+        align-items: flex-start;
         width: 100%;
-        gap: 30px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: right;
-        padding-right: 20px;
+        gap: 4px;
+        padding: 10px 0 26px;
     }
 
-    header nav ul li {
-        margin: 0;
-        width: 100%;
-    }
+    header nav ul li { padding: 12px 32px; }
 
-    /* Show menu when active */
-    header nav.active {
-        display: block;
-    }
+    .nav-user-area { padding: 12px 32px 0; }
 }
 
-/* Hero Section */
-.hero {
-    padding: 50px 20px;
-    background: black;
-    text-align: center;
+/* ==========================================================================
+   Reveal primitives
+   ========================================================================== */
+.reveal-mask { display: block; overflow: hidden; }
+.reveal-line { display: inline-block; transform: translateY(115%); will-change: transform; }
+
+[data-reveal-image] {
+    position: relative;
+    overflow: hidden;
+    clip-path: inset(10% 10% 10% 10%);
+    background: var(--surface-1);
+    will-change: clip-path;
 }
 
-/* Hero Section Text */
-.hero h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: bold;
-    margin-bottom: 10px;
+[data-reveal-image] img,
+[data-reveal-image] [data-parallax-img] {
+    transform: scale(1.12);
+    will-change: transform;
 }
 
-.hero p {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-
-
-
-/* Responsive Hero Padding */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
-}
-
-
-
-/* Hero Section */
-.hero {
-    padding: 100px 20px;
-    background: black;
-    text-align: center;
-}
-
-/* Title Styling */
-.hero-title {
-    font-size: clamp(2rem, 6vw, 4rem); /* Adjusts dynamically */
-    font-weight: bold;
+/* Small corner badge marking an image as an actual delivered post —
+   used inside [data-reveal-image] containers, which are already
+   position:relative, so this just needs position:absolute. */
+.post-tag {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 2;
+    display: inline-block;
+    padding: 7px 13px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+html.reduce-motion .post-tag {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .post-tag { left: 14px; bottom: 14px; padding: 6px 11px; font-size: 0.64rem; }
+}
+
+.gallery-head {
+    max-width: 760px;
+    margin: 0 auto 60px;
+}
+
+.eyebrow {
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 22px;
+}
+
+.block-heading {
+    font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    color: var(--white);
+}
+
+.block-copy {
+    font-size: 1.06rem;
+    line-height: 1.8;
+    color: var(--ink-faint);
+    max-width: 640px;
+    margin-top: 26px;
+    opacity: 0;
+    transform: translateY(22px);
+    will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 40px) 32px 90px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hero-meta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    line-height: 1.7;
+}
+
+.hero-meta--sub { color: var(--ink-faint); margin-bottom: 36px; }
+
+.hero-title {
+    font-size: clamp(4.2rem, 16vw, 13rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.86;
+    color: var(--white);
+    margin: 4px 0 44px;
+}
+
+.hero-sub {
+    font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    max-width: 640px;
+}
+
+.hero-scroll-cue {
+    position: absolute;
+    bottom: 40px; left: 32px;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+}
+
+@media (max-width: 768px) {
+    .hero { padding: calc(var(--nav-h-compact) + 30px) 22px 70px; }
+    .hero-scroll-cue { display: none; }
+}
+
+/* ==========================================================================
+   First image reveal (cinematic hero visual)
+   ========================================================================== */
+.reveal-hero {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 32px 140px;
+}
+
+.reveal-hero-frame { width: 100%; aspect-ratio: 16 / 9; }
+
+.reveal-hero-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.frame-caption {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+}
+
+@media (max-width: 768px) {
+    .reveal-hero { padding: 0 22px 90px; }
+    .reveal-hero-frame { aspect-ratio: 4 / 5; }
+}
+
+/* ==========================================================================
+   Minimal text blocks (Brand / Split sections)
+   ========================================================================== */
+.minimal-block {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 150px 32px 100px;
+    border-top: 1px solid var(--line);
+}
+
+@media (max-width: 768px) {
+    .minimal-block { padding: 100px 22px 70px; }
+}
+
+/* ==========================================================================
+   Pair reveal (asymmetrical two-image composition)
+   ========================================================================== */
+.pair-reveal {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 32px 150px;
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 24px;
+    align-items: end;
+}
+
+.pair-item--tall { aspect-ratio: 3 / 4; }
+.pair-item--short { aspect-ratio: 4 / 5; margin-bottom: -80px; }
+
+.pair-item img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 860px) {
+    .pair-reveal { grid-template-columns: 1fr; padding: 0 22px 90px; gap: 40px; }
+    .pair-item--short { margin-bottom: 0; }
+}
+
+/* ==========================================================================
+   Social section
+   ========================================================================== */
+.social {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 130px 32px 150px;
+    border-top: 1px solid var(--line);
+}
+
+.social-head { max-width: 760px; margin-bottom: 70px; }
+
+.social-list { list-style: none; border-top: 1px solid var(--line); }
+
+.social-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 26px;
+    padding: 34px 0;
+    border-bottom: 1px solid var(--line);
+    opacity: 0;
+    transform: translateY(24px);
+    will-change: transform, opacity;
+    transition: padding-left .4s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .social-item:hover { padding-left: 18px; }
+    .social-item:hover h3 { color: var(--white); transform: translateX(6px); }
+    .social-item:hover .social-num { color: var(--white); }
+}
+
+.social-num {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+    padding-top: 4px;
+    transition: color .4s var(--ease);
+}
+
+.social-item h3 {
+    font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+    font-weight: 600;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+    transition: color .4s var(--ease), transform .4s var(--ease);
+}
+
+.social-item p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 520px;
+}
+
+.social-preview {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    width: 320px;
+    aspect-ratio: 4 / 5;
+    transform: translateY(-50%) scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--surface-1);
+    transition: opacity .5s var(--ease), transform .5s var(--ease);
+    z-index: 2;
+}
+
+.social-preview.is-visible { opacity: 1; transform: translateY(-50%) scale(1); }
+
+.social-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 1100px) {
+    .social-preview { display: none; }
+}
+
+@media (max-width: 768px) {
+    .social { padding: 90px 22px 100px; }
+    .social-item { grid-template-columns: 34px 1fr; gap: 14px; padding: 26px 0; }
+}
+
+/* ==========================================================================
+   Editorial gallery — asymmetrical composition
+   ========================================================================== */
+.gallery-editorial {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 130px 32px 40px;
+    border-top: 1px solid var(--line);
+}
+
+.g-block { margin-bottom: 24px; }
+
+.g-block--full { aspect-ratio: 21 / 9; }
+.g-block--full img { width: 100%; height: 100%; object-fit: cover; }
+
+.g-block--pair {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 24px;
+    align-items: end;
+}
+
+.g-pair-item { aspect-ratio: 4 / 5; }
+.g-pair-item--offset { margin-bottom: -60px; }
+.g-pair-item img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 860px) {
+    .gallery-editorial { padding: 90px 22px 20px; }
+    .g-block--full { aspect-ratio: 4 / 5; }
+    .g-block--pair { grid-template-columns: 1fr; gap: 20px; }
+    .g-pair-item--offset { margin-bottom: 0; }
+}
+
+/* ==========================================================================
+   Full-viewport campaign moment
+   ========================================================================== */
+.campaign-moment {
+    height: 88vh;
+    height: 88svh;
+    max-width: 1400px;
+    margin: 60px auto 0;
+    padding: 0 32px;
+}
+
+.campaign-moment-frame { width: 100%; height: 100%; }
+.campaign-moment-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 768px) {
+    .campaign-moment { height: 70vh; height: 70svh; padding: 0 16px; margin-top: 30px; }
+}
+
+/* ==========================================================================
+   Stories — horizontal pinned presentation
+   ========================================================================== */
+.stories-section {
+    padding: 150px 0 130px;
+    border-top: 1px solid var(--line);
+    margin-top: 60px;
+}
+
+.stories-head {
+    max-width: 1400px;
+    margin: 0 auto 70px;
+    padding: 0 32px;
+}
+
+.stories-pin { position: relative; overflow: hidden; }
+
+.stories-track {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    width: max-content;
+    padding: 0 40vw 0 32px;
+}
+
+.story-frame {
+    flex-shrink: 0;
+    width: min(300px, 62vw);
+    aspect-ratio: 9 / 16;
+    background: var(--surface-1);
+    overflow: hidden;
+    opacity: 0.5;
+    transform: scale(0.92);
+    transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+
+.story-frame.is-active { opacity: 1; transform: scale(1); }
+
+.story-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.stories-counter {
+    max-width: 1400px;
+    margin: 40px auto 0;
+    padding: 0 32px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--ink-dim);
+}
+
+.stories-counter #story-counter-current { color: var(--white); }
+
+@media (max-width: 899px) {
+    .stories-pin { overflow: visible; }
+    .stories-track {
+        width: 100%;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0 22px;
+        scrollbar-width: none;
+    }
+    .stories-track::-webkit-scrollbar { display: none; }
+    .story-frame { scroll-snap-align: start; opacity: 1; transform: scale(1); }
+}
+
+/* Reduced motion: same swipeable fallback as mobile, at any viewport width */
+html.reduce-motion .stories-pin { overflow: visible; }
+html.reduce-motion .stories-track {
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 22px;
+    scrollbar-width: none;
+}
+html.reduce-motion .stories-track::-webkit-scrollbar { display: none; }
+html.reduce-motion .story-frame { opacity: 1; transform: scale(1); }
+
+/* ==========================================================================
+   Split blocks (SEO / Content) — heading left, list right
+   ========================================================================== */
+.split-block {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 130px 32px;
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 60px;
+    border-top: 1px solid var(--line);
+}
+
+.split-block--reverse { grid-template-columns: 7fr 5fr; }
+.split-block--reverse .split-block-heading { order: 2; }
+.split-block--reverse .split-list { order: 1; }
+
+.split-list { list-style: none; border-top: 1px solid var(--line); align-self: start; }
+
+.split-list li {
+    padding: 30px 0;
+    border-bottom: 1px solid var(--line);
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 1s ease-in-out forwards;
+    will-change: transform, opacity;
 }
 
-/* Subtitle Styling */
-.hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
-    color: #ddd;
+.split-list h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.split-list p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 460px;
+}
+
+@media (max-width: 900px) {
+    .split-block, .split-block--reverse {
+        grid-template-columns: 1fr;
+        padding: 90px 22px;
+        gap: 50px;
+    }
+    .split-block--reverse .split-block-heading,
+    .split-block--reverse .split-list { order: initial; }
+}
+
+/* ==========================================================================
+   Performance
+   ========================================================================== */
+.performance {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 130px 32px;
+    border-top: 1px solid var(--line);
+}
+
+.performance-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+}
+
+.performance-term {
+    background: var(--black);
+    padding: 40px 28px;
     opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
+    transform: translateY(20px);
+    will-change: transform, opacity;
 }
 
-/* Animation for Title */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.performance-label {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 16px;
 }
 
-/* Animation for Subtitle */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.performance-term p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-dim);
 }
 
-/* Mobile-Friendly Adjustments */
+@media (max-width: 900px) {
+    .performance { padding: 90px 22px; }
+    .performance-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Finale — the biggest visual moment
+   ========================================================================== */
+.finale {
+    height: 94vh;
+    height: 94svh;
+    max-width: 1400px;
+    margin: 60px auto 0;
+    padding: 0 16px;
+}
+
+.finale-frame { width: 100%; height: 100%; }
+.finale-frame img { width: 100%; height: 100%; object-fit: cover; }
+
 @media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
+    .finale { height: 78vh; height: 78svh; padding: 0; margin-top: 30px; }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
-}
-
-/*Title*/
-.Mypaws{
+/* ==========================================================================
+   Closing
+   ========================================================================== */
+.closing {
+    padding: 210px 32px 220px;
     text-align: center;
-    margin-top: 100px;
-
-
 }
 
-
-/*desktop */
-@media (min-width: 769px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Mypaws h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
-    }
-    
-    .Mypaws p{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        width: 800px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
-    }
-
+.closing-title {
+    font-size: clamp(2.2rem, 5.6vw, 4.6rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    color: var(--white);
 }
 
-/*mobile */
+.closing-brand {
+    margin-top: 28px;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+}
+
+.closing-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 56px;
+    padding: 17px 36px;
+    background: var(--white);
+    color: var(--black);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease;
+}
+
+.closing-cta:hover { opacity: .86; }
+.closing-cta .arrow { transition: transform .3s var(--ease); }
+.closing-cta:hover .arrow { transform: translateX(5px); }
+
 @media (max-width: 768px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Mypaws h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        font-size: 30px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Mypaws p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        align-items: center;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-
+    .closing { padding: 140px 24px 150px; }
 }
 
-
-
-/*About Company*/
-
-
-.About-Company{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .About-Company h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
-    }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        margin-left: auto; /* Keeps it aligned to the right */
-    }
-    
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .About-Company h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-      
-        
-    }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-
-}
-
-
-
-/*Social-Media-Marketing*/
-
-
-.Social-Media-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Social-Media-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Social-Media-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-    .Social-Media-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Social-Media-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-       
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .Social-Media-Marketing ul{
-            display: none;
-    }
-
-    .Social-Media-Marketing li{
-        display: none;
-    }
-
-}
-
-
-
-
-
-
-
-
-/*SEO & Website Optimization*/
-
-
-.SEO-Website-Optimization{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .SEO-Website-Optimization h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .SEO-Website-Optimization ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .SEO-Website-Optimization li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .SEO-Website-Optimization h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .SEO-Website-Optimization ul{
-            display: none;
-    }
-
-    .SEO-Website-Optimization li{
-        display: none;
-    }
-}
-
-
-
-
-
-
-
-
-/*Paid-Ads-ampaigns*/
-
-
-.Paid-Ads-Campaigns{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Paid-Ads-Campaigns h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Paid-Ads-Campaigns ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Paid-Ads-Campaigns li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-
-
-
-
-    
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Paid-Ads-Campaigns h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .Paid-Ads-Campaigns ul{
-            display: none;
-    }
-
-    .Paid-Ads-Campaigns li{
-        display: none;
-    }
-
-
-
-
-
-
-}
-
-
-/*Content-Marketing*/
-
-
-.Content-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Content-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Content-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Content-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Content-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-    .Content-Marketing ul{
-            display: none;
-    }
-
-    .Content-Marketing li{
-        display: none;
-    }
-
-}
-
-
-
-
-/* Image Gallery */
-
-.Image-gallery{
-    text-align: center;
-    margin-top: 100px;
-    gap: 20px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Images-gallery img{
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    }
-
-
-img:hover {
-    transform: scale(1.1);
-}
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Images-gallery img{
-        width: 170px;
-        height: auto;
-        gap: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        }
-    
-    
-    img:hover {
-        transform: scale(1.1);
-    }
-
-}
-
-
-/* Stories Gallery */
-
-.Storie-gallery{
-    text-align: center;
-    margin-top: 100px;
-    gap: 20px;
-    margin-top: 50px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-
-    .Stories-gallery img{
-    width: 250px;
-    height: auto;
-    border-radius: 0px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    padding-bottom: 20px;
-    }
-
-    .Stories-gallery h1{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-
-
-img:hover {
-    transform: scale(1.1);
-}
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Stories-gallery img{
-        display: none;
-
-        }
-
-        .Stories-gallery h1{
-            display: none; 
-        }
-    
-    
-    img:hover {
-        transform: scale(1.1);
-    }
-
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .reveal-line { transform: none !important; }
+    [data-reveal-image] { clip-path: inset(0%) !important; }
+    [data-reveal-image] img,
+    [data-reveal-image] [data-parallax-img] { transform: none !important; }
+    .social-item, .split-list li, .performance-term, .block-copy { opacity: 1 !important; transform: none !important; }
+    .story-frame { opacity: 1 !important; transform: none !important; }
 }
