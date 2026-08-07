@@ -23,7 +23,7 @@
   <meta property="og:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://tusdio.online/contact us/index.html" />
+  <meta name="twitter:url" content="https://tusdio.online/contact" />
   <meta name="twitter:title" content="Contact TUSDIO | Start Your Project" />
   <meta name="twitter:description"
     content="Reach out to TUSDIO for branding, visual identity, product design, and marketing services."
@@ -65,11 +65,19 @@
   </header>
 
   <main class="contact-page">
+
+    <!-- Hero -->
     <section class="contact-container">
       <div class="contact-text">
         <p class="eyebrow">Contact</p>
-        <h1 class="hero-title">Contact Us</h1>
-        <p class="hero-subtitle">Get in touch with us for any inquiries, collaborations, or questions.</p>
+        <h1 class="hero-title">Let's build something exceptional.</h1>
+        <p class="hero-subtitle">TUSDIO is a creative design agency helping startups, founders, and modern businesses grow through strategic branding, visual identity, product design, and digital marketing.</p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Strategy-first design</span>
+          <span class="hero-tag">5–10 day turnaround</span>
+          <span class="hero-tag">One dedicated team</span>
+        </div>
       </div>
 
       <div class="contact-image">
@@ -80,25 +88,76 @@
       </div>
     </section>
 
-    <section class="form-container">
-      <div class="form-text">
-        <p class="eyebrow">Reach Out</p>
-        <h2 class="form-title">Contact form</h2>
-        <p class="form-subtitle">Have questions or need assistance? Reach out to us through the form below.</p>
+    <!-- Why TUSDIO highlights -->
+    <section class="contact-highlights">
+      <div class="highlight-card">
+        <span class="highlight-icon">◆</span>
+        <h3>Strategy before pixels</h3>
+        <p>Every brand system is built to communicate clearly and support real business goals, not just look good on a screen.</p>
+      </div>
+      <div class="highlight-card">
+        <span class="highlight-icon">◆</span>
+        <h3>5–10 day turnaround</h3>
+        <p>Most design projects are delivered within 5–10 days, so your brand doesn't wait on us to start growing.</p>
+      </div>
+      <div class="highlight-card">
+        <span class="highlight-icon">◆</span>
+        <h3>One dedicated team</h3>
+        <p>The same creative experts who scope your project also design, refine, and deliver it, start to finish.</p>
       </div>
     </section>
 
-    <section class="contact-form-wrap">
-      <div class="contact-section">
-        <h3>Get Connected</h3>
-        <p>Email: <a href="mailto:team@tusdio.online">team@tusdio.online</a></p>
+    <!-- Contact form -->
+    <section class="contact-grid-section">
+      <div class="contact-grid">
 
-        <form action="https://formsubmit.co/team@tusdio.online" method="POST" class="contact-form">
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-          <textarea name="message" placeholder="Your Message" required></textarea>
-          <button type="submit">Send</button>
+        <div class="contact-info-panel">
+          <p class="eyebrow">Reach Out</p>
+          <h2 class="form-title">Start your project</h2>
+          <p class="form-subtitle">Tell us about your brand, your goals, and where you want to be. We'll follow up to schedule a discovery call.</p>
+
+          <div class="contact-detail">
+            <span class="detail-label">Email</span>
+            <a href="mailto:team@tusdio.online">team@tusdio.online</a>
+          </div>
+
+          <div class="contact-detail">
+            <span class="detail-label">Process</span>
+            <span>Inquiry → Discovery Call → Design &amp; Refine → Delivery</span>
+          </div>
+
+        </div>
+
+        <form action="https://formsubmit.co/43654426830539517d50b8e707838000" method="POST" class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required />
+            </div>
+            <div class="form-field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="john@company.com" required />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and goals..." required></textarea>
+          </div>
+
+          <!-- No-JS fallback: redirect back to this page instead of formsubmit.co's default page -->
+          <input type="hidden" name="_next" value="https://tusdio.online/Nav%20Bar/Contact%20Us/index.html" />
+
+          <button type="submit">
+            <span class="btn-label">Send Message</span>
+            <span class="spinner"></span>
+            <svg class="checkmark" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <p class="form-status" id="formStatus"></p>
         </form>
+
       </div>
     </section>
 
