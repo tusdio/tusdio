@@ -1,937 +1,1328 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+/* ==========================================================================
+   TUSDIO × MY PAWS
+   Digital Marketing Project Page
+   Premium editorial / Apple-inspired / tactile pet aesthetic
+   ========================================================================== */
+
+:root {
+    --ink: #0a0a0a;
+    --ink-soft: #111111;
+    --surface: #151412;
+    --surface-light: #1b1916;
+
+    --bone: #f7f2e9;
+    --muted: #a49d93;
+    --muted-light: #c9c2b8;
+
+    --pink: #f5c3cc;
+    --pink-soft: #ffd9df;
+    --pink-dark: #c98795;
+
+    --line: rgba(247, 242, 233, 0.11);
+    --line-strong: rgba(247, 242, 233, 0.2);
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --ease-smooth: cubic-bezier(.16, 1, .3, 1);
+}
+
+
+/* ==========================================================================
+   RESET
+   ========================================================================== */
+
+* {
     margin: 0;
     padding: 0;
-    background-color: black;
-    color: white;
-    text-align: center;
+    box-sizing: border-box;
 }
 
-/* General Header Styling */
-header {
-    background: #000;
-    color: #fff;
-    padding: 1rem 0;
-    position: fixed;
+html {
     width: 100%;
-    top: 0;
-    z-index: 1000;
-    
-    
-}
-/* Logo Link Styling */
-.logo-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Keep the text white */
-    transition: opacity 0.3s ease-in-out;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-.logo-link:hover {
-    opacity: 0.8; /* Slight fade effect on hover */
+body {
+    width: 100%;
+    overflow-x: hidden;
+
+    background: var(--ink);
+    color: var(--bone);
+
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+header#site-header {
+    position: fixed;
+    z-index: 2000;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 18px 0;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,.07);
+
+    transition:
+        padding .45s var(--ease),
+        background .45s ease,
+        border-color .45s ease;
+}
+
+header#site-header.is-compact {
+    padding: 11px 0;
+    background: rgba(0,0,0,.88);
 }
 
 header .container {
+    width: min(1220px, calc(100% - 40px));
+
+    margin: 0 auto;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+    justify-content: space-between;
+
+    gap: 30px;
 }
 
-/* Logo */
-header h1 {
-    margin: 0;
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Scales between 1.2rem and 2rem */
+.logo-link {
+    color: #fff;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
-/* Navigation */
+.logo {
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.logo-link:hover {
+    opacity: .7;
+}
+
+
+/* NAV */
+
+header nav {
+    margin-left: auto;
+}
+
 header nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
-}
+    align-items: center;
+    gap: 22px;
 
-header nav ul li {
-    margin: 0 15px;
+    list-style: none;
 }
 
 header nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    transition: color 0.3s ease;
+
+    font-size: 13px;
+    font-weight: 400;
+
+    opacity: .82;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
 }
 
 header nav ul li a:hover {
-    color: #929291; /* Adds a subtle hover effect */
+    opacity: 1;
 }
 
-/* Mobile Menu Toggle */
+
+/* USER */
+
+.nav-user-area {
+    display: flex;
+    align-items: center;
+}
+
+.nav-user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-name {
+    color: #aaa;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.nav-user-btn {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 13px;
+
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 999px;
+
+    color: #fff;
+    background: transparent;
+
+    font-size: 12px;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background .3s ease,
+        border-color .3s ease;
+}
+
+.nav-user-btn:hover {
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.5);
+}
+
+
+/* MOBILE BUTTON */
+
 .menu-toggle {
     display: none;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: white;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.04);
+
+    color: #fff;
+
+    font-size: 19px;
+
     cursor: pointer;
 }
 
-/* Responsive Styling */
-@media (max-width: 768px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box; /* Ensures everything fits inside */
-    }
 
-    body {
-        overflow-x: hidden; /* Prevents horizontal scrolling */
+/* ==========================================================================
+   MOBILE NAV
+   ========================================================================== */
+
+@media (max-width: 860px) {
+
+    header .container {
+        width: calc(100% - 32px);
     }
 
     .menu-toggle {
-        display: block;
-    }
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-    header {
-        background: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw; /* Forces full width */
-        z-index: 1000;
+        position: relative;
+        z-index: 2100;
     }
 
     header nav {
         position: absolute;
-        top: 60px;
+
+        top: 100%;
         left: 0;
-        width: 100%; /* Ensures full width */
-        background: black;
-        display: none;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
+
+        width: 100%;
+
+        display: block;
+
+        max-height: 0;
+        overflow: hidden;
+
+        opacity: 0;
+
+        background: rgba(5,5,5,.97);
+
+        border-bottom: 1px solid rgba(255,255,255,.08);
+
+        transition:
+            max-height .55s var(--ease),
+            opacity .3s ease;
+    }
+
+    header nav.active {
+        max-height: 600px;
+        opacity: 1;
     }
 
     header nav ul {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
+        display: flex;
         flex-direction: column;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        gap: 30px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: right;
-        padding-right: 20px;
+        align-items: stretch;
+
+        gap: 0;
+
+        padding: 12px 16px 24px;
     }
 
     header nav ul li {
-        margin: 0;
+        padding: 0;
+    }
+
+    header nav ul li a {
+        display: flex;
+
+        width: 100%;
+
+        padding: 16px;
+
+        border-bottom: 1px solid rgba(255,255,255,.06);
+
+        font-size: 15px;
+
+        opacity: .9;
+    }
+
+    .nav-user-area {
+        padding-top: 6px;
+    }
+
+    .nav-user-box {
+        flex-wrap: wrap;
+        padding: 10px 16px 0;
+    }
+}
+
+
+/* ==========================================================================
+   GLOBAL REVEAL
+   ========================================================================== */
+
+.reveal-mask {
+    display: block;
+    overflow: hidden;
+}
+
+.reveal-line {
+    display: inline-block;
+
+    transform: translateY(115%);
+
+    will-change: transform;
+}
+
+.eyebrow {
+    margin-bottom: 18px;
+
+    color: var(--pink);
+
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 500;
+
+    letter-spacing: .13em;
+    text-transform: uppercase;
+}
+
+.story-heading {
+    color: var(--bone);
+
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 600;
+
+    line-height: 1.02;
+
+    letter-spacing: -.025em;
+}
+
+.story-heading--italic {
+    color: var(--pink);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.block-copy {
+    max-width: 610px;
+
+    margin-top: 26px;
+
+    color: var(--muted);
+
+    font-size: 1rem;
+    line-height: 1.8;
+
+    opacity: 0;
+    transform: translateY(22px);
+
+    will-change: transform, opacity;
+}
+
+
+/* ==========================================================================
+   BUTTON
+   ========================================================================== */
+
+.paw-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 28px;
+
+    border-radius: 999px;
+
+    background: var(--pink);
+    color: #24171a;
+
+    text-decoration: none;
+
+    font-size: .9rem;
+    font-weight: 600;
+
+    transition:
+        transform .4s var(--ease),
+        background .3s ease;
+}
+
+.paw-button:hover {
+    background: var(--pink-soft);
+}
+
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+.hero {
+    position: relative;
+
+    min-height: 100svh;
+
+    display: flex;
+    align-items: center;
+
+    padding:
+        140px 32px
+        90px;
+
+    width: min(1220px, 100%);
+
+    margin: 0 auto;
+
+    overflow: hidden;
+}
+
+.hero-text {
+    position: relative;
+    z-index: 2;
+
+    max-width: 780px;
+}
+
+.hero-eyebrow {
+    margin-bottom: 20px;
+
+    color: var(--pink);
+}
+
+.hero-title {
+    margin: 5px 0 34px;
+
+    color: var(--bone);
+
+    font-family: var(--font-display);
+
+    font-size: clamp(4rem, 11vw, 9rem);
+
+    font-weight: 700;
+
+    letter-spacing: -.045em;
+    line-height: .88;
+}
+
+.hero-title--accent {
+    color: var(--pink);
+
+    font-style: italic;
+    font-weight: 600;
+}
+
+.hero-sub {
+    max-width: 590px;
+
+    margin-bottom: 40px;
+
+    color: var(--muted);
+
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.65;
+}
+
+.hero-paw {
+    position: absolute;
+
+    width: min(45vw, 560px);
+
+    right: -40px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    fill: var(--pink);
+
+    opacity: .055;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================================================
+   MARQUEE
+   ========================================================================== */
+
+.ribbon {
+    width: 100%;
+
+    overflow: hidden;
+
+    padding: 14px 0;
+
+    background: var(--pink);
+
+    white-space: nowrap;
+}
+
+.ribbon-track {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 22px;
+
+    width: max-content;
+
+    animation: ribbonScroll 24s linear infinite;
+}
+
+.ribbon-track span {
+    color: #26191b;
+
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    font-weight: 600;
+
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+@keyframes ribbonScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* ==========================================================================
+   STORY
+   ========================================================================== */
+
+.story {
+    width: min(900px, 100%);
+
+    margin: 0 auto;
+
+    padding: 150px 32px;
+
+    border-top: 1px solid var(--line);
+}
+
+.story--reverse {
+    text-align: right;
+}
+
+.story--reverse .block-copy {
+    margin-left: auto;
+}
+
+
+/* ==========================================================================
+   SOCIAL
+   ========================================================================== */
+
+.offer {
+    width: min(1100px, 100%);
+
+    margin: 0 auto;
+
+    padding: 60px 32px 150px;
+}
+
+.offer-head {
+    max-width: 690px;
+
+    margin-bottom: 65px;
+}
+
+.offer-list {
+    list-style: none;
+
+    border-top: 1px solid var(--line);
+}
+
+.offer-item {
+    display: grid;
+
+    grid-template-columns: 45px 1fr;
+
+    gap: 20px;
+
+    padding: 30px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.offer-item h3 {
+    margin-bottom: 7px;
+
+    color: var(--bone);
+
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+}
+
+.offer-item p {
+    max-width: 560px;
+
+    color: var(--muted);
+
+    font-size: .95rem;
+    line-height: 1.65;
+}
+
+.paw-bullet {
+    font-size: 1.2rem;
+}
+
+
+/* ==========================================================================
+   SPLIT SECTIONS
+   ========================================================================== */
+
+.split {
+    width: min(1300px, 100%);
+
+    margin: 0 auto;
+
+    padding: 130px 32px;
+
+    display: grid;
+
+    grid-template-columns: 5fr 7fr;
+
+    gap: 70px;
+
+    border-top: 1px solid var(--line);
+}
+
+.split--reverse {
+    grid-template-columns: 7fr 5fr;
+}
+
+.split--reverse .split-head {
+    order: 2;
+}
+
+.split--reverse .split-list {
+    order: 1;
+}
+
+.split-list {
+    list-style: none;
+
+    align-self: start;
+
+    border-top: 1px solid var(--line);
+}
+
+.split-list li {
+    display: grid;
+
+    grid-template-columns: 35px 1fr;
+
+    gap: 15px;
+
+    padding: 28px 0;
+
+    border-bottom: 1px solid var(--line);
+
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.split-list h3 {
+    margin-bottom: 7px;
+
+    color: var(--bone);
+
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+}
+
+.split-list p {
+    max-width: 430px;
+
+    color: var(--muted);
+
+    font-size: .92rem;
+    line-height: 1.65;
+}
+
+
+/* ==========================================================================
+   PAID ADS
+   ========================================================================== */
+
+.paid-ads {
+    width: min(900px, 100%);
+
+    margin: 0 auto;
+
+    padding: 130px 32px;
+
+    border-top: 1px solid var(--line);
+}
+
+.tag-ribbon {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 42px;
+}
+
+.tag-pill {
+    padding: 11px 18px;
+
+    border: 1px solid var(--line-strong);
+
+    border-radius: 999px;
+
+    color: var(--muted-light);
+
+    font-family: var(--font-mono);
+    font-size: .75rem;
+
+    opacity: 0;
+    transform: translateY(15px) scale(.96);
+}
+
+
+/* ==========================================================================
+   DESKTOP GALLERY
+   ========================================================================== */
+
+.corkboard-section {
+    width: min(1300px, 100%);
+
+    margin: 0 auto;
+
+    padding: 150px 32px;
+
+    border-top: 1px solid var(--line);
+}
+
+.corkboard-head {
+    max-width: 650px;
+
+    margin-bottom: 65px;
+}
+
+.corkboard {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 38px 25px;
+
+    padding: 60px;
+
+    border: 1px solid var(--line);
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,.025),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(0,0,0,.3),
+            transparent 45%
+        ),
+        var(--surface);
+}
+
+.polaroid {
+    position: relative;
+
+    padding: 13px 13px 40px;
+
+    background: #f7f2e9;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.4);
+
+    opacity: 0;
+
+    will-change: transform, opacity;
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    border-radius: 2px;
+}
+
+.polaroid figcaption {
+    position: absolute;
+
+    left: 13px;
+    right: 13px;
+    bottom: 11px;
+
+    text-align: center;
+
+    color: #514b43;
+
+    font-family: var(--font-mono);
+    font-size: .67rem;
+    letter-spacing: .05em;
+}
+
+.pin {
+    position: absolute;
+
+    z-index: 5;
+
+    top: -8px;
+    left: 50%;
+
+    width: 15px;
+    height: 15px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff0c9,
+            var(--pink-dark)
+        );
+
+    box-shadow: 0 3px 8px rgba(0,0,0,.5);
+}
+
+
+/* ==========================================================================
+   CLOSING
+   ========================================================================== */
+
+.closing {
+    padding: 190px 32px 210px;
+
+    text-align: center;
+}
+
+.closing-title {
+    margin-bottom: 28px;
+
+    color: var(--bone);
+
+    font-family: var(--font-display);
+
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
+
+    font-style: italic;
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+.closing-brand {
+    margin-bottom: 48px;
+
+    color: var(--muted);
+
+    font-family: var(--font-mono);
+    font-size: .75rem;
+
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.closing-cta {
+    display: inline-flex;
+}
+
+
+/* ==========================================================================
+   TABLET
+   ========================================================================== */
+
+@media (max-width: 1000px) {
+
+    .split,
+    .split--reverse {
+        grid-template-columns: 1fr;
+
+        gap: 55px;
+
+        padding: 110px 30px;
+    }
+
+    .split--reverse .split-head,
+    .split--reverse .split-list {
+        order: initial;
+    }
+
+    .corkboard {
+        grid-template-columns: repeat(2, 1fr);
+
+        padding: 45px 25px;
+    }
+}
+
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 700px) {
+
+    /* HEADER */
+
+    header#site-header {
+        padding: 14px 0;
+    }
+
+    header#site-header.is-compact {
+        padding: 10px 0;
+    }
+
+    header .container {
+        width: calc(100% - 28px);
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        width: 100%;
+
+        min-height: 100svh;
+
+        padding:
+            130px 20px
+            70px;
+
+        align-items: flex-end;
+    }
+
+    .hero-text {
         width: 100%;
     }
 
-    /* Show menu when active */
-    header nav.active {
-        display: block;
-    }
-}
+    .hero-title {
+        margin-top: 10px;
+        margin-bottom: 27px;
 
-/* Hero Section */
-.hero {
-    padding: 50px 20px;
-    background: black;
-    text-align: center;
-}
+        font-size: clamp(4rem, 19vw, 6.5rem);
 
-/* Hero Section Text */
-.hero h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-
-
-
-/* Responsive Hero Padding */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
-}
-
-
-
-/* Hero Section */
-.hero {
-    padding: 100px 20px;
-    background: black;
-    text-align: center;
-}
-
-/* Title Styling */
-.hero-title {
-    font-size: clamp(2rem, 6vw, 4rem); /* Adjusts dynamically */
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s ease-in-out forwards;
-}
-
-/* Subtitle Styling */
-.hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
-    color: #ddd;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
-}
-
-/* Animation for Title */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Animation for Subtitle */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Mobile-Friendly Adjustments */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
-}
-
-/*Title*/
-.Mypaws{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 100px;
+        line-height: .86;
     }
 
-    .Mypaws h2{
+    .hero-sub {
+        margin-bottom: 30px;
 
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
+        font-size: .98rem;
+        line-height: 1.65;
+    }
+
+    .hero-paw {
+        width: 390px;
+
+        right: -180px;
+        top: 34%;
+
+        opacity: .045;
+    }
+
+
+    /* MARQUEE */
+
+    .ribbon {
+        padding: 12px 0;
+    }
+
+    .ribbon-track {
+        gap: 16px;
+
+        animation-duration: 18s;
+    }
+
+
+    /* TYPOGRAPHY */
+
+    .eyebrow {
+        margin-bottom: 14px;
+
+        font-size: .64rem;
+    }
+
+    .story-heading {
+        font-size: clamp(2.35rem, 11vw, 3.8rem);
+
+        line-height: .98;
+    }
+
+    .block-copy {
+        margin-top: 21px;
+
+        font-size: .94rem;
+        line-height: 1.75;
+    }
+
+
+    /* STORY */
+
+    .story {
+        width: 100%;
+
+        padding: 95px 20px;
+    }
+
+    .story--reverse {
         text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
-    }
-    
-    .Mypaws p{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        width: 800px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
     }
 
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 80px;
+    .story--reverse .block-copy {
+        margin-left: 0;
     }
 
 
-    .Mypaws h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        font-size: 30px;
-        margin-bottom: 15px;
-        color: #fff;
+    /* SOCIAL */
 
-        
-    }
-    
-    .Mypaws p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        align-items: center;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
+    .offer {
+        padding: 30px 20px 100px;
     }
 
-
-}
-
-
-
-/*About Company*/
-
-
-.About-Company{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 100px;
+    .offer-head {
+        margin-bottom: 48px;
     }
 
-    .About-Company h2{
+    .offer-item {
+        grid-template-columns: 30px 1fr;
 
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
+        gap: 10px;
+
+        padding: 25px 0;
     }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        margin-left: auto; /* Keeps it aligned to the right */
+
+    .paw-bullet {
+        font-size: 1rem;
     }
-    
 
-}
+    .offer-item h3 {
+        font-size: 1.15rem;
+        line-height: 1.2;
+    }
 
-/*mobile */
-@media (max-width: 768px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 80px;
+    .offer-item p {
+        font-size: .88rem;
     }
 
 
-    .About-Company h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
+    /* SPLIT */
 
-      
-        
-    }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
+    .split,
+    .split--reverse {
+        width: 100%;
+
+        padding: 95px 20px;
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
     }
 
+    .split-list li {
+        grid-template-columns: 28px 1fr;
 
-}
+        gap: 10px;
 
-
-
-/*Social-Media-Marketing*/
-
-
-.Social-Media-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 100px;
+        padding: 23px 0;
     }
 
-    .Social-Media-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
+    .split-list h3 {
+        font-size: 1.05rem;
     }
 
-    .Social-Media-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-    .Social-Media-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 80px;
+    .split-list p {
+        font-size: .86rem;
     }
 
 
-    .Social-Media-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
+    /* PAID ADS */
 
+    .paid-ads {
+        width: 100%;
+
+        padding: 95px 20px;
+    }
+
+    .tag-ribbon {
+        gap: 8px;
+        margin-top: 32px;
+    }
+
+    .tag-pill {
+        padding: 9px 14px;
+
+        font-size: .65rem;
+    }
+
+
+    /* ==========================================================
+       MOBILE CREATIVE GALLERY
        
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
+       Completely different from desktop.
+       
+       Instead of tiny corkboard cards:
+       - full-width Instagram posts
+       - no polaroid frame
+       - no rotation
+       - cinematic reveal
+       - sticky editorial feel
+       ========================================================== */
 
-        .Social-Media-Marketing ul{
-            display: none;
+    .corkboard-section {
+        width: 100%;
+
+        padding: 105px 0 120px;
     }
 
-    .Social-Media-Marketing li{
-        display: none;
+    .corkboard-head {
+        padding: 0 20px;
+
+        margin-bottom: 48px;
     }
 
-}
-
-
-
-
-
-
-
-
-/*SEO & Website Optimization*/
-
-
-.SEO-Website-Optimization{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 100px;
+    .corkboard-head .block-copy {
+        max-width: 95%;
     }
 
-    .SEO-Website-Optimization h2{
+    .corkboard {
+        display: flex;
+        flex-direction: column;
 
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
+        gap: 0;
 
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
+        padding: 0 14px;
+
+        border: none;
+        border-radius: 0;
+
+        background: transparent;
     }
 
-    .SEO-Website-Optimization ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
+    .polaroid {
+        width: 100%;
+
+        padding: 0;
+
+        margin: 0 0 32px;
+
+        background: transparent;
+
+        border-radius: 0;
+
+        box-shadow: none;
+
+        transform: none !important;
+
+        opacity: 1;
     }
 
-    .SEO-Website-Optimization li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
+    .polaroid img {
+        width: 100%;
 
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .SEO-Website-Optimization h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .SEO-Website-Optimization ul{
-            display: none;
-    }
-
-    .SEO-Website-Optimization li{
-        display: none;
-    }
-}
-
-
-
-
-
-
-
-
-/*Paid-Ads-ampaigns*/
-
-
-.Paid-Ads-Campaigns{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Paid-Ads-Campaigns h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Paid-Ads-Campaigns ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Paid-Ads-Campaigns li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-
-
-
-
-    
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Paid-Ads-Campaigns h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .Paid-Ads-Campaigns ul{
-            display: none;
-    }
-
-    .Paid-Ads-Campaigns li{
-        display: none;
-    }
-
-
-
-
-
-
-}
-
-
-/*Content-Marketing*/
-
-
-.Content-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Content-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Content-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Content-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Content-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-    .Content-Marketing ul{
-            display: none;
-    }
-
-    .Content-Marketing li{
-        display: none;
-    }
-
-}
-
-
-
-
-/* Image Gallery */
-
-.Image-gallery{
-    text-align: center;
-    margin-top: 100px;
-    gap: 20px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Images-gallery img{
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    }
-
-
-img:hover {
-    transform: scale(1.1);
-}
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Images-gallery img{
-        width: 170px;
         height: auto;
-        gap: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        }
-    
-    
-    img:hover {
-        transform: scale(1.1);
+
+        aspect-ratio: auto;
+
+        object-fit: contain;
+
+        border-radius: 12px;
+
+        background: #111;
+
+        box-shadow:
+            0 25px 70px rgba(0,0,0,.45);
     }
 
+    .polaroid figcaption {
+        position: static;
+
+        padding-top: 12px;
+
+        text-align: left;
+
+        color: #777;
+
+        font-size: .62rem;
+    }
+
+    .pin {
+        display: none;
+    }
+
+
+    /* CLOSING */
+
+    .closing {
+        padding: 130px 20px 150px;
+    }
+
+    .closing-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    .closing-brand {
+        margin-bottom: 38px;
+
+        font-size: .65rem;
+    }
+
+    .paw-button {
+        padding: 14px 23px;
+
+        font-size: .82rem;
+    }
+}
+
+
+/* ==========================================================================
+   VERY SMALL PHONES
+   ========================================================================== */
+
+@media (max-width: 390px) {
+
+    .hero {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .hero-title {
+        font-size: 3.75rem;
+    }
+
+    .story,
+    .offer,
+    .split,
+    .paid-ads {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .corkboard-head {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .corkboard {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+
+/* ==========================================================================
+   REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    .ribbon-track {
+        animation: none;
+    }
+
+    .reveal-line,
+    .block-copy,
+    .offer-item,
+    .split-list li,
+    .tag-pill,
+    .polaroid {
+        opacity: 1 !important;
+
+        transform: none !important;
+    }
 }
