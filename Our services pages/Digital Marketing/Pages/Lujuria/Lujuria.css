@@ -1,1003 +1,680 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-    color: white;
-    text-align: center;
+/* =========================================================
+   LUJURIA — Alta Joyería
+   Tokens
+   ========================================================= */
+:root {
+    --obsidian: #0c0a08;
+    --surface: #17130f;
+    --surface-line: #2a231b;
+    --gold: #c9a769;
+    --gold-light: #ecd9a8;
+    --garnet: #6b1d24;
+    --garnet-light: #a3363f;
+    --parchment: #efe7d8;
+    --parchment-dim: #b7ac97;
+
+    --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+    --font-body: 'Jost', Arial, sans-serif;
+
+    /* Used by the supplied header's padding transition */
+    --ease: cubic-bezier(.4, 0, .2, 1);
 }
 
-/* General Header Styling */
-header {
-    background: #000;
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--obsidian);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+em {
+    font-style: italic;
+    color: var(--gold-light);
+}
+
+.eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: 12px;
+    color: var(--gold);
+    margin: 0 0 14px;
+}
+
+/* ==========================================================================
+   Header — exact styling as supplied
+   ========================================================================== */
+header#site-header {
+    background: rgba(0, 0, 0, 0.92);
     color: #fff;
     padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000;
-    
-    
-}
-/* Logo Link Styling */
-.logo-link {
-    text-decoration: none; /* Remove underline */
-    color: white; /* Keep the text white */
-    transition: opacity 0.3s ease-in-out;
-}
-
-.logo-link:hover {
-    opacity: 0.8; /* Slight fade effect on hover */
+    left: 0;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: padding .4s var(--ease);
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1220px;
     margin: auto;
     padding: 0 20px;
+    gap: 18px;
 }
 
-/* Logo */
-header h1 {
+header.is-compact { padding: 0.55rem 0; }
+
+.logo-link {
+    text-decoration: none;
+    color: #fff;
+    flex-shrink: 0;
+    transition: opacity .3s ease;
+}
+
+.logo-link:hover { opacity: .75; }
+
+.logo {
     margin: 0;
-    font-size: clamp(1.2rem, 2vw, 2rem); /* Scales between 1.2rem and 2rem */
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 1px;
 }
 
-/* Navigation */
+header nav { margin-left: auto; }
+
 header nav ul {
     list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 18px;
     margin: 0;
     padding: 0;
-    display: flex;
-}
-
-header nav ul li {
-    margin: 0 15px;
 }
 
 header nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    transition: color 0.3s ease;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
 }
 
-header nav ul li a:hover {
-    color: #929291; /* Adds a subtle hover effect */
+header nav ul li a:hover { opacity: 0.75; }
+
+.nav-user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Mobile Menu Toggle */
+.nav-user-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-user-name {
+    color: #bdbdbd;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.nav-user-btn {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-user-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #fff;
+}
+
+/* Not part of the supplied styles — kept so the nav still works on
+   small screens, since no mobile treatment was included. */
 .menu-toggle {
     display: none;
     background: none;
     border: none;
-    font-size: 1.8rem;
-    color: white;
+    font-size: 1.5rem;
+    color: #fff;
     cursor: pointer;
 }
 
-/* Responsive Styling */
-@media (max-width: 768px) {
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box; /* Ensures everything fits inside */
-    }
-
-    body {
-        overflow-x: hidden; /* Prevents horizontal scrolling */
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    header {
-        background: black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw; /* Forces full width */
-        z-index: 1000;
-    }
+@media (max-width: 860px) {
+    .menu-toggle { display: block; }
 
     header nav {
+        margin-left: 0;
         position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%; /* Ensures full width */
-        background: black;
+        top: 100%; left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.97);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         display: none;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
     }
+
+    header nav.active { display: block; }
 
     header nav ul {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
         flex-direction: column;
-        padding: 0;
-        margin: 0;
+        align-items: flex-start;
         width: 100%;
-        gap: 30px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: right;
-        padding-right: 20px;
+        gap: 4px;
+        padding: 10px 0 26px;
     }
 
-    header nav ul li {
-        margin: 0;
-        width: 100%;
-    }
+    header nav ul li { padding: 12px 32px; }
 
-    /* Show menu when active */
-    header nav.active {
-        display: block;
-    }
+    .nav-user-area { padding: 12px 32px 0; }
 }
 
-/* Hero Section */
-.hero {
-    padding: 50px 20px;
-    background: black;
+/* =========================================================
+   Hero
+   ========================================================= */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 140px 20px 80px;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(201,167,105,0.10), transparent 60%),
+        var(--obsidian);
+    overflow: hidden;
 }
 
-/* Hero Section Text */
-.hero h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: bold;
-    margin-bottom: 10px;
+.hero-tile-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image:
+        linear-gradient(45deg, var(--gold) 1px, transparent 1px),
+        linear-gradient(-45deg, var(--gold) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+    pointer-events: none;
 }
 
-.hero p {
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    max-width: 600px;
+.hero-inner { position: relative; z-index: 2; max-width: 720px; }
+
+.reveal-mask { overflow: hidden; display: block; }
+.reveal-line { display: inline-block; }
+
+.hero-eyebrow {
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    font-size: 11px;
+    color: var(--parchment-dim);
+    margin: 0 0 28px;
+}
+
+.hero-word {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 0.95;
+}
+.hero-word .reveal-line {
+    color: var(--parchment);
+    background: linear-gradient(100deg, var(--parchment) 30%, var(--gold-light) 50%, var(--parchment) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.filigree-line {
+    width: min(420px, 70vw);
+    height: 32px;
+    margin: 22px auto 30px;
+    display: block;
+}
+.filigree-line path {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: drawLine 1.8s ease forwards 1s;
+}
+.filigree-dot { fill: var(--gold-light); opacity: 0; animation: fadeIn 0.6s ease forwards 2.4s; }
+
+.hero-sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--parchment-dim);
+    max-width: 480px;
+    margin: 0 auto 40px;
+}
+
+.ghost-button, .gold-button {
+    display: inline-block;
+    position: relative;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 16px 38px;
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    transition: background 0.35s ease, color 0.35s ease;
+}
+.ghost-button:hover { background: var(--gold); color: var(--obsidian); }
+
+.gold-button {
+    background: var(--gold);
+    color: var(--obsidian);
+    border-color: var(--gold);
+}
+.gold-button:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+.hero-credit {
+    margin: 22px 0 0;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 10.5px;
+    color: var(--parchment-dim);
+}
+.hero-credit span { color: var(--gold-light); }
+
+.scroll-cue {
+    position: absolute;
+    bottom: 34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 46px;
+    background: var(--surface-line);
+}
+.scroll-cue span {
+    position: absolute;
+    top: 0;
+    left: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: scrollDot 2.4s ease-in-out infinite;
+}
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(24px);} to { opacity: 1; transform: translateY(0);} }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes scrollDot { 0% { top: 0; opacity: 0; } 20% { opacity: 1;} 90% { opacity: 0; } 100% { top: 40px; opacity: 0; } }
+
+/* =========================================================
+   Scroll animation hooks — base state is fully visible;
+   GSAP (Lujuria.js) progressively enhances these with
+   masked line reveals, fades and parallax. If the animation
+   library fails to load, or the person prefers reduced
+   motion, everything below still renders normally.
+   ========================================================= */
+.block-copy { will-change: transform, opacity; }
+.split-list li { will-change: transform, opacity; }
+[data-reveal-image] { will-change: transform, opacity, clip-path; }
+.magnetic { will-change: transform; }
+
+@media (prefers-reduced-motion: reduce) {
+    .filigree-line path, .filigree-dot, .scroll-cue span {
+        animation: none !important;
+        stroke-dashoffset: 0 !important;
+        opacity: 1 !important;
+    }
+}
+
+/* =========================================================
+   Manifesto / Heritage panels
+   ========================================================= */
+.panel {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 110px 32px;
+    border-bottom: 1px solid var(--surface-line);
+}
+
+.panel-mark {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 3rem;
+    color: var(--surface-line);
+    flex: 0 0 auto;
+}
+
+.panel-copy { flex: 1; }
+
+.panel--right { flex-direction: row-reverse; text-align: right; }
+.panel--right .panel-copy { margin-left: auto; }
+
+.panel h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    line-height: 1.2;
+    margin: 0 0 22px;
+    max-width: 560px;
+}
+.panel--right h2 { margin-left: auto; }
+
+.panel p {
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--parchment-dim);
+    max-width: 520px;
+    margin: 0 0 16px;
+}
+.panel--right p { margin-left: auto; }
+
+@media (max-width: 768px) {
+    .panel, .panel--right {
+        flex-direction: column;
+        text-align: left;
+        gap: 18px;
+        padding: 70px 26px;
+    }
+    .panel-mark { font-size: 2rem; opacity: 0.5; }
+    .panel--right .panel-copy, .panel--right h2, .panel--right p { margin-left: 0; }
+    .panel h2 { font-size: 1.7rem; }
+    .panel p { font-size: 13.5px; }
+}
+
+/* =========================================================
+   Services
+   ========================================================= */
+.services-section {
+    padding: 100px 0 60px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
-
-
-
-/* Responsive Hero Padding */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
+.services-intro { text-align: center; padding: 0 26px 70px; }
+.services-intro h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0;
 }
 
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
+.service-row {
+    display: flex;
+    gap: 50px;
+    padding: 60px 32px;
+    border-top: 1px solid var(--surface-line);
+    align-items: flex-start;
+}
+.service-row--reverse { flex-direction: row-reverse; text-align: right; }
+.service-row--reverse .service-copy > * { margin-left: auto; }
+
+.service-mark {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    color: var(--gold);
+    flex: 0 0 70px;
 }
 
+.service-copy h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    margin: 0 0 14px;
+    color: var(--parchment);
+}
 
+.service-copy > p {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--parchment-dim);
+    max-width: 560px;
+    margin: 0 0 22px;
+}
 
-/* Hero Section */
-.hero {
-    padding: 100px 20px;
-    background: black;
+.service-copy ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 620px;
+    display: grid;
+    gap: 14px;
+}
+
+.service-copy li {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--parchment-dim);
+    border-left: 1px solid var(--surface-line);
+    padding-left: 16px;
+}
+.service-row--reverse .service-copy li {
+    border-left: none;
+    border-right: 1px solid var(--surface-line);
+    padding-left: 0;
+    padding-right: 16px;
+}
+
+.service-copy li span {
+    color: var(--gold-light);
+    font-family: var(--font-body);
+    font-weight: 400;
+}
+
+.services-outro {
     text-align: center;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--gold-light);
+    max-width: 640px;
+    margin: 70px auto 0;
+    padding: 0 26px;
 }
 
-/* Title Styling */
-.hero-title {
-    font-size: clamp(2rem, 6vw, 4rem); /* Adjusts dynamically */
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+@media (max-width: 768px) {
+    .service-row, .service-row--reverse {
+        flex-direction: column;
+        text-align: left;
+        gap: 14px;
+        padding: 44px 26px;
+    }
+    .service-row--reverse .service-copy > * { margin-left: 0; }
+    .service-mark { font-size: 1.6rem; opacity: 0.6; }
+    .service-copy > p { font-size: 1rem; }
+    .service-copy li,
+    .service-row--reverse .service-copy li {
+        border-left: 1px solid var(--surface-line);
+        border-right: none;
+        padding-left: 14px;
+        padding-right: 0;
+    }
+}
+
+/* =========================================================
+   Section heading (shared: gallery / stories)
+   ========================================================= */
+.section-heading {
+    text-align: center;
+    padding: 0 26px 50px;
+}
+.section-heading h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    margin: 0;
+}
+
+/* =========================================================
+   Gallery (Atelier / Instagram posts)
+   ========================================================= */
+.gallery-section { padding: 110px 0; max-width: 1200px; margin: 0 auto; }
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 0 4px;
+}
+
+.gallery-item {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--obsidian);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.6s ease;
+    filter: grayscale(0.15) brightness(0.92);
+}
+
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    transition: border-color 0.4s ease;
+    pointer-events: none;
+}
+
+.gallery-item figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 14px 16px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--parchment);
+    background: linear-gradient(to top, rgba(12,10,8,0.85), transparent);
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s ease-in-out forwards;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Subtitle Styling */
-.hero-subtitle {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
-    color: #ddd;
-    opacity: 0;
-    animation: fadeIn 1.5s ease-in-out forwards 0.5s;
-}
+.gallery-item:hover img { transform: scale(1.08); filter: grayscale(0) brightness(1); }
+.gallery-item:hover::after { border-color: var(--gold); }
+.gallery-item:hover figcaption { opacity: 1; transform: translateY(0); }
 
-/* Animation for Title */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Animation for Subtitle */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Mobile-Friendly Adjustments */
 @media (max-width: 768px) {
-    .hero {
-        padding: 80px 15px;
-    }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 3px; padding: 0 3px; }
+    .gallery-section { padding: 70px 0; }
+    .gallery-item figcaption { opacity: 1; transform: none; font-size: 11px; padding: 10px 12px; }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        padding: 60px 10px;
-    }
+/* =========================================================
+   Stories — shown as full, properly visible portrait cards
+   (no circular thumbnails, no click-to-reveal overlay)
+   ========================================================= */
+.stories-section { padding: 60px 0 130px; }
+
+.story-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
 }
 
-/*Title*/
-.Mypaws{
+.story-card {
+    margin: 0;
+    position: relative;
+    border: 1px solid var(--surface-line);
+    background: var(--surface);
+    overflow: hidden;
+}
+
+.story-card img {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(0.1) brightness(0.94);
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.6s ease;
+}
+
+.story-card:hover img {
+    transform: scale(1.04);
+    filter: grayscale(0) brightness(1);
+}
+
+.story-card figcaption {
+    padding: 14px 18px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--parchment);
+    border-top: 1px solid var(--surface-line);
+}
+
+@media (max-width: 768px) {
+    .story-grid { grid-template-columns: 1fr; gap: 20px; max-width: 360px; }
+    .stories-section { padding: 40px 0 80px; }
+}
+
+/* =========================================================
+   Closing CTA
+   ========================================================= */
+.cta-section {
     text-align: center;
-    margin-top: 100px;
-
-
+    padding: 130px 26px;
+    border-top: 1px solid var(--surface-line);
+}
+.cta-section h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3.2rem);
+    margin: 0 0 36px;
 }
 
-
-/*desktop */
-@media (min-width: 769px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Mypaws h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
-    }
-    
-    .Mypaws p{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        width: 800px;
-        margin-bottom: 15px;
-        color: #fff;
-        display: flex;
-        justify-content: flex-start; /* Default to left-aligned */
-    }
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Mypaws{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Mypaws h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        font-size: 30px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Mypaws p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: center;
-        align-items: center;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-
-}
-
-
-
-/*About Company*/
-
-
-.About-Company{
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
     text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .About-Company h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
-    }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        padding-right: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        margin-left: auto; /* Keeps it aligned to the right */
-    }
-    
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .About-Company{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .About-Company h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-      
-        
-    }
-    
-    .About-Company p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-
-}
-
-
-
-/*Social-Media-Marketing*/
-
-
-.Social-Media-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Social-Media-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-        
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Social-Media-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-    .Social-Media-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Social-Media-Marketing{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Social-Media-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-       
-    }
-    
-    .Social-Media-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .Social-Media-Marketing ul{
-            display: none;
-    }
-
-    .Social-Media-Marketing li{
-        display: none;
-    }
-
-}
-
-
-
-
-
-
-
-
-/*SEO & Website Optimization*/
-
-
-.SEO-Website-Optimization{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .SEO-Website-Optimization h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .SEO-Website-Optimization ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .SEO-Website-Optimization li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .SEO-Website-Optimization{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .SEO-Website-Optimization h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .SEO-Website-Optimization p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .SEO-Website-Optimization ul{
-            display: none;
-    }
-
-    .SEO-Website-Optimization li{
-        display: none;
-    }
-}
-
-
-
-
-
-
-
-
-/*Paid-Ads-ampaigns*/
-
-
-.Paid-Ads-Campaigns{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Paid-Ads-Campaigns h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Paid-Ads-Campaigns ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Paid-Ads-Campaigns li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-
-
-
-
-
-    
-
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Paid-Ads-Campaigns{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Paid-Ads-Campaigns h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: right;
-        padding-right: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Paid-Ads-Campaigns p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: right;
-        align-items: right;
-        
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-        .Paid-Ads-Campaigns ul{
-            display: none;
-    }
-
-    .Paid-Ads-Campaigns li{
-        display: none;
-    }
-
-
-
-
-
-
-}
-
-
-/*Content-Marketing*/
-
-
-.Content-Marketing{
-    text-align: center;
-    margin-top: 100px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .Content-Marketing h2{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-        
-    }
-
-    .Content-Marketing ul{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 150px;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-        
-    }
-
-    .Content-Marketing li{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-        width: 800px;  /* Adjust width as needed */
-    }
-}
-
-/*mobile */
-@media (max-width: 768px) {
-    .Content-Marketing{
-        text-align: center;
-        margin-top: 80px;
-    }
-
-
-    .Content-Marketing h2{
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        padding-left: 40px;
-        text-transform: uppercase;
-        font-size: 18px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-    
-    .Content-Marketing p {
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        align-items: left;
-        max-width: 350px;
-        width: auto;
-        font-size: 12px;
-        margin: 0 auto 15px auto; /* Centers it horizontally */
-        display: block; /* Ensures it behaves properly */
-        color: #fff;
-    }
-
-    .Content-Marketing ul{
-            display: none;
-    }
-
-    .Content-Marketing li{
-        display: none;
-    }
-
-}
-
-
-
-
-/* Image Gallery */
-
-.Image-gallery{
-    text-align: center;
-    margin-top: 100px;
-    gap: 20px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-    .Images-gallery img{
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    }
-
-
-img:hover {
-    transform: scale(1.1);
-}
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Images-gallery img{
-        width: 170px;
-        height: auto;
-        gap: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        }
-    
-    
-    img:hover {
-        transform: scale(1.1);
-    }
-
-}
-
-
-
-/* Stories Gallery */
-
-.Storie-gallery{
-    text-align: center;
-    margin-top: 100px;
-    gap: 20px;
-    margin-top: 50px;
-
-
-}
-
-
-/*desktop */
-@media (min-width: 769px) {
-
-    .Stories-gallery img{
-    width: 300px;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    }
-
-    .Stories-gallery h1{
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: lighter;
-        text-align: left;
-        padding-left: 100px;
-        font-size: 50px;
-        margin-bottom: 15px;
-        color: #fff;
-
-        
-    }
-
-
-img:hover {
-    transform: scale(1.1);
-}
-
-}
-
-
-
-/*mobile */
-@media (max-width: 768px) {
-    .Stories-gallery img{
-        display: none;
-
-        }
-
-        .Stories-gallery h1{
-            display: none; 
-        }
-    
-    
-    img:hover {
-        transform: scale(1.1);
-    }
-
+    padding: 30px 20px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--parchment-dim);
+    border-top: 1px solid var(--surface-line);
 }
