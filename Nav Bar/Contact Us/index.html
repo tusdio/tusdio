@@ -33,6 +33,9 @@
   <!-- FIXED CSS -->
   <link rel="stylesheet" href="/Nav%20Bar/Contact%20Us/contact.css" />
 
+  <!-- EmailJS — powers the branded email with your logo; falls back to FormSubmit until configured (see contact.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+
   <!-- FIXED JS -->
   <script type="module" src="/Nav%20Bar/Contact%20Us/contact.js" defer></script>
 </head>
@@ -71,7 +74,7 @@
       <div class="contact-text">
         <p class="eyebrow">Contact</p>
         <h1 class="hero-title">Let's build something exceptional.</h1>
-        <p class="hero-subtitle">TUSDIO is a creative design agency helping startups, founders, and modern businesses grow through strategic branding, visual identity, product design, and digital marketing.</p>
+        <p class="hero-subtitle">TUSDIO is a creative design agency helping startups, founders, and modern businesses grow through strategic branding, visual identity, product design, and digital marketing. We build brand systems that feel premium and communicate clearly.</p>
 
         <div class="hero-tags">
           <span class="hero-tag">Strategy-first design</span>
@@ -90,31 +93,68 @@
 
     <!-- Why TUSDIO highlights -->
     <section class="contact-highlights">
-      <div class="highlight-card">
+      <div class="highlight-card glass">
         <span class="highlight-icon">◆</span>
         <h3>Strategy before pixels</h3>
         <p>Every brand system is built to communicate clearly and support real business goals, not just look good on a screen.</p>
       </div>
-      <div class="highlight-card">
+      <div class="highlight-card glass">
         <span class="highlight-icon">◆</span>
         <h3>5–10 day turnaround</h3>
         <p>Most design projects are delivered within 5–10 days, so your brand doesn't wait on us to start growing.</p>
       </div>
-      <div class="highlight-card">
+      <div class="highlight-card glass">
         <span class="highlight-icon">◆</span>
         <h3>One dedicated team</h3>
-        <p>The same creative experts who scope your project also design, refine, and deliver it, start to finish.</p>
+        <p>The same 5 creative experts who scope your project also design, refine, and deliver it, start to finish.</p>
+      </div>
+    </section>
+
+    <!-- Our Services -->
+    <section class="services-strip">
+      <div class="section-head-row">
+        <p class="eyebrow">What We Do</p>
+        <h2>Our Services</h2>
+      </div>
+
+      <div class="services-list">
+        <a href="/Our%20services%20pages/product%20development/product-development.html" class="service-item glass">
+          <span class="service-index">01</span>
+          <h3>Product Development</h3>
+          <p>Turning product concepts into premium, market-ready experiences.</p>
+        </a>
+        <a href="/Our%20services%20pages/Branding/branding.html" class="service-item glass">
+          <span class="service-index">02</span>
+          <h3>Branding</h3>
+          <p>Complete brand systems built on real business strategy, not just visuals.</p>
+        </a>
+        <a href="/Our%20services%20pages/Visual%20identity/visual.html" class="service-item glass">
+          <span class="service-index">03</span>
+          <h3>Visual Identity</h3>
+          <p>A distinct visual language — logo, color, and typography systems.</p>
+        </a>
+        <a href="/Our%20services%20pages/Digital%20Marketing/digital.html" class="service-item glass">
+          <span class="service-index">04</span>
+          <h3>Digital Marketing</h3>
+          <p>Sharper communication and digital presence across every channel.</p>
+        </a>
       </div>
     </section>
 
     <!-- Contact form -->
     <section class="contact-grid-section">
-      <div class="contact-grid">
+      <div class="contact-grid glass">
 
         <div class="contact-info-panel">
           <p class="eyebrow">Reach Out</p>
           <h2 class="form-title">Start your project</h2>
           <p class="form-subtitle">Tell us about your brand, your goals, and where you want to be. We'll follow up to schedule a discovery call.</p>
+
+          <div class="selected-package" id="selectedPackageBanner" hidden>
+            <span class="selected-package-label">Selected package</span>
+            <strong id="selectedPackageName"></strong>
+            <a href="../Package/index.html" class="change-package-link">Change</a>
+          </div>
 
           <div class="contact-detail">
             <span class="detail-label">Email</span>
@@ -126,27 +166,57 @@
             <span>Inquiry → Discovery Call → Design &amp; Refine → Delivery</span>
           </div>
 
+          <div class="contact-detail">
+            <span class="detail-label">Response time</span>
+            <span>Within 1–2 business days</span>
+          </div>
         </div>
 
-        <form action="https://formsubmit.co/43654426830539517d50b8e707838000" method="POST" class="contact-form" id="contactForm">
+        <form action="https://formsubmit.co/43654426830539517d50b8e707838000" method="POST" class="contact-form" id="contactForm" novalidate>
+
           <div class="form-row">
             <div class="form-field">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="John Doe" required />
+              <span class="field-error">Please enter your name.</span>
             </div>
             <div class="form-field">
               <label for="email">Email</label>
               <input type="email" id="email" name="email" placeholder="john@company.com" required />
+              <span class="field-error">Please enter a valid email.</span>
             </div>
           </div>
 
           <div class="form-field">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and goals..." required></textarea>
+            <label for="projectType">Project type</label>
+            <select id="projectType" name="projectType">
+              <option value="">Not sure yet</option>
+              <option value="Product Development">Product Development</option>
+              <option value="Branding">Branding</option>
+              <option value="Visual Identity">Visual Identity</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+            </select>
           </div>
+
+          <div class="form-field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and goals..." maxlength="600" required></textarea>
+            <div class="field-footer">
+              <span class="field-error">Please tell us a bit about your project.</span>
+              <span class="char-count" id="charCount">0 / 600</span>
+            </div>
+          </div>
+
+          <!-- FormSubmit config -->
+          <input type="hidden" name="_subject" value="New project inquiry — TUSDIO.online" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_autoresponse" value="Thanks for reaching out to TUSDIO! We've received your message and will get back to you within 1-2 business days." />
 
           <!-- No-JS fallback: redirect back to this page instead of formsubmit.co's default page -->
           <input type="hidden" name="_next" value="https://tusdio.online/Nav%20Bar/Contact%20Us/index.html" />
+
+          <!-- Populated by contact.js when arriving from the Package page -->
+          <input type="hidden" name="package" id="packageField" value="" />
 
           <button type="submit">
             <span class="btn-label">Send Message</span>
@@ -158,6 +228,75 @@
           <p class="form-status" id="formStatus"></p>
         </form>
 
+      </div>
+    </section>
+
+    <!-- Recent work -->
+    <section class="recent-work">
+      <div class="section-head-row">
+        <p class="eyebrow">Selected Work</p>
+        <h2>Brands we've built</h2>
+      </div>
+
+      <div class="work-chip-row">
+        <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" target="_blank" rel="noopener">Aviaan</a>
+        <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" target="_blank" rel="noopener">Blackbird</a>
+        <a href="https://www.behance.net/gallery/204727647/EVOQUE" target="_blank" rel="noopener">Evoque</a>
+        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" target="_blank" rel="noopener">Eclat</a>
+        <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" target="_blank" rel="noopener">Prakrti</a>
+        <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" target="_blank" rel="noopener">Pinnacle</a>
+        <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" target="_blank" rel="noopener">Blckwhite</a>
+        <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" target="_blank" rel="noopener">One Latte</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="contact-faq">
+      <div class="section-head-row">
+        <p class="eyebrow">Questions</p>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item glass">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>What services does your agency provide?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We provide Branding, Product Design, Social Media Marketing, and Logo Design services.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>How can I contact you?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>You can reach us by email or by filling out the inquiry form above — we typically reply within 1–2 business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>What's the process for starting a project?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Fill out our inquiry form, schedule a discovery call, and we'll guide you through design, refinement, and delivery step by step.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>How long until I get the final files?</span>
+            <span class="faq-toggle">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>It depends on the project. Most designs take 5–10 days, while larger projects may take 2–4 weeks.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -202,12 +341,57 @@
       <div class="footer-right">
         <h3>Contact Us</h3>
         <ul>
-          <li>Email: <a href="mailto:tusdio@zohomail.in">tusdio@zohomail.in</a></li>
+          <li>Email: <a href="mailto:team@tusdio.online">team@tusdio.online</a></li>
         </ul>
       </div>
     </div>
 
     <p class="footer-bottom">&copy; 2024 TUSDIO. All Rights Reserved.</p>
-  </footer>
+  </footer>  <!-- Success overlay: shown after a successful form submission -->
+  <div class="success-overlay" id="successOverlay" hidden aria-hidden="true">
+    <div class="success-card">
+
+      <button type="button" class="success-close-icon" id="successCloseIcon" aria-label="Close">&times;</button>
+
+      <p class="success-wordmark">TUSDIO.</p>
+
+      <div class="success-check-wrap">
+        <span class="success-ring"></span>
+        <span class="success-ring success-ring-delay"></span>
+        <div class="success-check">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 12l5 5L20 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <h2>Thank you, <span id="successName">there</span>.</h2>
+      <p class="success-lead">Your message just landed in our inbox. We're genuinely glad you reached out, and we're looking forward to learning more about your project.</p>
+
+      <div class="success-steps">
+        <div class="success-step">
+          <span class="success-step-num">1</span>
+          <span>We review your message</span>
+        </div>
+        <div class="success-step">
+          <span class="success-step-num">2</span>
+          <span>We schedule a discovery call</span>
+        </div>
+        <div class="success-step">
+          <span class="success-step-num">3</span>
+          <span>You hear back within 1–2 business days</span>
+        </div>
+      </div>
+
+      <p class="success-note">Prefer to skip the wait? Email us directly at <a href="mailto:team@tusdio.online">team@tusdio.online</a></p>
+
+      <div class="success-actions">
+        <a href="../Portfolio/index.html" class="success-primary-btn">Explore Our Work →</a>
+        <button type="button" id="successCloseBtn" class="success-secondary-btn">Maybe later</button>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>
