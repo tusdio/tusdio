@@ -14,11 +14,15 @@ if (menuToggle && nav) {
   });
 }
 
-// Navbar user state
+// Navbar user state + auth tracking (used again below for the package gate)
 const navUserArea = document.getElementById("navUserArea");
 const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
 
+let currentUser = null;
+
 onAuthStateChanged(auth, (user) => {
+  currentUser = user;
+
   if (!navUserArea) return;
 
   if (user) {
@@ -51,12 +55,57 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Package CTA buttons
+/* =========================================================
+   TOAST — same pattern as the Freebie page
+   ========================================================= */
+
+function showToast(message) {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => toast.classList.add("show"));
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 2200);
+}
+
+/* =========================================================
+   PACKAGE SELECTION — login gate, then forward to Contact Us
+   Mirrors the Freebie page's download gate: signed-in users go
+   straight through, signed-out users are sent to login first and
+   bounced back to the exact page they were trying to reach.
+   ========================================================= */
+
+function getLoginRedirectUrl(targetUrl) {
+  return `../auth/login.html?redirect=${encodeURIComponent(targetUrl)}`;
+}
+
 const chooseButtons = document.querySelectorAll(".choose-btn");
 
 chooseButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const service = button.dataset.service || "";
-    window.location.href = `../Contact Us/contact.html?service=${encodeURIComponent(service)}`;
+    const serviceLabel = button.dataset.serviceLabel || service;
+
+    const target =
+      `../Contact Us/index.html` +
+      `?service=${encodeURIComponent(service)}` +
+      `&serviceLabel=${encodeURIComponent(serviceLabel)}`;
+
+    if (currentUser) {
+      window.location.href = target;
+      return;
+    }
+
+    showToast("Login to continue with your selected package");
+    window.location.href = getLoginRedirectUrl(target);
   });
 });
