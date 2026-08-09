@@ -61,8 +61,14 @@
 </head>
 <body>
 
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- =====================================================
+       HEADER — unchanged
+  ====================================================== -->
   <header>
-    <div class="container">
+    <div class="container nav-shell">
       <a href="../../index.html" class="logo-link">
         <h1 class="logo">TUSDIO.</h1>
       </a>
@@ -85,174 +91,246 @@
     </div>
   </header>
 
-  <main class="packages-page">
-    <section class="hero glass">
-      <p class="eyebrow">Work With Us</p>
-      <h1>Creative services designed to make your brand look premium.</h1>
-      <p class="hero-copy">
-        Choose the service that fits your stage. From product visuals to full brand systems,
-        every offer is built to help your business stand out, feel stronger, and grow with a sharper presence.
-      </p>
+  <main class="packages-page" id="main">
 
-      <div class="hero-actions">
-        <a href="#packages" class="primary-btn">Explore Services</a>
-        <a href="../Contact Us/index.html" class="secondary-btn">Talk to TUSDIO</a>
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+    <section class="hero">
+
+      <div class="hero-frame" aria-hidden="true">
+        <span class="frame-corner corner-tl"></span>
+        <span class="frame-corner corner-tr"></span>
+        <span class="frame-corner corner-bl"></span>
+        <span class="frame-corner corner-br"></span>
+      </div>
+
+      <span class="hero-watermark" aria-hidden="true">04</span>
+
+      <div class="section-container">
+
+        <div class="hero-toolbar reveal">
+          <span class="toolbar-item">TUSDIO — PACKAGES</span>
+          <span class="toolbar-item">4 TIERS</span>
+          <span class="toolbar-item">FROM ₹30,000</span>
+        </div>
+
+        <p class="eyebrow reveal">Pricing</p>
+
+        <h1 class="hero-title reveal">
+          Pick your starting point.<br />
+          <span class="hero-title-accent">We'll make it look premium.</span>
+        </h1>
+
+        <p class="hero-sub reveal">
+          From a first logo system to a full identity ecosystem — each package
+          is scoped for a different stage of growth, so you only pay for the
+          depth you need right now.
+        </p>
+
+        <div class="hero-actions reveal">
+          <a href="#packages" class="btn btn-primary">Explore Packages</a>
+          <a href="../Contact Us/index.html" class="btn btn-ghost">Talk to TUSDIO</a>
+        </div>
+
       </div>
     </section>
 
-    <section class="section-head">
-      <div>
-        <p class="eyebrow">Our Offers</p>
-        <h2>Choose how you want to grow</h2>
+    <!-- =====================================================
+         PACKAGES
+    ====================================================== -->
+    <section class="package-section" id="packages">
+      <div class="section-container">
+
+        <div class="package-head reveal">
+          <p class="eyebrow">Our Offers</p>
+          <h2 class="package-title">Choose how you want to grow.</h2>
+        </div>
+
+        <div class="package-grid reveal">
+
+          <!-- Essential -->
+          <article class="package-card">
+            <span class="package-num">01</span>
+            <p class="tier">Brand Identity</p>
+            <h3>TUSDIO Essential</h3>
+            <p class="price">₹30,000<span>starting</span></p>
+            <p class="tagline">Build a premium foundation designed for recognition and long-term growth.</p>
+
+            <ul class="feature-list">
+              <li>Brand discovery session</li>
+              <li>Logo identity system</li>
+              <li>Typography &amp; color framework</li>
+              <li>Mini brand guidelines</li>
+              <li>Social starter assets</li>
+            </ul>
+
+            <button class="choose-btn btn btn-ghost" data-service="tusdio-essential" data-service-label="TUSDIO Essential — Brand Identity">
+              Book Discovery →
+            </button>
+          </article>
+
+          <!-- Signature -->
+          <article class="package-card">
+            <span class="package-num">02</span>
+            <p class="tier">Brand Strategy</p>
+            <h3>TUSDIO Signature</h3>
+            <p class="price">₹75,000<span>starting</span></p>
+            <p class="tagline">Create a premium identity system that builds trust and perceived value.</p>
+
+            <ul class="feature-list">
+              <li>Brand positioning workshop</li>
+              <li>Visual identity system</li>
+              <li>Premium color &amp; typography</li>
+              <li>Packaging direction</li>
+              <li>Extended brand guidelines</li>
+            </ul>
+
+            <button class="choose-btn btn btn-ghost" data-service="tusdio-signature" data-service-label="TUSDIO Signature — Brand Strategy">
+              Book Discovery →
+            </button>
+          </article>
+
+          <!-- Featured -->
+          <article class="package-card is-featured">
+            <span class="featured-badge">Most Chosen</span>
+            <span class="package-num">03</span>
+            <p class="tier">Creative Direction</p>
+            <h3>TUSDIO Prestige</h3>
+            <p class="price">₹1,20,000<span>starting</span></p>
+            <p class="tagline">Build premium perception through strategy, identity, and execution.</p>
+
+            <ul class="feature-list">
+              <li>Deep brand research</li>
+              <li>Complete identity ecosystem</li>
+              <li>Packaging &amp; creative direction</li>
+              <li>Website visual direction</li>
+              <li>Launch-ready assets</li>
+            </ul>
+
+            <button class="choose-btn btn btn-primary" data-service="tusdio-prestige" data-service-label="TUSDIO Prestige — Creative Direction">
+              Apply Now →
+            </button>
+          </article>
+
+          <!-- Private -->
+          <article class="package-card">
+            <span class="package-num">04</span>
+            <p class="tier">Private Label</p>
+            <h3>TUSDIO Private</h3>
+            <p class="price">₹2,00,000<span>starting</span></p>
+            <p class="tagline">End-to-end brand creation with dedicated creative leadership.</p>
+
+            <ul class="feature-list">
+              <li>Complete brand strategy</li>
+              <li>Identity &amp; packaging ecosystem</li>
+              <li>Campaign creative direction</li>
+              <li>Website &amp; launch assets</li>
+              <li>30-day advisory support</li>
+            </ul>
+
+            <button class="choose-btn btn btn-ghost" data-service="tusdio-private" data-service-label="TUSDIO Private — Private Label">
+              Apply Now →
+            </button>
+          </article>
+
+        </div>
       </div>
     </section>
 
+    <!-- =====================================================
+         EXTRAS
+    ====================================================== -->
+    <section class="extras-section">
+      <div class="section-container extras-grid reveal">
 
-<section class="package-grid" id="packages">
+        <div class="extras-copy">
+          <p class="eyebrow">Add-ons</p>
+          <h2 class="extras-title">Need something extra?</h2>
+          <p class="extras-text">
+            You can extend any package with packaging direction, pitch deck design,
+            social media creatives, landing page visuals, presentation assets, and more.
+          </p>
+        </div>
 
-  <!-- Essential -->
-  <article class="package-card glass">
-    <p class="tier">Brand Identity</p>
+        <div class="extras-list">
+          <span>Packaging</span>
+          <span>Pitch Deck</span>
+          <span>Social Media Kit</span>
+          <span>Brand Guide</span>
+          <span>Landing Page Visuals</span>
+          <span>Product Presentation</span>
+        </div>
 
-    <h3>TUSDIO Essential</h3>
+      </div>
+    </section>
 
-    <p class="price">Starting ₹30,000</p>
+    <!-- =====================================================
+         CTA STRIP
+    ====================================================== -->
+    <section class="cta">
+      <span class="cta-watermark" aria-hidden="true">TUSDIO</span>
+      <div class="section-container cta-inner reveal">
+        <div>
+          <p class="eyebrow">Need help choosing?</p>
+          <h2 class="cta-title">Tell us your stage and we'll suggest the right service.</h2>
+        </div>
+        <a href="../Contact Us/index.html" class="btn btn-primary">Book a Discussion</a>
+      </div>
+    </section>
 
-    <p class="tagline">
-      Build a premium foundation designed for recognition and long-term growth.
-    </p>
+  </main>
 
-    <ul class="feature-list">
-      <li>Brand discovery session</li>
-      <li>Logo identity system</li>
-      <li>Typography & color framework</li>
-      <li>Mini brand guidelines</li>
-      <li>Social starter assets</li>
-    </ul>
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+  <footer>
+    <div class="section-container footer-inner">
 
-    <button class="choose-btn" data-service="tusdio-essential" data-service-label="TUSDIO Essential — Brand Identity">
-      Book Discovery →
-    </button>
-  </article>
+      <div class="footer-col footer-brand">
+        <a href="../../index.html" class="logo-link">
+          <div class="logo">TUSDIO.</div>
+        </a>
+        <p class="footer-tagline">We create stunning designs and branding solutions to help businesses stand out.</p>
+        <div class="social-links">
+          <a href="https://www.behance.net/tusdio" target="_blank" rel="noopener" aria-label="Behance">
+            <img src="../Portfolio/Images/Social Media Icon/1 behance.png" alt="" />
+          </a>
+          <a href="https://www.instagram.com/tusdio._/profilecard/?igsh=cW82eWIxY2hudm9u" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="../Portfolio/Images/Social Media Icon/2 instagram.png" alt="" />
+          </a>
+          <a href="https://www.linkedin.com/in/tushar-khan-b05224272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="../Portfolio/Images/Social Media Icon/3 linkdin.png" alt="" />
+          </a>
+          <a href="https://www.instagram.com/tusdio.site/" target="_blank" rel="noopener" aria-label="Twitter">
+            <img src="../Portfolio/Images/Social Media Icon/4 twitter.png" alt="" />
+          </a>
+        </div>
+      </div>
 
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../About Us/index.html">About</a></li>
+          <li><a href="../Services/index.html">Services</a></li>
+          <li><a href="../Portfolio/index.html">Portfolio</a></li>
+          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform">Inquiry</a></li>
+          <li><a href="../Contact Us/index.html">Contact</a></li>
+        </ul>
+      </div>
 
-  <!-- Signature -->
-  <article class="package-card glass">
-    <p class="tier">Brand Strategy</p>
+      <div class="footer-col">
+        <h3>Get Connected</h3>
+        <p class="footer-email">Email: <a href="mailto:team@tusdio.online">team@tusdio.online</a></p>
+      </div>
 
-    <h3>TUSDIO Signature</h3>
-
-    <p class="price">Starting ₹75,000</p>
-
-    <p class="tagline">
-      Create a premium identity system that builds trust and perceived value.
-    </p>
-
-    <ul class="feature-list">
-      <li>Brand positioning workshop</li>
-      <li>Visual identity system</li>
-      <li>Premium color & typography</li>
-      <li>Packaging direction</li>
-      <li>Extended brand guidelines</li>
-    </ul>
-
-    <button class="choose-btn" data-service="tusdio-signature" data-service-label="TUSDIO Signature — Brand Strategy">
-      Book Discovery →
-    </button>
-  </article>
-
-
-  <!-- Featured -->
-  <article class="package-card glass featured">
-
-    <div class="popular-badge">
-      Most Chosen
     </div>
 
-    <p class="tier">Creative Direction</p>
+    <p class="footer-copy">&copy; <span id="footerYear">2026</span> TUSDIO. All rights reserved.</p>
+  </footer>
 
-    <h3>TUSDIO Prestige</h3>
-
-    <p class="price">Starting ₹1,20,000</p>
-
-    <p class="tagline">
-      Build premium perception through strategy, identity, and execution.
-    </p>
-
-    <ul class="feature-list">
-      <li>Deep brand research</li>
-      <li>Complete identity ecosystem</li>
-      <li>Packaging & creative direction</li>
-      <li>Website visual direction</li>
-      <li>Launch-ready assets</li>
-    </ul>
-
-    <button class="choose-btn" data-service="tusdio-prestige" data-service-label="TUSDIO Prestige — Creative Direction">
-      Apply Now →
-    </button>
-
-  </article>
-
-
-  <!-- Private -->
-  <article class="package-card glass">
-
-    <p class="tier">Private Label</p>
-
-    <h3>TUSDIO Private</h3>
-
-    <p class="price">Starting ₹2,00,000</p>
-
-    <p class="tagline">
-      End-to-end brand creation with dedicated creative leadership.
-    </p>
-
-    <ul class="feature-list">
-      <li>Complete brand strategy</li>
-      <li>Identity & packaging ecosystem</li>
-      <li>Campaign creative direction</li>
-      <li>Website & launch assets</li>
-      <li>30-day advisory support</li>
-    </ul>
-
-    <button class="choose-btn" data-service="tusdio-private" data-service-label="TUSDIO Private — Private Label">
-      Apply Now →
-    </button>
-
-  </article>
-
-</section>
-
-
-
-    <section class="extras glass">
-      <div class="extras-copy">
-        <p class="eyebrow">Add-ons</p>
-        <h2>Need something extra?</h2>
-        <p>
-          You can extend any service with packaging direction, pitch deck design,
-          social media creatives, landing page visuals, presentation assets, and more.
-        </p>
-      </div>
-
-      <div class="extras-list">
-        <span>Packaging</span>
-        <span>Pitch Deck</span>
-        <span>Social Media Kit</span>
-        <span>Brand Guide</span>
-        <span>Landing Page Visuals</span>
-        <span>Product Presentation</span>
-      </div>
-    </section>
-
-    <section class="cta-strip glass">
-      <div>
-        <p class="eyebrow">Need help choosing?</p>
-        <h2>Tell us your stage and we’ll suggest the right service.</h2>
-      </div>
-      <a href="../Contact Us/index.html" class="primary-btn">Book a Discussion</a>
-    </section>
-  </main>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
   <!-- Toasts (login-gate feedback, same pattern as the Freebie page) -->
   <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
