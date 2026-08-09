@@ -25,223 +25,417 @@
     <script src="branding.js" defer></script>
 </head>
 
-
 <body>
-     <!-- Hero Section -->
-     <header>
+
+    <a href="#main" class="skip-link">Skip to content</a>
+
+
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
         <div class="container">
-            <a href="../../index.html" class="logo-link">
-                <h1 class="logo">TUSDIO.</h1>
+
+            <a href="/" class="logo-link" aria-label="TUSDIO Home">
+                <div class="logo">TUSDIO.</div>
             </a>
-            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
-            <nav>
+
+            <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+                &#9776;
+            </button>
+
+            <nav id="primary-nav">
                 <ul class="nav-links">
-                    <li><a href="../../Nav Bar/About Us/about us.html">About</a></li>
-                    <li><a href="../../Nav Bar/Services/services.html">Services</a></li>
-                    <li><a href="../../Nav Bar/Package/package.html">Package</a></li>
-                    <li><a href="../../Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
-                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
-                    <li><a href="../../Nav Bar/Contact Us/contact.html">Contact</a></li>
-                    <li><a href="../../Nav Bar/freebie/freebie.html">Freebie</a></li>
+                    <li><a href="../../Nav Bar/About Us/index.html">About</a></li>
+                    <li><a href="../../Nav Bar/Services/index.html">Services</a></li>
+                    <li><a href="../../Nav Bar/Package/index.html">Package</a></li>
+                    <li><a href="../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                    <li><a href="../../Nav Bar/Contact Us/index.html">Contact</a></li>
+                    <li><a href="../../Nav Bar/freebie/index.html">Freebie</a></li>
+                    <li id="navUserArea" class="nav-user-area">
+                        <a href="../../Nav Bar/auth/login.html">Login</a>
+                    </li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
-    <section class="hero"> 
-        <h1 class="hero-title">Branding</h1>
-    <p class="hero-subtitle">A brand identity that resonates with the audience, crafted to leave a lasting impact in a competitive market.</p>
-    </section>
+    <main id="main">
 
+        <!-- Hero -->
+        <section class="hero">
+            <div class="section-container hero-grid">
+                <div class="hero-copy">
+                    <div class="service-chip reveal">
+                        <span class="service-chip-mark" aria-hidden="true"></span>
+                        Branding &amp; Identity Design
+                    </div>
+                    <h1 class="hero-title reveal">
+                        A brand isn't a logo.<br>
+                        It's every decision<br>
+                        made after it.
+                    </h1>
+                    <p class="hero-lede reveal">
+                        We handle the strategy, the marks and the system behind them —
+                        so a business looks and sounds like itself on a business card,
+                        a storefront, or a packaging line.
+                    </p>
+                    <div class="hero-actions reveal">
+                        <a href="../../Nav Bar/Contact Us/index.html" class="btn btn-primary">Start a project</a>
+                        <span class="hero-count">15 identities shipped</span>
+                    </div>
+                </div>
 
-    <!-- Section 15 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-            <div class="text-container">
-                 <h2>Taste & Flavour Resturant</h2>
-                  <p>Designed a powerful brand identity that stands out in the market.</p>
-                  <a href="https://www.behance.net/gallery/223570073/Taste-Flavor-Restaurant" class="btn">View Case Study</a>
+                <div class="hero-visual reveal">
+                    <div class="hero-photo-frame">
+                        <span class="reg-mark reg-mark--tl" aria-hidden="true"></span>
+                        <span class="reg-mark reg-mark--tr" aria-hidden="true"></span>
+                        <span class="reg-mark reg-mark--bl" aria-hidden="true"></span>
+                        <span class="reg-mark reg-mark--br" aria-hidden="true"></span>
+                        <div class="hero-photo">
+                            <img src="image/1 aviaan.png" alt="Aviaan brand identity, designed by TUSDIO" data-fallback-initials="AV">
+                        </div>
+                        <p class="hero-photo-caption">Aviaan — Visual identity, TUSDIO</p>
+                    </div>
+                </div>
             </div>
-                <a href="https://www.behance.net/gallery/223570073/Taste-Flavor-Restaurant" class="image-container">
-                    <img src="image/15 taste&flvour.png" alt="Branding">
-                </a>
-    </section>
 
-
-<!-- Section 14 (Image Left, Text Right) -->
-<section class="case-study">
-    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-container">
-        <img src="image/1 aviaan.png" alt="Product 1">
-    </a>
-    <div class="text-container">
-        <h2>Aviaan</h2>
-        <p>TUSDIO created a dynamic brand identity for Aviaan, bringing their vision to life with a clean and modern aesthetic.</p>
-        <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="btn">View Case Study</a>
-    </div>
-</section>
-
-
-<!-- Section 13 (Image Right, Text Left) -->
-     <section class="case-study reverse">
-        <div class="text-container">
-            <h2>BLCKWHITE</h2>
-            <p>Designed a powerful brand identity that stands out in the market.</p>
-            <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-container">
-            <img src="image/12 blckwhite.png" alt="Branding">
-        </a>
-    </section>
-
-<!-- Section 12 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-            <div class="text-container">
-                <h2>Pinnacle</h2>
-                <p>TUSDIO’s work on Pinnacle's brand identity embodies strength and growth, with a sleek design that elevates the brand to new heights.</p>
-                <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="btn">View Case Study</a>
+            <div class="specimen-strip section-container reveal">
+                <span class="specimen-label">Clients we've branded</span>
+                <ul class="specimen-list">
+                    <li>Taste &amp; Flavour</li>
+                    <li>Aviaan</li>
+                    <li>BLCKWHITE</li>
+                    <li>Pinnacle</li>
+                    <li>Evoque</li>
+                    <li>Arcadia Builders</li>
+                    <li>Azure Villas &amp; Resorts</li>
+                    <li>Honour</li>
+                    <li>One Latte</li>
+                    <li>Prakrti</li>
+                    <li>Eclat</li>
+                    <li>Blackbird</li>
+                    <li>Lujuria</li>
+                    <li>William &amp; Collins</li>
+                    <li>Navi Transportation</li>
+                </ul>
             </div>
-            <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-container">
-                <img src="image/11 pinaacle.png" alt="Branding">
+        </section>
+
+        <!-- What's included -->
+        <section class="capabilities-section">
+            <div class="section-container">
+                <p class="eyebrow reveal">What's included</p>
+
+                <div class="capability open reveal">
+                    <button class="capability-trigger" aria-expanded="true" type="button">
+                        <span class="capability-index">01</span>
+                        <span class="capability-name">Brand Strategy</span>
+                        <span class="capability-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="capability-panel">
+                        <p>Positioning, audience and voice — the thinking that has to happen before anything gets drawn.</p>
+                    </div>
+                </div>
+
+                <div class="capability reveal">
+                    <button class="capability-trigger" aria-expanded="false" type="button">
+                        <span class="capability-index">02</span>
+                        <span class="capability-name">Visual Identity</span>
+                        <span class="capability-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="capability-panel">
+                        <p>Logo systems, colour, typography — the marks that carry the strategy into the world.</p>
+                    </div>
+                </div>
+
+                <div class="capability reveal">
+                    <button class="capability-trigger" aria-expanded="false" type="button">
+                        <span class="capability-index">03</span>
+                        <span class="capability-name">Brand Guidelines</span>
+                        <span class="capability-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="capability-panel">
+                        <p>A rulebook for using the identity consistently — for your team, and for anyone you hire next.</p>
+                    </div>
+                </div>
+
+                <div class="capability reveal">
+                    <button class="capability-trigger" aria-expanded="false" type="button">
+                        <span class="capability-index">04</span>
+                        <span class="capability-name">Packaging &amp; Collateral</span>
+                        <span class="capability-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="capability-panel">
+                        <p>Print, packaging and stationery — where the identity gets held in hand, not just looked at.</p>
+                    </div>
+                </div>
+
+                <div class="capability reveal">
+                    <button class="capability-trigger" aria-expanded="false" type="button">
+                        <span class="capability-index">05</span>
+                        <span class="capability-name">Rollout &amp; Applications</span>
+                        <span class="capability-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="capability-panel">
+                        <p>Social, web and signage — getting the identity out and applied everywhere it needs to show up.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selected work -->
+        <section class="work">
+            <div class="section-container">
+                <p class="eyebrow reveal">Selected work</p>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/223570073/Taste-Flavor-Restaurant" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/15 taste&flvour.png" alt="Taste & Flavour Restaurant brand identity" data-fallback-initials="TF">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Restaurant Branding</span>
+                        <h2>Taste &amp; Flavour Restaurant</h2>
+                        <p>Designed a powerful brand identity that stands out in the market.</p>
+                        <a href="https://www.behance.net/gallery/223570073/Taste-Flavor-Restaurant" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/1 aviaan.png" alt="Aviaan brand identity" data-fallback-initials="AV">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Metal Industry Branding</span>
+                        <h2>Aviaan</h2>
+                        <p>TUSDIO created a dynamic brand identity for Aviaan, bringing their vision to life with a clean and modern aesthetic.</p>
+                        <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/12 blckwhite.png" alt="BLCKWHITE brand identity" data-fallback-initials="BW">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Brand Identity</span>
+                        <h2>BLCKWHITE</h2>
+                        <p>Designed a powerful brand identity that stands out in the market.</p>
+                        <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/11 pinaacle.png" alt="Pinnacle brand identity" data-fallback-initials="PN">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Architecture Branding</span>
+                        <h2>Pinnacle</h2>
+                        <p>TUSDIO's work on Pinnacle's brand identity embodies strength and growth, with a sleek design that elevates the brand to new heights.</p>
+                        <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/2 evoque.png" alt="Evoque brand identity" data-fallback-initials="EV">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Luxury Brand Identity</span>
+                        <h2>Evoque</h2>
+                        <p>Designed by TUSDIO, Evoque's brand identity fuses sophistication and simplicity, capturing the essence of timeless luxury.</p>
+                        <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/13 arcadia builders.png" alt="Arcadia Builders brand identity" data-fallback-initials="AB">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Construction Branding</span>
+                        <h2>Arcadia Builders</h2>
+                        <p>Designed a powerful brand identity that stands out in the market.</p>
+                        <a href="" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/14 azure villas & resorts.png" alt="Azure Villas & Resorts brand identity" data-fallback-initials="AZ">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Hospitality Branding</span>
+                        <h2>Azure Villas &amp; Resorts</h2>
+                        <p>Designed a powerful brand identity that stands out in the market.</p>
+                        <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/4 honour.png" alt="Honour brand identity" data-fallback-initials="HN">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Wellness Branding</span>
+                        <h2>Honour</h2>
+                        <p>With TUSDIO's design expertise, Honour's brand identity stands as a beacon of trust, elegance, and integrity in its industry.</p>
+                        <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/5 one latte.png" alt="One Latte brand identity" data-fallback-initials="OL">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Café Branding</span>
+                        <h2>One Latte</h2>
+                        <p>TUSDIO's unique branding for One Latte captures the essence of warmth and quality, offering a visually inviting experience for every coffee lover.</p>
+                        <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/6 prakrti.png" alt="Prakrti brand identity" data-fallback-initials="PR">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Culinary Branding</span>
+                        <h2>Prakrti</h2>
+                        <p>TUSDIO's creative vision for Prakrti's brand identity connects nature's pure beauty with a modern twist, making it a brand to remember.</p>
+                        <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/7 eclate.png" alt="Eclat brand identity" data-fallback-initials="EC">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Luxury Brand Identity</span>
+                        <h2>Eclat</h2>
+                        <p>Developed by TUSDIO, Eclat's brand identity radiates luxury and prestige, setting it apart in a competitive market.</p>
+                        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/8 blackbird.png" alt="Blackbird brand identity" data-fallback-initials="BB">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Luxury Brand Identity</span>
+                        <h2>Blackbird</h2>
+                        <p>TUSDIO's sleek and modern approach to Blackbird's brand identity conveys a sense of exclusivity, with an edge that speaks to the modern luxury seeker.</p>
+                        <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/9 lujuria.png" alt="Lujuria brand identity" data-fallback-initials="LJ">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Fashion Branding</span>
+                        <h2>Lujuria</h2>
+                        <p>TUSDIO designed Lujuria's bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
+                        <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reverse reveal">
+                    <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/10 william.png" alt="William & Collins brand identity" data-fallback-initials="WC">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Law Firm Branding</span>
+                        <h2>William &amp; Collins</h2>
+                        <p>TUSDIO's refined branding for William &amp; Collins perfectly balances tradition with modernity, making it an unforgettable mark of class.</p>
+                        <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+                <article class="case-study reveal">
+                    <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="case-image-link">
+                        <div class="case-image-wrap">
+                            <img src="image/3 Navi transportation.png" alt="Navi Transportation brand identity" data-fallback-initials="NV">
+                        </div>
+                    </a>
+                    <div class="case-copy">
+                        <span class="case-tag">Transportation Branding</span>
+                        <h2>Navi Transportation</h2>
+                        <p>TUSDIO crafted a bold and efficient brand identity for Navi Transportation, reflecting speed, reliability, and forward-thinking innovation.</p>
+                        <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="case-link">View case study →</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="section-container">
+                <p class="eyebrow reveal">Start a project</p>
+                <h2 class="cta-title reveal">Your brand's next case study starts here.</h2>
+                <a href="../../Nav Bar/Contact Us/index.html" class="btn btn-primary reveal">Start an inquiry</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="section-container footer-inner">
+            <a href="/" class="logo-link">
+                <div class="logo">TUSDIO.</div>
             </a>
-    </section>
-        
-    
-
-<!-- Section 11 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Evoque</h2>
-        <p>Designed by TUSDIO, Evoque's brand identity fuses sophistication and simplicity, capturing the essence of timeless luxury.</p>
-        <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-container">
-        <img src="image/2 evoque.png" alt="Branding">
-    </a>
-</section>
-
-<!-- Section 10 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Arcadia Builders</h2>
-        <p>Designed a powerful brand identity that stands out in the market.</p>
-        <a href="" class="btn">View Case Study</a>
-    </div>
-    <a href="" class="image-container">
-        <img src="image/13 arcadia builders.png" alt="Branding">
-    </a>
-</section>
-
-<!-- Section 9 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Azure Villas & Resorts</h2>
-        <p>Designed a powerful brand identity that stands out in the market.</p>
-        <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="image-container">
-        <img src="image/14 azure villas & resorts.png" alt="Branding">
-    </a>
-</section>
-
-
-
-<!-- Section 8 (Image Right, Text Left) -->
-<section class="case-study">
-    <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="image-container">
-        <img src="image/4 honour.png" alt="Product 1">
-    </a>
-    <div class="text-container">
-        <h2>Honour</h2>
-        <p>With TUSDIO's design expertise, Honour’s brand identity stands as a beacon of trust, elegance, and integrity in its industry.</p>
-        <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="btn">View Case Study</a>
-    </div>
-</section>
-
-<!-- Section 7 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>One Latte</h2>
-        <p>TUSDIO’s unique branding for One Latte captures the essence of warmth and quality, offering a visually inviting experience for every coffee lover.</p>
-        <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-container">
-        <img src="image/5 one latte.png" alt="Branding">
-    </a>
-</section>
-
-<!-- Section 6 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Prakrti</h2>
-        <p>TUSDIO's creative vision for Prakrti’s brand identity connects nature’s pure beauty with a modern twist, making it a brand to remember.</p>
-        <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-container">
-        <img src="image/6 prakrti.png" alt="Branding">
-    </a>
-</section>
-
-
-
-    <!-- Section 5 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-container">
-            <img src="image/7 eclate.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>Eclat</h2>
-            <p>Developed by TUSDIO, Eclat’s brand identity radiates luxury and prestige, setting it apart in a competitive market.</p>
-            <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="btn">View Case Study</a>
+            <p class="footer-tagline">A branding studio building identities that last.</p>
+            <ul class="footer-links">
+                <li><a href="../../Nav Bar/About Us/index.html">About</a></li>
+                <li><a href="../../Nav Bar/Services/index.html">Services</a></li>
+                <li><a href="../../Nav Bar/Package/index.html">Package</a></li>
+                <li><a href="../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                <li><a href="../../Nav Bar/Contact Us/index.html">Contact</a></li>
+            </ul>
+            <p class="footer-copy">&copy; <span id="footerYear">2026</span> TUSDIO. All rights reserved.</p>
         </div>
-    </section>
-    
-    <!-- Section 4 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Blackbird</h2>
-            <p>TUSDIO’s sleek and modern approach to Blackbird’s brand identity conveys a sense of exclusivity, with an edge that speaks to the modern luxury seeker.</p>
-            <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-container">
-            <img src="image/8 blackbird.png" alt="Branding">
-        </a>
-    </section>
-    
-    <!-- Section 3 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="image-container">
-            <img src="image/9 lujuria.png" alt="Visual Identity">
-        </a>
-        <div class="text-container">
-            <h2>Lujuria</h2>
-            <p>TUSDIO designed Lujuria’s bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
-            <a href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance" class="btn">View Case Study</a>
-        </div>
-    </section>
-    
-    <!-- Section 2 (Image Right, Text Left) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="image-container">
-            <img src="image/10 william.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>William & Collins</h2>
-            <p>TUSDIO’s refined branding for William & Collins perfectly balances tradition with modernity, making it an unforgettable mark of class.</p>
-            <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="btn">View Case Study</a>
-        </div>
-    </section>
-    
+    </footer>
 
-    <!-- Section 1 (Image Left, Text Right) -->
-    <section class="case-study">
-    <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="image-container">
-        <img src="image/3 Navi transportation.png" alt="Visual Identity">
-    </a>
-    <div class="text-container">
-        <h2>Navi Transportation</h2>
-        <p>TUSDIO crafted a bold and efficient brand identity for Navi Transportation, reflecting speed, reliability, and forward-thinking innovation.</p>
-        <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="btn">View Case Study</a>
-    </div>
-    </section>
+    <button class="back-to-top" aria-label="Back to top">↑</button>
 
-    
-</body>    
+</body>
+</html>
