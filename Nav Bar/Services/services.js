@@ -14,6 +14,30 @@ if (menuToggle && nav) {
     const isExpanded = nav.classList.contains("active");
     menuToggle.setAttribute("aria-expanded", String(isExpanded));
   });
+
+  nav.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", event => {
+    const isOpen = nav.classList.contains("active");
+    if (!isOpen) return;
+    const clickedInside = nav.contains(event.target) || menuToggle.contains(event.target);
+    if (!clickedInside) {
+      nav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && nav.classList.contains("active")) {
+      nav.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
 }
 
 // Navbar user state
@@ -74,3 +98,40 @@ function revealOnScroll() {
 
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
+
+// Footer year
+const footerYear = document.getElementById("footerYear");
+if (footerYear) footerYear.textContent = String(new Date().getFullYear());
+
+// Scroll progress + back to top
+const progressBar = document.querySelector(".scroll-progress span");
+const backToTop = document.querySelector(".back-to-top");
+
+let scrollTicking = false;
+
+function updateScrollProgress() {
+  const scrollTop = window.scrollY;
+  const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = documentHeight > 0 ? Math.min(1, Math.max(0, scrollTop / documentHeight)) : 0;
+
+  if (progressBar) progressBar.style.height = `${progress * 100}%`;
+  if (backToTop) backToTop.classList.toggle("visible", scrollTop > window.innerHeight * 0.6);
+
+  scrollTicking = false;
+}
+
+if (backToTop) {
+  backToTop.addEventListener("click", () => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  });
+}
+
+window.addEventListener("scroll", () => {
+  if (!scrollTicking) {
+    requestAnimationFrame(updateScrollProgress);
+    scrollTicking = true;
+  }
+}, { passive: true });
+
+updateScrollProgress();
