@@ -4,22 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Canonical -->
   <link rel="canonical" href="https://tusdio.online/portfolio/index.html" />
 
-  <!-- SEO Title -->
   <title>TUSDIO Portfolio | Branding, Visual Identity, Product Design & Marketing Work</title>
 
-  <!-- SEO Description -->
   <meta
     name="description"
     content="Explore the TUSDIO portfolio featuring branding, visual identity, product design, and digital marketing work created for modern brands and growing businesses."
   />
 
-  <!-- Theme -->
   <meta name="theme-color" content="#000000" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tusdio.online/portfolio/index.html" />
   <meta property="og:title" content="TUSDIO Portfolio | Creative Work for Modern Brands" />
@@ -30,7 +25,6 @@
   <meta property="og:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
   <meta property="og:image:alt" content="TUSDIO portfolio and creative work preview" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://tusdio.online/portfolio/index.html" />
   <meta name="twitter:title" content="TUSDIO Portfolio | Creative Work for Modern Brands" />
@@ -41,7 +35,6 @@
   <meta name="twitter:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
   <meta name="twitter:image:alt" content="TUSDIO portfolio and creative work preview" />
 
-  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,14 +46,18 @@
   }
   </script>
 
-  <!-- Styles -->
   <link rel="stylesheet" href="portfolio.css" />
-
-  <!-- Script -->
   <script type="module" src="portfolio.js" defer></script>
 </head>
 
 <body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- =====================================================
+       HEADER — unchanged
+  ====================================================== -->
   <header>
     <div class="container nav-shell">
       <a href="../../index.html" class="logo-link">
@@ -85,104 +82,324 @@
     </div>
   </header>
 
-  <div class="bg-blur blur-1"></div>
-  <div class="bg-blur blur-2"></div>
+  <main class="portfolio-page" id="main">
 
-  <main class="portfolio-page">
-    <section class="hero-section">
-      <div class="hero-card glass">
-        <p class="eyebrow">Portfolio</p>
-        <h1 class="hero-title">
-          Welcome to <span class="typing"></span>
-        </h1>
-        <p class="hero-copy">
-          A closer look at how TUSDIO builds branding, visual systems, product presence,
-          and digital creative work that feels sharper, cleaner, and more premium.
+    <!-- =====================================================
+         HERO — image-led, built from real project work
+    ====================================================== -->
+    <section class="hero" id="heroSection">
+
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-bg-grid" id="heroBgGrid">
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/aviaan%201.png" alt="" loading="eager" />
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/evoque%209%20.1.png" alt="" loading="eager" />
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/blackbird%205.png" alt="" loading="eager" />
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/story%201.png" alt="" loading="eager" />
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/luxuria%207.png" alt="" loading="eager" />
+          <img class="hero-bg-img" src="https://tusdio.online/images/description/blckwhite%2010.png" alt="" loading="eager" />
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-grain" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero-content section-container">
+
+        <p class="hero-eyebrow reveal">Portfolio — Selected Work</p>
+
+        <h2 class="hero-title reveal">
+          We turn ambitious brands<br />into identities people remember.
+        </h2>
+
+        <p class="hero-sub reveal">
+          Branding, visual identity, product design, and digital marketing —
+          built for founders who want their work seen, not just finished.
         </p>
 
-        <div class="hero-actions">
-          <a href="#work-grid" class="primary-btn">Explore Work</a>
-          <a href="https://www.behance.net/tusdio" class="secondary-btn" target="_blank">Behance</a>
+        <ul class="hero-services reveal" aria-label="What we do">
+          <li>Branding</li>
+          <li>Visual Identity</li>
+          <li>Product Design</li>
+          <li>Digital Marketing</li>
+        </ul>
+
+        <div class="hero-actions reveal">
+          <a href="#work-index" class="btn btn-primary">Explore Work</a>
+          <a href="https://www.behance.net/tusdio" class="btn btn-ghost" target="_blank" rel="noopener">View on Behance</a>
         </div>
+
       </div>
+
+      <a href="#work-index" class="hero-scroll" aria-label="Scroll to work">
+        <span class="hero-scroll-line" aria-hidden="true"></span>
+        Scroll
+      </a>
+
     </section>
 
-    <section class="intro-section">
-      <div class="content-block glass">
+    <!-- =====================================================
+         STATEMENT — intro copy
+    ====================================================== -->
+    <section class="statement-section reveal">
+      <div class="section-container statement-grid">
         <p class="eyebrow">Introduction</p>
-        <h2>Creative work built to move brands forward.</h2>
-        <p>
-          Welcome to TUSDIO, a creative agency dedicated to transforming ideas into innovative,
-          user-focused brand experiences. We work across Logo Design, Branding, Product Design,
-          Social Media Marketing, and Content Strategy. With experience across 50+ projects,
+        <h2 class="statement-heading">Creative work built to move brands forward.</h2>
+        <p class="statement-copy">
+          TUSDIO is a creative agency dedicated to transforming ideas into innovative,
+          user-focused brand experiences. We work across logo design, branding, product design,
+          social media marketing, and content strategy. With experience across 50+ projects,
           our focus is always the same — create work that looks premium, feels intentional,
           and helps brands stand out with clarity.
         </p>
       </div>
     </section>
 
-    <section class="case-grid-section" id="work-grid">
-      <div class="section-head">
-        <p class="eyebrow">Selected Work</p>
-        <h2>Case studies across our core services.</h2>
+    <!-- =====================================================
+         WORK INDEX — services overview, unchanged behaviour
+    ====================================================== -->
+    <section class="work-section" id="work-index">
+      <div class="section-container">
+
+        <div class="work-head reveal">
+          <p class="eyebrow">What We Do</p>
+          <h2 class="work-title">Case studies across our core services.</h2>
+
+          <div class="work-filters" role="group" aria-label="Filter case studies">
+            <button class="filter-pill is-active" data-filter="all" type="button" aria-pressed="true">All</button>
+            <button class="filter-pill" data-filter="product" type="button" aria-pressed="false">Product Development</button>
+            <button class="filter-pill" data-filter="branding" type="button" aria-pressed="false">Branding</button>
+            <button class="filter-pill" data-filter="visual" type="button" aria-pressed="false">Visual Identity</button>
+            <button class="filter-pill" data-filter="marketing" type="button" aria-pressed="false">Digital Marketing</button>
+          </div>
+        </div>
+
+        <div class="work-list reveal" id="workList">
+
+          <a class="work-row" data-category="product" data-image="Images/Product design.png"
+             href="../../Our services pages/product development/product-development.html">
+            <span class="work-num">01</span>
+            <img class="work-thumb" src="Images/Product design.png" alt="" loading="lazy" />
+            <span class="work-name">
+              Product Development
+              <span class="work-desc">Launch-ready product visuals — from concept to market-ready presence.</span>
+            </span>
+            <span class="work-tag">Product Design</span>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="work-row" data-category="branding" data-image="Images/Aviaan.png"
+             href="../../Our services pages/Branding/branding.html">
+            <span class="work-num">02</span>
+            <img class="work-thumb" src="Images/Aviaan.png" alt="" loading="lazy" />
+            <span class="work-name">
+              Branding
+              <span class="work-desc">Brand foundations with presence — identities that connect and build recall.</span>
+            </span>
+            <span class="work-tag">Branding</span>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="work-row" data-category="visual" data-image="Images/Logo Design.png"
+             href="../../Our services pages/Visual identity/visual.html">
+            <span class="work-num">03</span>
+            <img class="work-thumb" src="Images/Logo Design.png" alt="" loading="lazy" />
+            <span class="work-name">
+              Visual Identity
+              <span class="work-desc">Visual systems that feel premium — a complete language across touchpoints.</span>
+            </span>
+            <span class="work-tag">Visual Identity</span>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </a>
+
+          <a class="work-row" data-category="marketing" data-image="Images/social media marketing.png"
+             href="../../Our services pages/Digital Marketing/digital.html">
+            <span class="work-num">04</span>
+            <img class="work-thumb" src="Images/social media marketing.png" alt="" loading="lazy" />
+            <span class="work-name">
+              Digital Marketing
+              <span class="work-desc">Creative direction for growth — content and visuals that stay consistent.</span>
+            </span>
+            <span class="work-tag">Digital Marketing</span>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
       </div>
 
-      <div class="case-grid">
-        <article class="case-card glass">
-          <a href="../../Our services pages/product development/product-development.html" class="case-image">
-            <img src="Images/Product design.png" alt="Product Development" />
-          </a>
-          <div class="case-content">
-            <p class="case-tag">01 · Product Development</p>
-            <h3>Launch-ready product visuals</h3>
-            <p>From concept to market-ready presence, we shape products that feel refined, modern, and built to stand out.</p>
-            <a href="../../Our services pages/product development/product-development.html" class="case-btn">View Case Study</a>
-          </div>
-        </article>
-
-        <article class="case-card glass">
-          <a href="../../Our services pages/Branding/branding.html" class="case-image">
-            <img src="Images/Aviaan.png" alt="Branding" />
-          </a>
-          <div class="case-content">
-            <p class="case-tag">02 · Branding</p>
-            <h3>Brand foundations with presence</h3>
-            <p>We create identities that connect, build recall, and give brands a stronger, clearer starting point.</p>
-            <a href="../../Our services pages/Branding/branding.html" class="case-btn">View Case Study</a>
-          </div>
-        </article>
-
-        <article class="case-card glass">
-          <a href="../../Our services pages/Visual identity/visual.html" class="case-image">
-            <img src="Images/Logo Design.png" alt="Visual Identity" />
-          </a>
-          <div class="case-content">
-            <p class="case-tag">03 · Visual Identity</p>
-            <h3>Visual systems that feel premium</h3>
-            <p>A complete visual language designed to make every brand touchpoint feel more cohesive and elevated.</p>
-            <a href="../../Our services pages/Visual identity/visual.html" class="case-btn">View Case Study</a>
-          </div>
-        </article>
-
-        <article class="case-card glass">
-          <a href="../../Our services pages/Digital Marketing/digital.html" class="case-image">
-            <img src="Images/social media marketing.png" alt="Digital Marketing" />
-          </a>
-          <div class="case-content">
-            <p class="case-tag">04 · Digital Marketing</p>
-            <h3>Creative direction for growth</h3>
-            <p>Strategy-backed content and visual thinking that help brands stay relevant, visible, and consistent.</p>
-            <a href="../../Our services pages/Digital Marketing/digital.html" class="case-btn">View Case Study</a>
-          </div>
-        </article>
+      <div class="work-preview" id="workPreview" aria-hidden="true">
+        <img id="workPreviewImg" src="" alt="" />
       </div>
     </section>
 
-    <section class="about-band">
-      <div class="content-block glass">
+    <!-- =====================================================
+         REAL WORK — Behance case-study gallery
+    ====================================================== -->
+    <section class="gallery-section" id="real-work">
+      <div class="section-container">
+
+        <div class="gallery-head reveal">
+          <p class="eyebrow">Real Work</p>
+          <h2 class="gallery-title">Case studies from the Behance archive.</h2>
+          <p class="gallery-sub">
+            Twelve brand systems, shown in black and white here to keep the focus
+            on form — full colour lives on Behance.
+          </p>
+        </div>
+
+        <div class="gallery-grid reveal">
+
+          <a class="gallery-tile has-image tile-lg" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals"
+             style="--tile-img:url('https://tusdio.online/images/description/aviaan%201.png')">
+            <span class="tile-index">01</span>
+            <span class="tile-info">
+              <span class="tile-name">Aviaan</span>
+              <span class="tile-tag">Metals · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/204727647/EVOQUE-Building-a-Premium-Cosmetic-Identity-TUSDIO"
+             style="--tile-img:url('https://tusdio.online/images/description/evoque%209%20.1.png')">
+            <span class="tile-index">02</span>
+            <span class="tile-info">
+              <span class="tile-name">EVOQUE</span>
+              <span class="tile-tag">Cosmetics · Identity</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/202052777/BLACKBIRD-TUSDIO"
+             style="--tile-img:url('https://tusdio.online/images/description/blackbird%205.png')">
+            <span class="tile-index">03</span>
+            <span class="tile-info">
+              <span class="tile-name">BLACKBIRD</span>
+              <span class="tile-tag">Luxury · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/250584065/ECOSENDERO-Eco-Tourism-Brand-Design"
+             style="--tile-img:url('https://cdn.cosmos.so/9e2c3fff-a120-4c4f-b0d5-ffe15a509c50?format=webp')">
+            <span class="tile-index">04</span>
+            <span class="tile-info">
+              <span class="tile-name">ECOSENDERO</span>
+              <span class="tile-tag">Eco Tourism · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/219038859/Lujuria-Indulge-In-Elegance-TUSDIO"
+             style="--tile-img:url('https://tusdio.online/images/description/luxuria%207.png')">
+            <span class="tile-index">05</span>
+            <span class="tile-info">
+              <span class="tile-name">Lujuria</span>
+              <span class="tile-tag">Fashion · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/223570073/Taste-Flavour-Hospitality-Brand-Identity-TUSDIO"
+             style="--tile-img:url('https://cdn.cosmos.so/3a522e40-f207-4817-b733-c912851579c2?format=webp')">
+             
+            <span class="tile-index">06</span>
+            <span class="tile-info">
+              <span class="tile-name">Taste &amp; Flavour</span>
+              <span class="tile-tag">Hospitality · Identity</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/218857215/AAFI-Ajay-Agro-Food-Industries-Pvt-Ltd-TUSDIO"
+             style="--tile-img:url('https://cdn.cosmos.so/6f965b9f-65a5-4686-a31b-03b98676124e?format=webp')">
+            <span class="tile-index">07</span>
+            <span class="tile-info">
+              <span class="tile-name">AAFI</span>
+              <span class="tile-tag">Agro Food · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image tile-lg" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture-TUSDIO"
+             style="--tile-img:url('https://cdn.cosmos.so/b99988a4-b13d-4f1b-abab-7b1e9c4c9a2e?format=webp')">
+            <span class="tile-index">08</span>
+            <span class="tile-info">
+              <span class="tile-name">Pinnacle Architecture</span>
+              <span class="tile-tag">Architecture · Identity</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/204536263/Azure-Haven-TUSDIO"
+             style="--tile-img:url('https://cdn.cosmos.so/1884f60c-b250-4c7c-8d23-9bd9440def87?format=webp')">
+            <span class="tile-index">09</span>
+            <span class="tile-info">
+              <span class="tile-name">Azure Haven</span>
+              <span class="tile-tag">Hospitality · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/211467587/BLCKWHITE-Streetwear-Identity-TUSDIO"
+             style="--tile-img:url('https://tusdio.online/images/description/blckwhite%2010.png')">
+            <span class="tile-index">10</span>
+            <span class="tile-info">
+              <span class="tile-name">BLCKWHITE</span>
+              <span class="tile-tag">Streetwear · Identity</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm"
+             style="--tile-img:url('https://cdn.cosmos.so/6604cedd-f058-4cb3-b6b2-188c7423469a?format=webp')">
+            <span class="tile-index">11</span>
+            <span class="tile-info">
+              <span class="tile-name">William Collins</span>
+              <span class="tile-tag">Law Firm · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a class="gallery-tile has-image" target="_blank" rel="noopener"
+             href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness"
+             style="--tile-img:url('https://cdn.cosmos.so/874c9064-a936-4df8-9610-655ec9b5bc7d?format=webp')">
+            <span class="tile-index">12</span>
+            <span class="tile-info">
+              <span class="tile-name">HONOUR</span>
+              <span class="tile-tag">Wellness · Branding</span>
+            </span>
+            <span class="tile-arrow" aria-hidden="true">↗</span>
+          </a>
+
+        </div>
+
+        <p class="gallery-foot reveal">
+          <a href="https://www.behance.net/tusdio" target="_blank" rel="noopener" class="gallery-foot-link">
+            See the full archive on Behance ↗
+          </a>
+        </p>
+
+      </div>
+    </section>
+
+    <!-- =====================================================
+         STATEMENT — about band
+    ====================================================== -->
+    <section class="statement-section statement-section--alt reveal">
+      <div class="section-container statement-grid">
         <p class="eyebrow">About TUSDIO</p>
-        <h2>We care about direction, not just decoration.</h2>
-        <p>
+        <h2 class="statement-heading">We care about direction, not just decoration.</h2>
+        <p class="statement-copy">
           At TUSDIO, we believe design should do more than look good. It should give your brand
           a stronger presence, better clarity, and a sharper identity in the real world.
           From logo systems and product visuals to strategic content direction, we build work
@@ -191,120 +408,119 @@
       </div>
     </section>
 
-    <section class="why-section">
-      <div class="section-head">
-        <p class="eyebrow">Why Choose TUSDIO</p>
-        <h2>Built on expertise, innovation, and clarity.</h2>
-      </div>
-
-      <div class="why-grid">
-        <div class="why-card glass">
-          <h3>Expertise</h3>
-          <p>Cross-disciplinary experience in design, brand systems, product visuals, and growth-focused creative execution.</p>
+    <!-- =====================================================
+         WHY — ledger rows (same system as About)
+    ====================================================== -->
+    <section class="ledger-section">
+      <div class="section-container">
+        <div class="ledger-head reveal">
+          <p class="eyebrow">Why Choose TUSDIO</p>
+          <h2 class="ledger-title">Built on expertise, innovation, and clarity.</h2>
         </div>
 
-        <div class="why-card glass">
-          <h3>Innovation</h3>
-          <p>We stay close to modern trends and evolving visuals so the outcome feels current, relevant, and forward-thinking.</p>
-        </div>
-
-        <div class="why-card glass">
-          <h3>Collaboration</h3>
-          <p>Every project is shaped through clear communication, shared alignment, and smart creative decision-making.</p>
-        </div>
-
-        <div class="why-card glass">
-          <h3>End-to-End Service</h3>
-          <p>From concept to final execution, we handle the full journey so the result feels polished and complete.</p>
+        <div class="ledger reveal">
+          <div class="ledger-row">
+            <span class="ledger-num">01</span>
+            <span class="ledger-name">Expertise</span>
+            <span class="ledger-desc">Cross-disciplinary experience in design, brand systems, product visuals, and growth-focused creative execution.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">02</span>
+            <span class="ledger-name">Innovation</span>
+            <span class="ledger-desc">We stay close to modern trends and evolving visuals so the outcome feels current, relevant, and forward-thinking.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">03</span>
+            <span class="ledger-name">Collaboration</span>
+            <span class="ledger-desc">Every project is shaped through clear communication, shared alignment, and smart creative decision-making.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">04</span>
+            <span class="ledger-name">End-to-End Service</span>
+            <span class="ledger-desc">From concept to final execution, we handle the full journey so the result feels polished and complete.</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="process-wrap">
-      <p class="timeline-heading">Process</p>
+    <!-- =====================================================
+         PROCESS — clickable tabs
+    ====================================================== -->
+    <section class="process-section">
+      <div class="section-container">
 
-      <section class="timeline glass">
-        <div class="timeline-container">
-          <div class="line"></div>
-
-          <div class="timeline-step active" onclick="showStep(0)">
-            <span class="step-title">Start</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(1)">
-            <span class="step-title">Meeting</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(2)">
-            <span class="step-title">Proposal</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(3)">
-            <span class="step-title">Agreement</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(4)">
-            <span class="step-title">Deposit</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(5)">
-            <span class="step-title">Preview</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(6)">
-            <span class="step-title">Payment</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
-          <div class="timeline-step" onclick="showStep(7)">
-            <span class="step-title">Final</span>
-            <div class="circle"><div class="inner-circle"></div></div>
-          </div>
+        <div class="process-head reveal">
+          <p class="eyebrow">Process</p>
+          <h2 class="process-title">Simple, structured, and clear from start to finish.</h2>
         </div>
 
-        <div id="step-description" class="step-description">
-          <h2 id="step-title">Start</h2>
-          <p id="step-text">We get inquiries from clients through email, website, or social media.</p>
+        <div class="process-tabs reveal" role="tablist" aria-label="Our process steps">
+          <button class="process-tab is-active" type="button" onclick="showStep(0)">01 · Start</button>
+          <button class="process-tab" type="button" onclick="showStep(1)">02 · Meeting</button>
+          <button class="process-tab" type="button" onclick="showStep(2)">03 · Proposal</button>
+          <button class="process-tab" type="button" onclick="showStep(3)">04 · Agreement</button>
+          <button class="process-tab" type="button" onclick="showStep(4)">05 · Deposit</button>
+          <button class="process-tab" type="button" onclick="showStep(5)">06 · Preview</button>
+          <button class="process-tab" type="button" onclick="showStep(6)">07 · Payment</button>
+          <button class="process-tab" type="button" onclick="showStep(7)">08 · Final</button>
         </div>
-      </section>
+
+        <div class="process-panel reveal" id="step-description">
+          <h3 id="step-title">Start</h3>
+          <p id="step-text">Clients reach out via email, website, or social media. We review their needs and assess how to best assist them.</p>
+        </div>
+
+      </div>
     </section>
 
-    <section class="cta-section">
-      <div class="content-block glass center-block">
-        <p class="eyebrow">Let’s Work Together</p>
-        <h2>Ready to turn your idea into a stronger brand presence?</h2>
-        <p>
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+    <section class="cta">
+      <span class="cta-watermark" aria-hidden="true">TUSDIO.</span>
+      <div class="section-container">
+        <p class="eyebrow reveal">Let's work together</p>
+        <h2 class="cta-title reveal">Ready to turn your idea into a stronger brand presence?</h2>
+        <p class="cta-copy reveal">
           If you're ready to build something more refined, more intentional, and more memorable,
-          let’s make it happen together.
+          let's make it happen together.
         </p>
-        <a href="../Contact Us/index.html" class="primary-btn">Get in Touch</a>
+        <a href="../Contact Us/index.html" class="btn btn-primary reveal">Get in Touch</a>
       </div>
     </section>
+
   </main>
 
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-left">
-        <h2 class="footer-logo">TUSDIO.</h2>
-        <p class="footer-description">We create stunning designs and branding solutions to help businesses stand out.</p>
+  <!-- =====================================================
+       FOOTER — redesigned dark, same content & links
+  ====================================================== -->
+  <footer>
+    <div class="section-container footer-inner">
+
+      <div class="footer-col footer-brand">
+        <a href="../../index.html" class="logo-link">
+          <div class="logo">TUSDIO.</div>
+        </a>
+        <p class="footer-tagline">We create stunning designs and branding solutions to help businesses stand out.</p>
         <div class="social-links">
-          <a href="https://www.behance.net/tusdio" target="_blank">
-            <img src="./Images/Social Media Icon/1 behance.png" alt="behance" />
+          <a href="https://www.behance.net/tusdio" target="_blank" rel="noopener" aria-label="Behance">
+            <img src="./Images/Social Media Icon/1 behance.png" alt="" />
           </a>
-          <a href="https://www.instagram.com/tusdio._/profilecard/?igsh=cW82eWIxY2hudm9u" target="_blank">
-            <img src="./Images/Social Media Icon/2 instagram.png" alt="Instagram" />
+          <a href="https://www.instagram.com/tusdio._/profilecard/?igsh=cW82eWIxY2hudm9u" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="./Images/Social Media Icon/2 instagram.png" alt="" />
           </a>
-          <a href="https://www.linkedin.com/in/tushar-khan-b05224272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
-            <img src="./Images/Social Media Icon/3 linkdin.png" alt="LinkedIn" />
+          <a href="https://www.linkedin.com/in/tushar-khan-b05224272?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <img src="./Images/Social Media Icon/3 linkdin.png" alt="" />
           </a>
-          <a href="https://www.instagram.com/tusdio.site/" target="_blank">
-            <img src="./Images/Social Media Icon/4 twitter.png" alt="twitter" />
+          <a href="https://www.instagram.com/tusdio.site/" target="_blank" rel="noopener" aria-label="Twitter">
+            <img src="./Images/Social Media Icon/4 twitter.png" alt="" />
           </a>
         </div>
       </div>
 
-      <div class="footer-center">
+      <div class="footer-col">
         <h3>Quick Links</h3>
-        <ul>
+        <ul class="footer-links">
           <li><a href="../../index.html">Home</a></li>
           <li><a href="../About Us/index.html">About</a></li>
           <li><a href="../Services/index.html">Service</a></li>
@@ -314,19 +530,23 @@
         </ul>
       </div>
 
-      <div class="footer-right">
+      <div class="footer-col">
         <h3>Get Connected</h3>
-        <p>Email: <a href="mailto:contact@tusdio.com">contact@tusdio.com</a></p>
+        <p class="footer-email">Email: <a href="mailto:team@tusdio.online">team@tusdio.online</a></p>
         <form action="https://formsubmit.co/tusdio069@gmail.com" method="POST" class="footer-form">
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-          <textarea name="message" placeholder="Your Message" required></textarea>
-          <button type="submit">Send</button>
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Your email" required />
+          <textarea name="message" placeholder="Your message" required></textarea>
+          <button type="submit" class="btn btn-primary footer-submit">Send message</button>
         </form>
       </div>
+
     </div>
 
-    <p class="footer-bottom">&copy; 2024 TUSDIO. All Rights Reserved.</p>
+    <p class="footer-copy">&copy; <span id="footerYear">2026</span> TUSDIO. All rights reserved.</p>
   </footer>
+
+  <button class="back-to-top" aria-label="Back to top">↑</button>
+
 </body>
 </html>
