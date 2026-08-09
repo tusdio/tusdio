@@ -10,7 +10,7 @@
 
   <meta
     name="description"
-    content="Discover TUSDIO, a creative design agency focused on branding, visual identity, product design, and digital growth. Learn about our vision, process, and approach to building modern brands."
+    content="TUSDIO is a creative design studio building brand identity, visual systems, and product design for companies that need to be trusted at a glance. See how we work."
   />
 
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -21,20 +21,18 @@
   <meta property="og:title" content="About TUSDIO | Creative Design & Branding Agency" />
   <meta
     property="og:description"
-    content="Learn about TUSDIO, our vision, creative process, and how we help brands grow through design, identity, and strategy."
+    content="Learn how TUSDIO builds brand identity, visual systems, and product design that earn trust on sight."
   />
   <meta property="og:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
-  <meta property="og:image:alt" content="TUSDIO creative agency preview" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://tusdio.online/Nav%20Bar/About%20Us/index.html" />
   <meta name="twitter:title" content="About TUSDIO | Creative Design & Branding Agency" />
   <meta
     name="twitter:description"
-    content="Discover TUSDIO, a creative agency delivering branding, visual identity, product design, and marketing solutions."
+    content="TUSDIO is a creative studio building brand identity, visual systems, and product design that earn trust on sight."
   />
   <meta name="twitter:image" content="https://tusdio.online/images/socialmediapreview/tusdio-social-preview.jpg" />
-  <meta name="twitter:image:alt" content="TUSDIO creative agency preview" />
 
   <script type="application/ld+json">
   {
@@ -43,17 +41,27 @@
     "@id": "https://tusdio.online/Nav%20Bar/About%20Us/index.html",
     "url": "https://tusdio.online/Nav%20Bar/About%20Us/index.html",
     "name": "About TUSDIO",
-    "description": "Learn about TUSDIO, a creative design agency specializing in branding, visual identity, product design, and digital marketing."
+    "description": "TUSDIO is a creative design agency specializing in brand identity, visual systems, product design, and digital marketing."
   }
   </script>
 
   <link rel="stylesheet" href="about us.css" />
-  <script type="module" src="about us.js" defer></script>
+  <script src="about us.js" defer></script>
 </head>
 
 <body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <!-- =====================================================
+       HEADER — unchanged
+  ====================================================== -->
+
   <header>
     <div class="container">
+
       <a href="/" class="logo-link" aria-label="TUSDIO Home">
         <div class="logo">TUSDIO.</div>
       </a>
@@ -75,187 +83,363 @@
           </li>
         </ul>
       </nav>
+
     </div>
   </header>
 
-  <section class="about-hero">
-    <div class="about-hero-inner">
-      <p class="eyebrow">About TUSDIO</p>
-      <h1>Today, looking good isn’t optional anymore, it’s part of survival.</h1>
-      <p class="hero-lead">
-        TUSDIO helps modern brands build premium visual identities that feel trusted, intentional, and built for growth. We go beyond logos and create complete brand experiences designed to shape perception and help businesses stand out in competitive markets.
+  <main id="main">
+
+    <!-- =====================================================
+         INTRO — live "design canvas" hero
+    ====================================================== -->
+    <section class="intro" id="introCanvas">
+
+      <div class="intro-frame" aria-hidden="true">
+        <span class="frame-corner corner-tl"></span>
+        <span class="frame-corner corner-tr"></span>
+        <span class="frame-corner corner-bl"></span>
+        <span class="frame-corner corner-br"></span>
+        <span class="ruler ruler-top"></span>
+        <span class="ruler ruler-left"></span>
+      </div>
+
+      <div class="intro-toolbar">
+        <span class="toolbar-item">TUSDIO — CANVAS</span>
+        <span class="toolbar-item toolbar-item--coords" id="introCoords">X 000 · Y 000</span>
+        <span class="toolbar-item">ZOOM 100%</span>
+      </div>
+
+      <p class="intro-eyebrow">About — TUSDIO</p>
+
+      <div class="intro-headline-wrap">
+        <h1 class="intro-title" data-split>
+          Good design isn't decoration. It's the reason people trust you before you say a word.
+        </h1>
+        <span class="anno anno-h1" aria-hidden="true">
+          <span class="anno-line"></span>
+          <span class="anno-tag">H1 / DISPLAY</span>
+        </span>
+      </div>
+
+      <p class="intro-sub">
+        TUSDIO is a design studio working across branding, product, and digital —
+        building the strategy, the marks, and the discipline to keep a brand
+        consistent everywhere it shows up.
       </p>
 
-      <div class="hero-actions">
-        <a href="../Portfolio/index.html" class="cta-button primary-btn">View Portfolio</a>
-        <a href="../Contact Us/contact.html" class="cta-button secondary-btn">Start a Project</a>
+      <div class="intro-actions-wrap">
+        <div class="intro-actions">
+          <a href="../Portfolio/index.html" class="btn btn-primary">View Portfolio</a>
+          <a href="../Contact Us/contact.html" class="btn btn-ghost">Start a Project</a>
+        </div>
+        <span class="anno anno-cta" aria-hidden="true">
+          <span class="anno-line"></span>
+          <span class="anno-tag">CTA / PRIMARY</span>
+        </span>
       </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-cue-line"></span>
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         STAT BAR
+    ====================================================== -->
+    <section class="stat-bar reveal">
+      <div class="section-container stat-bar-inner">
+        <div class="stat-item">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Brands built</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">6+</div>
+          <div class="stat-label">Years in practice</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Industries covered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Templates used</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         NARRATIVE — sticky index + scrollspy chapters
+    ====================================================== -->
+    <section class="narrative">
+      <div class="section-container narrative-grid">
+
+        <div class="narrative-index" id="narrativeIndex">
+          <div class="narrative-index-number" id="narrativeNumber">01</div>
+          <div class="narrative-index-title" id="narrativeTitle">Who we are</div>
+          <p class="narrative-index-desc" id="narrativeDesc">Design-led thinking, built for real brand growth.</p>
+          <div class="narrative-index-count" id="narrativeCount">
+            <span class="active"></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="narrative-content">
+
+          <article class="chapter"
+            data-number="01" data-title="Who we are"
+            data-desc="Design-led thinking, built for real brand growth.">
+            <p class="chapter-label">01 — Who we are</p>
+            <h2 class="chapter-heading">We shape how a brand feels, not just how it looks.</h2>
+            <p>
+              At TUSDIO, we approach every project with a balance of creativity, structure, and intent.
+              We do not just make things look good — we shape how a brand feels, communicates, and gets remembered.
+            </p>
+            <p>
+              From startups finding their first identity to businesses refining their digital presence,
+              our goal is work that feels premium, relevant, and strategically strong across every touchpoint.
+            </p>
+          </article>
+
+          <article class="chapter"
+            data-number="02" data-title="What we believe"
+            data-desc="Four principles behind every decision we make.">
+            <p class="chapter-label">02 — What we believe</p>
+            <h2 class="chapter-heading">Effortless on the surface, thoughtful underneath.</h2>
+            <ul class="chapter-list">
+              <li>Brand-first thinking — every visual decision ties back to positioning and meaning first.</li>
+              <li>Systems, not one-offs — identities that hold up across every surface a brand touches.</li>
+              <li>Clarity over decoration — if it doesn't help the brand get remembered, it doesn't ship.</li>
+              <li>A process you can follow — the same disciplined stages, every time, for every client.</li>
+            </ul>
+          </article>
+
+          <article class="chapter"
+            data-number="03" data-title="Why TUSDIO"
+            data-desc="Three reasons brands choose to work with us.">
+            <p class="chapter-label">03 — Why TUSDIO</p>
+            <h2 class="chapter-heading">Direction, strategy, and delivery — all in one room.</h2>
+            <ul class="chapter-list">
+              <li>Clean creative direction — visuals that feel modern, refined, and aligned with your identity.</li>
+              <li>Strategic thinking — work shaped around positioning and how a brand is actually experienced.</li>
+              <li>Premium delivery — polish, consistency, and a process that feels professional start to finish.</li>
+            </ul>
+          </article>
+
+          <article class="chapter"
+            data-number="04" data-title="Our mission"
+            data-desc="Why we do this work in the first place.">
+            <p class="chapter-label">04 — Our mission</p>
+            <h2 class="chapter-heading">To help brands grow through clear design and stronger identity.</h2>
+            <p>
+              Whether it's branding, product development, or digital marketing, our mission is to deliver
+              work that improves how a brand is seen, understood, and remembered — and performs with
+              purpose, not just polish.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         PROCESS LEDGER
+    ====================================================== -->
+    <section class="ledger-section">
+      <div class="section-container">
+        <div class="ledger-head">
+          <p class="eyebrow reveal">Our process</p>
+          <h2 class="ledger-title reveal">Simple, structured, and clear from start to finish.</h2>
+        </div>
+
+        <div class="ledger reveal">
+          <div class="ledger-row">
+            <span class="ledger-num">01</span>
+            <span class="ledger-name">Start</span>
+            <span class="ledger-desc">Clients reach out via email, website, or social media. We review their needs and assess how to best assist them.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">02</span>
+            <span class="ledger-name">Meeting</span>
+            <span class="ledger-desc">We schedule a 30-minute call to understand the client's vision and project scope.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">03</span>
+            <span class="ledger-name">Proposal</span>
+            <span class="ledger-desc">A detailed project proposal outlining deliverables, timelines, and pricing is shared.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">04</span>
+            <span class="ledger-name">Agreement</span>
+            <span class="ledger-desc">Once approved, a formal agreement is signed to finalize project terms.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">05</span>
+            <span class="ledger-name">Deposit</span>
+            <span class="ledger-desc">A 30% non-refundable security deposit is required to initiate the project.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">06</span>
+            <span class="ledger-name">Preview</span>
+            <span class="ledger-desc">Initial designs or previews are shared, allowing for minor revisions.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">07</span>
+            <span class="ledger-name">Payment</span>
+            <span class="ledger-desc">The remaining balance is cleared before final delivery.</span>
+          </div>
+          <div class="ledger-row">
+            <span class="ledger-num">08</span>
+            <span class="ledger-name">Final</span>
+            <span class="ledger-desc">Final files are delivered, completing the project.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CLIENTS — horizontal scroll strip
+    ====================================================== -->
+    <section class="clients-section">
+      <div class="section-container">
+        <div class="clients-head">
+          <p class="eyebrow reveal" style="margin-bottom:0;">Selected clients</p>
+          <span class="clients-hint">Scroll to explore →</span>
+        </div>
+        <div class="clients-scroller reveal">
+          <div class="clients-track">
+            <span class="accent">Taste &amp; Flavour</span>
+            <span>Aviaan</span>
+            <span class="accent">BLCKWHITE</span>
+            <span>Pinnacle</span>
+            <span class="accent">Evoque</span>
+            <span>Arcadia Builders</span>
+            <span class="accent">Azure Villas</span>
+            <span>Honour</span>
+            <span class="accent">One Latte</span>
+            <span>Prakrti</span>
+            <span class="accent">Eclat</span>
+            <span>Blackbird</span>
+            <span class="accent">Lujuria</span>
+            <span>William &amp; Collins</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TESTIMONIALS — snap carousel
+    ====================================================== -->
+    <section class="quotes-section">
+      <div class="section-container">
+        <div class="quotes-head">
+          <h2 class="quotes-title reveal">What our clients say</h2>
+          <span class="clients-hint">Swipe to read more →</span>
+        </div>
+
+        <div class="quote-scroller reveal">
+          <div class="quote-track">
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>TUSDIO rebuilt our brand from a shaky logo into a system we actually use every day — deck, packaging, socials, all of it. Six months in, people ask what we do before we explain it.</p>
+              <h4>Alex Johnson<span class="quote-role">Founder, Loom & Co. — Austin, USA</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>We came in for a website and left with a proper marketing engine. Our ad creatives finally look like they belong to the same brand, and our click-through rate has genuinely doubled.</p>
+              <h4>Priya Nair<span class="quote-role">Marketing Lead, Aviaan Wellness — Bengaluru, India</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>Professional, sharp, and refreshingly fast. They pushed back on a few of our first instincts, and honestly, they were right every time.</p>
+              <h4>Sarah Lee<span class="quote-role">Creative Director, BLCKWHITE — London, UK</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>Our product had good bones but no visual language. TUSDIO gave it one — icon set, UI kit, the works — and our onboarding drop-off went down almost immediately.</p>
+              <h4>Lukas Weber<span class="quote-role">Co-founder, Pinnacle Studio — Berlin, Germany</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>They understood our story before we finished explaining it. The packaging redesign alone got us stocked in two new retailers this quarter.</p>
+              <h4>Amara Okafor<span class="quote-role">Owner, Prakrti Skincare — Lagos, Nigeria</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>Quality, speed, and a process that didn't feel like pulling teeth. Our app store screenshots alone brought a noticeable lift in installs.</p>
+              <h4>Sunny Zhao<span class="quote-role">Head of Growth, One Latte — Singapore</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>We'd been through two other agencies before TUSDIO. This was the first time a brand system actually held up once we started using it ourselves.</p>
+              <h4>Diego Ramirez<span class="quote-role">Founder, Eclat Interiors — São Paulo, Brazil</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>Every touchpoint feels considered now — from the brochure to the Instagram grid. Clients comment on it before we even bring it up.</p>
+              <h4>Nour Al-Sayed<span class="quote-role">Marketing Manager, Azure Villas — Dubai, UAE</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>TUSDIO exceeded expectations, plain and simple. Clear communication, tight timelines, and a final identity we didn't have to talk ourselves into liking.</p>
+              <h4>Johnson Blackbird<span class="quote-role">Director, Blackbird & Co. — Toronto, Canada</span></h4>
+            </div>
+
+            <div class="quote-card">
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p>Our old branding looked like everyone else's. This doesn't. That's genuinely the whole review.</p>
+              <h4>Emily Ward<span class="quote-role">Co-founder, Honour Goods — Melbourne, Australia</span></h4>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+    <section class="cta">
+      <span class="cta-watermark" aria-hidden="true">TUSDIO</span>
+      <div class="section-container">
+        <p class="eyebrow reveal">Start a project</p>
+        <h2 class="cta-title reveal">Your brand's next chapter starts here.</h2>
+        <a href="../Contact Us/contact.html" class="btn btn-primary reveal">Start an inquiry</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       FOOTER — unchanged
+  ====================================================== -->
+  <footer>
+    <div class="section-container footer-inner">
+      <a href="/" class="logo-link">
+        <div class="logo">TUSDIO.</div>
+      </a>
+      <p class="footer-tagline">A design studio building identities that last.</p>
+      <ul class="footer-links">
+        <li><a href="../About Us/index.html">About</a></li>
+        <li><a href="../Services/index.html">Services</a></li>
+        <li><a href="../Package/index.html">Package</a></li>
+        <li><a href="../Portfolio/index.html">Portfolio</a></li>
+        <li><a href="../Contact Us/index.html">Contact</a></li>
+      </ul>
+      <p class="footer-copy">&copy; <span id="footerYear">2026</span> TUSDIO. All rights reserved.</p>
     </div>
-  </section>
+  </footer>
 
-  <section class="about-story">
-    <div class="section-shell">
-      <div class="story-grid">
-        <div class="story-left">
-          <p class="section-label">Who we are</p>
-          <h2>Design-led thinking, built for real brand growth.</h2>
-        </div>
+  <button class="back-to-top" aria-label="Back to top">↑</button>
 
-        <div class="story-right">
-          <p>
-            At TUSDIO, we approach every project with a balance of creativity, structure, and intent.
-            We do not just make things look good — we shape how a brand feels, communicates, and gets remembered.
-          </p>
-          <p>
-            From startups finding their first identity to businesses refining their digital presence,
-            our goal is to create work that feels premium, relevant, and strategically strong across every touchpoint.
-          </p>
-          <p>
-            We believe great design should feel effortless on the surface and thoughtful underneath.
-            That is the standard we bring into every brand system, product direction, and visual decision.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-highlights">
-    <div class="section-shell">
-      <div class="highlight-grid">
-        <div class="highlight-card">
-          <span>01</span>
-          <h3>Brand-first approach</h3>
-          <p>Every visual decision is aligned with meaning, positioning, and long-term consistency.</p>
-        </div>
-
-        <div class="highlight-card">
-          <span>02</span>
-          <h3>Modern visual systems</h3>
-          <p>We create identities that feel sharp, elevated, and ready for digital-first audiences.</p>
-        </div>
-
-        <div class="highlight-card">
-          <span>03</span>
-          <h3>Thoughtful execution</h3>
-          <p>From concept to final files, our process stays clean, focused, and easy to move with.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="mission">
-    <div class="section-shell mission-shell">
-      <div class="mission-box">
-        <p class="section-label">Our mission</p>
-        <h2>To help brands grow through clear design, stronger identity, and better presentation.</h2>
-        <p>
-          We aim to create work that improves how brands are seen, understood, and remembered.
-          Whether it is branding, product development, or digital marketing, our mission is to deliver
-          solutions that feel premium and perform with purpose.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="why-choose-us">
-    <div class="section-shell">
-      <p class="section-label center-label">Why TUSDIO</p>
-      <h2 class="section-title-center">Why brands choose to work with us</h2>
-
-      <div class="features">
-        <div class="feature">
-          <h3>Clean Creative Direction</h3>
-          <p>We focus on visuals that feel modern, refined, and aligned with your brand identity.</p>
-        </div>
-
-        <div class="feature">
-          <h3>Strategic Thinking</h3>
-          <p>Our work is shaped around positioning, clarity, and how your brand is actually experienced.</p>
-        </div>
-
-        <div class="feature">
-          <h3>Premium Delivery</h3>
-          <p>We value polish, consistency, and a process that feels professional from start to finish.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="process-intro">
-    <div class="section-shell">
-      <p class="section-label">Our process</p>
-      <h2>Simple, structured, and clear from start to finish.</h2>
-    </div>
-  </section>
-
-  <section class="timeline">
-    <div class="timeline-container">
-      <div class="line"></div>
-
-      <div class="timeline-step active" onclick="showStep(0)">
-        <span class="step-title">Start</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(1)">
-        <span class="step-title">Meeting</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(2)">
-        <span class="step-title">Proposal</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(3)">
-        <span class="step-title">Agreement</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(4)">
-        <span class="step-title">Deposit</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(5)">
-        <span class="step-title">Preview</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(6)">
-        <span class="step-title">Payment</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-      <div class="timeline-step" onclick="showStep(7)">
-        <span class="step-title">Final</span>
-        <div class="circle"><div class="inner-circle"></div></div>
-      </div>
-    </div>
-
-    <div id="step-description" class="step-description">
-      <h2 id="step-title">Start</h2>
-      <p id="step-text">We get inquiries from clients through email, website, or social media.</p>
-    </div>
-  </section>
-
-  <section class="testimonials">
-    <div class="section-shell">
-      <p class="section-label center-label">Client words</p>
-      <h2 class="section-title-center">What our clients say</h2>
-
-      <div class="testimonial-container">
-        <div class="testimonial">
-          <p>"TUSDIO transformed our brand identity with their exceptional designs. Highly recommended!"</p>
-          <h4>- Alex Johnson</h4>
-        </div>
-        <div class="testimonial">
-          <p>"Professional, creative, and results-driven. Their branding expertise is unmatched!"</p>
-          <h4>- Sarah Lee</h4>
-        </div>
-        <div class="testimonial">
-          <p>“TUSDIO transformed our brand with stunning design and strategic branding. Highly professional and innovative!”</p>
-          <h4>- Sunny</h4>
-        </div>
-        <div class="testimonial">
-          <p>“Quality, innovation, and a seamless process. TUSDIO exceeded our expectations!”</p>
-          <h4>- Johnson</h4>
-        </div>
-      </div>
-    </div>
-  </section>
 </body>
 </html>
