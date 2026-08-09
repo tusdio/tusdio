@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <link rel="canonical" href="https://tusdio.online/Our%20services%20pages/Visual%20identity/visual.html">
 
     <title>Visual Identity Design | Brand Elements & Guidelines | TUSDIO</title>
@@ -26,203 +25,374 @@
     <script src="visual.js" defer></script>
 </head>
 
-
 <body>
-     <!-- Hero Section -->
-     <header>
+
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header>
         <div class="container">
-            <a href="../../index.html" class="logo-link">
-                <h1 class="logo">TUSDIO.</h1>
+
+            <a href="/" class="logo-link" aria-label="TUSDIO Home">
+                <div class="logo">TUSDIO.</div>
             </a>
-            <button class="menu-toggle" aria-label="Toggle Navigation">&#9776;</button>
-            <nav>
+
+            <button class="menu-toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="primary-nav">
+                &#9776;
+            </button>
+
+            <nav id="primary-nav">
                 <ul class="nav-links">
-                    <li><a href="../../Nav Bar/About Us/about us.html">About</a></li>
-                    <li><a href="../../Nav Bar/Services/services.html">Services</a></li>
-                    <li><a href="../../Nav Bar/Package/package.html">Package</a></li>
-                    <li><a href="../../Nav Bar/Portfolio/portfolio.html">Portfolio</a></li>
-                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeAN6GxfBBL4WYO01HZunkBcBSgYfBQoe7U3iU8iC7mbozhvg/viewform ">Inquiry</a></li>
-                    <li><a href="../../Nav Bar/Contact Us/contact.html">Contact</a></li>
-                    <li><a href="../../Nav Bar/freebie/freebie.html">Freebie</a></li>
+                    <li><a href="../../Nav Bar/About Us/index.html">About</a></li>
+                    <li><a href="../../Nav Bar/Services/index.html">Services</a></li>
+                    <li><a href="../../Nav Bar/Package/index.html">Package</a></li>
+                    <li><a href="../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                    <li><a href="../../Nav Bar/Contact Us/index.html">Contact</a></li>
+                    <li><a href="../../Nav Bar/freebie/index.html">Freebie</a></li>
+                    <li id="navUserArea" class="nav-user-area">
+                        <a href="../../Nav Bar/auth/login.html">Login</a>
+                    </li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
+    <main id="main">
 
-    <section class="hero"> 
-        <h1 class="hero-title">Visual Identity</h1>
-    <p class="hero-subtitle">We tailor your dreams into reality with precision and creativity.</p>
-    </section>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="section-container hero-copy">
+                <div class="service-chip reveal">
+                    <span class="service-chip-mark" aria-hidden="true"></span>
+                    Visual Identity Design
+                </div>
+                <h1 class="hero-title reveal">
+                    One system.<br>
+                    Every touchpoint,<br>
+                    recognisable.
+                </h1>
+                <p class="hero-lede reveal">
+                    We turn a strategy into a working visual system — mark, colour,
+                    type, imagery and the rules that hold them together — so a
+                    brand looks exactly like itself on every surface it lands on.
+                </p>
+                <div class="hero-actions reveal">
+                    <a href="../../Nav Bar/Contact Us/index.html" class="btn btn-primary">Start a project</a>
+                    <span class="hero-count">14 systems designed</span>
+                </div>
+            </div>
 
-        <!-- Section 1 (Image Left, Text Right) -->
-<section class="case-study">
-    <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="image-container">
-        <img src="image/1 aviaan.png" alt="Product 1">
-    </a>
-    <div class="text-container">
-        <h2>Aviaan</h2>
-        <p>TUSDIO created a dynamic brand identity for Aviaan, bringing their vision to life with a clean and modern aesthetic.</p>
-        <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="btn">View Case Study</a>
-    </div>
-</section>
+            <div class="board-controls section-container reveal">
+                <span class="board-controls-label">Explore a different identity system</span>
+                <div class="board-controls-right">
+                    <span class="board-counter" id="boardCounter">08 / 14</span>
+                    <button class="shuffle-btn" id="shuffleBtn" type="button">
+                        <span class="shuffle-icon" aria-hidden="true"></span>
+                        Shuffle
+                    </button>
+                </div>
+            </div>
 
-<!-- Section 2 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Evoque</h2>
-        <p>Designed by TUSDIO, Evoque's brand identity fuses sophistication and simplicity, capturing the essence of timeless luxury.</p>
-        <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="image-container">
-        <img src="image/2 evoque.png" alt="Branding">
-    </a>
-</section>
+            <div class="system-board section-container reveal" id="systemBoard">
+                <a class="board-tile board-tile--photo" id="boardPhotoLink" href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" target="_blank" rel="noopener">
+                    <img id="boardPhotoImg" src="image/8 blackbird.png" alt="Blackbird visual identity, designed by TUSDIO" data-fallback-initials="BB">
+                    <span class="board-tile-label" id="boardPhotoLabel">Blackbird — View on Behance</span>
+                </a>
+                <div class="board-tile board-tile--type">
+                    <span class="glyphs" id="boardTypeGlyph">BB</span>
+                    <span class="board-tile-label">Type</span>
+                </div>
+                <div class="board-tile board-tile--grid">
+                    <span class="board-tile-label">Grid</span>
+                </div>
+                <div class="board-tile board-tile--swatch">
+                    <span class="specimen-label">Colour</span>
+                    <div class="swatch-row" id="boardSwatchRow">
+                        <span></span><span></span><span></span><span></span>
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Section 3 (Image Left, Text Right) -->
-<section class="case-study">
-    <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="image-container">
-        <img src="image/3 Navi transportation.png" alt="Visual Identity">
-    </a>
-    <div class="text-container">
-        <h2>Navi Transportation</h2>
-        <p>TUSDIO crafted a bold and efficient brand identity for Navi Transportation, reflecting speed, reliability, and forward-thinking innovation.</p>
-        <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="btn">View Case Study</a>
-    </div>
-</section>
+        <!-- Type scale -->
+        <section class="type-scale section-container reveal">
+            <span class="specimen-label">Type scale</span>
+            <div class="scale-row">
+                <span class="glyphs" style="font-size: clamp(2.4rem, 6vw, 4.2rem);">Aa Bb Cc</span>
+                <span class="size-label">72 / Display</span>
+            </div>
+            <div class="scale-row">
+                <span class="glyphs" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">Aa Bb Cc</span>
+                <span class="size-label">40 / Heading</span>
+            </div>
+            <div class="scale-row">
+                <span class="glyphs" style="font-size: clamp(1.2rem, 2.4vw, 1.5rem);">Aa Bb Cc</span>
+                <span class="size-label">24 / Subhead</span>
+            </div>
+            <div class="scale-row">
+                <span>Aa Bb Cc — TUSDIO builds systems that hold together at any size.</span>
+                <span class="size-label">16 / Body</span>
+            </div>
+        </section>
 
-<!-- Section 4 (Image Right, Text Left) -->
-<section class="case-study">
-    <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="image-container">
-        <img src="image/4 honour.png" alt="Product 1">
-    </a>
-    <div class="text-container">
-        <h2>Honour</h2>
-        <p>With TUSDIO's design expertise, Honour’s brand identity stands as a beacon of trust, elegance, and integrity in its industry.</p>
-        <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="btn">View Case Study</a>
-    </div>
-</section>
+        <!-- System components -->
+        <section class="capabilities-section">
+            <div class="section-container">
+                <p class="eyebrow reveal">System components</p>
 
-<!-- Section 5 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>One Latte</h2>
-        <p>TUSDIO’s unique branding for One Latte captures the essence of warmth and quality, offering a visually inviting experience for every coffee lover.</p>
-        <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="image-container">
-        <img src="image/5 one latte.png" alt="Branding">
-    </a>
-</section>
+                <div class="component-grid">
+                    <div class="component-card reveal">
+                        <span class="component-icon component-icon--mark" aria-hidden="true"></span>
+                        <h3>Logo &amp; Mark</h3>
+                        <p>Primary and secondary marks, monograms and lockups — built to hold up from a favicon to a shopfront.</p>
+                    </div>
+                    <div class="component-card reveal">
+                        <span class="component-icon component-icon--colour" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <h3>Colour System</h3>
+                        <p>A defined palette with usage ratios and pairings, so colour reads as intentional everywhere it's used.</p>
+                    </div>
+                    <div class="component-card reveal">
+                        <span class="component-icon component-icon--type" aria-hidden="true">Aa</span>
+                        <h3>Typography</h3>
+                        <p>Typeface selection, hierarchy and pairing rules — the voice of the brand, set consistently.</p>
+                    </div>
+                    <div class="component-card reveal">
+                        <span class="component-icon component-icon--imagery" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                        <h3>Imagery &amp; Iconography</h3>
+                        <p>A photography direction, icon set and illustration style that all feel like the same brand shot them.</p>
+                    </div>
+                    <div class="component-card reveal">
+                        <span class="component-icon component-icon--layout" aria-hidden="true"></span>
+                        <h3>Layout &amp; Application</h3>
+                        <p>Grids and templates so the system holds together whether your team builds the next asset, or we do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- Section 5 (Image Right, Text Left) -->
-<section class="case-study reverse">
-    <div class="text-container">
-        <h2>Prakrti</h2>
-        <p>TUSDIO's creative vision for Prakrti’s brand identity connects nature’s pure beauty with a modern twist, making it a brand to remember.</p>
-        <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="btn">View Case Study</a>
-    </div>
-    <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="image-container">
-        <img src="image/6 prakrti.png" alt="Branding">
-    </a>
-</section>
+        <!-- Selected work -->
+        <section class="work">
+            <div class="section-container">
+                <p class="eyebrow reveal">Selected work</p>
 
+                <div class="case-grid">
 
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="grid-case-image">
+                            <span class="grid-case-tag">Industrial Identity</span>
+                            <img src="image/1 aviaan.png" alt="Aviaan visual identity" data-fallback-initials="AV">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Aviaan</h3>
+                            <p>TUSDIO created a dynamic brand identity for Aviaan, bringing their vision to life with a clean and modern aesthetic.</p>
+                            <a href="https://www.behance.net/gallery/198103141/Aviaan-Forging-Tomorrows-Metals" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
 
-    <!-- Section 6 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="image-container">
-            <img src="image/7 eclate.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>Eclat</h2>
-            <p>Developed by TUSDIO, Eclat’s brand identity radiates luxury and prestige, setting it apart in a competitive market.</p>
-            <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="btn">View Case Study</a>
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="grid-case-image">
+                            <span class="grid-case-tag">Luxury Identity</span>
+                            <img src="image/2 evoque.png" alt="Evoque visual identity" data-fallback-initials="EV">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Evoque</h3>
+                            <p>Designed by TUSDIO, Evoque's brand identity fuses sophistication and simplicity, capturing the essence of timeless luxury.</p>
+                            <a href="https://www.behance.net/gallery/204727647/EVOQUE" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="grid-case-image">
+                            <span class="grid-case-tag">Transportation Identity</span>
+                            <img src="image/3 Navi transportation.png" alt="Navi Transportation visual identity" data-fallback-initials="NV">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Navi Transportation</h3>
+                            <p>TUSDIO crafted a bold and efficient brand identity for Navi Transportation, reflecting speed, reliability, and forward-thinking innovation.</p>
+                            <a href="https://www.behance.net/gallery/198069861/NAVI-A-Transportation-Company" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="grid-case-image">
+                            <span class="grid-case-tag">Wellness Identity</span>
+                            <img src="image/4 honour.png" alt="Honour visual identity" data-fallback-initials="HN">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Honour</h3>
+                            <p>With TUSDIO's design expertise, Honour's brand identity stands as a beacon of trust, elegance, and integrity in its industry.</p>
+                            <a href="https://www.behance.net/gallery/198494821/HONOUR-Your-pathway-to-wellness" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="grid-case-image">
+                            <span class="grid-case-tag">Café Identity</span>
+                            <img src="image/5 one latte.png" alt="One Latte visual identity" data-fallback-initials="OL">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>One Latte</h3>
+                            <p>TUSDIO's unique branding for One Latte captures the essence of warmth and quality, offering a visually inviting experience for every coffee lover.</p>
+                            <a href="https://www.behance.net/gallery/198644515/ONE-LATTE" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="grid-case-image">
+                            <span class="grid-case-tag">Culinary Identity</span>
+                            <img src="image/6 prakrti.png" alt="Prakrti visual identity" data-fallback-initials="PR">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Prakrti</h3>
+                            <p>TUSDIO's creative vision for Prakrti's brand identity connects nature's pure beauty with a modern twist, making it a brand to remember.</p>
+                            <a href="https://www.behance.net/gallery/199113921/Prakrti-Ou-la-Nature-Rencontre-le-Dlice-Culinaire" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="grid-case-image">
+                            <span class="grid-case-tag">Luxury Identity</span>
+                            <img src="image/7 eclate.png" alt="Eclat visual identity" data-fallback-initials="EC">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Eclat</h3>
+                            <p>Developed by TUSDIO, Eclat's brand identity radiates luxury and prestige, setting it apart in a competitive market.</p>
+                            <a href="https://www.behance.net/gallery/199209017/Eclat-Savourez-le-Luxe-Goutez-la-Tradition" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="grid-case-image">
+                            <span class="grid-case-tag">Luxury Identity</span>
+                            <img src="image/8 blackbird.png" alt="Blackbird visual identity" data-fallback-initials="BB">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Blackbird</h3>
+                            <p>TUSDIO's sleek and modern approach to Blackbird's brand identity conveys a sense of exclusivity, with an edge that speaks to the modern luxury seeker.</p>
+                            <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="grid-case-image">
+                            <span class="grid-case-tag">Fashion Identity</span>
+                            <img src="image/9 lujuria.png" alt="Lujuria visual identity" data-fallback-initials="LJ">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Lujuria</h3>
+                            <p>TUSDIO designed Lujuria's bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
+                            <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="grid-case-image">
+                            <span class="grid-case-tag">Law Firm Identity</span>
+                            <img src="image/10 william.png" alt="William & Collins visual identity" data-fallback-initials="WC">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>William &amp; Collins</h3>
+                            <p>TUSDIO's refined branding for William &amp; Collins perfectly balances tradition with modernity, making it an unforgettable mark of class.</p>
+                            <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="grid-case-image">
+                            <span class="grid-case-tag">Architecture Identity</span>
+                            <img src="image/11 pinaacle.png" alt="Pinnacle visual identity" data-fallback-initials="PN">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Pinnacle</h3>
+                            <p>TUSDIO's work on Pinnacle's brand identity embodies strength and growth, with a sleek design that elevates the brand to new heights.</p>
+                            <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="grid-case-image">
+                            <span class="grid-case-tag">Brand Identity System</span>
+                            <img src="image/12 blckwhite.png" alt="Blckwhite visual identity" data-fallback-initials="BW">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Blckwhite</h3>
+                            <p>Designed a powerful brand identity that stands out in the market.</p>
+                            <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="" class="grid-case-image">
+                            <span class="grid-case-tag">Construction Identity</span>
+                            <img src="image/13 arcadia builders.png" alt="Arcadia Builders visual identity" data-fallback-initials="AB">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Arcadia Builders</h3>
+                            <p>Designed a powerful brand identity that stands out in the market.</p>
+                            <a href="" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                    <article class="grid-case reveal">
+                        <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="grid-case-image">
+                            <span class="grid-case-tag">Hospitality Identity</span>
+                            <img src="image/14 azure villas & resorts.png" alt="Azure Villas & Resorts visual identity" data-fallback-initials="AZ">
+                        </a>
+                        <div class="grid-case-copy">
+                            <h3>Azure Villas &amp; Resorts</h3>
+                            <p>Designed a powerful brand identity that stands out in the market.</p>
+                            <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="grid-case-link">View case study →</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <div class="section-container cta-panel">
+                <p class="eyebrow reveal">Start a project</p>
+                <h2 class="cta-title reveal">Your visual system, wherever your brand shows up.</h2>
+                <a href="../../Nav Bar/Contact Us/index.html" class="btn btn-primary reveal">Start an inquiry</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="section-container footer-inner">
+            <div class="footer-top">
+                <a href="/" class="logo-link">
+                    <div class="logo">TUSDIO.</div>
+                </a>
+                <p class="footer-tagline">A branding studio building identities that last.</p>
+            </div>
+
+            <nav class="footer-nav" aria-label="Footer">
+                <ul class="footer-links">
+                    <li><a href="../../Nav Bar/About Us/index.html">About</a></li>
+                    <li><a href="../../Nav Bar/Services/index.html">Services</a></li>
+                    <li><a href="../../Nav Bar/Package/index.html">Package</a></li>
+                    <li><a href="../../Nav Bar/Portfolio/index.html">Portfolio</a></li>
+                    <li><a href="../../Nav Bar/freebie/index.html">Freebie</a></li>
+                    <li><a href="../../Nav Bar/Contact Us/index.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <p class="footer-copy">&copy; <span id="footerYear">2026</span> TUSDIO. All rights reserved.</p>
         </div>
-    </section>
-    
-    <!-- Section 7 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Blackbird</h2>
-            <p>TUSDIO’s sleek and modern approach to Blackbird’s brand identity conveys a sense of exclusivity, with an edge that speaks to the modern luxury seeker.</p>
-            <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/202052777/BLACKBIRD-Defining-Luxury-Redefining-Elegance" class="image-container">
-            <img src="image/8 blackbird.png" alt="Branding">
-        </a>
-    </section>
-    
-    <!-- Section 8 (Image Left, Text Right) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="image-container">
-            <img src="image/9 lujuria.png" alt="Visual Identity">
-        </a>
-        <div class="text-container">
-            <h2>Lujuria</h2>
-            <p>TUSDIO designed Lujuria’s bold and luxurious brand identity, reflecting indulgence and high-end fashion with every detail.</p>
-            <a href="https://www.behance.net/gallery/199504677/Lujuria-Indulge-In-Elegance" class="btn">View Case Study</a>
-        </div>
-    </section>
-    
-    <!-- Section 9 (Image Right, Text Left) -->
-    <section class="case-study">
-        <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="image-container">
-            <img src="image/10 william.png" alt="Product 1">
-        </a>
-        <div class="text-container">
-            <h2>William & Collins</h2>
-            <p>TUSDIO’s refined branding for William & Collins perfectly balances tradition with modernity, making it an unforgettable mark of class.</p>
-            <a href="https://www.behance.net/gallery/201118763/William-Collins-Law-Firm" class="btn">View Case Study</a>
-        </div>
-    </section>
-    
-    <!-- Section 10 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Pinnacle</h2>
-            <p>TUSDIO’s work on Pinnacle's brand identity embodies strength and growth, with a sleek design that elevates the brand to new heights.</p>
-            <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/203269253/Pinnacle-Architecture" class="image-container">
-            <img src="image/11 pinaacle.png" alt="Branding">
-        </a>
-    </section>
-    
-     <!-- Section 11 (Image Right, Text Left) -->
-     <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Blckwhite</h2>
-            <p>Designed a powerful brand identity that stands out in the market.</p>
-            <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/211467587/BLCKWHITE" class="image-container">
-            <img src="image/12 blckwhite.png" alt="Branding">
-        </a>
-    </section>
+    </footer>
 
-<!-- Section 12 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Arcadia Builders</h2>
-            <p>Designed a powerful brand identity that stands out in the market.</p>
-            <a href="" class="btn">View Case Study</a>
-        </div>
-        <a href="" class="image-container">
-            <img src="image/13 arcadia builders.png" alt="Branding">
-        </a>
-    </section>
+    <button class="back-to-top" aria-label="Back to top">↑</button>
 
-    <!-- Section 13 (Image Right, Text Left) -->
-    <section class="case-study reverse">
-        <div class="text-container">
-            <h2>Azure Villas & Resorts</h2>
-            <p>Designed a powerful brand identity that stands out in the market.</p>
-            <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="btn">View Case Study</a>
-        </div>
-        <a href="https://www.behance.net/gallery/204536263/Azure-Haven" class="image-container">
-            <img src="image/14 azure villas & resorts.png" alt="Branding">
-        </a>
-    </section>
-    
-</body>    
+</body>
+</html>
