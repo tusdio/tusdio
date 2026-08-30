@@ -51,18 +51,70 @@
 
     <aside class="sidebar" id="sidebar">
       <nav class="sidebar-nav">
-        <button class="side-link is-active" data-tab="overview" type="button"><span class="side-ico">🏠</span>Overview</button>
-        <button class="side-link" data-tab="clients" type="button"><span class="side-ico">👥</span>Clients</button>
-        <button class="side-link" data-tab="projects" type="button"><span class="side-ico">🗂️</span>Projects</button>
-        <button class="side-link" data-tab="requests" type="button"><span class="side-ico">📥</span>Requests<span class="side-badge" id="requestsBadge" hidden>0</span></button>
-        <button class="side-link" data-tab="messages" type="button"><span class="side-ico">💬</span>Messages<span class="side-badge" id="messagesBadge" hidden>0</span></button>
-        <button class="side-link" data-tab="tasks" type="button"><span class="side-ico">✅</span>Tasks</button>
-        <button class="side-link" data-tab="invoices" type="button"><span class="side-ico">🧾</span>Invoices</button>
-        <button class="side-link" data-tab="time" type="button"><span class="side-ico">⏱️</span>Time Tracking</button>
-        <button class="side-link" data-tab="reports" type="button"><span class="side-ico">📊</span>Reports</button>
-        <button class="side-link" data-tab="files" type="button"><span class="side-ico">📁</span>Files &amp; Assets</button>
-        <button class="side-link" data-tab="activity" type="button"><span class="side-ico">🔔</span>Activity</button>
-        <button class="side-link" data-tab="owners" type="button"><span class="side-ico">🛡️</span>Owners</button>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">🏠</span>Command Center</span>
+          <button class="side-link is-active" data-tab="overview" type="button"><span class="side-ico">🏠</span>Overview</button>
+          <button class="side-link" data-tab="calendar" type="button"><span class="side-ico">📅</span>Calendar</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">🚀</span>Sales</span>
+          <button class="side-link" data-tab="leads" type="button"><span class="side-ico">🎯</span>Leads / CRM<span class="side-badge" id="leadsBadge" hidden>0</span></button>
+          <button class="side-link" data-tab="leads" data-lead-view="kanban" type="button"><span class="side-ico">🧭</span>Pipeline</button>
+          <button class="side-link" data-tab="followups" type="button"><span class="side-ico">⏰</span>Follow-ups</button>
+          <button class="side-link" data-tab="proposals" type="button"><span class="side-ico">📄</span>Proposals</button>
+          <button class="side-link" data-tab="contracts" type="button"><span class="side-ico">✍️</span>Contracts</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">👥</span>Clients</span>
+          <button class="side-link" data-tab="clients" type="button"><span class="side-ico">👥</span>Clients</button>
+          <button class="side-link" data-tab="projects" type="button"><span class="side-ico">🗂️</span>Projects</button>
+          <button class="side-link" data-tab="messages" type="button"><span class="side-ico">💬</span>Messages<span class="side-badge" id="messagesBadge" hidden>0</span></button>
+          <button class="side-link" data-tab="requests" type="button"><span class="side-ico">📥</span>Requests<span class="side-badge" id="requestsBadge" hidden>0</span></button>
+          <button class="side-link" data-tab="files" type="button"><span class="side-ico">📁</span>Files</button>
+          <button class="side-link" data-tab="reviews" type="button"><span class="side-ico">⭐</span>Reviews</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">⚙️</span>Operations</span>
+          <button class="side-link" data-tab="tasks" type="button"><span class="side-ico">✅</span>Tasks</button>
+          <button class="side-link" data-tab="time" type="button"><span class="side-ico">⏱️</span>Time Tracking</button>
+          <button class="side-link" data-tab="team" type="button"><span class="side-ico">🧑‍🤝‍🧑</span>Team</button>
+          <button class="side-link" data-tab="activity" type="button"><span class="side-ico">🔔</span>Activity</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">💰</span>Finance</span>
+          <button class="side-link" data-tab="financeOverview" type="button"><span class="side-ico">💠</span>Overview</button>
+          <button class="side-link" data-tab="invoices" type="button"><span class="side-ico">🧾</span>Invoices</button>
+          <button class="side-link" data-tab="payments" type="button"><span class="side-ico">💳</span>Payments</button>
+          <button class="side-link" data-tab="expenses" type="button"><span class="side-ico">🧮</span>Expenses</button>
+          <button class="side-link" data-tab="profitability" type="button"><span class="side-ico">📐</span>Profitability</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">📈</span>Growth</span>
+          <button class="side-link" data-tab="websiteIntelligence" type="button"><span class="side-ico">🌐</span>Website Intelligence</button>
+          <button class="side-link" data-tab="leadSources" type="button"><span class="side-ico">📡</span>Lead Sources</button>
+          <button class="side-link" data-tab="freebieDownloads" type="button"><span class="side-ico">🎁</span>Freebie Analytics</button>
+          <button class="side-link" data-tab="referrals" type="button"><span class="side-ico">🔗</span>Referrals</button>
+          <button class="side-link" data-tab="conversionAnalytics" type="button"><span class="side-ico">📊</span>Conversion Analytics</button>
+        </div>
+
+        <div class="sidebar-group">
+          <span class="sidebar-group-label"><span class="sidebar-group-ico">🔐</span>Admin</span>
+          <button class="side-link" data-tab="owners" type="button"><span class="side-ico">🛡️</span>Owners &amp; Roles</button>
+          <button class="side-link" data-tab="activity" type="button"><span class="side-ico">📜</span>Audit Logs</button>
+          <button class="side-link" data-tab="settings" type="button"><span class="side-ico">🛠️</span>Settings</button>
+        </div>
+
+        <div class="sidebar-group sidebar-group-legacy">
+          <span class="sidebar-group-label">Reports (legacy view)</span>
+          <button class="side-link" data-tab="reports" type="button"><span class="side-ico">📊</span>Reports</button>
+        </div>
+
       </nav>
     </aside>
 
@@ -404,6 +456,112 @@
 
 </section>
 
+      <!-- LEADS -->
+      <section class="tab-panel" data-tab-panel="leads">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Pipeline</p><h2>Leads</h2></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="chip" id="leadsViewToggle" data-view="list" type="button">Kanban view</button>
+            <button class="save-btn" id="newLeadBtn" type="button">+ New Lead</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="leadsKpiGrid"></div>
+
+        <div class="card glass">
+          <div class="card-head">
+            <h3>Lead Source Performance</h3>
+          </div>
+          <div id="leadSourceAnalytics" class="clients-grid"></div>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="leadSearch" placeholder="Search leads by name, company, or email…" class="search-input" />
+          <div class="chip-row" id="leadFilterChips">
+            <button class="chip is-active" data-lead-filter="all" type="button">All</button>
+            <button class="chip" data-lead-filter="NEW" type="button">New</button>
+            <button class="chip" data-lead-filter="CONTACTED" type="button">Contacted</button>
+            <button class="chip" data-lead-filter="QUALIFIED" type="button">Qualified</button>
+            <button class="chip" data-lead-filter="MEETING" type="button">Meeting</button>
+            <button class="chip" data-lead-filter="PROPOSAL" type="button">Proposal</button>
+            <button class="chip" data-lead-filter="NEGOTIATION" type="button">Negotiation</button>
+            <button class="chip" data-lead-filter="WON" type="button">Won</button>
+            <button class="chip" data-lead-filter="LOST" type="button">Lost</button>
+            <button class="chip" data-lead-filter="CLIENTS" type="button">👥 Clients</button>
+          </div>
+        </div>
+
+        <p class="field-hint" id="leadClientsHint" hidden style="margin:-10px 0 4px;">Showing your actual client records (not leads) so you can jump in and adjust them directly — clicking one opens the real client editor.</p>
+
+        <div id="leadsListView" class="clients-grid"></div>
+        <div id="leadsKanbanView" class="kanban" hidden></div>
+      </section>
+
+      <!-- FOLLOW-UPS — now covers both leads (nextFollowUpAt) and existing
+           clients (a new nextFollowUpAt field you can set right here,
+           since clients never had a follow-up date field before). Leads
+           with no date set get their own bucket instead of disappearing
+           silently. -->
+      <section class="tab-panel" data-tab-panel="followups">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Sales</p><h2>Follow-ups</h2></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn-secondary" id="followupsScheduleClientBtn" type="button">+ Schedule Client Follow-up</button>
+            <button class="save-btn" id="followupsNewLeadBtn" type="button">+ New Lead</button>
+          </div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Combines lead follow-up dates and client follow-up dates in one place. New leads with no date yet show up in "No Date Set" below instead of disappearing.</p>
+
+        <div class="card glass" id="followupsClientFormCard" hidden>
+          <div class="card-head"><h3>Schedule a Client Follow-up</h3></div>
+          <form id="followupsClientForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field">
+                <label>Client</label>
+                <select id="followupsClientSelect" required></select>
+              </div>
+              <div class="field"><label>Follow-up Date</label><input type="text" id="followupsClientDate" placeholder="e.g. 5 Sep 2026" required /></div>
+              <div class="field"><label>Note</label><input type="text" id="followupsClientNote" placeholder="What's this about?" /></div>
+            </div>
+            <button type="submit" class="save-btn">Schedule</button>
+            <p id="followupsClientMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div id="followupsBoard"></div>
+      </section>
+
+      <!-- CALENDAR — an aggregated agenda (not a full month/week/day grid yet)
+           pulling every real date already in the schema: client delivery
+           dates, client payment due dates, lead follow-ups and expected
+           close dates, and invoice due dates. -->
+      <section class="tab-panel" data-tab-panel="calendar">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Command Center</p><h2>Calendar</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Agenda view for now — combines project deadlines, payment due dates, lead follow-ups, expected close dates, and invoice due dates in one timeline.</p>
+        <div id="calendarBoard"></div>
+      </section>
+
+      <!-- PROPOSALS -->
+      <section class="tab-panel" data-tab-panel="proposals">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Sales</p><h2>Proposals</h2></div>
+          <button class="save-btn" id="newProposalBtn" type="button">+ New Proposal</button>
+        </div>
+        <div class="kpi-grid" id="proposalsKpiGrid"></div>
+        <div id="proposalsList" class="clients-grid"></div>
+      </section>
+
+      <!-- CONTRACTS -->
+      <section class="tab-panel" data-tab-panel="contracts">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Sales</p><h2>Contracts</h2></div>
+          <button class="save-btn" id="newContractBtn" type="button">+ New Contract</button>
+        </div>
+        <div id="contractsList" class="clients-grid"></div>
+      </section>
+
       <!-- CLIENTS -->
       <section class="tab-panel" data-tab-panel="clients">
         <div class="panel-title-row">
@@ -423,6 +581,7 @@
             <button class="chip" data-filter="active" type="button">Active</button>
             <button class="chip" data-filter="removed" type="button">Removed</button>
             <button class="chip" data-filter="vip" type="button">★ VIP</button>
+            <button class="chip" data-filter="hidden" type="button">🙈 Hidden</button>
           </div>
           <button class="chip" id="selectModeBtn" type="button">Select</button>
         </div>
@@ -450,6 +609,15 @@
       <section class="tab-panel" data-tab-panel="requests">
         <div class="panel-title-row">
           <div><p class="eyebrow">Inbox</p><h2>Client Requests</h2></div>
+        </div>
+        <div class="toolbar">
+          <input type="text" id="requestSearch" placeholder="Search by client, subject, or type…" class="search-input" />
+          <div class="chip-row" id="requestFilterChips">
+            <button class="chip is-active" data-request-filter="all" type="button">All</button>
+            <button class="chip" data-request-filter="New" type="button">New</button>
+            <button class="chip" data-request-filter="Seen" type="button">Seen</button>
+            <button class="chip" data-request-filter="Resolved" type="button">Resolved</button>
+          </div>
         </div>
         <div id="requestsList" class="clients-grid"></div>
       </section>
@@ -500,12 +668,148 @@
         <div id="tasksBoard" class="mini-list"></div>
       </section>
 
-      <!-- INVOICES -->
+      <!-- TEAM -->
+      <section class="tab-panel" data-tab-panel="team">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Operations</p><h2>Team</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Add a Team Member</h3></div>
+          <form id="teamMemberForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field"><label>Name</label><input type="text" id="teamMemberName" required /></div>
+              <div class="field"><label>Email</label><input type="email" id="teamMemberEmail" /></div>
+              <div class="field">
+                <label>Role</label>
+                <select id="teamMemberRole">
+                  <option>DESIGNER</option>
+                  <option>DEVELOPER</option>
+                  <option>PROJECT_MANAGER</option>
+                  <option>FINANCE</option>
+                  <option>ADMIN</option>
+                  <option>VIEWER</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="save-btn">Add Member</button>
+            <p id="teamMemberMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div id="teamList" class="clients-grid"></div>
+      </section>
+
+      <!-- FINANCE OVERVIEW — reuses the same client.totalAmount/paidAmount
+           math already computed for the command-center KPIs, just framed as
+           a Finance-first view. A real invoices/transactions ledger,
+           expenses, and profitability are on the roadmap (see the
+           architecture notes) — this stays intentionally limited to what
+           the current schema can actually support without fabricating data. -->
+      <section class="tab-panel" data-tab-panel="financeOverview">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Finance</p><h2>Overview</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Based on each client's Total/Paid amount fields. A real transaction ledger, expenses, and per-project profitability aren't built yet — see the roadmap notes.</p>
+        <div class="kpi-grid" id="financeKpiGrid"></div>
+      </section>
+
+      <!-- INVOICES — now backed by a real `invoices` Firestore collection
+           (not just client.totalAmount/paidAmount). Create, edit status,
+           and delete invoices; marking one Paid also logs a matching
+           transaction and bumps the client's paidAmount so the two stay
+           in sync rather than becoming two disconnected sources of truth. -->
       <section class="tab-panel" data-tab-panel="invoices">
         <div class="panel-title-row">
-          <div><p class="eyebrow">Billing</p><h2>Invoices</h2></div>
+          <div><p class="eyebrow">Finance</p><h2>Invoices</h2></div>
+          <button class="save-btn" id="newInvoiceBtn" type="button">+ New Invoice</button>
         </div>
+        <div class="kpi-grid" id="invoicesKpiGrid"></div>
         <div id="invoicesList" class="clients-grid"></div>
+      </section>
+
+      <!-- PAYMENTS — a real transaction ledger. Logging a payment here also
+           increments the linked client's paidAmount via Firestore
+           `increment`, so Overview / Finance Overview / Invoices all move
+           together instead of drifting apart. -->
+      <section class="tab-panel" data-tab-panel="payments">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Finance</p><h2>Payments</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Log a Payment</h3></div>
+          <form id="paymentForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field">
+                <label>Client</label>
+                <select id="paymentClient" required></select>
+              </div>
+              <div class="field"><label>Amount (₹)</label><input type="number" id="paymentAmount" min="0" required /></div>
+              <div class="field">
+                <label>Method</label>
+                <select id="paymentMethod">
+                  <option>UPI</option><option>Bank Transfer</option><option>Card</option><option>Cash</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field"><label>Date</label><input type="date" id="paymentDate" required /></div>
+              <div class="field"><label>Reference / Invoice #</label><input type="text" id="paymentReference" /></div>
+              <div class="field"><label>Notes</label><input type="text" id="paymentNotes" /></div>
+            </div>
+            <button type="submit" class="save-btn">Log Payment</button>
+            <p id="paymentMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div id="paymentsList" class="clients-grid"></div>
+      </section>
+
+      <!-- EXPENSES -->
+      <section class="tab-panel" data-tab-panel="expenses">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Finance</p><h2>Expenses</h2></div>
+        </div>
+
+        <div class="card glass">
+          <div class="card-head"><h3>Add an Expense</h3></div>
+          <form id="expenseForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field"><label>Amount (₹)</label><input type="number" id="expenseAmount" min="0" required /></div>
+              <div class="field">
+                <label>Category</label>
+                <select id="expenseCategory">
+                  <option>Software</option><option>Freelancer</option><option>Advertising</option>
+                  <option>Operations</option><option>Hosting</option><option>Tools</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field"><label>Vendor</label><input type="text" id="expenseVendor" /></div>
+              <div class="field"><label>Date</label><input type="date" id="expenseDate" required /></div>
+              <div class="field">
+                <label>Related Client (optional)</label>
+                <select id="expenseClient"><option value="">— None —</option></select>
+              </div>
+              <div class="field"><label>Description</label><input type="text" id="expenseDescription" /></div>
+            </div>
+            <button type="submit" class="save-btn">Add Expense</button>
+            <p id="expenseMessage" class="save-message"></p>
+          </form>
+        </div>
+
+        <div class="kpi-grid" id="expensesKpiGrid"></div>
+        <div id="expensesList" class="clients-grid"></div>
+      </section>
+
+      <!-- PROFITABILITY — Revenue (client.paidAmount) minus attributed
+           Expenses minus an estimated labor cost (logged hours × the
+           default hourly rate set in Settings). The hourly-rate estimate
+           is clearly labeled as an estimate, not an exact internal cost. -->
+      <section class="tab-panel" data-tab-panel="profitability">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Finance</p><h2>Profitability</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Labor cost is estimated as logged hours × the default hourly rate in Settings — not an exact internal cost figure.</p>
+        <div class="kpi-grid" id="profitabilityKpiGrid"></div>
+        <div id="profitabilityList" class="clients-grid"></div>
       </section>
 
       <!-- TIME TRACKING -->
@@ -612,12 +916,135 @@
         <div id="filesGrid" class="clients-grid"></div>
       </section>
 
+      <!-- REVIEWS — aggregates data already on the client doc (currentReview
+           + satisfaction rating). No new collection; a dedicated testimonial
+           library with publish/permission tracking is on the roadmap. -->
+      <section class="tab-panel" data-tab-panel="reviews">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Clients</p><h2>Reviews</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Shows each client's current review and star rating. Publish permissions and a public testimonial library aren't built yet — see the roadmap notes.</p>
+        <div id="reviewsList" class="clients-grid"></div>
+      </section>
+
       <!-- ACTIVITY -->
       <section class="tab-panel" data-tab-panel="activity">
         <div class="panel-title-row">
           <div><p class="eyebrow">Audit Trail</p><h2>Activity</h2></div>
         </div>
         <div id="activityFeed" class="mini-list"></div>
+      </section>
+
+      <!-- FREEBIE ACTIVITY (logins + downloads from the public Freebie page) -->
+      <section class="tab-panel" data-tab-panel="freebieDownloads">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Freebie Page</p><h2>Freebie Activity</h2></div>
+          <button class="btn-secondary" id="freebieDownloadsExportBtn" type="button">Export CSV</button>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="freebieDownloadsSearch" placeholder="Search by user, email, or freebie…" class="search-input" />
+          <div class="chip-row" id="freebieActivityChips">
+            <button class="chip is-active" data-activity-filter="all" type="button">All</button>
+            <button class="chip" data-activity-filter="login" type="button">Logins</button>
+            <button class="chip" data-activity-filter="download" type="button">Downloads</button>
+          </div>
+        </div>
+
+        <div id="freebieDownloadsList" class="clients-grid"></div>
+      </section>
+
+      <!-- LEAD SOURCES — Growth-tab view of the same source performance
+           card shown inside Leads/CRM. renderLeadSourceAnalytics() in
+           owner.js writes to both containers so they never drift out of
+           sync with each other. -->
+      <section class="tab-panel" data-tab-panel="leadSources">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Growth</p><h2>Lead Sources</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Same figures as the Lead Source Performance card on the Leads/CRM tab, shown full-width here for a Growth-focused read.</p>
+        <div id="leadSourceAnalyticsGrowth" class="clients-grid"></div>
+      </section>
+
+      <!-- WEBSITE INTELLIGENCE — combines two real, already-flowing data
+           sources (freebie logins + freebie downloads, which genuinely are
+           "who logged in / downloaded something") with the `analytics_events`
+           reader for full page/session tracking, which stays empty until a
+           tracking snippet is added to the public site. -->
+      <section class="tab-panel" data-tab-panel="websiteIntelligence">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Growth</p><h2>Website Intelligence</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">"Logged in" and "Downloaded" activity below is real, from your Freebie page. Page-view/session tracking needs a first-party snippet added to the public site — this dashboard only reads that data, it doesn't collect it.</p>
+        <div class="kpi-grid" id="websiteIntelKpiGrid"></div>
+        <div class="toolbar">
+          <div class="chip-row" id="websiteIntelRangeChips">
+            <button class="chip is-active" data-range-filter="all" type="button">All time</button>
+            <button class="chip" data-range-filter="today" type="button">Today</button>
+            <button class="chip" data-range-filter="7" type="button">Last 7 days</button>
+            <button class="chip" data-range-filter="30" type="button">Last 30 days</button>
+          </div>
+          <div class="chip-row" id="websiteIntelTypeChips">
+            <button class="chip is-active" data-type-filter="all" type="button">All</button>
+            <button class="chip" data-type-filter="login" type="button">Logged in</button>
+            <button class="chip" data-type-filter="download" type="button">Downloaded</button>
+            <button class="chip" data-type-filter="event" type="button">Site events</button>
+          </div>
+        </div>
+        <div id="websiteIntelList" class="mini-list"></div>
+      </section>
+
+      <!-- REFERRALS — real data, driven by a "Referred By" field on each
+           client (added to the client editor drawer below). -->
+      <section class="tab-panel" data-tab-panel="referrals">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Growth</p><h2>Referrals</h2></div>
+        </div>
+        <p class="field-hint" style="margin-bottom:16px;">Set "Referred By" on a client's record (in the client editor) to attribute them to a referrer here.</p>
+        <div id="referralsList" class="clients-grid"></div>
+      </section>
+
+      <!-- CONVERSION ANALYTICS — a real funnel computed from the leads
+           collection. Filterable by source, and each stage expands to show
+           exactly which leads are in it — click through to open one. -->
+      <section class="tab-panel" data-tab-panel="conversionAnalytics">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Growth</p><h2>Conversion Analytics</h2></div>
+        </div>
+        <div class="toolbar">
+          <select id="conversionSourceFilter" class="request-status-select">
+            <option value="all">All Sources</option>
+          </select>
+          <select id="conversionRangeFilter" class="request-status-select">
+            <option value="all">All Time</option>
+            <option value="month">This Month</option>
+            <option value="30">Last 30 Days</option>
+          </select>
+        </div>
+        <div id="conversionFunnel" class="bar-list card glass"></div>
+        <div class="card glass" id="conversionDrilldownCard" hidden>
+          <div class="card-head"><h3 id="conversionDrilldownTitle">Stage</h3></div>
+          <div id="conversionDrilldownList" class="clients-grid"></div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="tab-panel" data-tab-panel="settings">
+        <div class="panel-title-row">
+          <div><p class="eyebrow">Admin</p><h2>Settings</h2></div>
+        </div>
+        <div class="card glass">
+          <div class="card-head"><h3>Business Profile</h3></div>
+          <form id="settingsForm" class="owner-form">
+            <div class="form-grid">
+              <div class="field"><label>Business Name</label><input type="text" id="settingsBusinessName" /></div>
+              <div class="field"><label>Support Email</label><input type="email" id="settingsSupportEmail" /></div>
+              <div class="field"><label>Default Hourly Rate (₹) — used in Profitability</label><input type="number" id="settingsHourlyRate" min="0" /></div>
+            </div>
+            <button type="submit" class="save-btn">Save Settings</button>
+            <p id="settingsMessage" class="save-message"></p>
+          </form>
+        </div>
       </section>
 
       <!-- OWNERS -->
@@ -638,11 +1065,24 @@
                 <label>Email</label>
                 <input type="email" id="newOwnerEmail" required />
               </div>
+              <div class="field">
+                <label>Role</label>
+                <select id="newOwnerRole">
+                  <option value="ADMIN">ADMIN</option>
+                  <option value="PROJECT_MANAGER">PROJECT_MANAGER</option>
+                  <option value="DESIGNER">DESIGNER</option>
+                  <option value="DEVELOPER">DEVELOPER</option>
+                  <option value="FINANCE">FINANCE</option>
+                  <option value="VIEWER">VIEWER</option>
+                </select>
+              </div>
             </div>
             <button type="submit" class="save-btn">Grant Access</button>
             <p id="addOwnerMessage" class="save-message"></p>
           </form>
         </div>
+
+        <p class="field-hint" id="rbacDisclaimer">Roles control what this dashboard's UI shows and lets you click — they are not a substitute for Firestore Security Rules. Make sure your rules independently enforce the same restrictions server-side.</p>
 
         <div id="ownersList" class="clients-grid"></div>
       </section>
@@ -655,11 +1095,11 @@
     <button class="mtab-link is-active" data-tab="overview" type="button">
       <span class="mtab-ico">🏠</span><span class="mtab-label">Home</span>
     </button>
+    <button class="mtab-link" data-tab="leads" type="button">
+      <span class="mtab-ico">🎯</span><span class="mtab-label">Leads</span><span class="mtab-badge" id="leadsBadgeMobile" hidden>0</span>
+    </button>
     <button class="mtab-link" data-tab="clients" type="button">
       <span class="mtab-ico">👥</span><span class="mtab-label">Clients</span>
-    </button>
-    <button class="mtab-link" data-tab="requests" type="button">
-      <span class="mtab-ico">📥</span><span class="mtab-label">Requests</span><span class="mtab-badge" id="requestsBadgeMobile" hidden>0</span>
     </button>
     <button class="mtab-link" data-tab="messages" type="button">
       <span class="mtab-ico">💬</span><span class="mtab-label">Chat</span><span class="mtab-badge" id="messagesBadgeMobile" hidden>0</span>
@@ -695,6 +1135,74 @@
     </div>
 
     <div class="editor-drawer-body">
+
+      <!-- CLIENT SUMMARY — read-only snapshot, shown the moment the drawer opens -->
+      <div class="client-summary" id="clientSummaryPanel" hidden>
+
+        <div class="client-summary-head">
+          <div class="client-summary-identity">
+            <div class="client-summary-avatar" id="summaryAvatar">--</div>
+            <div class="client-summary-id">
+              <h4 id="summaryName">Client</h4>
+              <span id="summaryEmail"></span>
+              <div class="client-summary-badges">
+                <span class="badge" id="summaryPhaseBadge">Phase</span>
+                <span class="badge" id="summaryStatusBadge">Status</span>
+                <span class="badge active" id="summaryVipBadge" hidden>★ VIP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="client-summary-quick-actions">
+            <button type="button" class="summary-qa-btn" id="summaryMessageBtn" title="Message this client">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </button>
+            <button type="button" class="summary-qa-btn" id="summaryVipToggleBtn" title="Toggle VIP">★</button>
+            <button type="button" class="summary-qa-btn" id="summaryCopyEmailBtn" title="Copy email address">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="client-summary-progress">
+          <div class="client-summary-progress-top"><span>Project progress</span><strong id="summaryProgressText">0%</strong></div>
+          <div class="client-progress-track"><div class="client-progress-fill" id="summaryProgressFill" style="width:0%"></div></div>
+        </div>
+
+        <div class="client-summary-section">
+          <span class="section-kicker">Project</span>
+          <div class="client-summary-grid">
+            <div class="summary-stat"><span>Service</span><strong id="summaryService">—</strong></div>
+            <div class="summary-stat"><span>Project</span><strong id="summaryProject">—</strong></div>
+            <div class="summary-stat"><span>Next action</span><strong id="summaryNextAction">—</strong></div>
+            <div class="summary-stat"><span>Revision round</span><strong id="summaryRevision">—</strong></div>
+            <div class="summary-stat"><span>Start date</span><strong id="summaryStartDate">—</strong></div>
+            <div class="summary-stat"><span>Est. delivery</span><strong id="summaryDelivery">—</strong></div>
+          </div>
+        </div>
+
+        <div class="client-summary-section">
+          <div class="section-kicker-row">
+            <span class="section-kicker">Billing</span>
+            <a href="#" id="summaryInvoiceLink" class="summary-invoice-link" target="_blank" rel="noopener" hidden>View invoice →</a>
+          </div>
+          <div class="client-summary-billing">
+            <div><span>Plan</span><strong id="summaryPlan">—</strong></div>
+            <div><span>Payment</span><strong id="summaryPaymentStatus">—</strong></div>
+            <div><span>Paid</span><strong id="summaryPaidAmount">₹0</strong></div>
+            <div><span>Total</span><strong id="summaryTotalAmount">₹0</strong></div>
+          </div>
+        </div>
+
+        <div class="client-summary-rating">
+          <span>Client satisfaction</span>
+          <strong id="summaryRating">Not rated yet</strong>
+        </div>
+      </div>
+
+      <button type="button" class="summary-edit-toggle" id="toggleEditFormBtn">Edit full details ▾</button>
+
+      <div class="editor-edit-form" id="editorEditForm">
       <form id="ownerForm" class="owner-form">
         <input type="hidden" id="clientId" />
 
@@ -705,6 +1213,10 @@
           <div class="field"><label>Service</label><input type="text" id="service" /></div>
           <div class="field"><label>Project Name</label><input type="text" id="projectName" /></div>
           <div class="field"><label>Login Type</label><input type="text" id="loginType" readonly /></div>
+          <div class="field">
+            <label>Referred By (optional)</label>
+            <select id="referredBy"><option value="">— None —</option></select>
+          </div>
         </div>
 
         <h4 class="form-section-title">Workflow</h4>
@@ -805,6 +1317,222 @@
         </div>
 
         <p id="saveMessage" class="save-message"></p>
+      </form>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Lead editor drawer — same visual system (.editor-overlay / .editor-drawer) as the
+       client drawer above, so it inherits the responsive drawer/dialog/bottom-sheet
+       behaviour already defined in owner.css for free. Kept as a separate drawer
+       rather than reused, because a lead and a client are different records with
+       different fields — merging them would make both forms harder to read. -->
+  <div class="editor-overlay" id="leadEditorOverlay"></div>
+  <aside class="editor-drawer" id="leadEditorDrawer">
+    <div class="editor-drawer-head">
+      <div>
+        <p class="eyebrow" id="leadEditorEyebrow">Editing</p>
+        <h3 id="leadEditorTitle">Lead</h3>
+      </div>
+      <button id="leadEditorCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="editor-drawer-body">
+      <form id="leadForm" class="owner-form">
+        <input type="hidden" id="leadId" />
+
+        <h4 class="form-section-title">Contact</h4>
+        <div class="form-grid">
+          <div class="field"><label>Name</label><input type="text" id="leadName" required /></div>
+          <div class="field"><label>Company</label><input type="text" id="leadCompany" /></div>
+          <div class="field"><label>Email</label><input type="email" id="leadEmail" /></div>
+          <div class="field"><label>Phone</label><input type="text" id="leadPhone" /></div>
+          <div class="field"><label>Website</label><input type="text" id="leadWebsite" placeholder="https://…" /></div>
+          <div class="field"><label>Instagram</label><input type="text" id="leadInstagram" placeholder="@handle" /></div>
+          <div class="field"><label>LinkedIn</label><input type="text" id="leadLinkedin" placeholder="https://linkedin.com/…" /></div>
+          <div class="field"><label>Industry</label><input type="text" id="leadIndustry" /></div>
+        </div>
+
+        <h4 class="form-section-title">Opportunity</h4>
+        <div class="form-grid">
+          <div class="field"><label>Service Interested</label><input type="text" id="leadService" placeholder="Branding, Website…" /></div>
+          <div class="field"><label>Estimated Value (₹)</label><input type="number" id="leadValue" min="0" /></div>
+          <div class="field"><label>Probability (%)</label><input type="number" id="leadProbability" min="0" max="100" placeholder="0–100" /></div>
+          <div class="field"><label>Expected Close Date</label><input type="text" id="leadCloseDate" placeholder="e.g. 15 Sep 2026" /></div>
+          <div class="field">
+            <label>Lead Source</label>
+            <select id="leadSource">
+              <option>Instagram</option>
+              <option>LinkedIn</option>
+              <option>Cold Email</option>
+              <option>Website</option>
+              <option>Referral</option>
+              <option>Behance</option>
+              <option>Freebie</option>
+              <option>Existing Client</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="leadStatus">
+              <option>NEW</option>
+              <option>CONTACTED</option>
+              <option>QUALIFIED</option>
+              <option>MEETING</option>
+              <option>PROPOSAL</option>
+              <option>NEGOTIATION</option>
+              <option>WON</option>
+              <option>LOST</option>
+            </select>
+          </div>
+          <div class="field"><label>Assigned To</label><input type="text" id="leadAssignedTo" placeholder="Owner / team member name" /></div>
+          <div class="field">
+            <label>Referred By (if source is Referral)</label>
+            <select id="leadReferredBy"><option value="">— None —</option></select>
+          </div>
+        </div>
+
+        <h4 class="form-section-title">Follow-up</h4>
+        <div class="form-grid">
+          <div class="field"><label>Last Contact</label><input type="text" id="leadLastContact" placeholder="e.g. 20 Aug 2026" /></div>
+          <div class="field"><label>Next Follow-up</label><input type="text" id="leadNextFollowUp" placeholder="e.g. 2 Sep 2026" /></div>
+        </div>
+
+        <h4 class="form-section-title">Notes &amp; Tags</h4>
+        <div class="field"><label>Notes</label><textarea id="leadNotes" rows="4" placeholder="Decision maker, preferences, context from calls…"></textarea></div>
+        <div class="field"><label>Tags (comma separated)</label><input type="text" id="leadTags" placeholder="hot, referral, agency" /></div>
+
+        <p class="field-hint" id="leadConvertedHint" hidden>This lead has already been converted to a client.</p>
+
+        <div class="owner-actions">
+          <button type="submit" class="save-btn" id="leadSaveBtn">Save Lead</button>
+          <button type="button" id="convertLeadBtn" class="btn-secondary">Convert to Client →</button>
+          <button type="button" id="markLeadLostBtn" class="btn-secondary">Mark Lost</button>
+          <button type="button" id="deleteLeadBtn" class="btn-danger">Delete Lead</button>
+        </div>
+        <p id="leadSaveMessage" class="save-message"></p>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Proposal editor drawer -->
+  <div class="editor-overlay" id="proposalEditorOverlay"></div>
+  <aside class="editor-drawer" id="proposalEditorDrawer">
+    <div class="editor-drawer-head">
+      <div>
+        <p class="eyebrow" id="proposalEditorEyebrow">Editing</p>
+        <h3 id="proposalEditorTitle">Proposal</h3>
+      </div>
+      <button id="proposalEditorCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="editor-drawer-body">
+      <form id="proposalForm" class="owner-form">
+        <input type="hidden" id="proposalId" />
+        <div class="form-grid">
+          <div class="field">
+            <label>Lead or Client</label>
+            <select id="proposalRef" required></select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="proposalStatus">
+              <option>DRAFT</option><option>SENT</option><option>VIEWED</option>
+              <option>NEGOTIATION</option><option>ACCEPTED</option><option>REJECTED</option><option>EXPIRED</option>
+            </select>
+          </div>
+          <div class="field"><label>Price (₹)</label><input type="number" id="proposalPrice" min="0" /></div>
+          <div class="field"><label>Payment Terms</label><input type="text" id="proposalPaymentTerms" placeholder="50% upfront, 50% on delivery" /></div>
+          <div class="field"><label>Timeline</label><input type="text" id="proposalTimeline" placeholder="3 weeks" /></div>
+          <div class="field"><label>Expiry Date</label><input type="text" id="proposalExpiryDate" placeholder="e.g. 20 Sep 2026" /></div>
+        </div>
+        <div class="field"><label>Services</label><input type="text" id="proposalServices" placeholder="Branding, Website" /></div>
+        <div class="field"><label>Scope</label><textarea id="proposalScope" rows="3"></textarea></div>
+        <div class="field"><label>Deliverables (one per line)</label><textarea id="proposalDeliverables" rows="3"></textarea></div>
+        <div class="owner-actions">
+          <button type="submit" class="save-btn">Save Proposal</button>
+          <button type="button" id="convertProposalToContractBtn" class="btn-secondary">Convert to Contract →</button>
+          <button type="button" id="deleteProposalBtn" class="btn-danger">Delete</button>
+        </div>
+        <p id="proposalSaveMessage" class="save-message"></p>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Contract editor drawer -->
+  <div class="editor-overlay" id="contractEditorOverlay"></div>
+  <aside class="editor-drawer" id="contractEditorDrawer">
+    <div class="editor-drawer-head">
+      <div>
+        <p class="eyebrow" id="contractEditorEyebrow">Editing</p>
+        <h3 id="contractEditorTitle">Contract</h3>
+      </div>
+      <button id="contractEditorCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="editor-drawer-body">
+      <form id="contractForm" class="owner-form">
+        <input type="hidden" id="contractId" />
+        <div class="form-grid">
+          <div class="field">
+            <label>Client</label>
+            <select id="contractClient" required></select>
+          </div>
+          <div class="field">
+            <label>Status</label>
+            <select id="contractStatus">
+              <option>DRAFT</option><option>SENT</option><option>SIGNED</option><option>EXPIRED</option><option>CANCELLED</option>
+            </select>
+          </div>
+          <div class="field"><label>Value (₹)</label><input type="number" id="contractValue" min="0" /></div>
+          <div class="field"><label>Start Date</label><input type="text" id="contractStartDate" /></div>
+          <div class="field"><label>End Date</label><input type="text" id="contractEndDate" /></div>
+          <div class="field"><label>Signed Date</label><input type="text" id="contractSignedDate" /></div>
+          <div class="field"><label>Document Link</label><input type="text" id="contractDocumentLink" placeholder="https://…" /></div>
+        </div>
+        <div class="owner-actions">
+          <button type="submit" class="save-btn">Save Contract</button>
+          <button type="button" id="deleteContractBtn" class="btn-danger">Delete</button>
+        </div>
+        <p id="contractSaveMessage" class="save-message"></p>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Invoice editor drawer -->
+  <div class="editor-overlay" id="invoiceEditorOverlay"></div>
+  <aside class="editor-drawer" id="invoiceEditorDrawer">
+    <div class="editor-drawer-head">
+      <div>
+        <p class="eyebrow" id="invoiceEditorEyebrow">Editing</p>
+        <h3 id="invoiceEditorTitle">Invoice</h3>
+      </div>
+      <button id="invoiceEditorCloseBtn" type="button" class="notif-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="editor-drawer-body">
+      <form id="invoiceForm" class="owner-form">
+        <input type="hidden" id="invoiceId" />
+        <div class="form-grid">
+          <div class="field">
+            <label>Client</label>
+            <select id="invoiceClient" required></select>
+          </div>
+          <div class="field"><label>Invoice Number</label><input type="text" id="invoiceNumber" placeholder="INV-1042" /></div>
+          <div class="field"><label>Amount (₹)</label><input type="number" id="invoiceAmount" min="0" required /></div>
+          <div class="field"><label>Due Date</label><input type="date" id="invoiceDueDate" /></div>
+          <div class="field">
+            <label>Status</label>
+            <select id="invoiceStatus">
+              <option>Pending</option><option>Paid</option><option>Overdue</option><option>Cancelled</option>
+            </select>
+          </div>
+          <div class="field"><label>Notes</label><input type="text" id="invoiceNotes" /></div>
+        </div>
+        <p class="field-hint">Marking an invoice "Paid" also logs a matching payment and adds the amount to this client's Paid total.</p>
+        <div class="owner-actions">
+          <button type="submit" class="save-btn">Save Invoice</button>
+          <button type="button" id="deleteInvoiceBtn" class="btn-danger">Delete</button>
+        </div>
+        <p id="invoiceSaveMessage" class="save-message"></p>
       </form>
     </div>
   </aside>
