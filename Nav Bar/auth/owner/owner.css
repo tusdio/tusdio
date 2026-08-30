@@ -215,6 +215,51 @@ header {
   gap: 4px;
 }
 
+/* ============================================================================
+   SIDEBAR GROUPS — Command Center / Sales / Clients / Operations / Finance /
+   Growth / Admin, matching the roadmap's target information architecture.
+   Grouping is purely visual (a labeled section + its own .side-link buttons);
+   the existing click-to-switch-tab wiring is untouched, so nothing about how
+   navigation actually works changed, only how it's organized on screen.
+   ============================================================================ */
+.sidebar-group { margin-bottom: 14px; }
+.sidebar-group:last-child { margin-bottom: 0; }
+.sidebar-group-legacy { margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(255,255,255,0.1); }
+
+.sidebar-group-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 14px 8px;
+  color: #6f6f6f;
+  font-size: 10.5px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+.sidebar-group-ico { font-size: 12px; }
+
+/* Roadmap items with no working data behind them yet — visible so the nav
+   matches the target structure, but disabled and clearly marked rather than
+   pretending the feature exists. */
+.side-link.is-soon,
+.side-link:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.side-link.is-soon:hover { background: transparent; color: #bdbdbd; }
+
+.soon-tag {
+  margin-left: auto;
+  font-size: 9.5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #9f9f9f;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 999px;
+  padding: 1px 7px;
+  flex-shrink: 0;
+}
+
 .side-link {
   display: flex;
   align-items: center;
@@ -920,8 +965,8 @@ header {
 .editor-drawer {
   position: fixed;
   top: 0;
-  right: -520px;
-  width: 500px;
+  right: -580px;
+  width: 560px;
   max-width: 100vw;
   height: 100vh;
   background: #0a0a0a;
@@ -2375,4 +2420,689 @@ code {
     font-size:8px;
   }
 
+}
+
+/* ============================================================================
+   CLIENT PANEL — REDESIGN
+   ----------------------------------------------------------------------------
+   Everything below is scoped to .editor-drawer (the client editor / summary
+   panel) only — the rest of TUSDIO keeps its existing blue glass theme.
+
+   Palette: an "ink & brass" dossier — warm near-black surfaces, an antique
+   brass accent for primary emphasis (progress, focus, links), and a muted
+   sage for positive/active status, instead of reusing the site-wide blue.
+   Chosen because this panel reads as a client *file*, not a chart — a
+   ledger/dossier feel suits that better than another blue glass card.
+
+   Layout: below 1180px the panel keeps the slide-in / bottom-sheet drawer
+   behaviour already defined above (unchanged). At 1180px and up — a Mac or
+   any wide desktop window — it opens as a centered dialog instead of a
+   full-height edge panel, which is the more conventional desktop pattern
+   for inspecting/editing a single record.
+
+   NOTE: These .editor-drawer rules apply to BOTH the client drawer
+   (#editorDrawer) and the lead drawer (#leadEditorDrawer) below, since both
+   share the .editor-drawer class and inherit this visual system — including
+   the ink & brass palette, the centered-dialog behaviour on wide screens,
+   and the bottom-sheet behaviour on phones. The lead drawer does not use
+   the .client-summary block (leads don't have a summary/edit-toggle split),
+   so those rules simply don't apply to it.
+   ============================================================================ */
+
+.editor-drawer {
+  /* Local palette — only visible inside this panel. */
+  --cp-ink: #0e0d16;
+  --cp-panel: rgba(214, 210, 250, 0.04);
+  --cp-panel-strong: rgba(214, 210, 250, 0.07);
+  --cp-line: rgba(180, 172, 230, 0.14);
+  --cp-line-strong: rgba(180, 172, 230, 0.26);
+  --cp-text: #edecf9;
+  --cp-text-dim: #9a95b0;
+  --cp-accent: #8b83e0;
+  --cp-accent-soft: rgba(139, 131, 224, 0.16);
+  --cp-accent-line: rgba(139, 131, 224, 0.45);
+  --cp-teal: #5fb08e;
+  --cp-teal-soft: rgba(95, 176, 142, 0.16);
+  --cp-danger: #e0765a;
+  --cp-danger-soft: rgba(224, 118, 90, 0.16);
+
+  background: var(--cp-ink);
+  border-left: 1px solid var(--cp-line);
+  color: var(--cp-text);
+}
+
+.editor-drawer-head {
+  border-bottom: 1px solid var(--cp-line);
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(139, 131, 224, 0.12), transparent 60%),
+    var(--cp-ink);
+}
+
+.editor-drawer-head #editorEyebrow,
+.editor-drawer-head #leadEditorEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cp-accent);
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  border: 1px solid var(--cp-accent-line);
+  background: var(--cp-accent-soft);
+  padding: 4px 10px 4px 8px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.editor-drawer-head #editorEyebrow::before,
+.editor-drawer-head #leadEditorEyebrow::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--cp-accent);
+  flex-shrink: 0;
+}
+
+.editor-drawer-head h3 {
+  color: var(--cp-text);
+  letter-spacing: -.2px;
+}
+
+.editor-drawer #editorCloseBtn,
+.editor-drawer #leadEditorCloseBtn {
+  color: var(--cp-text-dim);
+  transition: color .2s ease, transform .2s ease;
+}
+.editor-drawer #editorCloseBtn:hover,
+.editor-drawer #leadEditorCloseBtn:hover { color: var(--cp-text); transform: rotate(90deg); }
+
+.editor-drawer-body { background: var(--cp-ink); }
+
+/* Scrollbar tuned to the warm palette (WebKit + Firefox) */
+.editor-drawer-body::-webkit-scrollbar { width: 9px; }
+.editor-drawer-body::-webkit-scrollbar-thumb { background: var(--cp-line-strong); border-radius: 99px; }
+.editor-drawer-body { scrollbar-color: var(--cp-line-strong) transparent; }
+
+/* ---------------- CLIENT SUMMARY ---------------- */
+.client-summary {
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 16px;
+  background:
+    linear-gradient(160deg, var(--cp-panel-strong), var(--cp-panel));
+  border: 1px solid var(--cp-line);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+}
+
+.client-summary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cp-line);
+}
+
+.client-summary-identity { display: flex; align-items: center; gap: 15px; min-width: 0; }
+
+/* Signature element: the avatar reads as a wax-seal / dossier stamp —
+   a brass ring around a dark disc, rather than a flat gradient circle. */
+.client-summary-avatar {
+  width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+  display: grid; place-items: center;
+  position: relative;
+  background: radial-gradient(circle at 32% 28%, #241f38, #131120 72%);
+  color: var(--cp-accent);
+  font-size: 17px; font-weight: 600; letter-spacing: .5px;
+  box-shadow:
+    0 0 0 2px var(--cp-ink),
+    0 0 0 3px var(--cp-accent-line),
+    0 10px 24px rgba(0,0,0,0.5);
+}
+
+.client-summary-id { min-width: 0; }
+.client-summary-id h4 { font-size: 19px; font-weight: 500; color: var(--cp-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; letter-spacing: -.2px; }
+.client-summary-id span { display: block; color: var(--cp-text-dim); font-size: 12.5px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.client-summary-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+/* Badges inside the client panel switch to the brass/teal/brick palette,
+   overriding the site-wide blue .badge rules by specificity+source order. */
+.client-summary .badge,
+.editor-drawer .badge {
+  border-color: var(--cp-line-strong);
+  color: var(--cp-text-dim);
+  background: transparent;
+}
+.client-summary .badge.active,
+.editor-drawer .badge.active { border-color: rgba(107,165,142,.4); color: var(--cp-teal); background: var(--cp-teal-soft); }
+.client-summary .badge.removed,
+.editor-drawer .badge.removed { border-color: rgba(201,106,82,.4); color: var(--cp-danger); background: var(--cp-danger-soft); }
+.client-summary .badge.progress,
+.editor-drawer .badge.progress { border-color: var(--cp-accent-line); color: var(--cp-accent); background: var(--cp-accent-soft); }
+
+#summaryVipBadge {
+  border-color: var(--cp-accent-line) !important;
+  color: var(--cp-accent) !important;
+  background: var(--cp-accent-soft) !important;
+}
+
+.client-summary-quick-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.summary-qa-btn {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  border: 1px solid var(--cp-line-strong);
+  background: var(--cp-panel);
+  color: var(--cp-text-dim);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  transition: .2s ease;
+  flex-shrink: 0;
+}
+.summary-qa-btn:hover { background: var(--cp-panel-strong); color: var(--cp-text); border-color: var(--cp-line-strong); }
+.summary-qa-btn.is-vip { color: var(--cp-accent); border-color: var(--cp-accent-line); background: var(--cp-accent-soft); }
+
+.client-summary-progress { margin-bottom: 4px; }
+.client-summary-progress-top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--cp-text-dim); margin-bottom: 8px; }
+.client-summary-progress-top strong { color: var(--cp-text); font-weight: 500; }
+
+.client-summary .client-progress-track { background: rgba(255,255,255,0.06); }
+.client-summary .client-progress-fill {
+  background: linear-gradient(90deg, #453b8c, var(--cp-accent));
+}
+
+.client-summary-section {
+  padding: 18px 0;
+  border-top: 1px solid var(--cp-line);
+}
+.client-summary-section:last-of-type { border-bottom: 1px solid var(--cp-line); }
+
+/* Section kickers read like dossier index tabs: a small brass tick before
+   a letter-spaced label. */
+.client-summary .section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--cp-text-dim);
+  font-size: 10.5px;
+  letter-spacing: 2px;
+}
+.client-summary .section-kicker::before {
+  content: "";
+  width: 10px; height: 1px;
+  background: var(--cp-accent);
+  flex-shrink: 0;
+}
+
+.section-kicker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.summary-invoice-link {
+  font-size: 11.5px;
+  color: var(--cp-accent);
+  text-decoration: none;
+}
+.summary-invoice-link:hover { text-decoration: underline; }
+
+.client-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 18px;
+  margin-top: 12px;
+}
+.client-summary .summary-stat span { display: block; font-size: 10.5px; color: var(--cp-text-dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .5px; }
+.client-summary .summary-stat strong { font-size: 13.5px; font-weight: 400; color: var(--cp-text); }
+
+.client-summary-billing { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.client-summary-billing > div {
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: var(--cp-panel);
+  border: 1px solid var(--cp-line);
+}
+.client-summary-billing span { display: block; font-size: 10px; color: var(--cp-text-dim); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.client-summary-billing strong { font-size: 13.5px; font-weight: 400; color: var(--cp-text); }
+
+.client-summary-rating { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--cp-text-dim); padding-top: 18px; }
+.client-summary-rating strong { color: var(--cp-accent); font-weight: 500; }
+
+.summary-edit-toggle {
+  width: 100%;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1px solid var(--cp-line-strong);
+  background: var(--cp-panel);
+  color: var(--cp-text-dim);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+.summary-edit-toggle:hover { background: var(--cp-panel-strong); color: var(--cp-text); border-color: var(--cp-accent-line); }
+
+/* ---------------- FULL EDIT FORM (inside the same panel) ---------------- */
+.editor-edit-form { display: none; }
+.editor-edit-form.show { display: block; }
+
+.editor-drawer .form-section-title {
+  color: var(--cp-text-dim);
+  border-bottom-color: var(--cp-line);
+}
+
+.editor-drawer .field label { color: var(--cp-text-dim); }
+.editor-drawer .field-hint { color: var(--cp-text-dim); }
+
+.editor-drawer .field input,
+.editor-drawer .field textarea,
+.editor-drawer .field select {
+  background: var(--cp-panel);
+  border-color: var(--cp-line-strong);
+  color: var(--cp-text);
+}
+.editor-drawer .field input:focus,
+.editor-drawer .field textarea:focus,
+.editor-drawer .field select:focus {
+  border-color: var(--cp-accent-line);
+  box-shadow: 0 0 0 3px var(--cp-accent-soft);
+}
+.editor-drawer .field select option { background: #171522; color: var(--cp-text); }
+
+.editor-drawer code {
+  background: var(--cp-panel-strong);
+  color: var(--cp-accent);
+}
+
+.editor-drawer .log-live-tag {
+  color: var(--cp-text-dim);
+  border-color: var(--cp-line-strong);
+}
+
+.editor-drawer .decisions-log .mini-item {
+  background: var(--cp-panel);
+  border-color: var(--cp-line);
+}
+.editor-drawer .decision-status-pill { border-color: var(--cp-line-strong); color: var(--cp-text-dim); }
+.editor-drawer .decision-status-pill.approved { border-color: rgba(107,165,142,.4); color: var(--cp-teal); }
+.editor-drawer .decision-status-pill.awaiting { border-color: var(--cp-accent-line); color: var(--cp-accent); }
+.editor-drawer .decision-status-pill.changes_requested { border-color: rgba(201,106,82,.4); color: var(--cp-danger); }
+
+.editor-drawer .save-message { color: var(--cp-text-dim); }
+
+.editor-drawer .save-btn {
+  border-color: var(--cp-accent);
+  background: var(--cp-accent);
+  color: #171208;
+}
+.editor-drawer .save-btn:hover { background: transparent; color: var(--cp-accent); }
+
+.editor-drawer .btn-secondary {
+  background: var(--cp-panel);
+  border-color: var(--cp-line-strong);
+  color: var(--cp-text);
+}
+.editor-drawer .btn-secondary:hover { background: var(--cp-panel-strong); border-color: var(--cp-accent-line); }
+
+.editor-drawer .btn-danger {
+  background: var(--cp-danger);
+  border-color: var(--cp-danger);
+}
+.editor-drawer .btn-danger:hover { background: transparent; color: var(--cp-danger); }
+
+@media (max-width: 480px) {
+  .client-summary { padding: 18px; }
+  .client-summary-head { flex-direction: column; align-items: flex-start; }
+  .client-summary-quick-actions { align-self: flex-end; margin-top: -40px; }
+  .client-summary-grid { grid-template-columns: 1fr; }
+  .client-summary-billing { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================================
+   DESKTOP / MAC — CONVENTIONAL CENTERED DIALOG
+   ----------------------------------------------------------------------------
+   On wide viewports (roomy desktop windows, e.g. a Mac browser) the client
+   panel no longer pins to the right edge as a full-height drawer. Instead
+   it opens as a centered dialog card, sized to its content, the way a
+   native "get info" / inspector window behaves — a more conventional
+   desktop pattern than a floor-to-ceiling side panel. The slide-in /
+   bottom-sheet behaviour above is left untouched for phones and tablets.
+   ============================================================================ */
+@media (min-width: 1180px) {
+  .editor-overlay.show { backdrop-filter: blur(7px); background: rgba(6,5,4,0.72); }
+
+  .editor-drawer {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%) scale(.97);
+    width: min(820px, 92vw);
+    height: auto;
+    max-height: 88vh;
+    border-radius: 22px;
+    border: 1px solid var(--cp-line-strong, rgba(180,172,230,.26));
+    box-shadow: 0 50px 140px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease, transform .3s var(--ease);
+  }
+  .editor-drawer.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+  }
+
+  .editor-drawer-head { border-radius: 22px 22px 0 0; padding: 26px 32px; }
+  .editor-drawer-body { padding: 26px 32px 40px; }
+
+  /* Two-pane inspector layout for the read-only summary: identity/progress
+     stays full width, Project and Billing sit side by side beneath it.
+     Scoped to #editorDrawer only — the lead drawer has no .client-summary
+     block, so it keeps a normal single-column form at this breakpoint. */
+  #editorDrawer .client-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 28px;
+  }
+  #editorDrawer .client-summary-head,
+  #editorDrawer .client-summary-progress,
+  #editorDrawer .client-summary-rating { grid-column: 1 / -1; }
+  #editorDrawer .client-summary-section:nth-of-type(1) { grid-column: 1; border-right: none; }
+  #editorDrawer .client-summary-section:nth-of-type(2) { grid-column: 2; padding-left: 26px; border-left: 1px solid var(--cp-line); }
+  #editorDrawer .client-summary-section:nth-of-type(2) .client-summary-billing { grid-template-columns: repeat(2, 1fr); }
+
+  .form-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ============================================================================
+   CLIENT PANEL — ADDITIONAL RESPONSIVE TUNING
+   ----------------------------------------------------------------------------
+   The base rules above already give the panel three shapes: a bottom sheet
+   under 900px, a full-height right-edge drawer between 900–1179px, and a
+   centered dialog from 1180px up. The breakpoints below refine what happens
+   inside each of those shapes so nothing gets cramped or oversized on the
+   sizes in between — small phones, tablets in portrait/landscape, foldables,
+   and very large desktop monitors.
+   ============================================================================ */
+
+/* Small phones (≈360px and down) — tighten spacing further than the 480px
+   pass above and stack billing to a single column so ₹ amounts never wrap. */
+@media (max-width: 360px) {
+  .client-summary { padding: 14px; border-radius: 16px; }
+  .client-summary-avatar { width: 46px; height: 46px; font-size: 14px; }
+  .client-summary-id h4 { font-size: 16px; }
+  .client-summary-billing { grid-template-columns: 1fr; }
+  .editor-drawer-head { padding: 16px 16px 14px; }
+  .editor-drawer-body { padding: 16px 16px 80px; }
+}
+
+/* Tablets and small laptop windows (900–1179px) — still the full-height
+   edge drawer, but narrower than the old fixed 560px on smaller tablets,
+   and the billing grid drops to 2 columns so it doesn't feel squeezed. */
+@media (min-width: 900px) and (max-width: 1179px) {
+  .editor-drawer { width: min(480px, 92vw); }
+  .client-summary-billing { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Short / landscape viewports (phones rotated, small laptop lids) — height
+   is the scarce resource here, not width, so cap the dialog/drawer to the
+   viewport height and let the body scroll instead of clipping content. */
+@media (max-height: 560px) {
+  .editor-drawer { max-height: 100vh; }
+  .editor-drawer-body { padding-top: 14px; padding-bottom: 30px; }
+  .client-summary-head { padding-bottom: 12px; margin-bottom: 12px; }
+  .client-summary-section { padding: 10px 0; }
+}
+@media (min-width: 1180px) and (max-height: 700px) {
+  .editor-drawer { max-height: 94vh; }
+}
+
+/* Large desktop monitors — the dialog scales up a little further so it
+   doesn't look like a small floating card in a very wide window, and the
+   billing strip can afford a 4-column row again at this width. */
+@media (min-width: 1600px) {
+  .editor-drawer { width: min(900px, 78vw); }
+  #editorDrawer .client-summary-section:nth-of-type(2) .client-summary-billing { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Foldables / narrow tablets in portrait around 600–768px — two summary
+   stat columns get tight next to the avatar column; drop to one column
+   for the Project grid specifically (billing already handles itself above). */
+@media (min-width: 600px) and (max-width: 767px) {
+  .client-summary-grid { grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+}
+
+/* ============================================================================
+   LEADS — PIPELINE / CRM MODULE
+   ----------------------------------------------------------------------------
+   Reuses the existing card/badge/kanban/chip/drawer system rather than
+   introducing a new visual language — a lead is a record like a client or
+   a request, so it should look like one. Only the pieces with no existing
+   equivalent (status-colored badges per pipeline stage, the lead source
+   analytics cards, and the pipeline-value strip on lead cards) get new rules.
+   ============================================================================ */
+
+/* Status badges — one color per pipeline stage, reusing the existing
+   good/warn/danger/accent tokens so nothing clashes with the rest of the UI. */
+.badge.lead-new          { border-color: var(--accent-line); color: var(--accent); }
+.badge.lead-contacted    { border-color: rgba(255,180,84,0.4); color: var(--warn); }
+.badge.lead-qualified    { border-color: rgba(124,155,255,0.4); color: var(--accent); }
+.badge.lead-meeting      { border-color: rgba(124,155,255,0.4); color: var(--accent); }
+.badge.lead-proposal     { border-color: rgba(255,180,84,0.4); color: var(--warn); }
+.badge.lead-negotiation  { border-color: rgba(255,180,84,0.4); color: var(--warn); }
+.badge.lead-won          { border-color: rgba(127,213,138,0.4); color: var(--good); }
+.badge.lead-lost         { border-color: rgba(255,93,93,0.4); color: var(--danger); }
+
+/* Lead card — extends .client-card (grid, hover, spacing already defined)
+   with a pipeline-value strip specific to leads. */
+.lead-card-value-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #9f9f9f;
+  margin-top: 2px;
+}
+.lead-card-value-row strong { color: #fff; font-weight: 500; font-size: 13px; }
+
+.lead-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+.lead-tag {
+  font-size: 10.5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #b8b8b8;
+}
+
+/* Lead source analytics — a compact stat card per source, reusing
+   .client-card's glass/hover treatment via a dedicated class so it doesn't
+   inherit click/selection behaviour meant for actual client records. */
+.lead-source-card {
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lead-source-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.lead-source-card-top strong { font-size: 15px; font-weight: 500; }
+.lead-source-card-top span {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-line);
+  color: var(--accent);
+}
+.lead-source-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 12px;
+  color: #9f9f9f;
+}
+.lead-source-metrics b { color: #fff; font-weight: 500; }
+.lead-source-empty { color: #7f7f7f; font-size: 13px; padding: 10px 4px; grid-column: 1/-1; }
+
+@media (max-width: 480px) {
+  .lead-source-metrics { gap: 4px 12px; font-size: 11.5px; }
+}
+
+/* ============================================================================
+   ROADMAP MODULES — hide/unhide, roles, and the new Finance/Sales/Growth/Admin
+   tabs all reuse .client-card / .badge / .kpi-grid / .mini-item / .bar-list
+   already defined above. Only the handful of things with no existing
+   equivalent get new rules here.
+   ============================================================================ */
+
+/* Hide/unhide toggle button on a client card — sits next to the VIP star */
+.hide-toggle-btn {
+  background: none; border: none; cursor: pointer; font-size: 14px;
+  line-height: 1; padding: 2px; opacity: 0.55; transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.hide-toggle-btn:hover { opacity: 1; transform: scale(1.1); }
+.client-card.is-hidden { opacity: 0.6; border-style: dashed; }
+
+/* Role badges (Owners & Roles tab) */
+.badge.role-super_admin, .badge.role-admin { border-color: rgba(255,180,84,0.4); color: var(--warn); }
+.badge.role-finance { border-color: rgba(127,213,138,0.4); color: var(--good); }
+.badge.role-viewer { border-color: rgba(255,255,255,0.15); color: #9f9f9f; }
+
+/* Generic status badges reused by proposals/contracts/invoices/payments —
+   map their statuses onto the same good/warn/danger language as the rest
+   of the app rather than inventing a new palette per module. */
+.badge.status-draft, .badge.status-pending { border-color: rgba(255,255,255,0.15); color: #9f9f9f; }
+.badge.status-sent, .badge.status-viewed, .badge.status-negotiation { border-color: rgba(255,180,84,0.4); color: var(--warn); }
+.badge.status-accepted, .badge.status-signed, .badge.status-paid { border-color: rgba(127,213,138,0.4); color: var(--good); }
+.badge.status-rejected, .badge.status-cancelled, .badge.status-overdue, .badge.status-expired { border-color: rgba(255,93,93,0.4); color: var(--danger); }
+
+/* Projects (Kanban) redesign — richer card with client identity, a mini
+   progress bar, and a payment-status dot, plus a value/deadline footer, so
+   a glance at the board tells you health + money without opening a client. */
+.kanban-col-value { font-size: 10.5px; color: #7f7f7f; padding: 0 4px 2px; }
+.project-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.project-card-top .client-avatar { width: 26px; height: 26px; font-size: 10.5px; flex-shrink: 0; }
+.project-card-name { min-width: 0; flex: 1; }
+.project-card-name strong { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.project-card-name small { font-size: 10.5px; color: #8f8f8f; }
+.project-pay-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: #9f9f9f; }
+.project-pay-dot.good { background: var(--good); }
+.project-pay-dot.warn { background: var(--warn); }
+.project-pay-dot.danger { background: var(--danger); }
+.kanban-card .client-progress-track { margin-top: 8px; height: 4px; }
+.project-card-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 10.5px; color: #8f8f8f; }
+.project-card-foot .deadline-overdue { color: var(--danger); }
+
+/* Messages — small "you replied" / unread indicator on the conversation list */
+.conv-item-you-tag { font-size: 10px; color: #7f7f7f; margin-right: 3px; }
+.conversation-item.has-client-unread { border-color: var(--accent-line); background: var(--accent-dim); }
+
+/* ============================================================================
+   REQUESTS — redesigned card
+   ----------------------------------------------------------------------------
+   The old card stacked six-plus <small> tags with identical styling and no
+   hierarchy (type, badge, name/email, subject, full message, date, status
+   select, actions, reply box all at the same visual weight). This gives it
+   the same identity-row treatment as a client card, collapses the message
+   behind a native <details> so a long request doesn't dominate the list,
+   and groups the status control with the reply actions in one footer row.
+   ============================================================================ */
+.request-card {
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.request-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.request-client-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.request-client-text { min-width: 0; }
+.request-client-text strong { display: block; font-size: 14px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.request-client-text small { color: #9f9f9f; font-size: 11.5px; }
+
+.request-type-row { display: flex; justify-content: space-between; align-items: center; }
+.request-type-tag {
+  font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase;
+  color: #9f9f9f; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px;
+  padding: 3px 10px;
+}
+.request-date { font-size: 11.5px; color: #7f7f7f; }
+
+.request-subject-plain { font-size: 13.5px; color: #cfcfcf; }
+
+/* Native <details> for the message body — collapsed by default so a long
+   request message doesn't push everything else off-screen; the subject
+   line doubles as the toggle. */
+.request-details summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: #e4e4e4;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.request-details summary::-webkit-details-marker { display: none; }
+.request-details summary::before { content: "▸"; font-size: 10px; color: #7f7f7f; transition: transform 0.15s ease; flex-shrink: 0; }
+.request-details[open] summary::before { transform: rotate(90deg); }
+.request-details p {
+  margin-top: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #d8d8d8;
+  white-space: pre-wrap;
+}
+
+.request-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.request-actions-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.request-action-btn {
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.03);
+  color: #cfcfcf;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+.request-action-btn:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.08); }
+.request-no-client { font-size: 11.5px; color: #7f7f7f; }
+
+@media (max-width: 480px) {
+  .request-footer-row { flex-direction: column; align-items: stretch; }
+  .request-actions-row { justify-content: flex-start; }
 }
