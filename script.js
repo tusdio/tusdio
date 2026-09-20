@@ -3,8 +3,8 @@ import {
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+import { initAnalytics } from "./analytics.js";
 
-import { notifyOwner } from "./telegram-notify.js";
 // ---------- Typing Effect ----------
 const words = [
   "Building unforgettable brands.",
@@ -69,33 +69,36 @@ onAuthStateChanged(auth, (user) => {
       ? "./Nav Bar/auth/owner/owner.html"
       : "./Nav Bar/auth/users.html";
 
-    navUserArea.innerHTML = `
-      <div class="nav-user-box">
-        <span class="nav-user-name">${name}</span>
-        <a href="${dashboardLink}" class="nav-user-btn">Dashboard</a>
-        <button id="logoutBtn" class="nav-user-btn" type="button">Logout</button>
-      </div>
-    `;
+    // Built with DOM APIs (not innerHTML) so a display name can never inject markup.
+    navUserArea.innerHTML = "";
+    const box = document.createElement("div");
+    box.className = "nav-user-box";
 
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-      logoutBtn.addEventListener("click", async () => {
-        try {
-          await signOut(auth);
-          location.reload();
-        } catch (error) {
-          console.error("Logout failed:", error);
-        }
-      });
-    }
+    const nameEl = document.createElement("span");
+    nameEl.className = "nav-user-name";
+    nameEl.textContent = name;
 
-    // Notify the owner on Telegram when a client (not the owner) logs in.
-    // sessionStorage keeps this to once per browser session so it doesn't
-    // fire again on every page navigation/reload while they're browsing.
-    if (!isOwner && !sessionStorage.getItem("ownerNotifiedThisSession")) {
-      notifyOwner(`👤 <b>${name}</b> just logged in.`);
-      sessionStorage.setItem("ownerNotifiedThisSession", "true");
-    }
+    const dash = document.createElement("a");
+    dash.className = "nav-user-btn";
+    dash.href = dashboardLink;
+    dash.textContent = "Dashboard";
+
+    const logoutBtn = document.createElement("button");
+    logoutBtn.id = "logoutBtn";
+    logoutBtn.className = "nav-user-btn";
+    logoutBtn.type = "button";
+    logoutBtn.textContent = "Logout";
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+        location.reload();
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    });
+
+    box.append(nameEl, dash, logoutBtn);
+    navUserArea.appendChild(box);
   } else {
     navUserArea.innerHTML = `<a href="./Nav Bar/auth/login.html">Login</a>`;
   }
@@ -106,6 +109,11 @@ onAuthStateChanged(auth, (user) => {
 // (loaded from CDN in index.html) take over the motion layer.
 // ==========================================================
 document.addEventListener("DOMContentLoaded", () => {
+  // Visitor tracking → Owner Panel › Website Intelligence.
+  // Runs independently of the animation code below, so a GSAP failure
+  // can never stop visits from being recorded.
+  initAnalytics();
+
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hasGSAP = typeof window.gsap !== "undefined";
   const hasScrollTrigger = hasGSAP && typeof window.ScrollTrigger !== "undefined";
@@ -119,11 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------- Mobile hero slideshow ----------
-  // The hero itself now carries a dedicated set of mobile-only images
-  // (.hero-slide-mobile) that crossfade behind the headline/buttons/stats,
-  // filling the same full-bleed spot the desktop pinned deck uses above
-  // 640px. This is a plain interval crossfade (no GSAP/scroll dependency)
-  // so it keeps working even if GSAP fails to load.
+  // Plain interval crossfade (no GSAP/scroll dependency) so it keeps
+  // working even if GSAP fails to load.
   const heroMobileSlides = document.querySelectorAll(".hero-slide-mobile");
   if (heroMobileSlides.length > 0) {
     heroMobileSlides.forEach((slide) => {
@@ -163,10 +168,19 @@ document.addEventListener("DOMContentLoaded", () => {
     projectGallery.addEventListener(
       "wheel",
       (event) => {
-        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-          event.preventDefault();
-          projectGallery.scrollLeft += event.deltaY;
-        }
+        if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+        // Only hijack the wheel while the row can still scroll in that
+        // direction; at either end, let the page keep scrolling normally
+        // instead of trapping the cursor over the cards.
+        const max = projectGallery.scrollWidth - projectGallery.clientWidth;
+        const atEdge = event.deltaY < 0
+          ? projectGallery.scrollLeft <= 0
+          : projectGallery.scrollLeft >= max - 1;
+        if (atEdge) return;
+
+        event.preventDefault();
+        projectGallery.scrollLeft += event.deltaY;
       },
       { passive: false }
     );
@@ -250,7 +264,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const nameChars = splitToChars(heroName);
-  if (nameChars.length) gsap.set(nameChars, { yPercent: 120, filter: "blur(8px)" });
+  // Guarded: previously this ran even if GSAP failed to load and threw.
+  if (hasGSAP && nameChars.length && !reduceMotion) {
+    gsap.set(nameChars, { yPercent: 120, filter: "blur(8px)" });
+  }
 
   const preloader = document.querySelector(".preloader");
 
@@ -258,13 +275,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fallback: show everything immediately, no motion.
     if (preloader) { preloader.style.display = "none"; }
     if (heroSlides[0]) heroSlides[0].style.opacity = "1";
-    if (nameChars.length) gsap.set(nameChars, { yPercent: 0, filter: "blur(0px)" });
+    nameChars.forEach((c) => {
+      c.style.transform = "none";
+      c.style.filter = "none";
+    });
     [heroKicker, heroSubtext, heroButtons, heroStats, heroScrollCue].forEach((el) => {
       if (el) el.style.opacity = "1";
     });
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
-    document.querySelectorAll("[data-split-words] .word").forEach((w) => { w.style.transform = "none"; w.style.opacity = "1"; });
-    // Reduced motion / no-GSAP: just show final stat values, no count-up.
+    document.querySelectorAll("[data-split-words]").forEach((h) => { h.dataset.splitDone = "skip"; });
     document.querySelectorAll(".hero-stats h3[data-count]").forEach((el) => {
       el.textContent = el.dataset.count;
     });
@@ -377,9 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
           heroTl.to(heroStats, { opacity: 1, duration: 0.6 }, 2.7);
 
           // Stat counters: scrubbed in lockstep with the fade-in above,
-          // instead of on their own separate ScrollTrigger (which used to
-          // resolve while the section was still pinned/hidden and finish
-          // counting before the numbers were ever visible).
+          // instead of on their own separate ScrollTrigger.
           const statEls = heroStats.querySelectorAll("h3[data-count]");
           statEls.forEach((el) => {
             const obj = { value: 0 };
@@ -435,8 +452,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (heroStats) {
           quickTl.to(heroStats, { opacity: 1, duration: 0.4 }, "-=0.2");
 
-          // Same fix on mobile: scrub the count-up alongside the fade-in
-          // instead of a separate, mistimed ScrollTrigger.
           heroStats.querySelectorAll("h3[data-count]").forEach((el) => {
             const obj = { value: 0 };
             quickTl.to(obj, {
@@ -482,14 +497,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------- Word-by-word kinetic heading reveal ----------
-  // Splits each [data-split-words] heading into masked words (reference:
-  // paulkalkbrenner / normalisboring stacked-word headlines) and plays
+  // Splits each [data-split-words] heading into masked words and plays
   // them in on the way down, reverses on the way back up.
   function splitToWords(el) {
     if (!el || el.dataset.splitDone) return [];
     const text = el.textContent;
     el.textContent = "";
-    const words = [];
+    const wordEls = [];
     text.split(" ").forEach((word, i, arr) => {
       const mask = document.createElement("span");
       mask.className = "word-mask";
@@ -498,18 +512,18 @@ document.addEventListener("DOMContentLoaded", () => {
       inner.textContent = word;
       mask.appendChild(inner);
       el.appendChild(mask);
-      words.push(inner);
+      wordEls.push(inner);
       if (i < arr.length - 1) el.appendChild(document.createTextNode(" "));
     });
     el.dataset.splitDone = "true";
-    return words;
+    return wordEls;
   }
 
   document.querySelectorAll("[data-split-words]").forEach((heading) => {
-    const words = splitToWords(heading);
-    if (!words.length) return;
-    gsap.set(words, { yPercent: 100, opacity: 0 });
-    gsap.to(words, {
+    const wordEls = splitToWords(heading);
+    if (!wordEls.length) return;
+    gsap.set(wordEls, { yPercent: 100, opacity: 0 });
+    gsap.to(wordEls, {
       yPercent: 0,
       opacity: 1,
       duration: 0.8,
@@ -527,8 +541,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ---------- Site-wide bidirectional reveals ----------
-  // Plays forward scrolling down, reverses smoothly scrolling back up,
-  // instead of firing once via IntersectionObserver and staying static.
+  // Plays forward scrolling down, reverses smoothly scrolling back up.
   if (hasScrollTrigger) {
     gsap.set(".reveal", { clearProps: "opacity,transform" }); // let GSAP own these, not the CSS transition
     gsap.utils.toArray(".reveal").forEach((section) => {
@@ -552,18 +565,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ---------- Staggered child reveals for grid-style sections ----------
     // Each item gets its OWN enter/leave trigger via ScrollTrigger.batch,
-    // instead of one shared trigger tied to the whole parent section. A
-    // single shared trigger is fine for short grids (Why TUSDIO, Process)
-    // that fit in roughly one viewport, but it broke down badly on the
-    // much taller Recent Work grid: with one "top 80% / bottom 20%" pair
-    // covering the *entire* multi-screen-tall section, cards near the
-    // bottom would already be marked visible before they ever scrolled
-    // into view, and cards in the middle would silently fade out again
-    // while still on screen as soon as the far-off bottom edge of the
-    // section crossed the reverse threshold. That mismatch between
-    // "when the trigger fires" and "what's actually on screen" was the
-    // glitchy behaviour in the Recent Work section. Batching each card's
-    // own position fixes it for every grid, short or tall.
+    // so tall grids (Recent Work) reveal cards as they actually scroll into
+    // view instead of being tied to one trigger for the whole section.
     const staggerGroups = [
       ".feature-grid .feature-card",
       ".process-grid .process-step",
@@ -598,18 +601,6 @@ document.addEventListener("DOMContentLoaded", () => {
           }),
       });
     });
-
-    // NOTE: there used to be a scroll-scrubbed parallax drift on the
-    // Recent Work images here (a continuous transform recalculated on
-    // every scroll frame, layered on top of an image sized larger than
-    // its rounded, overflow:hidden card so it had room to slide). That
-    // combination was the actual source of the section feeling glitchy:
-    // some browsers don't reliably keep an oversized, actively-animating
-    // child clipped to a rounded corner, so the corners could flash
-    // square mid-scroll, on top of the general jank of scrubbing 18
-    // transforms at once. It's intentionally removed — the grid now only
-    // animates on entrance (via ScrollTrigger.batch above) and on hover
-    // (plain CSS), each with a single, uncontested owner of `transform`.
   } else {
     // No ScrollTrigger available: fall back to simple one-shot reveal.
     document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
