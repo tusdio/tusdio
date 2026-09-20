@@ -475,7 +475,7 @@ function switchTab(tab) {
   if (tab === "proposals") renderProposals();
   if (tab === "contracts") renderContracts();
   if (tab === "calendar") renderCalendar();
-  if (tab === "websiteIntelligence") renderWebsiteIntel();
+  if (tab === "websiteIntelligence") { renderWebsiteIntel(); loadWebsiteIntel(); }
   if (tab === "referrals") renderReferrals();
   if (tab === "conversionAnalytics") renderConversionFunnel();
 }
@@ -4495,57 +4495,120 @@ let websiteIntelType = "all";
 
 async function loadWebsiteIntel() {
   try {
-    const q = query(collection(db, "analytics_events"), orderBy("timestamp", "desc"), limit(100));
+    const q = query(collection(db, "analytics_events"), orderBy("timestamp", "desc"), limit(500));
     const snap = await getDocs(q);
     analyticsEventsCache = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
   } catch (err) {
-    // Collection likely doesn't exist yet — that's expected until a
-    // tracking snippet is added to the public site. Fail quietly.
+    console.error("Website Intelligence: couldn't read analytics_events", err);
     analyticsEventsCache = [];
   }
   if (activeTab === "websiteIntelligence") renderWebsiteIntel();
 }
 
+// Events that are useful in totals but too noisy for the default feed.
+const MINOR_EVENT_TYPES = new Set(["scroll_depth", "section_view", "time_on_page", "faq_open", "form_start"]);
+const GOOD_EVENT_TYPES = new Set(["cta_click", "contact_click", "form_submit"]);
+
+const EVENT_LABELS = {
+  page_view: "Viewed",
+  cta_click: "Clicked button",
+  nav_click: "Clicked menu",
+  outbound_click: "Clicked social link",
+  service_click: "Opened service",
+  portfolio_click: "Opened project",
+  contact_click: "Clicked email",
+  faq_open: "Opened FAQ",
+  form_start: "Started contact form",
+  form_submit: "Sent contact form",
+  scroll_depth: "Scrolled",
+  section_view: "Saw section",
+  time_on_page: "Stayed"
+};
+
+function describeSiteEvent(e) {
+  const label = EVENT_LABELS[e.type] || e.type || "Site event";
+  let what = "";
+  if (e.type === "scroll_depth") what = `${e.value}% of ${e.page || "page"}`;
+  else if (e.type === "time_on_page") what = `${e.value}s on ${e.page || "page"}`;
+  else if (e.type === "page_view") what = e.page || "";
+  else what = e.target || e.page || "";
+
+  const ctx = [e.source, e.device].filter(Boolean).join(" · ");
+  return `${label}${what ? ` — ${what}` : ""}${ctx ? ` • ${ctx}` : ""}`;
+}
+
 function combinedWebsiteActivity() {
-  const logins = freebieLoginsCache.map((r) => ({ type: "login", name: r.name, email: r.email, ms: toMillis(r.createdAt), detail: "Logged in on the Freebie page" }));
-  const downloads = freebieDownloadsCache.map((r) => ({ type: "download", name: r.name, email: r.email, ms: toMillis(r.createdAt), detail: `Downloaded "${r.freebieTitle || ""}"` }));
-  const events = analyticsEventsCache.map((e) => ({ type: "event", name: e.userId ? "Identified visitor" : "Anonymous visitor", email: e.userEmail || "", ms: toMillis(e.timestamp), detail: e.type || e.page || "Site event" }));
+  const logins = freebieLoginsCache.map((r) => ({
+    type: "login", eventType: "", name: r.name, email: r.email, ms: toMillis(r.createdAt),
+    detail: "Logged in on the Freebie page", visitorId: "", source: ""
+  }));
+  const downloads = freebieDownloadsCache.map((r) => ({
+    type: "download", eventType: "", name: r.name, email: r.email, ms: toMillis(r.createdAt),
+    detail: `Downloaded "${r.freebieTitle || ""}"`, visitorId: "", source: ""
+  }));
+  const events = analyticsEventsCache.map((e) => ({
+    type: "event",
+    eventType: e.type || "",
+    name: e.userName || (e.userId ? "Signed-in visitor" : `Visitor ${String(e.visitorId || "").slice(0, 4)}`.trim()),
+    email: e.userEmail || "",
+    ms: toMillis(e.timestamp),
+    detail: describeSiteEvent(e),
+    visitorId: e.visitorId || "",
+    source: e.source || ""
+  }));
   return [...logins, ...downloads, ...events].sort((a, b) => b.ms - a.ms);
 }
 
 function renderWebsiteIntel() {
   if (!websiteIntelList) return;
 
-  let rows = combinedWebsiteActivity();
-  if (websiteIntelType !== "all") rows = rows.filter((r) => r.type === websiteIntelType);
+  // 1) Date-range filter first — the KPIs reflect the chosen range.
+  let inRange = combinedWebsiteActivity();
   if (websiteIntelRange === "today") {
     const start = new Date(); start.setHours(0, 0, 0, 0);
-    rows = rows.filter((r) => r.ms >= start.getTime());
+    inRange = inRange.filter((r) => r.ms >= start.getTime());
   } else if (websiteIntelRange !== "all") {
     const cutoff = Date.now() - Number(websiteIntelRange) * 24 * 60 * 60 * 1000;
-    rows = rows.filter((r) => r.ms >= cutoff);
+    inRange = inRange.filter((r) => r.ms >= cutoff);
   }
 
+  // 2) KPIs
   if (websiteIntelKpiGrid) {
-    const identifiable = rows.filter((r) => r.email);
+    const views = inRange.filter((r) => r.eventType === "page_view");
+    const uniqueVisitors = new Set(inRange.filter((r) => r.visitorId).map((r) => r.visitorId)).size;
+    const logins = inRange.filter((r) => r.type === "login").length;
+    const downloads = inRange.filter((r) => r.type === "download").length;
+
+    const bySource = {};
+    views.forEach((r) => { const s = r.source || "direct"; bySource[s] = (bySource[s] || 0) + 1; });
+    const topSource = Object.entries(bySource).sort((a, b) => b[1] - a[1])[0];
+
     websiteIntelKpiGrid.innerHTML = [
-      kpiCard("Logins", freebieLoginsCache.length, "All time, Freebie page"),
-      kpiCard("Downloads", freebieDownloadsCache.length, "All time, Freebie page"),
-      kpiCard("Site Events", analyticsEventsCache.length, analyticsEventsCache.length ? "Last 100" : "Needs tracking snippet"),
-      kpiCard("Identifiable in view", identifiable.length, "Have an email on file")
+      kpiCard("Page Views", views.length, analyticsEventsCache.length ? "From homepage tracking" : "No tracking data yet"),
+      kpiCard("Unique Visitors", uniqueVisitors, "Distinct browsers"),
+      kpiCard("Freebie Logins", logins, "Freebie page"),
+      kpiCard("Freebie Downloads", downloads, "Freebie page"),
+      kpiCard("Top Source", topSource ? topSource[0] : "—", topSource ? `${topSource[1]} page view${topSource[1] === 1 ? "" : "s"}` : "No data yet")
     ].join("");
   }
+
+  // 3) Feed: type filter; hide the noisy micro-events unless "Site events" is selected.
+  let rows = inRange;
+  if (websiteIntelType !== "all") rows = rows.filter((r) => r.type === websiteIntelType);
+  if (websiteIntelType === "all") rows = rows.filter((r) => !MINOR_EVENT_TYPES.has(r.eventType));
 
   if (!rows.length) {
     websiteIntelList.innerHTML = `<div class="mini-empty">No activity matches this filter yet.</div>`;
     return;
   }
 
-  websiteIntelList.innerHTML = rows.map((r) => {
+  websiteIntelList.innerHTML = rows.slice(0, 150).map((r) => {
     const matched = r.email ? resolveClientByEmail(r.email) : null;
+    const dot = r.type === "download" || GOOD_EVENT_TYPES.has(r.eventType) ? "good"
+      : r.type === "login" || r.eventType === "page_view" ? "" : "warn";
     return `
     <div class="mini-item" ${matched ? `data-intel-client="${matched.id}" style="cursor:pointer;"` : ""}>
-      <span class="mini-dot ${r.type === "download" ? "good" : r.type === "login" ? "" : "warn"}"></span>
+      <span class="mini-dot ${dot}"></span>
       <div class="mini-body">
         <div class="mini-title">${escapeHtml(r.name || (r.email ? r.email : "Anonymous"))}${matched ? ` <span class="lead-tag">Client</span>` : ""}</div>
         <div class="mini-meta">${escapeHtml(r.detail)} • ${timeAgo(r.ms)}</div>
