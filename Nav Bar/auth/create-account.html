@@ -1,33 +1,1772 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Create Account | TUSDIO</title>
-  <link rel="stylesheet" href="auth.css" />
+
+  <meta
+    name="description"
+    content="Create your TUSDIO client workspace account."
+  />
+
+
+  <style>
+
+    /* =========================================================
+       TUSDIO CLIENT CREATE ACCOUNT
+       Matches TUSDIO Login Experience
+       ========================================================= */
+
+
+    :root {
+
+      --black: #111111;
+      --dark: #181818;
+      --white: #ffffff;
+      --off-white: #f7f7f5;
+      --soft: #f0efec;
+      --line: #e5e5e2;
+      --muted: #858585;
+      --muted-dark: #626262;
+
+      --radius: 14px;
+
+    }
+
+
+    * {
+
+      margin: 0;
+      padding: 0;
+
+      box-sizing: border-box;
+
+    }
+
+
+    html {
+
+      width: 100%;
+      min-height: 100%;
+
+      background: var(--off-white);
+
+    }
+
+
+    body {
+
+      width: 100%;
+      min-height: 100vh;
+
+      overflow: hidden;
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+      background: var(--off-white);
+
+      color: var(--black);
+
+      -webkit-font-smoothing: antialiased;
+
+      text-rendering: optimizeLegibility;
+
+    }
+
+
+    button,
+    input {
+
+      font: inherit;
+
+    }
+
+
+    button {
+
+      -webkit-tap-highlight-color: transparent;
+
+    }
+
+
+    a {
+
+      -webkit-tap-highlight-color: transparent;
+
+    }
+
+
+    /* =========================================================
+       MAIN PAGE
+       ========================================================= */
+
+
+    .auth-page {
+
+      position: relative;
+
+      width: 100vw;
+      height: 100vh;
+
+      display: grid;
+
+      grid-template-columns: 50% 50%;
+
+      background: var(--off-white);
+
+    }
+
+
+    /* =========================================================
+       LEFT SIDE
+       ========================================================= */
+
+
+    .auth-left {
+
+      position: relative;
+
+      width: 100%;
+      height: 100vh;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: space-between;
+
+      padding: 38px 58px 30px;
+
+      background: #ffffff;
+
+      overflow: hidden;
+
+      z-index: 10;
+
+    }
+
+
+    /* =========================================================
+       TOP BRAND
+       ========================================================= */
+
+
+    .top-brand {
+
+      position: relative;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      width: 100%;
+
+      z-index: 5;
+
+    }
+
+
+    .brand {
+
+      color: var(--black);
+
+      font-size: 13px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.22em;
+
+      line-height: 1;
+
+      user-select: none;
+
+    }
+
+
+    .brand-meta {
+
+      color: #b1b1b1;
+
+      font-size: 9px;
+
+      font-weight: 500;
+
+      letter-spacing: 0.14em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    /* =========================================================
+       DOT LOGO
+       ========================================================= */
+
+
+    .dot-logo {
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      width: 30px;
+      height: 30px;
+
+      transform: translate(-50%, -50%);
+
+      opacity: 0.95;
+
+      pointer-events: none;
+
+    }
+
+
+    .dot-logo span {
+
+      position: absolute;
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #111111;
+
+    }
+
+
+    .dot-logo span:nth-child(1) {
+
+      top: 0;
+      left: 12px;
+
+    }
+
+
+    .dot-logo span:nth-child(2) {
+
+      top: 4px;
+      left: 21px;
+
+    }
+
+
+    .dot-logo span:nth-child(3) {
+
+      top: 13px;
+      left: 24px;
+
+    }
+
+
+    .dot-logo span:nth-child(4) {
+
+      top: 22px;
+      left: 17px;
+
+    }
+
+
+    .dot-logo span:nth-child(5) {
+
+      top: 24px;
+      left: 8px;
+
+    }
+
+
+    .dot-logo span:nth-child(6) {
+
+      top: 17px;
+      left: 1px;
+
+    }
+
+
+    .dot-logo span:nth-child(7) {
+
+      top: 7px;
+      left: 3px;
+
+    }
+
+
+    /* =========================================================
+       CREATE ACCOUNT CONTENT
+       ========================================================= */
+
+
+    .signup-wrapper {
+
+      width: min(390px, 100%);
+
+      margin: auto;
+
+    }
+
+
+    .eyebrow {
+
+      margin-bottom: 17px;
+
+      color: #999999;
+
+      font-size: 10px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.17em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .signup-title {
+
+      margin-bottom: 13px;
+
+      color: var(--black);
+
+      font-size: clamp(36px, 3.2vw, 48px);
+
+      font-weight: 600;
+
+      line-height: 0.98;
+
+      letter-spacing: -0.055em;
+
+    }
+
+
+    .signup-subtitle {
+
+      max-width: 350px;
+
+      margin-bottom: 30px;
+
+      color: #777777;
+
+      font-size: 13px;
+
+      line-height: 1.65;
+
+    }
+
+
+    /* =========================================================
+       FORM
+       ========================================================= */
+
+
+    .auth-form {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 11px;
+
+    }
+
+
+    .input-wrap {
+
+      position: relative;
+
+      width: 100%;
+
+    }
+
+
+    .auth-input {
+
+      width: 100%;
+
+      height: 58px;
+
+      padding: 0 18px;
+
+      border: 1px solid var(--line);
+
+      border-radius: var(--radius);
+
+      outline: none;
+
+      background: #ffffff;
+
+      color: var(--black);
+
+      font-size: 13px;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+    }
+
+
+    .auth-input::placeholder {
+
+      color: #b1b1b1;
+
+    }
+
+
+    .auth-input:focus {
+
+      border-color: #bcbcbc;
+
+      box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.025);
+
+    }
+
+
+    /* =========================================================
+       PASSWORD TOGGLE
+       ========================================================= */
+
+
+    .password-toggle {
+
+      position: absolute;
+
+      right: 17px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      width: 24px;
+      height: 24px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border: 0;
+
+      background: transparent;
+
+      color: #8d8d8d;
+
+      cursor: pointer;
+
+      padding: 0;
+
+    }
+
+
+    .password-toggle svg {
+
+      width: 19px;
+      height: 19px;
+
+    }
+
+
+    .password-toggle:hover {
+
+      color: #111111;
+
+    }
+
+
+    /* =========================================================
+       CREATE BUTTON
+       ========================================================= */
+
+
+    .auth-button {
+
+      width: 100%;
+
+      height: 58px;
+
+      margin-top: 7px;
+
+      border: 0;
+
+      border-radius: var(--radius);
+
+      background: var(--black);
+
+      color: #ffffff;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+
+    }
+
+
+    .auth-button:hover {
+
+      background: #222222;
+
+      transform: translateY(-1px);
+
+    }
+
+
+    .auth-button:disabled {
+
+      opacity: 0.6;
+
+      cursor: not-allowed;
+
+      transform: none;
+
+    }
+
+
+    /* =========================================================
+       DIVIDER
+       ========================================================= */
+
+
+    .divider {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      margin: 25px 0;
+
+      color: #b5b5b5;
+
+      font-size: 9px;
+
+      font-weight: 500;
+
+      letter-spacing: 0.16em;
+
+    }
+
+
+    .divider::before,
+    .divider::after {
+
+      content: "";
+
+      flex: 1;
+
+      height: 1px;
+
+      background: var(--line);
+
+    }
+
+
+    /* =========================================================
+       GOOGLE BUTTON
+       ========================================================= */
+
+
+    .google-btn {
+
+      width: 100%;
+
+      height: 58px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 11px;
+
+      border: 1px solid var(--line);
+
+      border-radius: var(--radius);
+
+      background: #ffffff;
+
+      color: #333333;
+
+      font-size: 13px;
+
+      font-weight: 500;
+
+      cursor: pointer;
+
+      transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+
+    }
+
+
+    .google-btn:hover {
+
+      border-color: #cccccc;
+
+      background: #fafafa;
+
+    }
+
+
+    .google-btn:disabled {
+
+      opacity: 0.6;
+
+      cursor: not-allowed;
+
+    }
+
+
+    .google-icon {
+
+      width: 18px;
+
+      height: 18px;
+
+      flex-shrink: 0;
+
+    }
+
+
+    /* =========================================================
+       MESSAGE
+       ========================================================= */
+
+
+    .auth-message {
+
+      min-height: 18px;
+
+      margin-top: 12px;
+
+      color: #777777;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+
+      text-align: center;
+
+    }
+
+
+    /* =========================================================
+       LOGIN LINK
+       ========================================================= */
+
+
+    .auth-switch {
+
+      margin-top: 20px;
+
+      color: #999999;
+
+      font-size: 11px;
+
+      text-align: center;
+
+    }
+
+
+    .auth-switch a {
+
+      color: #111111;
+
+      font-weight: 600;
+
+      text-decoration: underline;
+
+      text-underline-offset: 3px;
+
+    }
+
+
+    /* =========================================================
+       RIGHT GALLERY
+       ========================================================= */
+
+
+    .gallery {
+
+      position: relative;
+
+      width: 100%;
+      height: 100vh;
+
+      overflow: hidden;
+
+      background: var(--soft);
+
+    }
+
+
+    .gallery-top {
+
+      position: absolute;
+
+      top: 46px;
+
+      left: 58px;
+
+      right: 58px;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      z-index: 20;
+
+    }
+
+
+    .gallery-brand {
+
+      color: #a8a8a8;
+
+      font-size: 9px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.22em;
+
+    }
+
+
+    .gallery-meta {
+
+      color: #aaaaaa;
+
+      font-size: 8px;
+
+      letter-spacing: 0.15em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .gallery-slide {
+
+      position: absolute;
+
+      inset: 0;
+
+      opacity: 0;
+
+      visibility: hidden;
+
+      transition:
+        opacity 0.55s ease,
+        visibility 0.55s ease;
+
+    }
+
+
+    .gallery-slide.active {
+
+      opacity: 1;
+
+      visibility: visible;
+
+    }
+
+
+    .gallery-image-small {
+
+      position: absolute;
+
+      top: 47px;
+
+      right: 112px;
+
+      width: 207px;
+
+      height: 138px;
+
+      object-fit: cover;
+
+    }
+
+
+    .gallery-image-main {
+
+      position: absolute;
+
+      top: 182px;
+
+      right: 56px;
+
+      width: 435px;
+
+      height: 595px;
+
+      object-fit: cover;
+
+    }
+
+
+    .gallery-image-bottom {
+
+      position: absolute;
+
+      left: 250px;
+
+      bottom: 91px;
+
+      width: 185px;
+
+      height: 210px;
+
+      object-fit: cover;
+
+    }
+
+
+    /* =========================================================
+       GALLERY CAPTION
+       ========================================================= */
+
+
+    .gallery-caption {
+
+      position: absolute;
+
+      left: 58px;
+
+      bottom: 74px;
+
+      width: 325px;
+
+      z-index: 10;
+
+    }
+
+
+    .gallery-kicker {
+
+      margin-bottom: 11px;
+
+      color: #999999;
+
+      font-size: 9px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.2em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .gallery-caption-title {
+
+      margin-bottom: 10px;
+
+      color: #222222;
+
+      font-size: 20px;
+
+      font-weight: 500;
+
+      line-height: 1.08;
+
+      letter-spacing: -0.035em;
+
+    }
+
+
+    .gallery-caption-small {
+
+      color: #888888;
+
+      font-size: 10px;
+
+      line-height: 1.65;
+
+    }
+
+
+    .gallery-caption-small strong {
+
+      display: block;
+
+      margin-top: 5px;
+
+      color: #777777;
+
+      font-size: 8px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.12em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    /* =========================================================
+       GALLERY NAVIGATION
+       ========================================================= */
+
+
+    .gallery-dots {
+
+      position: absolute;
+
+      top: 50%;
+
+      right: 22px;
+
+      transform: translateY(-50%);
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+
+      z-index: 30;
+
+    }
+
+
+    .gallery-dot {
+
+      width: 5px;
+
+      height: 5px;
+
+      padding: 0;
+
+      border: 0;
+
+      border-radius: 50%;
+
+      background: #d0d0cd;
+
+      cursor: pointer;
+
+    }
+
+
+    .gallery-dot.active {
+
+      width: 7px;
+
+      height: 7px;
+
+      background: #111111;
+
+    }
+
+
+    /* =========================================================
+       FOOTER
+       ========================================================= */
+
+
+    .gallery-footer {
+
+      position: absolute;
+
+      left: 58px;
+
+      right: 58px;
+
+      bottom: 30px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      z-index: 20;
+
+    }
+
+
+    .footer-brand {
+
+      color: #111111;
+
+      font-size: 19px;
+
+      font-weight: 700;
+
+      letter-spacing: -0.03em;
+
+    }
+
+
+    .footer-meta {
+
+      color: #aaaaaa;
+
+      font-size: 8px;
+
+      letter-spacing: 0.18em;
+
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+
+    @media (max-width: 1050px) {
+
+      .auth-left {
+
+        padding-left: 40px;
+
+        padding-right: 40px;
+
+      }
+
+      .gallery-image-main {
+
+        right: 35px;
+
+        width: 390px;
+
+      }
+
+      .gallery-image-small {
+
+        right: 80px;
+
+      }
+
+      .gallery-caption {
+
+        left: 40px;
+
+      }
+
+    }
+
+
+    @media (max-width: 900px) {
+
+      body {
+
+        overflow: auto;
+
+      }
+
+
+      .auth-page {
+
+        display: block;
+
+        height: auto;
+
+        min-height: 100vh;
+
+      }
+
+
+      .auth-left {
+
+        width: 100%;
+
+        min-height: 100vh;
+
+        height: auto;
+
+        padding: 30px 25px;
+
+      }
+
+
+      .gallery {
+
+        display: none;
+
+      }
+
+
+      .signup-wrapper {
+
+        width: min(390px, 100%);
+
+      }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+      .auth-left {
+
+        padding: 25px 20px;
+
+      }
+
+
+      .brand {
+
+        font-size: 12px;
+
+      }
+
+
+      .brand-meta {
+
+        font-size: 8px;
+
+      }
+
+
+      .signup-title {
+
+        font-size: 38px;
+
+      }
+
+
+      .signup-subtitle {
+
+        font-size: 12px;
+
+      }
+
+
+      .auth-input,
+      .auth-button,
+      .google-btn {
+
+        height: 55px;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
+
+
   <main class="auth-page">
-    <div class="auth-card glass">
-      <p class="auth-tag">TUSDIO</p>
-      <h1>Create Account</h1>
-      <p class="auth-subtext">Create your account to continue.</p>
 
-      <form id="signupForm" class="auth-form">
-        <input type="text" id="name" placeholder="Full name" required />
-        <input type="email" id="email" placeholder="Email address" required />
-        <input type="password" id="password" placeholder="Password" required />
-        <button type="submit">Create Account</button>
-        <p id="signupMessage" class="auth-message"></p>
-      </form>
 
-      <p class="auth-switch">
-        Already have an account?
-        <a href="login.html">Login</a>
-      </p>
-    </div>
+    <!-- =====================================================
+         LEFT SIDE
+         ===================================================== -->
+
+
+    <section class="auth-left">
+
+
+      <!-- TOP BRAND -->
+
+      <header class="top-brand">
+
+        <div class="brand">
+          TUSDIO
+        </div>
+
+        <div class="brand-meta">
+          CLIENT WORKSPACE
+        </div>
+
+      </header>
+
+
+      <!-- DOT LOGO -->
+
+      <div class="dot-logo" aria-hidden="true">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </div>
+
+
+      <!-- CREATE ACCOUNT -->
+
+      <div class="signup-wrapper">
+
+
+        <p class="eyebrow">
+          TUSDIO / CLIENT PORTAL
+        </p>
+
+
+        <h1 class="signup-title">
+          Create your<br />
+          account
+        </h1>
+
+
+        <p class="signup-subtitle">
+
+          Create your TUSDIO account to access your
+          workspace, projects, brand assets and
+          ongoing creative work.
+
+        </p>
+
+
+        <form
+          id="signupForm"
+          class="auth-form"
+        >
+
+
+          <!-- FULL NAME -->
+
+          <div class="input-wrap">
+
+            <input
+              type="text"
+              id="name"
+              class="auth-input"
+              placeholder="Full name"
+              autocomplete="name"
+              required
+            />
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="input-wrap">
+
+            <input
+              type="email"
+              id="email"
+              class="auth-input"
+              placeholder="Email address"
+              autocomplete="email"
+              required
+            />
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="input-wrap">
+
+            <input
+              type="password"
+              id="password"
+              class="auth-input"
+              placeholder="Password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            />
+
+
+            <button
+              type="button"
+              id="passwordToggle"
+              class="password-toggle"
+              aria-label="Show password"
+            >
+
+              <svg
+                id="eyeIcon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+                />
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="2.5"
+                />
+
+              </svg>
+
+            </button>
+
+          </div>
+
+
+          <!-- CONFIRM PASSWORD -->
+
+          <div class="input-wrap">
+
+            <input
+              type="password"
+              id="confirmPassword"
+              class="auth-input"
+              placeholder="Confirm password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            />
+
+          </div>
+
+
+          <!-- CREATE ACCOUNT -->
+
+          <button
+            type="submit"
+            id="signupBtn"
+            class="auth-button"
+          >
+            Create account
+          </button>
+
+
+        </form>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+          OR
+        </div>
+
+
+        <!-- GOOGLE -->
+
+        <button
+          type="button"
+          id="googleSignupBtn"
+          class="google-btn"
+        >
+
+          <svg
+            class="google-icon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+
+            <path
+              fill="#4285F4"
+              d="M21.35 12.23c0-.79-.07-1.55-.2-2.28H12v4.31h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.7 2.91-4.2 2.91-7.42z"
+            />
+
+            <path
+              fill="#34A853"
+              d="M12 21.92c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.7-1.72-5.47-4.04H3.29v2.53A9.74 9.74 0 0 0 12 21.92z"
+            />
+
+            <path
+              fill="#FBBC05"
+              d="M6.53 13.99A5.86 5.86 0 0 1 6.22 12c0-.69.12-1.36.31-1.99V7.48H3.29A9.96 9.96 0 0 0 2.25 12c0 1.61.39 3.13 1.04 4.52l3.24-2.53z"
+            />
+
+            <path
+              fill="#EA4335"
+              d="M12 5.97c1.43 0 2.72.49 3.73 1.45l2.8-2.8C16.84 3.05 14.63 2.08 12 2.08a9.74 9.74 0 0 0-8.71 5.4l3.24 2.53C7.3 7.69 9.46 5.97 12 5.97z"
+            />
+
+          </svg>
+
+
+          Continue with Google
+
+        </button>
+
+
+        <!-- MESSAGE -->
+
+        <p
+          id="signupMessage"
+          class="auth-message"
+          aria-live="polite"
+        ></p>
+
+
+        <!-- LOGIN -->
+
+        <p class="auth-switch">
+
+          Already have a TUSDIO account?
+
+          <a href="login.html">
+            Login
+          </a>
+
+        </p>
+
+
+      </div>
+
+
+    </section>
+
+
+    <!-- =====================================================
+         RIGHT SIDE GALLERY
+         ===================================================== -->
+
+
+    <section class="gallery">
+
+
+      <div class="gallery-top">
+
+        <div class="gallery-brand">
+          TUSDIO®
+        </div>
+
+        <div class="gallery-meta">
+          BRAND · DIGITAL · CREATIVE
+        </div>
+
+      </div>
+
+
+      <!-- ===================================================
+           SLIDE 01
+           =================================================== -->
+
+
+      <article
+        class="gallery-slide active"
+        data-slide="0"
+      >
+
+
+        <img
+          class="gallery-image-small"
+          src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=88"
+          alt="Brand identity design"
+        />
+
+
+        <img
+          class="gallery-image-main"
+          src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1500&q=90"
+          alt="Creative brand identity project"
+        />
+
+
+        <img
+          class="gallery-image-bottom"
+          src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=88"
+          alt="Digital design work"
+        />
+
+
+        <div class="gallery-caption">
+
+          <div class="gallery-kicker">
+            01 / Brand Identity
+          </div>
+
+          <h2 class="gallery-caption-title">
+            We build brands people remember.
+          </h2>
+
+          <p class="gallery-caption-small">
+
+            Distinctive identities, visual systems
+            and creative direction for ambitious brands.
+
+            <strong>
+              Strategy · Identity · Direction
+            </strong>
+
+          </p>
+
+        </div>
+
+
+      </article>
+
+
+      <!-- ===================================================
+           SLIDE 02
+           =================================================== -->
+
+
+      <article
+        class="gallery-slide"
+        data-slide="1"
+      >
+
+
+        <img
+          class="gallery-image-small"
+          src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=88"
+          alt="Digital product design"
+        />
+
+
+        <img
+          class="gallery-image-main"
+          src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=1500&q=90"
+          alt="Modern creative workspace"
+        />
+
+
+        <img
+          class="gallery-image-bottom"
+          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=88"
+          alt="Creative team"
+        />
+
+
+        <div class="gallery-caption">
+
+          <div class="gallery-kicker">
+            02 / Digital
+          </div>
+
+          <h2 class="gallery-caption-title">
+            From idea to identity.
+          </h2>
+
+          <p class="gallery-caption-small">
+
+            We turn ambitious ideas into cohesive
+            digital experiences built around the brand.
+
+            <strong>
+              Web · UI/UX · Digital
+            </strong>
+
+          </p>
+
+        </div>
+
+
+      </article>
+
+
+      <!-- ===================================================
+           SLIDE 03
+           =================================================== -->
+
+
+      <article
+        class="gallery-slide"
+        data-slide="2"
+      >
+
+
+        <img
+          class="gallery-image-small"
+          src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=88"
+          alt="Graphic design project"
+        />
+
+
+        <img
+          class="gallery-image-main"
+          src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1500&q=90"
+          alt="Creative digital brand"
+        />
+
+
+        <img
+          class="gallery-image-bottom"
+          src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=88"
+          alt="Brand graphic design"
+        />
+
+
+        <div class="gallery-caption">
+
+          <div class="gallery-kicker">
+            03 / Creative
+          </div>
+
+          <h2 class="gallery-caption-title">
+            Make your brand impossible to ignore.
+          </h2>
+
+          <p class="gallery-caption-small">
+
+            Campaigns and visual content designed
+            to give modern brands a recognizable presence.
+
+            <strong>
+              Campaigns · Social · Content
+            </strong>
+
+          </p>
+
+        </div>
+
+
+      </article>
+
+
+      <!-- ===================================================
+           SLIDE 04
+           =================================================== -->
+
+
+      <article
+        class="gallery-slide"
+        data-slide="3"
+      >
+
+
+        <img
+          class="gallery-image-small"
+          src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=88"
+          alt="Packaging design"
+        />
+
+
+        <img
+          class="gallery-image-main"
+          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1500&q=90"
+          alt="Creative agency workspace"
+        />
+
+
+        <img
+          class="gallery-image-bottom"
+          src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=88"
+          alt="Creative direction"
+        />
+
+
+        <div class="gallery-caption">
+
+          <div class="gallery-kicker">
+            04 / Brand Experience
+          </div>
+
+          <h2 class="gallery-caption-title">
+            Every detail has a reason.
+          </h2>
+
+          <p class="gallery-caption-small">
+
+            Packaging, campaigns, interfaces and
+            touchpoints designed as one connected
+            brand experience.
+
+            <strong>
+              Packaging · Experience · Design
+            </strong>
+
+          </p>
+
+        </div>
+
+
+      </article>
+
+
+      <!-- ===================================================
+           DOT NAVIGATION
+           =================================================== -->
+
+
+      <div class="gallery-dots">
+
+        <button
+          class="gallery-dot active"
+          data-index="0"
+          aria-label="Slide 1"
+        ></button>
+
+        <button
+          class="gallery-dot"
+          data-index="1"
+          aria-label="Slide 2"
+        ></button>
+
+        <button
+          class="gallery-dot"
+          data-index="2"
+          aria-label="Slide 3"
+        ></button>
+
+        <button
+          class="gallery-dot"
+          data-index="3"
+          aria-label="Slide 4"
+        ></button>
+
+      </div>
+
+
+      <!-- FOOTER -->
+
+      <div class="gallery-footer">
+
+        <div class="footer-brand">
+          TUSDIO
+        </div>
+
+        <div class="footer-meta">
+          BRAND · DIGITAL · CREATIVE
+        </div>
+
+      </div>
+
+
+    </section>
+
+
   </main>
 
-  <script type="module" src="create-account.js"></script>
+
+  <!-- FIREBASE LOGIC -->
+
+  <script
+    type="module"
+    src="create-account.js"
+  ></script>
+
+
 </body>
+
 </html>
+```
