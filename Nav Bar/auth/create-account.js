@@ -4,906 +4,421 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 import {
   doc,
   setDoc,
-  getDoc
+  getDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
 
 /* ============================================================
-   TUSDIO CREATE ACCOUNT
+   CONFIG
+   NOTE: the owner check only decides where to redirect.
+   Real access control must live in Firestore rules / custom claims.
    ============================================================ */
+
+const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
+const OWNER_PAGE = "./owner/owner.html";
+const CLIENT_PAGE = "users.html";
+const MIN_PASSWORD_LENGTH = 8;
 
 
 /* ============================================================
    DOM
    ============================================================ */
 
-const form =
-  document.getElementById("signupForm");
+const $ = (id) => document.getElementById(id);
 
-const nameInput =
-  document.getElementById("name");
+const form = $("signupForm");
+const nameInput = $("name");
+const emailInput = $("email");
+const passwordInput = $("password");
+const confirmInput = $("confirmPassword");
+const signupBtn = $("signupBtn");
+const googleBtn = $("googleSignupBtn");
+const message = $("signupMessage");
+const strengthEl = $("strength");
+const strengthText = $("strengthText");
+const matchHint = $("matchHint");
+const capsHint = $("capsHint");
 
-const emailInput =
-  document.getElementById("email");
-
-const passwordInput =
-  document.getElementById("password");
-
-const confirmPasswordInput =
-  document.getElementById("confirmPassword");
-
-const signupBtn =
-  document.getElementById("signupBtn");
-
-const googleBtn =
-  document.getElementById("googleSignupBtn");
-
-const message =
-  document.getElementById("signupMessage");
-
-const passwordToggle =
-  document.getElementById("passwordToggle");
-
-const confirmPasswordToggle =
-  document.getElementById("confirmPasswordToggle");
+$("year").textContent = new Date().getFullYear();
 
 
 /* ============================================================
-   MESSAGE
+   UI HELPERS
    ============================================================ */
 
-function showMessage(text, type = "normal") {
+let busy = false;
 
-  if (!message) {
-    return;
-  }
-
+function showMessage(text = "", type = "error") {
   message.textContent = text;
-
-  if (type === "error") {
-
-    message.style.color = "#b23a32";
-
-  }
-
-  else if (type === "success") {
-
-    message.style.color = "#39724d";
-
-  }
-
-  else {
-
-    message.style.color = "#777";
-
-  }
-
+  message.className = "message" + (text ? ` is-${type}` : "");
 }
 
-
-/* ============================================================
-   FIREBASE FRIENDLY ERRORS
-   ============================================================ */
-
-function getFriendlyError(error) {
-
-  switch (error?.code) {
-
-    case "auth/email-already-in-use":
-      return "An account already exists with this email.";
-
-    case "auth/invalid-email":
-      return "Please enter a valid email address.";
-
-    case "auth/weak-password":
-      return "Password must be at least 6 characters.";
-
-    case "auth/network-request-failed":
-      return "Network error. Please check your connection.";
-
-    case "auth/popup-closed-by-user":
-      return "Google sign-up was cancelled.";
-
-    case "auth/popup-blocked":
-      return "Your browser blocked the Google sign-up window.";
-
-    case "auth/operation-not-allowed":
-      return "This sign-in method is not enabled in Firebase.";
-
-    default:
-
-      return (
-        error?.message ||
-        "Something went wrong. Please try again."
-      );
-
-  }
-
+function markInvalid(input, invalid) {
+  input.setAttribute("aria-invalid", invalid ? "true" : "false");
 }
 
+function setLoading(button, isLoading, loadingText) {
+  const label = button.querySelector(".label");
+  if (!button.dataset.label) button.dataset.label = label.textContent;
 
-/* ============================================================
-   LOADING STATE
-   ============================================================ */
-
-function setSignupLoading(isLoading) {
-
-  if (!signupBtn) {
-    return;
-  }
+  button.classList.toggle("is-loading", isLoading);
+  button.setAttribute("aria-busy", String(isLoading));
+  label.textContent = isLoading ? loadingText : button.dataset.label;
 
   signupBtn.disabled = isLoading;
-
-  signupBtn.textContent =
-    isLoading
-      ? "Creating account..."
-      : "Create Account";
-
+  googleBtn.disabled = isLoading;
 }
 
-
-function setGoogleLoading(isLoading) {
-
-  if (!googleBtn) {
-    return;
+function getFriendlyError(error) {
+  switch (error?.code) {
+    case "auth/email-already-in-use":
+      return "An account with this email already exists. Try signing in instead.";
+    case "auth/invalid-email":
+      return "Enter a valid email address.";
+    case "auth/weak-password":
+      return `Choose a stronger password with at least ${MIN_PASSWORD_LENGTH} characters.`;
+    case "auth/network-request-failed":
+      return "No connection. Check your internet and try again.";
+    case "auth/popup-closed-by-user":
+    case "auth/cancelled-popup-request":
+      return "Google sign-up was closed before it finished.";
+    case "auth/popup-blocked":
+      return "Your browser blocked the Google window. Allow pop-ups for this site and try again.";
+    case "auth/account-exists-with-different-credential":
+      return "This email is already registered with a different sign-in method.";
+    case "auth/operation-not-allowed":
+      return "This sign-up method is turned off. Contact TUSDIO for help.";
+    case "auth/too-many-requests":
+      return "Too many attempts. Please wait a few minutes and try again.";
+    default:
+      return "Something went wrong. Please try again.";
   }
-
-  googleBtn.disabled = isLoading;
-
-  googleBtn.innerHTML =
-    isLoading
-      ? "Connecting to Google..."
-      : `
-        <svg
-          class="google-icon"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-
-          <path
-            fill="#4285F4"
-            d="M21.35 12.27c0-.79-.07-1.55-.22-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
-          />
-
-          <path
-            fill="#34A853"
-            d="M12 21.75c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.55 0-4.7-1.72-5.47-4.03H3.28v2.53A9.74 9.74 0 0 0 12 21.75Z"
-          />
-
-          <path
-            fill="#FBBC05"
-            d="M6.53 13.83A5.86 5.86 0 0 1 6.22 12c0-.64.11-1.26.31-1.83V7.64H3.28A9.74 9.74 0 0 0 2.25 12c0 1.57.38 3.05 1.03 4.36l3.25-2.53Z"
-          />
-
-          <path
-            fill="#EA4335"
-            d="M12 6.14c1.43 0 2.72.49 3.73 1.46l2.8-2.8C16.83 3.22 14.63 2.25 12 2.25a9.74 9.74 0 0 0-8.72 5.39l3.25 2.53C7.3 7.86 9.45 6.14 12 6.14Z"
-          />
-
-        </svg>
-
-        Continue with Google
-      `;
-
 }
 
 
 /* ============================================================
-   CREATE CLIENT DOCUMENT
+   REDIRECT
    ============================================================ */
 
-async function createClientDocument(user, loginType) {
+function isOwner(user) {
+  return (user?.email || "").trim().toLowerCase() === OWNER_EMAIL.toLowerCase();
+}
 
-  const clientRef =
-    doc(
-      db,
-      "clients",
-      user.uid
-    );
+function redirectUser(user) {
+  window.location.replace(isOwner(user) ? OWNER_PAGE : CLIENT_PAGE);
+}
+
+// Already signed in? Skip the form.
+onAuthStateChanged(auth, (user) => {
+  if (user && !busy) redirectUser(user);
+});
 
 
-  const clientSnap =
-    await getDoc(clientRef);
+/* ============================================================
+   CLIENT DOCUMENT
+   ============================================================ */
 
+async function createClientDocument(user, loginType, fallbackName = "") {
+  if (!user?.uid || isOwner(user)) return;
 
-  /*
-     If a client document already exists,
-     don't overwrite their project data.
-  */
+  const ref = doc(db, "clients", user.uid);
+  const snap = await getDoc(ref);
 
-  if (clientSnap.exists()) {
-
-    await setDoc(
-      clientRef,
-      {
-
-        name:
-          user.displayName ||
-          clientSnap.data().name ||
-          "Client",
-
-        email:
-          user.email ||
-          clientSnap.data().email ||
-          "",
-
-        loginType:
-
-          loginType,
-
-        lastLogin:
-          new Date().toISOString()
-
-      },
-      {
-        merge: true
-      }
-    );
-
+  // Existing client: never overwrite project data
+  if (snap.exists()) {
+    const existing = snap.data() || {};
+    await setDoc(ref, {
+      loginType,
+      name: existing.name || user.displayName || fallbackName || "Client",
+      email: user.email || existing.email || "",
+      lastLogin: serverTimestamp()
+    }, { merge: true });
     return;
-
   }
 
-
-  /* ============================================================
-     NEW CLIENT
-     ============================================================ */
-
-  await setDoc(
-    clientRef,
-    {
-
-      name:
-        user.displayName ||
-        "Client",
-
-      email:
-        user.email ||
-        "",
-
-      role:
-        "client",
-
-      service:
-        "Not selected yet",
-
-      projectName:
-        "New Project",
-
-      phase:
-        "Discovery",
-
-      status:
-        "In Progress",
-
-      nextAction:
-        "Complete onboarding",
-
-      progress:
-        10,
-
-      startDate:
-        new Date()
-          .toISOString()
-          .split("T")[0],
-
-      estimatedDelivery:
-        "To be decided",
-
-      revisionRound:
-        "Round 1",
-
-      planName:
-        "",
-
-      paymentStatus:
-        "Pending",
-
-      totalAmount:
-        0,
-
-      paidAmount:
-        0,
-
-      invoiceLink:
-        "",
-
-      updates: [
-
-        "Account created",
-
-        "Project initialized"
-
-      ],
-
-      tasks: [
-
-        "Complete onboarding",
-
-        "Share project details"
-
-      ],
-
-      access:
-        "active",
-
-      loginType:
-        loginType,
-
-      createdAt:
-        new Date().toISOString(),
-
-      lastLogin:
-        new Date().toISOString()
-
-    }
-  );
-
+  await setDoc(ref, {
+    name: user.displayName || fallbackName || user.email?.split("@")[0] || "Client",
+    email: user.email || "",
+    role: "client",
+    service: "Not selected yet",
+    projectName: "New Project",
+    phase: "Discovery",
+    status: "In Progress",
+    nextAction: "Complete onboarding",
+    progress: 10,
+    startDate: new Date().toISOString().split("T")[0],
+    estimatedDelivery: "To be decided",
+    revisionRound: "Round 1",
+    planName: "",
+    paymentStatus: "Pending",
+    totalAmount: 0,
+    paidAmount: 0,
+    invoiceLink: "",
+    updates: ["Account created", "Project initialized"],
+    tasks: ["Complete onboarding", "Share project details"],
+    access: "active",
+    loginType,
+    createdAt: serverTimestamp(),
+    lastLogin: serverTimestamp()
+  });
 }
+
+// A Firestore hiccup must not strand someone whose account was created.
+// The login page creates any missing client document on next sign-in.
+async function finishSignUp(user, loginType, fallbackName) {
+  try {
+    await createClientDocument(user, loginType, fallbackName);
+  } catch (error) {
+    console.error("TUSDIO client profile creation failed:", error);
+  }
+  showMessage("Account created. Taking you to your workspace…", "success");
+  setTimeout(() => redirectUser(user), 600);
+}
+
+
+/* ============================================================
+   PASSWORD STRENGTH + MATCH
+   ============================================================ */
+
+function scorePassword(value) {
+  if (!value) return 0;
+  if (value.length < MIN_PASSWORD_LENGTH) return 1;
+
+  let score = 1;
+  if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score += 1;
+  if (/\d/.test(value)) score += 1;
+  if (/[^A-Za-z0-9]/.test(value) || value.length >= 14) score += 1;
+  return Math.min(score, 4);
+}
+
+const STRENGTH_LABELS = {
+  1: "Too short or too simple",
+  2: "Fair. Add numbers or symbols to strengthen it.",
+  3: "Good",
+  4: "Strong"
+};
+
+function updateStrength() {
+  const value = passwordInput.value;
+  const level = scorePassword(value);
+
+  strengthEl.classList.toggle("is-visible", value.length > 0);
+  strengthEl.dataset.level = String(level);
+
+  strengthText.textContent =
+    value.length > 0 && value.length < MIN_PASSWORD_LENGTH
+      ? `Use at least ${MIN_PASSWORD_LENGTH} characters (${MIN_PASSWORD_LENGTH - value.length} more)`
+      : STRENGTH_LABELS[level] || "";
+}
+
+function updateMatch() {
+  const a = passwordInput.value;
+  const b = confirmInput.value;
+
+  matchHint.className = "hint";
+
+  if (!b) {
+    matchHint.textContent = "";
+    markInvalid(confirmInput, false);
+    return;
+  }
+
+  if (a === b) {
+    matchHint.textContent = "Passwords match.";
+    matchHint.classList.add("is-visible", "is-ok");
+    markInvalid(confirmInput, false);
+  } else {
+    matchHint.textContent = "Passwords don't match yet.";
+    matchHint.classList.add("is-visible");
+    markInvalid(confirmInput, true);
+  }
+}
+
+passwordInput.addEventListener("input", () => {
+  updateStrength();
+  updateMatch();
+  markInvalid(passwordInput, false);
+});
+confirmInput.addEventListener("input", updateMatch);
+
+[nameInput, emailInput].forEach((input) =>
+  input.addEventListener("input", () => {
+    markInvalid(input, false);
+    if (message.classList.contains("is-error")) showMessage("");
+  })
+);
+
+
+/* ============================================================
+   PASSWORD: SHOW / HIDE, CAPS LOCK
+   ============================================================ */
+
+document.querySelectorAll("[data-toggle]").forEach((btn) => {
+  const input = $(btn.dataset.toggle);
+  const showIcon = btn.querySelector(".i-show");
+  const hideIcon = btn.querySelector(".i-hide");
+
+  btn.addEventListener("click", () => {
+    const reveal = input.type === "password";
+    input.type = reveal ? "text" : "password";
+    showIcon.hidden = reveal;
+    hideIcon.hidden = !reveal;
+    btn.setAttribute("aria-label", reveal ? "Hide password" : "Show password");
+    btn.setAttribute("aria-pressed", String(reveal));
+    input.focus();
+  });
+});
+
+function updateCaps(event) {
+  const on = event.getModifierState && event.getModifierState("CapsLock");
+  capsHint.classList.toggle("is-visible", Boolean(on));
+}
+[passwordInput, confirmInput].forEach((input) => {
+  input.addEventListener("keydown", updateCaps);
+  input.addEventListener("keyup", updateCaps);
+  input.addEventListener("blur", () => capsHint.classList.remove("is-visible"));
+});
 
 
 /* ============================================================
    EMAIL / PASSWORD SIGN UP
    ============================================================ */
 
-if (form) {
-
-  form.addEventListener(
-    "submit",
-    async (event) => {
-
-      event.preventDefault();
-
-
-      const name =
-        nameInput.value.trim();
-
-      const email =
-        emailInput.value
-          .trim()
-          .toLowerCase();
-
-      const password =
-        passwordInput.value;
-
-      const confirmPassword =
-        confirmPasswordInput.value;
-
-
-      /* ========================================================
-         VALIDATION
-         ======================================================== */
-
-      if (!name) {
-
-        showMessage(
-          "Please enter your full name.",
-          "error"
-        );
-
-        nameInput.focus();
-
-        return;
-
-      }
-
-
-      if (!email) {
-
-        showMessage(
-          "Please enter your email address.",
-          "error"
-        );
-
-        emailInput.focus();
-
-        return;
-
-      }
-
-
-      if (password.length < 6) {
-
-        showMessage(
-          "Password must be at least 6 characters.",
-          "error"
-        );
-
-        passwordInput.focus();
-
-        return;
-
-      }
-
-
-      if (password !== confirmPassword) {
-
-        showMessage(
-          "Passwords do not match.",
-          "error"
-        );
-
-        confirmPasswordInput.focus();
-
-        return;
-
-      }
-
-
-      /* ========================================================
-         CREATE ACCOUNT
-         ======================================================== */
-
-      setSignupLoading(true);
-
-      showMessage("");
-
-
-      try {
-
-        const userCredential =
-          await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-
-        const user =
-          userCredential.user;
-
-
-        /* SAVE NAME TO FIREBASE AUTH */
-
-        await updateProfile(
-          user,
-          {
-            displayName: name
-          }
-        );
-
-
-        /* CREATE CLIENT FIRESTORE DOCUMENT */
-
-        await createClientDocument(
-          user,
-          "Email / Password"
-        );
-
-
-        /* SUCCESS */
-
-        showMessage(
-          "Account created successfully.",
-          "success"
-        );
-
-
-        /*
-           Small delay so the user can see
-           the success message.
-        */
-
-        setTimeout(() => {
-
-          window.location.href =
-            "users.html";
-
-        }, 700);
-
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "TUSDIO create account error:",
-          error
-        );
-
-
-        showMessage(
-          getFriendlyError(error),
-          "error"
-        );
-
-      }
-
-      finally {
-
-        setSignupLoading(false);
-
-      }
-
-    }
-  );
-
+function fail(input, text) {
+  markInvalid(input, true);
+  showMessage(text);
+  input.focus();
 }
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+  const confirm = confirmInput.value;
+
+  [nameInput, emailInput, passwordInput, confirmInput].forEach((i) => markInvalid(i, false));
+
+  if (!name) return fail(nameInput, "Enter your full name.");
+  if (!email || !emailInput.checkValidity()) return fail(emailInput, "Enter a valid email address.");
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return fail(passwordInput, `Your password needs at least ${MIN_PASSWORD_LENGTH} characters.`);
+  }
+  if (password !== confirm) return fail(confirmInput, "The two passwords don't match.");
+
+  busy = true;
+  showMessage("");
+  setLoading(signupBtn, true, "Creating account…");
+
+  try {
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+
+    try {
+      await updateProfile(user, { displayName: name });
+    } catch (error) {
+      console.warn("Could not save display name:", error);
+    }
+
+    await finishSignUp(user, "Email / Password", name);
+  } catch (error) {
+    console.error("TUSDIO create account error:", error);
+    busy = false;
+    setLoading(signupBtn, false);
+    if (error?.code === "auth/email-already-in-use" || error?.code === "auth/invalid-email") {
+      markInvalid(emailInput, true);
+    }
+    showMessage(getFriendlyError(error));
+  }
+});
 
 
 /* ============================================================
    GOOGLE SIGN UP
    ============================================================ */
 
-if (googleBtn) {
+googleBtn.addEventListener("click", async () => {
+  busy = true;
+  showMessage("");
+  setLoading(googleBtn, true, "Connecting to Google…");
 
-  googleBtn.addEventListener(
-    "click",
-    async () => {
-
-      setGoogleLoading(true);
-
-      showMessage("");
-
-
-      try {
-
-        const provider =
-          new GoogleAuthProvider();
-
-
-        provider.setCustomParameters({
-          prompt: "select_account"
-        });
+  try {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    const { user } = await signInWithPopup(auth, provider);
+    await finishSignUp(user, "Google", "");
+  } catch (error) {
+    console.error("TUSDIO Google signup error:", error);
+    busy = false;
+    setLoading(googleBtn, false);
+    showMessage(getFriendlyError(error));
+  }
+});
 
 
-        const result =
-          await signInWithPopup(
-            auth,
-            provider
-          );
+/* ============================================================
+   SHOWCASE (autoplay driven by the progress bar animation)
+   ============================================================ */
 
+const stage = $("stage");
+const slides = [...stage.querySelectorAll(".slide")];
+const segmentsEl = $("segments");
+const pauseBtn = $("pauseBtn");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        const user =
-          result.user;
+let current = 0;
+let userPaused = reduceMotion;
 
+const segments = slides.map((_, i) => {
+  const seg = document.createElement("button");
+  seg.type = "button";
+  seg.className = "seg";
+  seg.setAttribute("aria-label", `Go to slide ${i + 1} of ${slides.length}`);
+  seg.innerHTML = '<span class="seg-track"><span class="seg-fill"></span></span>';
+  seg.addEventListener("click", () => show(i));
+  segmentsEl.appendChild(seg);
+  return seg;
+});
 
-        /* CREATE / UPDATE CLIENT */
+function show(index) {
+  current = (index + slides.length) % slides.length;
 
-        await createClientDocument(
-          user,
-          "Google"
-        );
+  slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
 
+  segments.forEach((seg, i) => {
+    seg.classList.remove("is-active", "is-done");
+    seg.removeAttribute("aria-current");
+    if (i < current) seg.classList.add("is-done");
+  });
 
-        showMessage(
-          "Google account connected successfully.",
-          "success"
-        );
-
-
-        setTimeout(() => {
-
-          window.location.href =
-            "users.html";
-
-        }, 700);
-
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "TUSDIO Google signup error:",
-          error
-        );
-
-
-        showMessage(
-          getFriendlyError(error),
-          "error"
-        );
-
-      }
-
-      finally {
-
-        setGoogleLoading(false);
-
-      }
-
-    }
-  );
-
+  void segmentsEl.offsetWidth;
+  segments[current].classList.add("is-active");
+  segments[current].setAttribute("aria-current", "true");
 }
 
+segmentsEl.addEventListener("animationend", (event) => {
+  if (event.animationName === "fill" && !userPaused) show(current + 1);
+});
 
-/* ============================================================
-   PASSWORD SHOW / HIDE
-   ============================================================ */
-
-function setupPasswordToggle(
-  button,
-  input
-) {
-
-  if (!button || !input) {
-    return;
-  }
-
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const isPassword =
-        input.type === "password";
-
-
-      input.type =
-        isPassword
-          ? "text"
-          : "password";
-
-
-      button.setAttribute(
-        "aria-label",
-        isPassword
-          ? "Hide password"
-          : "Show password"
-      );
-
-    }
-  );
-
+function setPaused(paused) {
+  userPaused = paused;
+  stage.classList.toggle("is-paused", paused);
+  pauseBtn.querySelector(".i-pause").hidden = paused;
+  pauseBtn.querySelector(".i-play").hidden = !paused;
+  pauseBtn.setAttribute("aria-label", paused ? "Play slideshow" : "Pause slideshow");
 }
 
-
-setupPasswordToggle(
-  passwordToggle,
-  passwordInput
-);
-
-
-setupPasswordToggle(
-  confirmPasswordToggle,
-  confirmPasswordInput
-);
-
-
-/* ============================================================
-   IMAGE GALLERY
-   ============================================================ */
-
-const slides =
-  document.querySelectorAll(
-    ".gallery-slide"
-  );
-
-const dots =
-  document.querySelectorAll(
-    ".gallery-dot"
-  );
-
-const currentSlideElement =
-  document.getElementById(
-    "currentSlide"
-  );
-
-
-let currentSlide = 0;
-
-let galleryTimer = null;
-
-const GALLERY_INTERVAL = 6000;
-
-
-/* ============================================================
-   SHOW SLIDE
-   ============================================================ */
-
-function showSlide(index) {
-
-  if (!slides.length) {
-    return;
-  }
-
-
-  currentSlide =
-    (index + slides.length) %
-    slides.length;
-
-
-  slides.forEach(
-    (slide, slideIndex) => {
-
-      slide.classList.toggle(
-        "active",
-        slideIndex === currentSlide
-      );
-
-    }
-  );
-
-
-  dots.forEach(
-    (dot, dotIndex) => {
-
-      dot.classList.toggle(
-        "active",
-        dotIndex === currentSlide
-      );
-
-    }
-  );
-
-
-  if (currentSlideElement) {
-
-    currentSlideElement.textContent =
-      String(currentSlide + 1)
-        .padStart(2, "0");
-
-  }
-
-}
-
-
-/* ============================================================
-   NEXT SLIDE
-   ============================================================ */
-
-function nextSlide() {
-
-  showSlide(
-    currentSlide + 1
-  );
-
-}
-
-
-/* ============================================================
-   START GALLERY
-   ============================================================ */
-
-function startGallery() {
-
-  clearInterval(
-    galleryTimer
-  );
-
-
-  galleryTimer =
-    setInterval(
-      nextSlide,
-      GALLERY_INTERVAL
-    );
-
-}
-
-
-/* ============================================================
-   DOT NAVIGATION
-   ============================================================ */
-
-dots.forEach(
-  (dot) => {
-
-    dot.addEventListener(
-      "click",
-      () => {
-
-        const index =
-          Number(
-            dot.dataset.slide
-          );
-
-
-        showSlide(index);
-
-        startGallery();
-
-      }
-    );
-
-  }
-);
-
-
-/* ============================================================
-   KEYBOARD NAVIGATION
-   ============================================================ */
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (event.key === "ArrowRight") {
-
-      showSlide(
-        currentSlide + 1
-      );
-
-      startGallery();
-
-    }
-
-
-    if (event.key === "ArrowLeft") {
-
-      showSlide(
-        currentSlide - 1
-      );
-
-      startGallery();
-
-    }
-
-  }
-);
-
-
-/* ============================================================
-   PAUSE GALLERY WHEN TAB IS HIDDEN
-   ============================================================ */
-
-document.addEventListener(
-  "visibilitychange",
-  () => {
-
-    if (document.hidden) {
-
-      clearInterval(
-        galleryTimer
-      );
-
-    }
-
-    else {
-
-      startGallery();
-
-    }
-
-  }
-);
-
-
-/* ============================================================
-   PRELOAD IMAGES
-   ============================================================ */
-
-function preloadImages() {
-
-  slides.forEach(
-    (slide) => {
-
-      const image =
-        slide.querySelector("img");
-
-
-      if (!image) {
-        return;
-      }
-
-
-      const preload =
-        new Image();
-
-
-      preload.src =
-        image.src;
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   INITIALIZE
-   ============================================================ */
-
-showSlide(0);
-
-preloadImages();
-
-startGallery();
-
+pauseBtn.addEventListener("click", () => setPaused(!userPaused));
+stage.addEventListener("mouseenter", () => stage.classList.add("is-paused"));
+stage.addEventListener("mouseleave", () => stage.classList.toggle("is-paused", userPaused));
+
+show(0);
+setPaused(userPaused);
