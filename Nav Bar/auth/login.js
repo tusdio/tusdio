@@ -4,1064 +4,418 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence,
+  browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
 import {
   doc,
   setDoc,
-  getDoc
+  getDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
 
 /* ============================================================
-   TUSDIO AUTH CONFIG
+   CONFIG
+   NOTE: this owner check only decides where to redirect.
+   Real access control must live in Firestore rules / custom claims.
    ============================================================ */
 
-const OWNER_EMAIL =
-  "bittukhantusharkhan@gmail.com";
-
-const GALLERY_INTERVAL =
-  6000;
+const OWNER_EMAIL = "bittukhantusharkhan@gmail.com";
+const OWNER_PAGE = "./owner/owner.html";
+const CLIENT_PAGE = "users.html";
+const RESET_COOLDOWN_MS = 30000;
 
 
 /* ============================================================
    DOM
    ============================================================ */
 
-const form =
-  document.getElementById("loginForm");
+const $ = (id) => document.getElementById(id);
 
-const emailInput =
-  document.getElementById("email");
+const form = $("loginForm");
+const emailInput = $("email");
+const passwordInput = $("password");
+const rememberInput = $("remember");
+const loginBtn = $("loginBtn");
+const googleBtn = $("googleLoginBtn");
+const message = $("loginMessage");
+const forgotBtn = $("forgotPassword");
+const capsHint = $("capsHint");
 
-const passwordInput =
-  document.getElementById("password");
-
-const loginBtn =
-  document.getElementById("loginBtn");
-
-const googleBtn =
-  document.getElementById("googleLoginBtn");
-
-const message =
-  document.getElementById("loginMessage");
-
-const passwordToggle =
-  document.getElementById("passwordToggle");
-
-const forgotPassword =
-  document.getElementById("forgotPassword");
-
-
-/* Gallery */
-
-const slides =
-  document.querySelectorAll(".gallery-slide");
-
-const dots =
-  document.querySelectorAll(".gallery-dot");
-
-const currentSlideElement =
-  document.getElementById("currentSlide");
-
-const galleryLoading =
-  document.getElementById("galleryLoading");
+$("year").textContent = new Date().getFullYear();
 
 
 /* ============================================================
-   AUTH MESSAGE
+   UI HELPERS
    ============================================================ */
 
-function showMessage(
-  text,
-  type = "normal"
-) {
+let busy = false;
 
-  if (!message) {
-    return;
-  }
-
+function showMessage(text = "", type = "error") {
   message.textContent = text;
-
-
-  if (type === "error") {
-
-    message.style.color =
-      "#b23a32";
-
-  }
-
-  else if (type === "success") {
-
-    message.style.color =
-      "#39724d";
-
-  }
-
-  else {
-
-    message.style.color =
-      "#777777";
-
-  }
+  message.className = "message" + (text ? ` is-${type}` : "");
 }
 
+function markInvalid(input, invalid) {
+  input.setAttribute("aria-invalid", invalid ? "true" : "false");
+}
 
-/* ============================================================
-   FRIENDLY FIREBASE ERRORS
-   ============================================================ */
+function setLoading(button, isLoading, loadingText) {
+  const label = button.querySelector(".label");
+  if (!button.dataset.label) button.dataset.label = label.textContent;
+
+  button.classList.toggle("is-loading", isLoading);
+  button.setAttribute("aria-busy", String(isLoading));
+  label.textContent = isLoading ? loadingText : button.dataset.label;
+
+  // Lock every action while a request is running
+  loginBtn.disabled = isLoading;
+  googleBtn.disabled = isLoading;
+}
 
 function getFriendlyError(error) {
-
   switch (error?.code) {
-
     case "auth/invalid-credential":
-      return "The email or password is incorrect.";
-
-    case "auth/invalid-email":
-      return "Please enter a valid email address.";
-
-    case "auth/user-not-found":
-      return "No TUSDIO account exists with this email.";
-
     case "auth/wrong-password":
-      return "The password you entered is incorrect.";
-
+    case "auth/user-not-found":
+      return "That email and password don't match. Check them and try again.";
+    case "auth/invalid-email":
+      return "Enter a valid email address.";
+    case "auth/user-disabled":
+      return "This account has been disabled. Contact TUSDIO for help.";
     case "auth/too-many-requests":
-      return "Too many attempts. Please try again later.";
-
+      return "Too many attempts. Wait a few minutes, or reset your password.";
     case "auth/popup-closed-by-user":
-      return "Google sign-in was cancelled.";
-
+    case "auth/cancelled-popup-request":
+      return "Google sign-in was closed before it finished.";
     case "auth/popup-blocked":
-      return "Your browser blocked the Google sign-in window.";
-
+      return "Your browser blocked the Google window. Allow pop-ups for this site and try again.";
     case "auth/network-request-failed":
-      return "Network error. Please check your connection.";
-
-    case "auth/email-already-in-use":
-      return "An account already exists with this email.";
-
+      return "No connection. Check your internet and try again.";
+    case "auth/account-exists-with-different-credential":
+      return "This email is already registered with a different sign-in method.";
+    case "auth/operation-not-allowed":
+      return "This sign-in method is turned off. Contact TUSDIO for help.";
     default:
-      return (
-        error?.message ||
-        "Something went wrong. Please try again."
-      );
-
+      return "Something went wrong. Please try again.";
   }
-
 }
 
 
 /* ============================================================
-   BUTTON LOADING STATE
+   REDIRECT
    ============================================================ */
 
-function setLoginLoading(isLoading) {
+function isOwner(user) {
+  return (user?.email || "").trim().toLowerCase() === OWNER_EMAIL.toLowerCase();
+}
 
-  if (!loginBtn) {
+function redirectUser(user) {
+  window.location.replace(isOwner(user) ? OWNER_PAGE : CLIENT_PAGE);
+}
+
+// Already signed in? Skip the form.
+onAuthStateChanged(auth, (user) => {
+  if (user && !busy) redirectUser(user);
+});
+
+
+/* ============================================================
+   CLIENT DOCUMENT
+   A Firestore failure should never trap someone who signed in
+   successfully, so callers catch and continue.
+   ============================================================ */
+
+async function ensureClientDocument(user, loginType) {
+  if (!user?.uid || isOwner(user)) return;
+
+  const ref = doc(db, "clients", user.uid);
+  const snap = await getDoc(ref);
+
+  if (!snap.exists()) {
+    await setDoc(ref, {
+      name: user.displayName || user.email?.split("@")[0] || "Client",
+      email: user.email || "",
+      role: "client",
+      service: "Not selected yet",
+      projectName: "New Project",
+      phase: "Discovery",
+      status: "In Progress",
+      nextAction: "Complete onboarding",
+      progress: 10,
+      startDate: new Date().toISOString().split("T")[0],
+      estimatedDelivery: "To be decided",
+      revisionRound: "Round 1",
+      planName: "",
+      paymentStatus: "Pending",
+      totalAmount: 0,
+      paidAmount: 0,
+      invoiceLink: "",
+      updates: ["Account created", "Project initialized"],
+      tasks: ["Complete onboarding", "Share project details"],
+      access: "active",
+      loginType,
+      createdAt: serverTimestamp(),
+      lastLogin: serverTimestamp()
+    });
     return;
   }
 
-  loginBtn.disabled =
-    isLoading;
+  const existing = snap.data() || {};
+  await setDoc(ref, {
+    loginType,
+    name: existing.name || user.displayName || "Client",
+    email: user.email || existing.email || "",
+    lastLogin: serverTimestamp()
+  }, { merge: true });
+}
 
-  loginBtn.textContent =
-    isLoading
-      ? "Signing in..."
-      : "Continue";
+async function finishSignIn(user, loginType) {
+  try {
+    await ensureClientDocument(user, loginType);
+  } catch (error) {
+    console.error("TUSDIO client profile sync failed:", error);
+  }
+  redirectUser(user);
+}
 
+async function applyPersistence() {
+  try {
+    await setPersistence(
+      auth,
+      rememberInput.checked ? browserLocalPersistence : browserSessionPersistence
+    );
+  } catch (error) {
+    console.warn("Could not set persistence:", error);
+  }
 }
 
 
-function setGoogleLoading(isLoading) {
+/* ============================================================
+   EMAIL / PASSWORD
+   ============================================================ */
 
-  if (!googleBtn) {
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  markInvalid(emailInput, false);
+  markInvalid(passwordInput, false);
+
+  if (!email || !emailInput.checkValidity()) {
+    markInvalid(emailInput, true);
+    showMessage("Enter a valid email address.");
+    emailInput.focus();
     return;
   }
 
-  googleBtn.disabled =
-    isLoading;
-
-  if (isLoading) {
-
-    googleBtn.innerHTML =
-      "Connecting to Google...";
-
+  if (!password) {
+    markInvalid(passwordInput, true);
+    showMessage("Enter your password.");
+    passwordInput.focus();
     return;
   }
 
+  busy = true;
+  showMessage("");
+  setLoading(loginBtn, true, "Signing in…");
 
-  googleBtn.innerHTML = `
-    <svg
-      class="google-icon"
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-    >
-
-      <path
-        fill="#4285F4"
-        d="M21.35 12.27c0-.79-.07-1.55-.22-2.27H12v4.3h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.42Z"
-      />
-
-      <path
-        fill="#34A853"
-        d="M12 21.75c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.55 0-4.7-1.72-5.47-4.03H3.28v2.53A9.74 9.74 0 0 0 12 21.75Z"
-      />
-
-      <path
-        fill="#FBBC05"
-        d="M6.53 13.83A5.86 5.86 0 0 1 6.22 12c0-.64.11-1.26.31-1.83V7.64H3.28A9.74 9.74 0 0 0 2.25 12c0 1.57.38 3.05 1.03 4.36l3.25-2.53Z"
-      />
-
-      <path
-        fill="#EA4335"
-        d="M12 6.14c1.43 0 2.72.49 3.73 1.46l2.8-2.8C16.83 3.22 14.63 2.25 12 2.25a9.74 9.74 0 0 0-8.72 5.39l3.25 2.53C7.3 7.86 9.45 6.14 12 6.14Z"
-      />
-
-    </svg>
-
-    Continue with Google
-  `;
-
-}
-
-
-/* ============================================================
-   REDIRECT BY ROLE
-   ============================================================ */
-
-function redirectUserByRole(user) {
-
-  const email =
-    (user?.email || "")
-      .trim()
-      .toLowerCase();
-
-
-  if (
-    email ===
-    OWNER_EMAIL
-      .trim()
-      .toLowerCase()
-  ) {
-
-    window.location.href =
-      "./owner/owner.html";
-
+  try {
+    await applyPersistence();
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    await finishSignIn(user, "Email / Password");
+  } catch (error) {
+    console.error("TUSDIO email login error:", error);
+    busy = false;
+    setLoading(loginBtn, false);
+    markInvalid(emailInput, true);
+    markInvalid(passwordInput, true);
+    showMessage(getFriendlyError(error));
+    passwordInput.select();
   }
+});
 
-  else {
 
-    window.location.href =
-      "users.html";
+/* ============================================================
+   GOOGLE
+   ============================================================ */
 
+googleBtn.addEventListener("click", async () => {
+  busy = true;
+  showMessage("");
+  setLoading(googleBtn, true, "Connecting to Google…");
+
+  try {
+    await applyPersistence();
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    const { user } = await signInWithPopup(auth, provider);
+    await finishSignIn(user, "Google");
+  } catch (error) {
+    console.error("TUSDIO Google login error:", error);
+    busy = false;
+    setLoading(googleBtn, false);
+    showMessage(getFriendlyError(error));
   }
-
-}
-
-
-/* ============================================================
-   EMAIL / PASSWORD LOGIN
-   ============================================================ */
-
-if (form) {
-
-  form.addEventListener(
-    "submit",
-    async (event) => {
-
-      event.preventDefault();
-
-
-      const email =
-        emailInput.value
-          .trim();
-
-      const password =
-        passwordInput.value;
-
-
-      /* Basic validation */
-
-      if (!email) {
-
-        showMessage(
-          "Please enter your email address.",
-          "error"
-        );
-
-        emailInput.focus();
-
-        return;
-
-      }
-
-
-      if (!password) {
-
-        showMessage(
-          "Please enter your password.",
-          "error"
-        );
-
-        passwordInput.focus();
-
-        return;
-
-      }
-
-
-      setLoginLoading(true);
-
-      showMessage("");
-
-
-      try {
-
-        /* Firebase authentication */
-
-        const userCredential =
-          await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-
-
-        const user =
-          userCredential.user;
-
-
-        /* Client document */
-
-        const clientRef =
-          doc(
-            db,
-            "clients",
-            user.uid
-          );
-
-
-        await setDoc(
-          clientRef,
-          {
-            loginType:
-              "Email / Password",
-
-            email:
-              user.email ||
-              email,
-
-            lastLogin:
-              new Date().toISOString()
-          },
-          {
-            merge: true
-          }
-        );
-
-
-        /* Redirect */
-
-        redirectUserByRole(user);
-
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "TUSDIO email login error:",
-          error
-        );
-
-
-        showMessage(
-          getFriendlyError(error),
-          "error"
-        );
-
-      }
-
-      finally {
-
-        setLoginLoading(false);
-
-      }
-
-    }
-  );
-
-}
+});
 
 
 /* ============================================================
-   GOOGLE LOGIN
+   PASSWORD: SHOW / HIDE, CAPS LOCK
    ============================================================ */
 
-if (googleBtn) {
-
-  googleBtn.addEventListener(
-    "click",
-    async () => {
-
-      setGoogleLoading(true);
-
-      showMessage("");
-
-
-      try {
-
-        const provider =
-          new GoogleAuthProvider();
-
-
-        provider.setCustomParameters({
-          prompt: "select_account"
-        });
-
-
-        const result =
-          await signInWithPopup(
-            auth,
-            provider
-          );
-
-
-        const user =
-          result.user;
-
-
-        /* Client document */
-
-        const clientRef =
-          doc(
-            db,
-            "clients",
-            user.uid
-          );
-
-
-        const clientSnap =
-          await getDoc(clientRef);
-
-
-        /* ====================================================
-           NEW CLIENT
-           ==================================================== */
-
-        if (!clientSnap.exists()) {
-
-          await setDoc(
-            clientRef,
-            {
-
-              name:
-                user.displayName ||
-                "Client",
-
-              email:
-                user.email ||
-                "",
-
-              role:
-                "client",
-
-              service:
-                "Not selected yet",
-
-              projectName:
-                "New Project",
-
-              phase:
-                "Discovery",
-
-              status:
-                "In Progress",
-
-              nextAction:
-                "Complete onboarding",
-
-              progress:
-                10,
-
-              startDate:
-                new Date()
-                  .toISOString()
-                  .split("T")[0],
-
-              estimatedDelivery:
-                "To be decided",
-
-              revisionRound:
-                "Round 1",
-
-              updates: [
-                "Account created",
-                "Project initialized"
-              ],
-
-              tasks: [
-                "Complete onboarding",
-                "Share project details"
-              ],
-
-              access:
-                "active",
-
-              loginType:
-                "Google",
-
-              createdAt:
-                new Date().toISOString(),
-
-              lastLogin:
-                new Date().toISOString()
-
-            }
-          );
-
-        }
-
-
-        /* ====================================================
-           EXISTING CLIENT
-           ==================================================== */
-
-        else {
-
-          const existingData =
-            clientSnap.data();
-
-
-          await setDoc(
-            clientRef,
-            {
-
-              loginType:
-                "Google",
-
-              name:
-                user.displayName ||
-                existingData.name ||
-                "Client",
-
-              email:
-                user.email ||
-                existingData.email ||
-                "",
-
-              lastLogin:
-                new Date().toISOString()
-
-            },
-            {
-              merge: true
-            }
-          );
-
-        }
-
-
-        /* Redirect */
-
-        redirectUserByRole(user);
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "TUSDIO Google login error:",
-          error
-        );
-
-
-        showMessage(
-          getFriendlyError(error),
-          "error"
-        );
-
-      }
-
-      finally {
-
-        setGoogleLoading(false);
-
-      }
-
-    }
-  );
-
+document.querySelectorAll("[data-toggle]").forEach((btn) => {
+  const input = $(btn.dataset.toggle);
+  const showIcon = btn.querySelector(".i-show");
+  const hideIcon = btn.querySelector(".i-hide");
+
+  btn.addEventListener("click", () => {
+    const reveal = input.type === "password";
+    input.type = reveal ? "text" : "password";
+    showIcon.hidden = reveal;
+    hideIcon.hidden = !reveal;
+    btn.setAttribute("aria-label", reveal ? "Hide password" : "Show password");
+    btn.setAttribute("aria-pressed", String(reveal));
+    input.focus();
+  });
+});
+
+function updateCaps(event) {
+  const on = event.getModifierState && event.getModifierState("CapsLock");
+  capsHint.classList.toggle("is-visible", Boolean(on));
 }
+passwordInput.addEventListener("keydown", updateCaps);
+passwordInput.addEventListener("keyup", updateCaps);
+passwordInput.addEventListener("blur", () => capsHint.classList.remove("is-visible"));
 
-
-/* ============================================================
-   PASSWORD SHOW / HIDE
-   ============================================================ */
-
-if (
-  passwordToggle &&
-  passwordInput
-) {
-
-  passwordToggle.addEventListener(
-    "click",
-    () => {
-
-      const showingPassword =
-        passwordInput.type ===
-        "text";
-
-
-      if (showingPassword) {
-
-        passwordInput.type =
-          "password";
-
-        passwordToggle.setAttribute(
-          "aria-label",
-          "Show password"
-        );
-
-      }
-
-      else {
-
-        passwordInput.type =
-          "text";
-
-        passwordToggle.setAttribute(
-          "aria-label",
-          "Hide password"
-        );
-
-      }
-
-    }
-  );
-
-}
+[emailInput, passwordInput].forEach((input) =>
+  input.addEventListener("input", () => {
+    markInvalid(input, false);
+    if (message.classList.contains("is-error")) showMessage("");
+  })
+);
 
 
 /* ============================================================
    FORGOT PASSWORD
+   Same response whether or not the account exists, so the form
+   can't be used to discover which emails are registered.
    ============================================================ */
 
-if (forgotPassword) {
+let resetTimer = null;
 
-  forgotPassword.addEventListener(
-    "click",
-    async (event) => {
+function startResetCooldown() {
+  let remaining = Math.ceil(RESET_COOLDOWN_MS / 1000);
+  forgotBtn.disabled = true;
+  forgotBtn.textContent = `Resend in ${remaining}s`;
 
-      event.preventDefault();
-
-
-      const email =
-        emailInput.value.trim();
-
-
-      if (!email) {
-
-        showMessage(
-          "Enter your email address first.",
-          "error"
-        );
-
-        emailInput.focus();
-
-        return;
-
-      }
-
-
-      try {
-
-        await sendPasswordResetEmail(
-          auth,
-          email
-        );
-
-
-        showMessage(
-          "Password reset instructions have been sent to your email.",
-          "success"
-        );
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "TUSDIO password reset error:",
-          error
-        );
-
-
-        showMessage(
-          getFriendlyError(error),
-          "error"
-        );
-
-      }
-
+  resetTimer = setInterval(() => {
+    remaining -= 1;
+    if (remaining <= 0) {
+      clearInterval(resetTimer);
+      forgotBtn.disabled = false;
+      forgotBtn.textContent = "Forgot password?";
+    } else {
+      forgotBtn.textContent = `Resend in ${remaining}s`;
     }
-  );
-
+  }, 1000);
 }
 
+forgotBtn.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
 
-/* ============================================================
-   GALLERY
-   ============================================================ */
-
-let currentSlide = 0;
-
-let galleryTimer = null;
-
-let galleryPaused = false;
-
-const totalSlides =
-  slides.length;
-
-
-/* ============================================================
-   UPDATE SLIDE
-   ============================================================ */
-
-function showSlide(index) {
-
-  if (!totalSlides) {
+  if (!email || !emailInput.checkValidity()) {
+    markInvalid(emailInput, true);
+    showMessage("Enter your email above first, then select “Forgot password?”.");
+    emailInput.focus();
     return;
   }
 
-
-  currentSlide =
-    (index + totalSlides) %
-    totalSlides;
-
-
-  slides.forEach(
-    (slide, slideIndex) => {
-
-      const active =
-        slideIndex === currentSlide;
-
-
-      slide.classList.toggle(
-        "active",
-        active
-      );
-
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (error) {
+    if (error?.code === "auth/network-request-failed" || error?.code === "auth/too-many-requests") {
+      showMessage(getFriendlyError(error));
+      return;
     }
-  );
-
-
-  dots.forEach(
-    (dot, dotIndex) => {
-
-      const active =
-        dotIndex === currentSlide;
-
-
-      dot.classList.toggle(
-        "active",
-        active
-      );
-
-
-      if (active) {
-
-        dot.setAttribute(
-          "aria-current",
-          "true"
-        );
-
-      }
-
-      else {
-
-        dot.removeAttribute(
-          "aria-current"
-        );
-
-      }
-
+    if (error?.code === "auth/invalid-email") {
+      markInvalid(emailInput, true);
+      showMessage(getFriendlyError(error));
+      return;
     }
-  );
-
-
-  if (currentSlideElement) {
-
-    currentSlideElement.textContent =
-      String(currentSlide + 1)
-        .padStart(2, "0");
-
+    console.error("TUSDIO password reset error:", error);
   }
 
+  showMessage(`If an account exists for ${email}, a reset link is on its way. Check your spam folder too.`, "success");
+  startResetCooldown();
+});
+
+
+/* ============================================================
+   SHOWCASE (autoplay driven by the progress bar animation)
+   ============================================================ */
+
+const stage = $("stage");
+const slides = [...stage.querySelectorAll(".slide")];
+const segmentsEl = $("segments");
+const pauseBtn = $("pauseBtn");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let current = 0;
+let userPaused = reduceMotion;
+
+const segments = slides.map((_, i) => {
+  const seg = document.createElement("button");
+  seg.type = "button";
+  seg.className = "seg";
+  seg.setAttribute("aria-label", `Go to slide ${i + 1} of ${slides.length}`);
+  seg.innerHTML = '<span class="seg-track"><span class="seg-fill"></span></span>';
+  seg.addEventListener("click", () => show(i));
+  segmentsEl.appendChild(seg);
+  return seg;
+});
+
+function show(index) {
+  current = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
+
+  segments.forEach((seg, i) => {
+    seg.classList.remove("is-active", "is-done");
+    seg.removeAttribute("aria-current");
+    if (i < current) seg.classList.add("is-done");
+  });
+
+  // Force the fill animation to restart
+  void segmentsEl.offsetWidth;
+  segments[current].classList.add("is-active");
+  segments[current].setAttribute("aria-current", "true");
 }
 
+segmentsEl.addEventListener("animationend", (event) => {
+  if (event.animationName === "fill" && !userPaused) show(current + 1);
+});
 
-/* ============================================================
-   NEXT SLIDE
-   ============================================================ */
-
-function nextSlide() {
-
-  if (galleryPaused) {
-    return;
-  }
-
-
-  showSlide(
-    currentSlide + 1
-  );
-
+function setPaused(paused) {
+  userPaused = paused;
+  stage.classList.toggle("is-paused", paused);
+  pauseBtn.querySelector(".i-pause").hidden = paused;
+  pauseBtn.querySelector(".i-play").hidden = !paused;
+  pauseBtn.setAttribute("aria-label", paused ? "Play slideshow" : "Pause slideshow");
 }
 
+pauseBtn.addEventListener("click", () => setPaused(!userPaused));
 
-/* ============================================================
-   START GALLERY
-   ============================================================ */
+// Hover / keyboard focus pauses temporarily (without changing the user's choice)
+stage.addEventListener("mouseenter", () => stage.classList.add("is-paused"));
+stage.addEventListener("mouseleave", () => stage.classList.toggle("is-paused", userPaused));
 
-function startGallery() {
-
-  clearInterval(
-    galleryTimer
-  );
-
-
-  galleryTimer =
-    setInterval(
-      nextSlide,
-      GALLERY_INTERVAL
-    );
-
-}
-
-
-/* ============================================================
-   STOP GALLERY
-   ============================================================ */
-
-function stopGallery() {
-
-  clearInterval(
-    galleryTimer
-  );
-
-  galleryTimer =
-    null;
-
-}
-
-
-/* ============================================================
-   DOT NAVIGATION
-   ============================================================ */
-
-dots.forEach(
-  (dot) => {
-
-    dot.addEventListener(
-      "click",
-      () => {
-
-        const index =
-          Number(
-            dot.dataset.slide
-          );
-
-
-        showSlide(index);
-
-        startGallery();
-
-      }
-    );
-
-  }
-);
-
-
-/* ============================================================
-   PAUSE WHEN MOUSE IS OVER GALLERY
-   ============================================================ */
-
-const gallery =
-  document.querySelector(".gallery");
-
-
-if (gallery) {
-
-  gallery.addEventListener(
-    "mouseenter",
-    () => {
-
-      galleryPaused = true;
-
-    }
-  );
-
-
-  gallery.addEventListener(
-    "mouseleave",
-    () => {
-
-      galleryPaused = false;
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   KEYBOARD NAVIGATION
-   ============================================================ */
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (
-      event.key ===
-      "ArrowRight"
-    ) {
-
-      showSlide(
-        currentSlide + 1
-      );
-
-      startGallery();
-
-    }
-
-
-    if (
-      event.key ===
-      "ArrowLeft"
-    ) {
-
-      showSlide(
-        currentSlide - 1
-      );
-
-      startGallery();
-
-    }
-
-  }
-);
-
-
-/* ============================================================
-   PAUSE WHEN TAB IS HIDDEN
-   ============================================================ */
-
-document.addEventListener(
-  "visibilitychange",
-  () => {
-
-    if (document.hidden) {
-
-      stopGallery();
-
-    }
-
-    else {
-
-      startGallery();
-
-    }
-
-  }
-);
-
-
-/* ============================================================
-   IMAGE PRELOADING
-   ============================================================ */
-
-function preloadGalleryImages() {
-
-  const images =
-    document.querySelectorAll(
-      ".gallery img"
-    );
-
-
-  images.forEach(
-    (image) => {
-
-      const source =
-        image.getAttribute("src");
-
-
-      if (!source) {
-        return;
-      }
-
-
-      const preload =
-        new Image();
-
-
-      preload.src =
-        source;
-
-    }
-  );
-
-}
-
-
-/* ============================================================
-   GALLERY INITIALIZATION
-   ============================================================ */
-
-function initializeGallery() {
-
-  showSlide(0);
-
-  preloadGalleryImages();
-
-  startGallery();
-
-}
-
-
-/* ============================================================
-   REMOVE LOADING SCREEN
-   ============================================================ */
-
-function hideGalleryLoading() {
-
-  if (!galleryLoading) {
-    return;
-  }
-
-
-  setTimeout(
-    () => {
-
-      galleryLoading.classList.add(
-        "hidden"
-      );
-
-    },
-    450
-  );
-
-}
-
-
-/* ============================================================
-   INITIALIZE
-   ============================================================ */
-
-initializeGallery();
-
-hideGalleryLoading();
+show(0);
+setPaused(userPaused);
