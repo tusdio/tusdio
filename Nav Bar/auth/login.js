@@ -126,6 +126,29 @@ onAuthStateChanged(auth, (user) => {
 
 
 /* ============================================================
+   PERSISTENCE ("Keep me signed in")
+
+   IMPORTANT: this must NOT be awaited inside the Google click
+   handler. Browsers only allow a popup to open synchronously
+   inside the click; awaiting anything first makes the popup
+   blocker fire on the first click. So persistence is applied
+   ahead of time (on load and when the checkbox changes).
+   ============================================================ */
+
+function applyPersistence() {
+  return setPersistence(
+    auth,
+    rememberInput.checked ? browserLocalPersistence : browserSessionPersistence
+  ).catch((error) => {
+    console.warn("Could not set persistence:", error);
+  });
+}
+
+applyPersistence();
+rememberInput.addEventListener("change", applyPersistence);
+
+
+/* ============================================================
    CLIENT DOCUMENT
    A Firestore failure should never trap someone who signed in
    successfully, so callers catch and continue.
@@ -184,17 +207,6 @@ async function finishSignIn(user, loginType) {
   redirectUser(user);
 }
 
-async function applyPersistence() {
-  try {
-    await setPersistence(
-      auth,
-      rememberInput.checked ? browserLocalPersistence : browserSessionPersistence
-    );
-  } catch (error) {
-    console.warn("Could not set persistence:", error);
-  }
-}
-
 
 /* ============================================================
    EMAIL / PASSWORD
@@ -228,7 +240,7 @@ form.addEventListener("submit", async (event) => {
   setLoading(loginBtn, true, "Signing in…");
 
   try {
-    await applyPersistence();
+    await applyPersistence(); // safe here: no popup involved
     const { user } = await signInWithEmailAndPassword(auth, email, password);
     await finishSignIn(user, "Email / Password");
   } catch (error) {
@@ -245,25 +257,29 @@ form.addEventListener("submit", async (event) => {
 
 /* ============================================================
    GOOGLE
+   signInWithPopup is the FIRST async call in this handler so the
+   browser treats the popup as user-initiated and doesn't block it.
    ============================================================ */
 
-googleBtn.addEventListener("click", async () => {
+googleBtn.addEventListener("click", () => {
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+
+  // Start the popup immediately (still inside the click gesture)
+  const popup = signInWithPopup(auth, provider);
+
   busy = true;
   showMessage("");
   setLoading(googleBtn, true, "Connecting to Google…");
 
-  try {
-    await applyPersistence();
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: "select_account" });
-    const { user } = await signInWithPopup(auth, provider);
-    await finishSignIn(user, "Google");
-  } catch (error) {
-    console.error("TUSDIO Google login error:", error);
-    busy = false;
-    setLoading(googleBtn, false);
-    showMessage(getFriendlyError(error));
-  }
+  popup
+    .then(({ user }) => finishSignIn(user, "Google"))
+    .catch((error) => {
+      console.error("TUSDIO Google login error:", error);
+      busy = false;
+      setLoading(googleBtn, false);
+      showMessage(getFriendlyError(error));
+    });
 });
 
 
