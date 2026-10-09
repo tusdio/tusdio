@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Start your next branding, design or digital project with TUSDIO.">
+  <title>Project Inquiry | TUSDIO.</title>
+
+  <script>document.documentElement.classList.add('js')</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="inquiry.css">
+  <script src="inquiry.js" defer></script>
+</head>
+
+<body>
+
+  <!-- HERO (white) -->
+  <section class="hero">
+    <div class="in">
+      <header class="top">
+        <a class="mark" href="https://tusdio.online">TUSDIO.</a>
+        <a class="ulink" href="https://tusdio.online">Back to site</a>
+      </header>
+
+      <h1>
+        <span class="ln"><span>Start</span></span>
+        <span class="ln"><span>a project.</span></span>
+      </h1>
+
+      <div class="intro">
+        <p class="lead">Tell us what you're building and what you need. We read every inquiry and reply within 24 hours to book your discovery call.</p>
+        <p class="meta">Takes about 2 minutes.<br>Fields marked * are required.</p>
+      </div>
+    </div>
+  </section>
+
+  <form
+    id="inquiry-form"
+    action="https://formsubmit.co/team@tusdio.online"
+    method="POST"
+  >
+    <input type="hidden" name="_subject" value="New Project Inquiry | TUSDIO">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <!-- ABOUT YOU (black) -->
+    <section class="blk dark">
+      <div class="in"><div class="row">
+        <div><h2>About you</h2></div>
+        <div class="body">
+          <div class="pair">
+            <div class="f">
+              <label for="name">Your name <b>*</b></label>
+              <input type="text" id="name" name="Name" autocomplete="name" required>
+            </div>
+            <div class="f">
+              <label for="email">Email address <b>*</b></label>
+              <input type="email" id="email" name="Email" autocomplete="email" required>
+              <p class="hint">We use your email for official project communication, quotes and invoices.</p>
+            </div>
+          </div>
+          <div class="pair">
+            <div class="f">
+              <label for="ig">Instagram handle</label>
+              <input type="text" id="ig" name="Instagram Handle">
+            </div>
+            <div class="f">
+              <label for="ph">Phone / WhatsApp</label>
+              <input type="tel" id="ph" name="Phone or WhatsApp" autocomplete="tel">
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- YOUR BRAND (white) -->
+    <section class="blk">
+      <div class="in"><div class="row">
+        <div><h2>Your brand</h2></div>
+        <div class="body">
+          <div class="f">
+            <label for="brand">Brand / business name <b>*</b></label>
+            <input type="text" id="brand" name="Brand Name" required>
+          </div>
+          <div class="f">
+            <label for="about">What does your brand do? <b>*</b></label>
+            <textarea id="about" name="What Your Brand Does" rows="5" required></textarea>
+          </div>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- WHAT YOU NEED (black) -->
+    <section class="blk dark">
+      <div class="in"><div class="row">
+        <div><h2>What you need</h2></div>
+        <div class="body">
+          <fieldset class="f">
+            <legend>Pick everything that applies <b>*</b></legend>
+            <div class="chips" id="services">
+              <label class="chip"><input type="checkbox" name="Services" value="Logo"><span>Logo</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Brand Identity"><span>Brand identity</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Packaging"><span>Packaging</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Social Media Kit"><span>Social media kit</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Website Visuals"><span>Website visuals</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Pitch Deck"><span>Pitch deck</span></label>
+              <label class="chip"><input type="checkbox" name="Services" value="Other"><span>Other</span></label>
+            </div>
+            <p class="hint" id="svc-hint" aria-live="polite">Select all that apply.</p>
+          </fieldset>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- WHERE YOU ARE (white) -->
+    <section class="blk">
+      <div class="in"><div class="row">
+        <div><h2>Where you are</h2></div>
+        <div class="body">
+          <fieldset class="f">
+            <legend>Which stage are you at? <b>*</b></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Brand Stage" value="Just an idea" required><span>Just an idea</span></label>
+              <label class="chip"><input type="radio" name="Brand Stage" value="Launching soon"><span>Launching soon</span></label>
+              <label class="chip"><input type="radio" name="Brand Stage" value="Already running"><span>Already running</span></label>
+              <label class="chip"><input type="radio" name="Brand Stage" value="Rebranding"><span>Rebranding</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- BUDGET (black) -->
+    <section class="blk dark">
+      <div class="in"><div class="row">
+        <div><h2>Budget</h2></div>
+        <div class="body">
+          <fieldset class="f">
+            <legend>Approximate budget <b>*</b></legend>
+            <div class="cur" role="group" aria-label="Choose budget currency">
+              <button type="button" class="is-active" data-currency="USD" aria-pressed="true">USD $</button>
+              <button type="button" data-currency="INR" aria-pressed="false">INR ₹</button>
+            </div>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Budget" value="Under $400" required><span data-usd="Under $400" data-inr="₹30,000–₹75,000">Under $400</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="$400–$650"><span data-usd="$400–$650" data-inr="₹75,000–₹1,20,000">$400–$650</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="$650+"><span data-usd="$650+" data-inr="₹1,20,000+">$650+</span></label>
+              <label class="chip"><input type="radio" name="Budget" value="Not sure yet"><span data-usd="Not sure yet" data-inr="Not sure yet">Not sure yet</span></label>
+            </div>
+            <p class="hint">This helps us recommend the right scope for your project.</p>
+          </fieldset>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- TIMING (white) -->
+    <section class="blk">
+      <div class="in"><div class="row">
+        <div><h2>Timing</h2></div>
+        <div class="body">
+          <fieldset class="f">
+            <legend>When do you want to start? <b>*</b></legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Start Timeline" value="Immediately" required><span>Immediately</span></label>
+              <label class="chip"><input type="radio" name="Start Timeline" value="Within a month"><span>Within a month</span></label>
+              <label class="chip"><input type="radio" name="Start Timeline" value="Just exploring"><span>Just exploring</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- INSPIRATION (black) -->
+    <section class="blk dark">
+      <div class="in"><div class="row">
+        <div><h2>Inspiration</h2></div>
+        <div class="body">
+          <div class="f">
+            <label for="refs">Any brands or styles you like? Links welcome.</label>
+            <textarea id="refs" name="Brand and Style References" rows="4"></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="Contact Consent" value="Yes" required>
+            <span>It's okay for TUSDIO to contact me about this inquiry. <b>*</b></span>
+          </label>
+        </div>
+      </div></div>
+    </section>
+
+    <!-- SEND (white) -->
+    <section class="blk">
+      <div class="in">
+        <div class="sendrow">
+          <p class="ready">Ready when<br>you are.</p>
+          <button type="submit" class="send">Send inquiry</button>
+        </div>
+        <p id="form-status" class="status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </form>
+
+  <!-- FOOTER (black) -->
+  <footer class="foot">
+    <div class="in foot-in">
+      <span>TUSDIO. Branding, design and digital.</span>
+      <a class="ulink" href="https://tusdio.online">tusdio.online</a>
+    </div>
+  </footer>
+
+  <script>
+  // Smooth scroll reveal
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.documentElement.classList.remove('js');
+      return;
+    }
+    var els = [].slice.call(document.querySelectorAll(
+      '.intro > *, .blk h2, .blk .body > *, .sendrow > *'
+    ));
+    var counts = new Map();
+    els.forEach(function (el) {
+      var i = counts.get(el.parentNode) || 0;
+      counts.set(el.parentNode, i + 1);
+      el.classList.add('r');
+      el.style.setProperty('--d', Math.min(i, 4) * 0.09 + 's');
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        io.unobserve(el);
+        el.classList.add('v');
+        setTimeout(function () {
+          el.classList.remove('r', 'v');
+          el.style.removeProperty('--d');
+        }, 1700);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+  </script>
+</body>
+</html>
